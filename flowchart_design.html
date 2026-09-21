@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AIR Lab Website — System & User Flowchart Design</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700;800&family=JetBrains+Mono:wght@500;700&display=swap');
+
+    @page {
+      size: A4 landscape;
+      margin: 8mm 10mm 8mm 10mm;
+      @bottom-right {
+        content: counter(page);
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 7.5pt;
+        color: #94a3b8;
+      }
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #f8fafc;
+      color: #0f172a;
+      line-height: 1.4;
+      font-size: 8.5pt;
+    }
+
+    .flowchart-page {
+      page-break-after: always;
+      height: 194mm;
+      max-height: 194mm;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow: hidden;
+      background: #ffffff;
+      padding: 12px 16px 8px 16px;
+      border: 1px solid #e2e8f0;
+      position: relative;
+    }
+
+    .flowchart-page:last-child {
+      page-break-after: avoid;
+    }
+
+    /* Top Banner */
+    .flow-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      border-bottom: 2px solid #0f172a;
+      padding-bottom: 8px;
+      margin-bottom: 8px;
+    }
+
+    .flow-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .flow-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 16pt;
+      font-weight: 800;
+      color: #0f172a;
+      letter-spacing: -0.03em;
+    }
+
+    .flow-title span.accent {
+      color: #1A6BFF;
+    }
+
+    .flow-meta {
+      text-align: right;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 7pt;
+      color: #64748b;
+    }
+
+    .badge-code {
+      display: inline-block;
+      background: #eff6ff;
+      color: #1d4ed8;
+      border: 1px solid #bfdbfe;
+      font-weight: 700;
+      padding: 1px 6px;
+      border-radius: 4px;
+      font-size: 6.5pt;
+      margin-bottom: 2px;
+    }
+
+    /* Legend Bar */
+    .symbol-legend {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #f1f5f9;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      padding: 4px 12px;
+      margin-bottom: 8px;
+      font-size: 7pt;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .legend-shapes {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .shape-sample {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .shape-terminal {
+      width: 22px;
+      height: 10px;
+      border-radius: 999px;
+      background: #0f172a;
+      border: 1px solid #334155;
+    }
+
+    .shape-process {
+      width: 14px;
+      height: 10px;
+      border-radius: 2px;
+      background: #1A6BFF;
+    }
+
+    .shape-decision {
+      width: 10px;
+      height: 10px;
+      background: #FF4D4F;
+      transform: rotate(45deg);
+    }
+
+    .shape-data {
+      width: 14px;
+      height: 10px;
+      background: #059669;
+      transform: skewX(-15deg);
+    }
+
+    /* Diagram Canvas Container */
+    .canvas-wrapper {
+      flex: 1;
+      position: relative;
+      background: #fafafa;
+      background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
+      background-size: 16px 16px;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .canvas-svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    /* Flowchart Node Types */
+    .node-text-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 800;
+      font-size: 10px;
+      fill: #0f172a;
+    }
+
+    .node-text-desc {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 8px;
+      fill: #475569;
+    }
+
+    .node-text-light {
+      fill: #ffffff !important;
+    }
+
+    .node-text-sublight {
+      fill: #cbd5e1 !important;
+    }
+
+    .line-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 7.5px;
+      font-weight: 700;
+      fill: #1A6BFF;
+    }
+
+    .line-label-coral {
+      fill: #FF4D4F;
+    }
+
+    .line-label-emerald {
+      fill: #059669;
+    }
+
+    /* Footer */
+    .flow-footer {
+      display: flex;
+      justify-content: space-between;
+      border-top: 1px solid #e2e8f0;
+      padding-top: 4px;
+      font-size: 6.5pt;
+      color: #94a3b8;
+      font-family: 'JetBrains Mono', monospace;
+      margin-top: 6px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       SHEET 1: END-TO-END USER JOURNEY FLOWCHART
+       ═══════════════════════════════════════════════════════════════ -->
+  <div class="flowchart-page">
+    <div class="flow-header">
+      <div class="flow-brand">
+        <div class="flow-title">AIR LAB <span class="accent">USER JOURNEY</span> FLOWCHART</div>
+        <span style="color: #64748b; font-size: 8.5pt;">| End-to-End Decision Paths & Action Logic</span>
+      </div>
+      <div class="flow-meta">
+        <div class="badge-code">DIAGRAM FL-01</div>
+        <div>NED UNIVERSITY CIS DEPT · AIR PROTOTYPE V2</div>
+      </div>
+    </div>
+
+    <div class="symbol-legend">
+      <span>STANDARD FLOWCHART NOTATION:</span>
+      <div class="legend-shapes">
+        <div class="shape-sample"><div class="shape-terminal"></div><span>Terminal (Start/End)</span></div>
+        <div class="shape-sample"><div class="shape-process"></div><span>Process / Action</span></div>
+        <div class="shape-sample"><div class="shape-decision"></div><span>Decision Logic</span></div>
+        <div class="shape-sample"><div class="shape-data"></div><span>Data / Storage</span></div>
+        <div class="shape-sample"><span style="color:#1A6BFF; font-weight:800;">──►</span><span>Directed Flow</span></div>
+      </div>
+    </div>
+
+    <!-- Vector Flowchart Canvas -->
+    <div class="canvas-wrapper">
+      <svg class="canvas-svg" viewBox="0 0 1000 500">
+        <defs>
+          <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 1 L 8 5 L 0 9 z" fill="#3b82f6" />
+          </marker>
+          <marker id="arrow-coral" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 1 L 8 5 L 0 9 z" fill="#FF4D4F" />
+          </marker>
+          <marker id="arrow-emerald" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 1 L 8 5 L 0 9 z" fill="#059669" />
+          </marker>
+          <marker id="arrow-slate" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 1 L 8 5 L 0 9 z" fill="#64748b" />
+          </marker>
+
+          <!-- Glow effect -->
+          <filter id="shadow" x="-8%" y="-8%" width="116%" height="116%">
+            <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#000000" flood-opacity="0.08"/>
+          </filter>
+        </defs>
+
+        <!-- ── FLOW LEVEL 1: START TERMINAL ── -->
+        <g id="start-node" filter="url(#shadow)">
+          <rect x="30" y="215" width="120" height="42" rx="21" fill="#0f172a" stroke="#334155" stroke-width="1.5"/>
+          <text x="90" y="234" text-anchor="middle" class="node-text-title node-text-light">USER ARRIVAL</text>
+          <text x="90" y="247" text-anchor="middle" class="node-text-desc node-text-sublight">Direct / Search / Ref</text>
+        </g>
+
+        <!-- Connector 1 -->
+        <line x1="150" y1="236" x2="195" y2="236" stroke="#3b82f6" stroke-width="2" marker-end="url(#arrow)"/>
+
+        <!-- ── FLOW LEVEL 2: HERO & PRIMARY ENTRY ── -->
+        <g id="hero-entry" filter="url(#shadow)">
+          <rect x="195" y="208" width="130" height="56" rx="6" fill="#ffffff" stroke="#1A6BFF" stroke-width="2"/>
+          <text x="260" y="228" text-anchor="middle" class="node-text-title" fill="#1A6BFF">Portal Entry Page</text>
+          <text x="260" y="242" text-anchor="middle" class="node-text-desc">Particle Hero Canvas</text>
+          <text x="260" y="253" text-anchor="middle" class="node-text-desc">ScrollCraft Metrics (45+)</text>
+        </g>
+
+        <!-- Connector 2 to Primary Decision -->
+        <line x1="325" y1="236" x2="385" y2="236" stroke="#3b82f6" stroke-width="2" marker-end="url(#arrow)"/>
+
+        <!-- ── FLOW LEVEL 3: PRIMARY INTENT DECISION DIAMOND ── -->
+        <g id="intent-diamond" filter="url(#shadow)">
+          <path d="M 440 185 L 500 236 L 440 287 L 380 236 Z" fill="#eff6ff" stroke="#1A6BFF" stroke-width="2"/>
+          <text x="440" y="233" text-anchor="middle" font-family="Space Grotesk" font-weight="800" font-size="9" fill="#1e3a8a">What is User</text>
+          <text x="440" y="245" text-anchor="middle" font-family="Space Grotesk" font-weight="800" font-size="9" fill="#1e3a8a">Intent?</text>
+        </g>
+
+        <!-- ── BRANCH A: RESEARCH & PAPERS (TOP BRANCH) ── -->
+        <path d="M 440 185 L 440 85 L 530 85" stroke="#3b82f6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+        <text x="450" y="105" class="line-label">[Papers / Citation]</text>
+
+        <g id="node-pubs" filter="url(#shadow)">
+          <rect x="530" y="60" width="135" height="50" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+          <text x="597" y="80" text-anchor="middle" class="node-text-title">/publications</text>
+          <text x="597" y="93" text-anchor="middle" class="node-text-desc">Scopus/IEEE Index</text>
+          <text x="597" y="103" text-anchor="middle" class="node-text-desc">Year & Track Filters</text>
+        </g>
+
+        <line x1="665" y1="85" x2="715" y2="85" stroke="#3b82f6" stroke-width="2" marker-end="url(#arrow)"/>
+
+        <!-- Decision: Paper or Blog? -->
+        <g id="diamond-paper" filter="url(#shadow)">
+          <path d="M 755 55 L 795 85 L 755 115 L 715 85 Z" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+          <text x="755" y="88" text-anchor="middle" font-family="JetBrains Mono" font-size="7" font-weight="700" fill="#92400e">Type?</text>
+        </g>
+
+        <path d="M 755 55 L 755 35 L 835 35" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#arrow)"/>
+        <text x="765" y="45" font-family="JetBrains Mono" font-size="7" fill="#d97706">Research Paper</text>
+
+        <g id="end-paper" filter="url(#shadow)">
+          <rect x="835" y="18" width="135" height="35" rx="17.5" fill="#059669" stroke="#047857" stroke-width="1"/>
+          <text x="902" y="35" text-anchor="middle" class="node-text-title node-text-light">DOI / PDF Download</text>
+          <text x="902" y="46" text-anchor="middle" class="node-text-desc node-text-sublight">Citation Exported (BibTeX)</text>
+        </g>
+
+        <path d="M 755 115 L 755 130 L 835 130" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#arrow)"/>
+        <text x="765" y="125" font-family="JetBrains Mono" font-size="7" fill="#d97706">Technical Blog</text>
+
+        <g id="end-blog" filter="url(#shadow)">
+          <rect x="835" y="112" width="135" height="35" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1"/>
+          <text x="902" y="129" text-anchor="middle" class="node-text-title">Read Lab Technical Note</text>
+          <text x="902" y="140" text-anchor="middle" class="node-text-desc">Urdu NLP / Model Weights</text>
+        </g>
+
+        <!-- ── BRANCH B: PROJECTS & LAB PILLARS (MID-TOP) ── -->
+        <path d="M 470 205 L 530 170" stroke="#3b82f6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+        <text x="475" y="185" class="line-label">[Projects]</text>
+
+        <g id="node-projects" filter="url(#shadow)">
+          <rect x="530" y="148" width="135" height="46" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+          <text x="597" y="167" text-anchor="middle" class="node-text-title">/projects Showcase</text>
+          <text x="597" y="179" text-anchor="middle" class="node-text-desc">4 Core Pillars & Status</text>
+          <text x="597" y="189" text-anchor="middle" class="node-text-desc">Funded NCBC & Core R&D</text>
+        </g>
+
+        <line x1="665" y1="171" x2="835" y2="171" stroke="#3b82f6" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+        <g id="end-projects" filter="url(#shadow)">
+          <rect x="835" y="156" width="135" height="34" rx="17" fill="#0f172a" stroke="#1e293b" stroke-width="1"/>
+          <text x="902" y="173" text-anchor="middle" class="node-text-title node-text-light">Industry / Partner Contact</text>
+          <text x="902" y="184" text-anchor="middle" class="node-text-desc node-text-sublight">Collaborative Grant Inquiries</text>
+        </g>
+
+        <!-- ── BRANCH C: TEAM & STUDENT APPLICATION (MID-BOTTOM) ── -->
+        <path d="M 470 265 L 530 295" stroke="#3b82f6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+        <text x="475" y="295" class="line-label">[People / Join]</text>
+
+        <g id="node-team" filter="url(#shadow)">
+          <rect x="530" y="272" width="135" height="50" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+          <text x="597" y="292" text-anchor="middle" class="node-text-title">/team Directory</text>
+          <text x="597" y="304" text-anchor="middle" class="node-text-desc">Faculty, PG, UG Batches</text>
+          <text x="597" y="315" text-anchor="middle" class="node-text-desc">6 FYDP Groups & Leads</text>
+        </g>
+
+        <line x1="665" y1="297" x2="715" y2="297" stroke="#3b82f6" stroke-width="2" marker-end="url(#arrow)"/>
+
+        <!-- Decision: Vacancy Open? -->
+        <g id="diamond-vacancy" filter="url(#shadow)">
+          <path d="M 755 267 L 795 297 L 755 327 L 715 297 Z" fill="#fef2f2" stroke="#FF4D4F" stroke-width="1.5"/>
+          <text x="755" y="294" text-anchor="middle" font-family="JetBrains Mono" font-size="6.5" font-weight="700" fill="#991b1b">Vacancy</text>
+          <text x="755" y="304" text-anchor="middle" font-family="JetBrains Mono" font-size="6.5" font-weight="700" fill="#991b1b">Active?</text>
+        </g>
+
+        <!-- Yes path -->
+        <line x1="795" y1="297" x2="835" y2="297" stroke="#059669" stroke-width="1.5" marker-end="url(#arrow-emerald)"/>
+        <text x="802" y="291" class="line-label-emerald">YES</text>
+
+        <g id="end-apply" filter="url(#shadow)">
+          <rect x="835" y="280" width="135" height="36" rx="18" fill="#1A6BFF" stroke="#1d4ed8" stroke-width="1"/>
+          <text x="902" y="298" text-anchor="middle" class="node-text-title node-text-light">Apply for Internship / FYDP</text>
+          <text x="902" y="309" text-anchor="middle" class="node-text-desc node-text-sublight">Form Dispatched to Lab Head</text>
+        </g>
+
+        <!-- No path -->
+        <path d="M 755 327 L 755 355 L 835 355" stroke="#64748b" stroke-width="1.5" fill="none" marker-end="url(#arrow-slate)"/>
+        <text x="760" y="348" font-family="JetBrains Mono" font-size="7" fill="#64748b">NO</text>
+
+        <g id="end-alumni" filter="url(#shadow)">
+          <rect x="835" y="338" width="135" height="34" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1"/>
+          <text x="902" y="354" text-anchor="middle" class="node-text-title">View Intern Archives</text>
+          <text x="902" y="365" text-anchor="middle" class="node-text-desc">Alumni Placement Records</text>
+        </g>
+
+        <!-- ── BRANCH D: LAB MANAGEMENT & ADMIN GOVERNANCE (BOTTOM) ── -->
+        <path d="M 440 287 L 440 430 L 530 430" stroke="#059669" stroke-width="2" fill="none" marker-end="url(#arrow-emerald)"/>
+        <text x="450" y="420" class="line-label-emerald">[Admin Access]</text>
+
+        <g id="node-auth" filter="url(#shadow)">
+          <rect x="530" y="408" width="135" height="46" rx="6" fill="#ffffff" stroke="#059669" stroke-width="1.5"/>
+          <text x="597" y="427" text-anchor="middle" class="node-text-title" fill="#059669">/admin Auth Gateway</text>
+          <text x="597" y="439" text-anchor="middle" class="node-text-desc">JWT Role Authentication</text>
+          <text x="597" y="449" text-anchor="middle" class="node-text-desc">Lab Coordinator Credentials</text>
+        </g>
+
+        <line x1="665" y1="431" x2="720" y2="431" stroke="#059669" stroke-width="2" marker-end="url(#arrow-emerald)"/>
+
+        <!-- Decision: Auth Valid? -->
+        <g id="diamond-auth" filter="url(#shadow)">
+          <path d="M 755 401 L 790 431 L 755 461 L 720 431 Z" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+          <text x="755" y="428" text-anchor="middle" font-family="JetBrains Mono" font-size="6.5" font-weight="700" fill="#065f46">Token</text>
+          <text x="755" y="438" text-anchor="middle" font-family="JetBrains Mono" font-size="6.5" font-weight="700" fill="#065f46">Valid?</text>
+        </g>
+
+        <!-- Valid Auth -->
+        <line x1="790" y1="431" x2="835" y2="431" stroke="#059669" stroke-width="2" marker-end="url(#arrow-emerald)"/>
+        <text x="795" y="424" class="line-label-emerald">YES</text>
+
+        <g id="end-admin" filter="url(#shadow)">
+          <rect x="835" y="408" width="135" height="46" rx="6" fill="#059669" stroke="#047857" stroke-width="1.5"/>
+          <text x="902" y="426" text-anchor="middle" class="node-text-title node-text-light">MERN Admin Dashboard</text>
+          <text x="902" y="438" text-anchor="middle" class="node-text-desc node-text-sublight">Paper CRUD & FYDP Roster</text>
+          <text x="902" y="448" text-anchor="middle" class="node-text-desc node-text-sublight">1-Click Vacancy Status Toggle</text>
+        </g>
+
+        <!-- Invalid Auth: Loop back -->
+        <path d="M 755 461 L 755 480 L 597 480 L 597 454" stroke="#FF4D4F" stroke-width="1.5" fill="none" marker-end="url(#arrow-coral)"/>
+        <text x="660" y="475" class="line-label-coral">[NO: Return 401 Unauthorized]</text>
+
+      </svg>
+    </div>
+
+    <div class="flow-footer">
+      <span>AIR LAB ARCHITECTURE · NED UNIVERSITY OF ENGINEERING & TECHNOLOGY</span>
+      <span>PAGE 1 OF 2 · VISITOR & GOVERNANCE USER INTERACTION FLOWCHART</span>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       SHEET 2: SYSTEM ARCHITECTURE & DATA LIFECYCLE FLOWCHART
+       ═══════════════════════════════════════════════════════════════ -->
+  <div class="flowchart-page">
+    <div class="flow-header">
+      <div class="flow-brand">
+        <div class="flow-title">AIR LAB <span class="accent">DATA & SYSTEM</span> FLOWCHART</div>
+        <span style="color: #64748b; font-size: 8.5pt;">| React 19 Client -> Motion Engine -> MERN REST API</span>
+      </div>
+      <div class="flow-meta">
+        <div class="badge-code">DIAGRAM FL-02</div>
+        <div>DATA LIFECYCLE & HYBRID TRANSITION SPECIFICATION</div>
+      </div>
+    </div>
+
+    <div class="symbol-legend">
+      <span>SYSTEM FLOWCHART TIERS:</span>
+      <div class="legend-shapes">
+        <div class="shape-sample"><div class="shape-process" style="background:#1A6BFF;"></div><span>Client Presentation</span></div>
+        <div class="shape-sample"><div class="shape-process" style="background:#7C3AED;"></div><span>Motion / State Engine</span></div>
+        <div class="shape-sample"><div class="shape-decision" style="background:#d97706;"></div><span>Routing / Cache Filter</span></div>
+        <div class="shape-sample"><div class="shape-data" style="background:#059669;"></div><span>Data Schemas / REST API</span></div>
+        <div class="shape-sample"><div class="shape-terminal" style="background:#0f172a;"></div><span>MongoDB Storage</span></div>
+      </div>
+    </div>
+
+    <!-- Vector Flowchart Canvas 2 -->
+    <div class="canvas-wrapper">
+      <svg class="canvas-svg" viewBox="0 0 1000 500">
+        <!-- TIER SWIMLANES -->
+        <!-- Lane 1: Client UI -->
+        <rect x="15" y="15" width="220" height="470" rx="6" fill="#ffffff" stroke="#bfdbfe" stroke-width="1.5" stroke-dasharray="4,4"/>
+        <text x="28" y="36" font-family="Space Grotesk" font-weight="800" font-size="10" fill="#1d4ed8">SWIMLANE 1: CLIENT BROWSER</text>
+
+        <!-- Lane 2: Motion & Hooks -->
+        <rect x="255" y="15" width="220" height="470" rx="6" fill="#ffffff" stroke="#ddd6fe" stroke-width="1.5" stroke-dasharray="4,4"/>
+        <text x="268" y="36" font-family="Space Grotesk" font-weight="800" font-size="10" fill="#6d28d9">SWIMLANE 2: REACT RUNTIME</text>
+
+        <!-- Lane 3: API & Cache Layer -->
+        <rect x="495" y="15" width="220" height="470" rx="6" fill="#ffffff" stroke="#fed7aa" stroke-width="1.5" stroke-dasharray="4,4"/>
+        <text x="508" y="36" font-family="Space Grotesk" font-weight="800" font-size="10" fill="#b45309">SWIMLANE 3: DATA & CACHE</text>
+
+        <!-- Lane 4: MERN Backend -->
+        <rect x="735" y="15" width="250" height="470" rx="6" fill="#ffffff" stroke="#a7f3d0" stroke-width="1.5" stroke-dasharray="4,4"/>
+        <text x="748" y="36" font-family="Space Grotesk" font-weight="800" font-size="10" fill="#047857">SWIMLANE 4: MERN STACK & DB</text>
+
+        <!-- ── NODE 1: USER SCROLL / ROUTE EVENT ── -->
+        <g filter="url(#shadow)">
+          <rect x="30" y="60" width="190" height="48" rx="6" fill="#0f172a" stroke="#1e293b" stroke-width="1"/>
+          <text x="125" y="80" text-anchor="middle" class="node-text-title node-text-light">1. User Interaction Event</text>
+          <text x="125" y="94" text-anchor="middle" class="node-text-desc node-text-sublight">Wheel Scroll / Mouse / Hash Change</text>
+        </g>
+
+        <line x1="125" y1="108" x2="125" y2="140" stroke="#3b82f6" stroke-width="2" marker-end="url(#arrow)"/>
+
+        <!-- ── NODE 2: HASHROUTER DISPATCH ── -->
+        <g filter="url(#shadow)">
+          <rect x="30" y="140" width="190" height="50" rx="6" fill="#eff6ff" stroke="#1A6BFF" stroke-width="1.5"/>
+          <text x="125" y="160" text-anchor="middle" class="node-text-title" fill="#1A6BFF">2. HashRouter Dispatcher</text>
+          <text x="125" y="174" text-anchor="middle" class="node-text-desc">Route Path: /team, /projects, etc.</text>
+          <text x="125" y="184" text-anchor="middle" class="node-text-desc">No 404 on Static GitHub Pages</text>
+        </g>
+
+        <!-- Line from Lane 1 to Lane 2 -->
+        <path d="M 220 165 L 270 165" stroke="#3b82f6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+
+        <!-- ── NODE 3: USE SCROLLCRAFT HOOK ── -->
+        <g filter="url(#shadow)">
+          <rect x="270" y="138" width="190" height="54" rx="6" fill="#f5f3ff" stroke="#7C3AED" stroke-width="1.5"/>
+          <text x="365" y="158" text-anchor="middle" class="node-text-title" fill="#7C3AED">3. useScrollCraft Hook</text>
+          <text x="365" y="172" text-anchor="middle" class="node-text-desc">Instantiates ScrollCraft() Class</text>
+          <text x="365" y="184" text-anchor="middle" class="node-text-desc">Binds IO & Scroll Listeners</text>
+        </g>
+
+        <line x1="365" y1="192" x2="365" y2="230" stroke="#7C3AED" stroke-width="2" marker-end="url(#arrow)"/>
+
+        <!-- ── NODE 4: VIEWPORT INTERSECTION DECISION ── -->
+        <g filter="url(#shadow)">
+          <path d="M 365 230 L 415 265 L 365 300 L 315 265 Z" fill="#f5f3ff" stroke="#7C3AED" stroke-width="1.5"/>
+          <text x="365" y="262" text-anchor="middle" font-family="JetBrains Mono" font-size="7" font-weight="700" fill="#5b21b6">Element In</text>
+          <text x="365" y="272" text-anchor="middle" font-family="JetBrains Mono" font-size="7" font-weight="700" fill="#5b21b6">Viewport?</text>
+        </g>
+
+        <!-- Yes: Animate Reveal -->
+        <path d="M 315 265 L 125 265 L 125 295" stroke="#7C3AED" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+        <text x="210" y="258" font-family="JetBrains Mono" font-size="7" fill="#7C3AED">YES: Threshold > 0.12</text>
+
+        <g filter="url(#shadow)">
+          <rect x="30" y="295" width="190" height="50" rx="6" fill="#ffffff" stroke="#7C3AED" stroke-width="1.5"/>
+          <text x="125" y="315" text-anchor="middle" class="node-text-title">4. DOM Class Mutator</text>
+          <text x="125" y="328" text-anchor="middle" class="node-text-desc">Injects .sc-in class</text>
+          <text x="125" y="339" text-anchor="middle" class="node-text-desc">Cubic-bezier Transform & Opacity</text>
+        </g>
+
+        <!-- No: Retain hidden state -->
+        <path d="M 415 265 L 440 265 L 440 320 L 365 320" stroke="#94a3b8" stroke-width="1.5" fill="none" marker-end="url(#arrow-slate)"/>
+        <text x="420" y="295" font-family="JetBrains Mono" font-size="6.5" fill="#64748b">NO: Unobserved</text>
+
+        <!-- Connector to Lane 3: Data Fetching -->
+        <path d="M 415 165 L 510 165" stroke="#d97706" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+
+        <!-- ── NODE 5: DATA SOURCE DECISION (PHASE 2 vs 3) ── -->
+        <g filter="url(#shadow)">
+          <path d="M 605 135 L 655 165 L 605 195 L 555 165 Z" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+          <text x="605" y="162" text-anchor="middle" font-family="JetBrains Mono" font-size="7" font-weight="700" fill="#92400e">Data Source</text>
+          <text x="605" y="172" text-anchor="middle" font-family="JetBrains Mono" font-size="7" font-weight="700" fill="#92400e">Active?</text>
+        </g>
+
+        <!-- Path A: Phase 2 Static JSON -->
+        <path d="M 605 195 L 605 240" stroke="#d97706" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+        <text x="615" y="215" font-family="JetBrains Mono" font-size="7" fill="#d97706">[PHASE 2: STATIC]</text>
+
+        <g filter="url(#shadow)">
+          <rect x="510" y="240" width="190" height="60" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+          <text x="605" y="259" text-anchor="middle" class="node-text-title" fill="#b45309">5A. Bundled JSON Schemas</text>
+          <text x="605" y="272" text-anchor="middle" class="node-text-desc">team.json, projects.json</text>
+          <text x="605" y="283" text-anchor="middle" class="node-text-desc">publications.json, blogs.json</text>
+          <text x="605" y="293" text-anchor="middle" class="node-text-desc">Instant client-side filter & render</text>
+        </g>
+
+        <!-- Loop JSON back to UI -->
+        <path d="M 510 270 L 220 270" stroke="#d97706" stroke-width="1.5" stroke-dasharray="3,3" fill="none" marker-end="url(#arrow)"/>
+        <text x="240" y="285" font-family="JetBrains Mono" font-size="6.5" fill="#d97706">Hydrates React Props</text>
+
+        <!-- Path B: Phase 3-4 MERN API -->
+        <path d="M 655 165 L 750 165" stroke="#059669" stroke-width="2" fill="none" marker-end="url(#arrow-emerald)"/>
+        <text x="665" y="155" class="line-label-emerald">[PHASE 3: MERN]</text>
+
+        <g filter="url(#shadow)">
+          <rect x="750" y="138" width="220" height="54" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+          <text x="860" y="158" text-anchor="middle" class="node-text-title" fill="#047857">5B. Express REST Controller</text>
+          <text x="860" y="172" text-anchor="middle" class="node-text-desc">GET /api/v1/publications?track=llm</text>
+          <text x="860" y="184" text-anchor="middle" class="node-text-desc">GET /api/v1/team/undergraduates</text>
+        </g>
+
+        <line x1="860" y1="192" x2="860" y2="235" stroke="#059669" stroke-width="2" marker-end="url(#arrow-emerald)"/>
+
+        <!-- ── NODE 6: MONGOOSE ODM & VALIDATION ── -->
+        <g filter="url(#shadow)">
+          <rect x="750" y="235" width="220" height="52" rx="6" fill="#ffffff" stroke="#059669" stroke-width="1.5"/>
+          <text x="860" y="255" text-anchor="middle" class="node-text-title">6. Mongoose ODM Layer</text>
+          <text x="860" y="268" text-anchor="middle" class="node-text-desc">Schema Validation & Sanitation</text>
+          <text x="860" y="279" text-anchor="middle" class="node-text-desc">Member, Project, Paper Models</text>
+        </g>
+
+        <line x1="860" y1="287" x2="860" y2="330" stroke="#059669" stroke-width="2" marker-end="url(#arrow-emerald)"/>
+
+        <!-- ── NODE 7: MONGODB DATABASE PERSISTENCE ── -->
+        <g filter="url(#shadow)">
+          <!-- Cylinder representation -->
+          <ellipse cx="860" cy="345" rx="80" ry="12" fill="#0f172a"/>
+          <rect x="780" y="345" width="160" height="40" fill="#0f172a"/>
+          <ellipse cx="860" cy="385" rx="80" ry="12" fill="#1e293b"/>
+          <text x="860" y="365" text-anchor="middle" class="node-text-title node-text-light">7. MongoDB Atlas</text>
+          <text x="860" y="377" text-anchor="middle" class="node-text-desc node-text-sublight">Clustered Collections</text>
+        </g>
+
+        <!-- ── NODE 8: ADMIN MUTATION PIPELINE ── -->
+        <g filter="url(#shadow)">
+          <rect x="750" y="415" width="220" height="54" rx="6" fill="#fef2f2" stroke="#FF4D4F" stroke-width="1.5"/>
+          <text x="860" y="435" text-anchor="middle" class="node-text-title" fill="#991b1b">Admin Mutation Hook</text>
+          <text x="860" y="448" text-anchor="middle" class="node-text-desc">POST /api/v1/vacancy/toggle</text>
+          <text x="860" y="459" text-anchor="middle" class="node-text-desc">POST /api/v1/papers (Upload)</text>
+        </g>
+
+        <!-- Connector between DB and Mutation -->
+        <line x1="860" y1="397" x2="860" y2="415" stroke="#FF4D4F" stroke-width="2" marker-end="url(#arrow-coral)"/>
+
+        <!-- Revalidation loop back to Client UI -->
+        <path d="M 750 442 L 60 442 L 60 345" stroke="#059669" stroke-width="1.5" stroke-dasharray="4,4" fill="none" marker-end="url(#arrow-emerald)"/>
+        <text x="350" y="435" font-family="JetBrains Mono" font-size="7" fill="#059669">Reactive Cache Revalidation / Webhook Update</text>
+
+      </svg>
+    </div>
+
+    <div class="flow-footer">
+      <span>AIR LAB ARCHITECTURE · NED UNIVERSITY OF ENGINEERING & TECHNOLOGY</span>
+      <span>PAGE 2 OF 2 · DATA LIFECYCLE & FULL-STACK MERN TRANSITION FLOWCHART</span>
+    </div>
+  </div>
+
+</body>
+</html>
