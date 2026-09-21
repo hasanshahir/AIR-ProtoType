@@ -2,7 +2,7 @@ import teamData from "../data/team.json"
 import { motion } from "framer-motion"
 import { Tabs } from "../components/ui/tabs"
 import Tilt from "react-parallax-tilt"
-import { Mail, BookOpen, Globe } from "lucide-react"
+import { Mail, Globe } from "lucide-react"
 
 const ProfileCard = ({ member, i }: { member: any, i: number }) => (
   <motion.div

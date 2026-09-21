@@ -28,16 +28,25 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'npm'
-          cache-dependency-path: AIR-Proto-v2/package-lock.json
 
-      - name: Install dependencies
+      - name: Install & Build AIR-Proto-v2 (Prototype 2)
         working-directory: AIR-Proto-v2
-        run: npm ci
+        run: |
+          npm ci
+          npm run build
 
-      - name: Build project
-        working-directory: AIR-Proto-v2
-        run: npm run build
+      - name: Install & Build AIR-proto-master (Ali's Prototype)
+        working-directory: AIR-proto-master
+        run: |
+          npm ci
+          npm run build
+
+      - name: Package Both Prototypes for Deployment
+        run: |
+          mkdir -p AIR-Proto-v2/dist/proto-master
+          mkdir -p AIR-Proto-v2/dist/AIR-proto
+          cp -r AIR-proto-master/dist/* AIR-Proto-v2/dist/proto-master/
+          cp -r AIR-proto-master/dist/* AIR-Proto-v2/dist/AIR-proto/
 
       - name: Setup GitHub Pages
         uses: actions/configure-pages@v5

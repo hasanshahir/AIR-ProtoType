@@ -1,5 +1,5 @@
 import { ThemeProvider } from "./components/ThemeProvider"
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
+import { HashRouter as Router, Routes, Route } from "react-router-dom"
 import { Layout } from "./components/Layout"
 import { CustomCursor } from "./components/CustomCursor"
 
@@ -17,7 +17,7 @@ import Collaborations from "./pages/Collaborations"
 function App() {
   return (
     <ThemeProvider defaultTheme="default">
-      <Router basename="/AIR-proto/">
+      <Router>
         <CustomCursor />
         <Routes>
           <Route path="/" element={<Layout />}>
