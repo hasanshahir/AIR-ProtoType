@@ -1,0 +1,226 @@
+/* AIR Lab v2 — Design System */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
+@import "tailwindcss";
+@plugin "tailwindcss-animate";
+
+/* ── Colour Tokens ───────────────────────────────────────────────────── */
+:root {
+  /* Surfaces */
+  --bg:        #F7F7F5;   /* warm off-white */
+  --bg-card:   #FFFFFF;
+  --bg-muted:  #EFEFED;
+  --fg:        #0C0C0C;
+  --fg-sub:    #5A5A58;
+  --border:    #E0DFDB;
+
+  /* AIR Lab accent palette — electric blue + hot coral */
+  --blue:      #1A6BFF;   /* primary electric blue */
+  --blue-light:#D6E6FF;
+  --coral:     #FF4D4F;   /* hot coral / red accent */
+  --amber:     #FFAB00;   /* amber */
+  --violet:    #7C3AED;   /* violet */
+  --cyan:      #00BCD4;   /* cyan for tags */
+
+  /* Functional */
+  --radius-sm: 6px;
+  --radius:    12px;
+  --radius-lg: 20px;
+  --radius-xl: 32px;
+
+  --font-sans: 'Plus Jakarta Sans', sans-serif;
+  --font-head: 'Space Grotesk', sans-serif;
+  --font-mono: 'Space Mono', monospace;
+}
+
+/* ── Dark Mode ───────────────────────────────────────────────────────── */
+.dark {
+  --bg:        #080808;
+  --bg-card:   #111111;
+  --bg-muted:  #1A1A1A;
+  --fg:        #F2F2F0;
+  --fg-sub:    #888884;
+  --border:    #222220;
+  --blue-light:#0C2040;
+}
+
+/* ── Tailwind inline theme registration ─────────────────────────────── */
+@theme inline {
+  --color-bg:        var(--bg);
+  --color-card:      var(--bg-card);
+  --color-muted:     var(--bg-muted);
+  --color-fg:        var(--fg);
+  --color-sub:       var(--fg-sub);
+  --color-border:    var(--border);
+  --color-blue:      var(--blue);
+  --color-blue-light:var(--blue-light);
+  --color-coral:     var(--coral);
+  --color-amber:     var(--amber);
+  --color-violet:    var(--violet);
+  --color-cyan:      var(--cyan);
+  --font-sans:       var(--font-sans);
+  --font-head:       var(--font-head);
+  --font-mono:       var(--font-mono);
+  --radius-sm:       var(--radius-sm);
+  --radius-md:       var(--radius);
+  --radius-lg:       var(--radius-lg);
+  --radius-xl:       var(--radius-xl);
+}
+
+/* ── Base Reset ──────────────────────────────────────────────────────── */
+@layer base {
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html {
+    scroll-behavior: smooth;
+    font-family: var(--font-sans);
+    color: var(--fg);
+    background: var(--bg);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-head);
+    letter-spacing: -0.025em;
+    line-height: 1.1;
+  }
+
+  ::selection {
+    background: var(--blue);
+    color: #fff;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--bg-muted); }
+  ::-webkit-scrollbar-thumb { background: var(--blue); border-radius: 2px; }
+}
+
+/* ── Utility classes ─────────────────────────────────────────────────── */
+@layer utilities {
+  /* gradient text */
+  .text-gradient-blue {
+    background: linear-gradient(135deg, var(--blue) 0%, var(--cyan) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .text-gradient-fire {
+    background: linear-gradient(135deg, var(--coral) 0%, var(--amber) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .text-gradient-spectrum {
+    background: linear-gradient(135deg, var(--blue) 0%, var(--violet) 50%, var(--coral) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Glow helpers */
+  .glow-blue  { box-shadow: 0 0 32px -4px rgba(26,107,255,0.45); }
+  .glow-coral { box-shadow: 0 0 32px -4px rgba(255,77,79,0.4); }
+
+  /* Glass card */
+  .glass {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.10);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+  }
+  .dark .glass {
+    background: rgba(0,0,0,0.30);
+    border-color: rgba(255,255,255,0.07);
+  }
+
+  /* animated underline on hover */
+  .underline-hover {
+    background-image: linear-gradient(var(--blue), var(--blue));
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    background-size: 0% 2px;
+    transition: background-size 0.3s ease;
+  }
+  .underline-hover:hover { background-size: 100% 2px; }
+
+  /* Dot grid pattern */
+  .dot-grid {
+    background-image: radial-gradient(circle, rgba(26,107,255,0.15) 1px, transparent 1px);
+    background-size: 28px 28px;
+  }
+
+  /* Tag chip */
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 3px 10px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 600;
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+}
+
+/* ── Global animations ───────────────────────────────────────────────── */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-12px); }
+}
+@keyframes pulse-ring {
+  0%   { transform: scale(1); opacity: 0.6; }
+  100% { transform: scale(1.6); opacity: 0; }
+}
+@keyframes scan-line {
+  0%   { top: 0%; }
+  100% { top: 100%; }
+}
+
+.animate-float  { animation: float 4s ease-in-out infinite; }
+.animate-float-slow { animation: float 6s ease-in-out infinite 1s; }
+
+/* Reduce motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ── scroll-craft integration ────────────────────────────────────────── */
+
+/* reveal — elements start invisible and transition in when .sc-in is added */
+[data-sc-reveal],
+[data-sc] {
+  opacity: 0;
+  will-change: opacity, transform;
+  transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+}
+[data-sc-reveal].sc-in,
+[data-sc].sc-in {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+/* progress / timeline fill — clip-path animated left-to-right */
+.sc-progress-step {
+  position: relative;
+  overflow: hidden;
+}
+.sc-progress-step .sc-fill {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, var(--blue) 0%, var(--coral) 100%);
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path 0.1s linear;
+  pointer-events: none;
+  z-index: 0;
+}
+.sc-progress-step > *:not(.sc-fill) {
+  position: relative;
+  z-index: 1;
+}
+
+/* counter — no extra CSS needed; scroll-craft writes text content directly */

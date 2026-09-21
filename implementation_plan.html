@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AIR Lab Website - Implementation Plan</title>
+  <style>
+    @page {
+      size: A4;
+      margin: 18mm 16mm 20mm 16mm;
+      @bottom-right {
+        content: counter(page);
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        font-size: 9pt;
+        color: #64748b;
+      }
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      color: #1e293b;
+      line-height: 1.55;
+      font-size: 10pt;
+      background: #ffffff;
+    }
+
+    .header-cover {
+      border-bottom: 2px solid #0f172a;
+      padding-bottom: 16px;
+      margin-bottom: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+
+    .header-badge {
+      display: inline-block;
+      background: #e0f2fe;
+      color: #0369a1;
+      font-weight: 700;
+      font-size: 8pt;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      margin-bottom: 8px;
+    }
+
+    h1 {
+      font-size: 21pt;
+      font-weight: 800;
+      color: #0f172a;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+    }
+
+    .subtitle {
+      font-size: 10.5pt;
+      color: #475569;
+      margin-top: 4px;
+    }
+
+    .meta-box {
+      text-align: right;
+      font-size: 8.5pt;
+      color: #64748b;
+      line-height: 1.4;
+    }
+
+    .meta-box strong {
+      color: #0f172a;
+    }
+
+    h2 {
+      font-size: 13.5pt;
+      font-weight: 700;
+      color: #0f172a;
+      border-bottom: 1px solid #e2e8f0;
+      padding-bottom: 6px;
+      margin-top: 22px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      page-break-after: avoid;
+    }
+
+    h2 .section-num {
+      background: #0f172a;
+      color: #ffffff;
+      font-size: 8pt;
+      padding: 2px 7px;
+      border-radius: 4px;
+      font-weight: 700;
+    }
+
+    h3 {
+      font-size: 11pt;
+      font-weight: 700;
+      color: #1e293b;
+      margin-top: 14px;
+      margin-bottom: 6px;
+      page-break-after: avoid;
+    }
+
+    p {
+      margin-bottom: 9px;
+      color: #334155;
+    }
+
+    ul, ol {
+      margin-left: 20px;
+      margin-bottom: 10px;
+      color: #334155;
+    }
+
+    li {
+      margin-bottom: 4px;
+    }
+
+    .card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 12px 14px;
+      margin-bottom: 12px;
+      page-break-inside: avoid;
+    }
+
+    .card-accent {
+      border-left: 4px solid #0284c7;
+      background: #f0f9ff;
+    }
+
+    .card-warn {
+      border-left: 4px solid #f59e0b;
+      background: #fffbeb;
+    }
+
+    .card-success {
+      border-left: 4px solid #10b981;
+      background: #f0fdf4;
+    }
+
+    .grid-2 {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .col-2 {
+      flex: 1;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 11px 13px;
+      page-break-inside: avoid;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 12px 0;
+      font-size: 9pt;
+      page-break-inside: avoid;
+    }
+
+    th, td {
+      border: 1px solid #cbd5e1;
+      padding: 7px 10px;
+      text-align: left;
+    }
+
+    th {
+      background: #f1f5f9;
+      color: #0f172a;
+      font-weight: 700;
+    }
+
+    tr:nth-child(even) td {
+      background: #f8fafc;
+    }
+
+    .badge {
+      display: inline-block;
+      font-size: 7.5pt;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .badge-primary { background: #e0f2fe; color: #0284c7; }
+    .badge-success { background: #dcfce7; color: #15803d; }
+    .badge-amber { background: #fef3c7; color: #b45309; }
+
+    .tag {
+      display: inline-block;
+      background: #e2e8f0;
+      color: #334155;
+      font-size: 7.5pt;
+      font-weight: 600;
+      padding: 1px 6px;
+      border-radius: 3px;
+      margin-right: 4px;
+      font-family: Consolas, Monaco, monospace;
+    }
+
+    .page-break {
+      page-break-before: always;
+    }
+
+    .footer-note {
+      margin-top: 24px;
+      padding-top: 12px;
+      border-top: 1px solid #e2e8f0;
+      font-size: 8pt;
+      color: #64748b;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <div class="header-cover">
+    <div>
+      <span class="header-badge">NED University of Engineering & Technology</span>
+      <h1>AIR Lab Website Redesign</h1>
+      <div class="subtitle">Complete Strategic & Full-Stack Implementation Plan</div>
+    </div>
+    <div class="meta-box">
+      <strong>Prepared by:</strong><br>
+      Hasan Shahir & Ali Hasan<br>
+      <strong>Target:</strong> Independent AIR Lab Portal<br>
+      <strong>Date:</strong> September 2026
+    </div>
+  </div>
+
+  <!-- Section 1 -->
+  <h2><span class="section-num">1</span> Executive Summary & The "Why"</h2>
+  
+  <div class="grid-2">
+    <div class="col-2">
+      <strong>Why Rebrand as an Independent Site?</strong>
+      <p style="margin-top: 4px; font-size: 9pt;">The current site (<code>cct.neduet.edu.pk/AIR</code>) is an outdated subpage under the departmental directory. Top global labs (e.g., <strong>Stanford AI Lab</strong> <code>ai.stanford.edu</code>, <strong>Allen AI</strong> <code>allenai.org</code>) operate independent portals. A dedicated web presence establishes authority for international grants, corporate industry partnerships, and researcher recruitment.</p>
+    </div>
+    <div class="col-2">
+      <strong>Why the MERN Stack?</strong>
+      <p style="margin-top: 4px; font-size: 9pt;">University faculty require a dynamic <strong>Admin Dashboard</strong> where faculty and RAs can update publications, add graduating student batches, and announce research vacancies without writing code or filing tickets with university network administrators.</p>
+    </div>
+  </div>
+
+  <div class="card card-accent">
+    <strong>Core Architectural Objective:</strong> Build a high-performance single-page application (React + Vite + Tailwind CSS) powered by a lightweight Node.js/Express REST API and MongoDB Atlas. It features a decoupled design: if the backend or database ever undergoes maintenance, the public frontend seamlessly serves cached data without disruption.
+  </div>
+
+  <!-- Section 2 -->
+  <h2><span class="section-num">2</span> 4-Week Milestone Roadmap (Post-Midterms Schedule)</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 15%;">Phase & Window</th>
+        <th style="width: 25%;">Primary Milestone</th>
+        <th style="width: 40%;">Key Deliverables & Action Items</th>
+        <th style="width: 20%;">Review Gate</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Week 1</strong><br><span class="badge badge-primary">Current</span></td>
+        <td><strong>Branding & Data Blueprint</strong></td>
+        <td>
+          • Finalize design system: Inter + Geist Mono fonts, light/dark tokens.<br>
+          • Set up Google Sheets pipeline for member bios & photos.<br>
+          • Collect FYDP group abstracts (5-6 groups under supervision).<br>
+          • Lock MongoDB JSON schemas for all 6 collections.
+        </td>
+        <td>Supervisor sign-off on sitemap & color tokens.</td>
+      </tr>
+      <tr>
+        <td><strong>Week 2</strong></td>
+        <td><strong>Frontend Prototype Complete</strong></td>
+        <td>
+          • Interactive React + Vite application ready with mock data.<br>
+          • Animated neural canvas hero, statistics strip, & bento grid.<br>
+          • Honeycomb team view, 4-tier project tabs, publication list.<br>
+          • Live interactive Theme Switcher (Light & Dark modes).
+        </td>
+        <td>Design freeze: Supervisor tests and approves live UI.</td>
+      </tr>
+      <tr>
+        <td colspan="4" style="text-align: center; background: #fef3c7; color: #92400e; font-weight: 700; padding: 6px;">
+          ⏸️ MIDTERM EXAMINATIONS RECESS — ACADEMIC PAUSE
+        </td>
+      </tr>
+      <tr>
+        <td><strong>Week 3</strong><br><span class="badge badge-amber">Post-Mids</span></td>
+        <td><strong>MERN Backend & Database</strong></td>
+        <td>
+          • Provision MongoDB Atlas production cluster.<br>
+          • Build Node.js + Express REST API with input validation.<br>
+          • Connect Cloudinary / S3 CDN for compressed image storage.<br>
+          • Implement JWT-based secure authentication for admins.
+        </td>
+        <td>Postman test suite passing; live data feeds into frontend.</td>
+      </tr>
+      <tr>
+        <td><strong>Week 4</strong><br><span class="badge badge-success">Post-Mids</span></td>
+        <td><strong>Vacancy Engine & Handover</strong></td>
+        <td>
+          • Deploy live <strong>Vacancy Indicator</strong> (Open/Closed slots).<br>
+          • Build secure Admin Panel for non-technical content management.<br>
+          • Cross-device optimization (mobile, tablet, desktop).<br>
+          • Domain mapping (<code>air.neduet.edu.pk</code>) & admin handover guide.
+        </td>
+        <td>Full deployment, final demo, and documentation handover.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="page-break"></div>
+
+  <!-- Section 3 -->
+  <h2><span class="section-num">3</span> Detailed Feature Architecture & Technical Specifications</h2>
+
+  <h3>A. The Vacancy Indicator Feature</h3>
+  <div class="card card-success">
+    <p><strong>Problem:</strong> Faculty receive dozens of redundant emails weekly asking about research assistantships, FYDP supervision openings, and internships.</p>
+    <p><strong>Solution:</strong> A real-time vacancy module controlled via the Admin Panel that displays live badges across the homepage and careers page:</p>
+    <ul style="margin-top: 6px; margin-bottom: 0;">
+      <li><span class="tag">OPEN</span> <strong>Active Vacancies:</strong> Displays available slots (e.g., <em>"2 RAs for Regional LLM Project"</em>, <em>"1 Undergraduate FYDP Group"</em>) with application deadline and direct submission link.</li>
+      <li><span class="tag">REVIEWING</span> <strong>Reviewing Applications:</strong> Submissions closed; committee evaluating candidates.</li>
+      <li><span class="tag">CLOSED</span> <strong>No Vacancies:</strong> Displays notice with date for the next recruitment cycle.</li>
+    </ul>
+  </div>
+
+  <h3>B. Content Architecture & Required Collections</h3>
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 25%;">Section</th>
+        <th style="width: 35%;">Category Breakdown</th>
+        <th style="width: 40%;">Technical Fields / Schema</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Team Roster</strong></td>
+        <td>(i) Faculty Members<br>(ii) Postgraduate Students<br>(iii) Undergraduate Scholars</td>
+        <td><code>name, role, category, bio, image_url, email, google_scholar, linkedin, order</code></td>
+      </tr>
+      <tr>
+        <td><strong>Projects</strong></td>
+        <td>(i) Funded Projects<br>(ii) R&D Projects<br>(iii) Undergraduate (FYDP)<br>(iv) Postgraduate Dissertations</td>
+        <td><code>title, category, abstract, pi_supervisor, funding_agency, grant_amount, demo_url, status, metric_highlight</code></td>
+      </tr>
+      <tr>
+        <td><strong>Publications & Blogs</strong></td>
+        <td>(i) Peer-Reviewed Research Papers<br>(ii) Lab Articles & Updates</td>
+        <td><code>title, authors, venue, year, doi_link, pdf_url, blog_content, publish_date, cover_image</code></td>
+      </tr>
+      <tr>
+        <td><strong>Lab Gallery</strong></td>
+        <td>Event photos, symposiums, lab equipment, hardware prototypes</td>
+        <td><code>title, caption, image_url, date, span_class</code></td>
+      </tr>
+      <tr>
+        <td><strong>Vacancies</strong></td>
+        <td>Research Assistants, Interns, FYDP Slots</td>
+        <td><code>role, category, slots, status, deadline, apply_url</code></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Section 4 -->
+  <h2><span class="section-num">4</span> Web Dev Industry Consensus (Mitigating Academic Lab Pitfalls)</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 25%;">Real-World Risk</th>
+        <th style="width: 35%;">Why Most Student Sites Fail</th>
+        <th style="width: 40%;">Our Strategic Mitigation</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. The "Graduation Trap"</strong></td>
+        <td>When developers graduate, unmaintained custom servers crash or database credentials expire, causing the website to go dark.</td>
+        <td><strong>Decoupled JSON Fallback:</strong> The React app builds static cache fallbacks. If the Node/MongoDB server goes down, the frontend still renders complete lab data gracefully.</td>
+      </tr>
+      <tr>
+        <td><strong>2. Admin Over-Engineering</strong></td>
+        <td>Teams try building a complex drag-and-drop CMS from scratch, run out of time, and leave half-working forms.</td>
+        <td><strong>Focused CRUD Forms:</strong> Pre-built, robust table and modal components strictly tailored to the 5 core models, keeping maintenance zero-friction.</td>
+      </tr>
+      <tr>
+        <td><strong>3. Image Storage Bloat</strong></td>
+        <td>Storing raw 8MB event photos in the database or server disk slows page loads and consumes disk quota.</td>
+        <td><strong>Automated Cloud CDN:</strong> Integrate Cloudinary free tier with automatic web compression and auto-format (<code>f_auto, q_auto</code>).</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Section 5 -->
+  <h2><span class="section-num">5</span> Agenda for Tomorrow's Meeting with the Supervisor</h2>
+
+  <div class="card">
+    <ol style="margin-left: 18px; margin-bottom: 0;">
+      <li><strong>Show Working Prototype Live:</strong> Open <code>http://localhost:5173/AIR-proto/</code> on your laptop. Show the interactive neural canvas, the honeycomb team layout, and demonstrate switching between Light and Dark modes.</li>
+      <li><strong>Clarify the Color Strategy:</strong> Explain that instead of a literal rainbow palette, we engineered <em>"Chromatic / Spectral AI Accents"</em>—a prestigious Stanford-style neutral base with vibrant jewel-tone accent chips for each research pillar.</li>
+      <li><strong>Walk Through the Roadmap:</strong> Present the 4-Week Post-Mids plan to demonstrate thorough planning and realistic workload management.</li>
+      <li><strong>Lock In These 4 Decisions:</strong>
+        <ul style="margin-top: 4px;">
+          <li><strong>Domain:</strong> Will NED provide <code>air.neduet.edu.pk</code> or should we configure an independent domain?</li>
+          <li><strong>FYDP Data:</strong> Can Hasan circulate a standardized Google Form to the 5 supervised groups to collect project summaries?</li>
+          <li><strong>Vacancy Intake:</strong> Should the vacancy button link to a Google Form or a built-in upload form?</li>
+          <li><strong>Sign-off:</strong> Confirm the Team (3 tabs) and Project (4 tabs) categories are frozen.</li>
+        </ul>
+      </li>
+    </ol>
+  </div>
+
+  <div class="footer-note">
+    AIR Lab Website Implementation Plan • NED University of Engineering & Technology • Prepared by Hasan Shahir & Ali Hasan
+  </div>
+
+</body>
+</html>

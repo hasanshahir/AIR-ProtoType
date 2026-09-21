@@ -1,0 +1,83 @@
+[
+  {
+    "id": 1,
+    "name": "Dr. Ayesha Qureshi",
+    "role": "Faculty — Lab Director",
+    "area": "Natural Language Processing",
+    "image": "https://i.pravatar.cc/300?img=47",
+    "email": "a.qureshi@neduet.edu.pk",
+    "scholar": "#"
+  },
+  {
+    "id": 2,
+    "name": "Dr. Imran Baig",
+    "role": "Faculty — Co-Director",
+    "area": "Computer Vision",
+    "image": "https://i.pravatar.cc/300?img=51",
+    "email": "i.baig@neduet.edu.pk",
+    "scholar": "#"
+  },
+  {
+    "id": 3,
+    "name": "Dr. Sadia Naz",
+    "role": "Faculty — Research Lead",
+    "area": "Deep Learning",
+    "image": "https://i.pravatar.cc/300?img=48",
+    "email": "s.naz@neduet.edu.pk",
+    "scholar": "#"
+  },
+  {
+    "id": 4,
+    "name": "Bilal Ahmed",
+    "role": "Postgraduate — MS Researcher",
+    "area": "Large Language Models",
+    "image": "https://i.pravatar.cc/300?img=53",
+    "email": "bilal@airlab.edu.pk",
+    "scholar": "#"
+  },
+  {
+    "id": 5,
+    "name": "Hina Farooq",
+    "role": "Postgraduate — MS Researcher",
+    "area": "Edge AI & Embedded Systems",
+    "image": "https://i.pravatar.cc/300?img=44",
+    "email": "hina@airlab.edu.pk",
+    "scholar": "#"
+  },
+  {
+    "id": 6,
+    "name": "Usman Tariq",
+    "role": "Postgraduate — PhD Candidate",
+    "area": "Autonomous Robotics",
+    "image": "https://i.pravatar.cc/300?img=60",
+    "email": "usman@airlab.edu.pk",
+    "scholar": "#"
+  },
+  {
+    "id": 7,
+    "name": "Zara Malik",
+    "role": "Undergraduate — Research Intern",
+    "area": "Computer Vision",
+    "image": "https://i.pravatar.cc/300?img=49",
+    "email": "zara@airlab.edu.pk",
+    "scholar": "#"
+  },
+  {
+    "id": 8,
+    "name": "Hassan Raza",
+    "role": "Undergraduate — Research Intern",
+    "area": "NLP & Sentiment Analysis",
+    "image": "https://i.pravatar.cc/300?img=57",
+    "email": "hassan@airlab.edu.pk",
+    "scholar": "#"
+  },
+  {
+    "id": 9,
+    "name": "Aiman Siddiqui",
+    "role": "Undergraduate — Research Intern",
+    "area": "Generative AI",
+    "image": "https://i.pravatar.cc/300?img=43",
+    "email": "aiman@airlab.edu.pk",
+    "scholar": "#"
+  }
+]
