@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
 
 export type ThemePalette = 
-  | 'default'         // Mint Tech (Ali's signature Mintlify aesthetic — emerald & teal on obsidian/paper)
+  | 'default'         // Mint Tech (Ali's signature Mintlify aesthetic — emerald & teal on clean paper/obsidian)
   | 'theme-cobalt'    // Frontier Cobalt (Deep tech electric cobalt & sky cyan)
   | 'theme-titanium'  // Titanium Slate (Ultra-clean academic slate & monochrome)
   | 'theme-ned'       // NED Heritage (Academic gold & deep emerald)
@@ -18,26 +18,26 @@ export interface ThemeOption {
 export const THEME_OPTIONS: ThemeOption[] = [
   {
     id: 'default',
-    name: 'Mint Tech (Ali)',
+    name: 'Mint Light / Tech',
     accent: '#10B981',
     subAccent: '#06B6D4',
-    bgPreview: '#090A0F',
-    description: "Ali's signature Mintlify tech palette: emerald accent on deep obsidian & clean paper"
+    bgPreview: '#FAFAFA',
+    description: "Ali's signature Mintlify tech palette: crisp emerald accent on clean light paper & dark mode"
   },
   {
     id: 'theme-cobalt',
     name: 'Frontier Cobalt',
     accent: '#2563EB',
     subAccent: '#38BDF8',
-    bgPreview: '#080C14',
+    bgPreview: '#F8FAFC',
     description: 'Deep cobalt blue & electric sky inspired by frontier AI research labs'
   },
   {
     id: 'theme-titanium',
     name: 'Titanium Slate',
-    accent: '#64748B',
+    accent: '#475569',
     subAccent: '#94A3B8',
-    bgPreview: '#0A0A0A',
+    bgPreview: '#FFFFFF',
     description: 'Ultra-clean high-contrast monochrome engineering lab aesthetic'
   },
   {
@@ -45,7 +45,7 @@ export const THEME_OPTIONS: ThemeOption[] = [
     name: 'NED Heritage',
     accent: '#059669',
     subAccent: '#D97706',
-    bgPreview: '#041009',
+    bgPreview: '#F5FAF7',
     description: 'Official NED University prestige emerald and academic gold'
   }
 ]
@@ -60,16 +60,25 @@ interface ThemeContextType {
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined)
 
 export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  // Versioning localStorage to ensure fresh revamp defaults to Mint Light (Ali's aesthetic)
   const [palette, setPaletteState] = useState<ThemePalette>(() => {
+    const version = localStorage.getItem('air_theme_revamp_v3')
+    if (!version) {
+      localStorage.setItem('air_theme_revamp_v3', '3.0')
+      localStorage.removeItem('air_theme_palette')
+      localStorage.removeItem('air_theme_mode')
+      return 'default'
+    }
     const saved = localStorage.getItem('air_theme_palette') as ThemePalette
     const valid = THEME_OPTIONS.some(o => o.id === saved)
     return valid ? saved : 'default'
   })
 
+  // Default to FALSE (Mint Light) like Ali's site, but user can freely toggle dark mode
   const [isDark, setIsDark] = useState<boolean>(() => {
     const saved = localStorage.getItem('air_theme_mode')
     if (saved !== null) return saved === 'dark'
-    return true // default to dark tech aesthetic
+    return false // Mint Light default!
   })
 
   useEffect(() => {

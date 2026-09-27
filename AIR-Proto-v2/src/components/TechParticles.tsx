@@ -28,7 +28,6 @@ export default function TechParticles({
   // Get active theme accent color
   const activeTheme = THEME_OPTIONS.find(t => t.id === palette) || THEME_OPTIONS[0]
   const primaryColor = activeTheme.accent
-  const secondaryColor = activeTheme.subAccent
 
   useEffect(() => {
     let isMounted = true
@@ -47,7 +46,7 @@ export default function TechParticles({
         containerRef.current = null
       }
 
-      const count = particleCount || (window.innerWidth > 1200 ? 70 : window.innerWidth > 768 ? 45 : 25)
+      const count = particleCount || (window.innerWidth > 1200 ? 95 : window.innerWidth > 768 ? 60 : 35)
 
       const instance = await tsParticles.load({
         id: containerId,
@@ -66,35 +65,37 @@ export default function TechParticles({
               },
             },
             color: {
-              value: [primaryColor, secondaryColor, isDark ? '#FFFFFF' : '#0F172A'],
+              value: isDark 
+                ? [primaryColor, '#34D399', '#38BDF8', '#E2E8F0']
+                : [primaryColor, '#059669', '#0284C7', '#334155'],
             },
             shape: {
               type: 'circle',
             },
             opacity: {
-              value: { min: isDark ? 0.25 : 0.35, max: isDark ? 0.75 : 0.85 },
+              value: { min: isDark ? 0.35 : 0.45, max: isDark ? 0.85 : 0.95 },
               animation: {
                 enable: true,
-                speed: 0.8,
+                speed: 1,
                 sync: false,
               },
             },
             size: {
-              value: { min: 1.2, max: 2.8 },
+              value: { min: 2.0, max: 4.2 },
             },
             links: {
               enable: true,
-              distance: 140,
-              color: primaryColor,
-              opacity: isDark ? 0.22 : 0.28,
-              width: 1,
+              distance: 145,
+              color: isDark ? primaryColor : '#059669',
+              opacity: isDark ? 0.35 : 0.45,
+              width: 1.2,
               triangles: {
                 enable: false,
               },
             },
             move: {
               enable: true,
-              speed: 0.7,
+              speed: 0.9,
               direction: 'none',
               random: true,
               straight: false,
@@ -120,14 +121,14 @@ export default function TechParticles({
             },
             modes: {
               grab: {
-                distance: 180,
+                distance: 190,
                 links: {
-                  opacity: isDark ? 0.6 : 0.7,
+                  opacity: 0.85,
                   color: primaryColor,
                 },
               },
               push: {
-                quantity: 3,
+                quantity: 4,
               },
             },
           },
@@ -151,7 +152,7 @@ export default function TechParticles({
         containerRef.current = null
       }
     }
-  }, [containerId, palette, isDark, primaryColor, secondaryColor, particleCount, interactive])
+  }, [containerId, palette, isDark, primaryColor, particleCount, interactive])
 
   return (
     <div
