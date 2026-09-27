@@ -1,0 +1,46 @@
+[
+  {
+    "id": "intern-1",
+    "name": "Maria Garcia",
+    "term": "Summer 2025",
+    "project": "Medical Image Segmentation & Diffusion Models",
+    "university": "NED University (BE Computer Science)",
+    "currentRole": "PhD Candidate at MIT CSAIL",
+    "quote": "AIR Lab gave me hands-on access to supercomputing clusters and mentored me into writing my first first-author conference paper.",
+    "paper": "NeurIPS 2025 Workshop on Medical AI",
+    "image": "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=600&q=80"
+  },
+  {
+    "id": "intern-2",
+    "name": "Alex Johnson",
+    "term": "Summer 2025",
+    "project": "Autonomous Drone Swarm Pathfinding (AgriSwarm)",
+    "university": "FAST-NUCES",
+    "currentRole": "Software Engineer at Google DeepMind",
+    "quote": "The engineering rigour and freedom to test drones in real-world agricultural test fields shaped my entire career trajectory.",
+    "paper": "IEEE ICRA 2025 Poster",
+    "image": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=600&q=80"
+  },
+  {
+    "id": "intern-3",
+    "name": "Khadija Noor",
+    "term": "Winter 2024",
+    "project": "Urdu Morphological Disambiguation Engine",
+    "university": "NED University (BE Software Engg)",
+    "currentRole": "AI Research Engineer at Hugging Face",
+    "quote": "Working alongside Dr. Ayesha taught me the importance of building AI for underrepresented vernacular languages.",
+    "paper": "ACL 2025 System Demonstration",
+    "image": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=600&q=80"
+  },
+  {
+    "id": "intern-4",
+    "name": "Zayd Siddiqui",
+    "term": "Summer 2024",
+    "project": "Sub-Watt Neuromorphic Vision on FPGA",
+    "university": "GIKI",
+    "currentRole": "Hardware Systems Architect at NVIDIA",
+    "quote": "The edge AI hardware prototyping laboratory at AIR is among the best equipped research facilities in the country.",
+    "paper": "IEEE Micro Top Picks Honorable Mention",
+    "image": "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=600&q=80"
+  }
+]

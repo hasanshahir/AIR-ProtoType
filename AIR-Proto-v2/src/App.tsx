@@ -7,6 +7,9 @@ import Team from './pages/Team'
 import Projects from './pages/Projects'
 import Publications from './pages/Publications'
 import Gallery from './pages/Gallery'
+import Performers from './pages/Performers'
+import Collaborations from './pages/Collaborations'
+import Interns from './pages/Interns'
 
 export default function App() {
   return (
@@ -20,6 +23,9 @@ export default function App() {
             <Route path="projects" element={<Projects />} />
             <Route path="publications" element={<Publications />} />
             <Route path="gallery" element={<Gallery />} />
+            <Route path="performers" element={<Performers />} />
+            <Route path="collaborations" element={<Collaborations />} />
+            <Route path="interns" element={<Interns />} />
             <Route path="*" element={<Home />} />
           </Route>
         </Routes>

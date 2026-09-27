@@ -1,49 +1,128 @@
-/* AIR Lab v2 — Design System */
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
+/* AIR Lab v2 — High-Tech AI & Robotics Research Lab Design System */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Geist+Mono:wght@300;400;500;600;700&display=swap');
 @import "tailwindcss";
 @plugin "tailwindcss-animate";
 
-/* ── Colour Tokens ───────────────────────────────────────────────────── */
+/* ── Base Theme Tokens (Default: Mint Tech — Ali's Signature) ────────── */
 :root {
-  /* Surfaces */
-  --bg:        #F7F7F5;   /* warm off-white */
-  --bg-card:   #FFFFFF;
-  --bg-muted:  #EFEFED;
-  --fg:        #0C0C0C;
-  --fg-sub:    #5A5A58;
-  --border:    #E0DFDB;
+  /* Default: Mint Tech Dark (Ali's Mintlify-inspired palette) */
+  --bg:             #090A0F;
+  --bg-card:        #12131A;
+  --bg-muted:       #181A24;
+  --fg:             #F9FAFB;
+  --fg-sub:         #9CA3AF;
+  --border:         #1F2937;
 
-  /* AIR Lab accent palette — electric blue + hot coral */
-  --blue:      #1A6BFF;   /* primary electric blue */
-  --blue-light:#D6E6FF;
-  --coral:     #FF4D4F;   /* hot coral / red accent */
-  --amber:     #FFAB00;   /* amber */
-  --violet:    #7C3AED;   /* violet */
-  --cyan:      #00BCD4;   /* cyan for tags */
+  --primary:        #10B981;
+  --primary-glow:   rgba(16, 185, 129, 0.35);
+  --secondary:      #06B6D4;
+  --secondary-glow: rgba(6, 182, 212, 0.3);
+  --accent:         #34D399;
 
-  /* Functional */
   --radius-sm: 6px;
-  --radius:    12px;
-  --radius-lg: 20px;
-  --radius-xl: 32px;
+  --radius:    10px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
 
-  --font-sans: 'Plus Jakarta Sans', sans-serif;
-  --font-head: 'Space Grotesk', sans-serif;
-  --font-mono: 'Space Mono', monospace;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-head: 'Plus Jakarta Sans', sans-serif;
+  --font-mono: 'Geist Mono', monospace;
 }
 
-/* ── Dark Mode ───────────────────────────────────────────────────────── */
-.dark {
-  --bg:        #080808;
-  --bg-card:   #111111;
-  --bg-muted:  #1A1A1A;
-  --fg:        #F2F2F0;
-  --fg-sub:    #888884;
-  --border:    #222220;
-  --blue-light:#0C2040;
+/* Light mode for default Mint Tech */
+html:not(.dark) {
+  --bg:             #FAFAFA;
+  --bg-card:        #FFFFFF;
+  --bg-muted:       #F4F4F5;
+  --fg:             #09090B;
+  --fg-sub:         #64748B;
+  --border:         #E5E7EB;
+  --primary:        #10B981;
+  --primary-glow:   rgba(16, 185, 129, 0.2);
+  --secondary:      #0284C7;
+  --secondary-glow: rgba(2, 132, 199, 0.2);
+  --accent:         #059669;
 }
 
-/* ── Tailwind inline theme registration ─────────────────────────────── */
+/* ── 1. Frontier Cobalt Palette (Deep AI Research) ────────────────────── */
+.theme-cobalt {
+  --primary:        #2563EB;
+  --primary-glow:   rgba(37, 99, 235, 0.4);
+  --secondary:      #38BDF8;
+  --secondary-glow: rgba(56, 189, 248, 0.3);
+  --accent:         #60A5FA;
+}
+.theme-cobalt.dark {
+  --bg:             #080C14;
+  --bg-card:        #0F172A;
+  --bg-muted:       #1E293B;
+  --fg:             #F8FAFC;
+  --fg-sub:         #94A3B8;
+  --border:         #1E293B;
+}
+.theme-cobalt:not(.dark) {
+  --bg:             #F8FAFC;
+  --bg-card:        #FFFFFF;
+  --bg-muted:       #F1F5F9;
+  --fg:             #0F172A;
+  --fg-sub:         #475569;
+  --border:         #E2E8F0;
+}
+
+/* ── 2. Titanium Slate Palette (Monochrome Tech) ──────────────────────── */
+.theme-titanium {
+  --primary:        #64748B;
+  --primary-glow:   rgba(100, 116, 139, 0.3);
+  --secondary:      #94A3B8;
+  --secondary-glow: rgba(148, 163, 184, 0.25);
+  --accent:         #CBD5E1;
+}
+.theme-titanium.dark {
+  --bg:             #0A0A0A;
+  --bg-card:        #141414;
+  --bg-muted:       #1E1E1E;
+  --fg:             #EDEDED;
+  --fg-sub:         #A1A1A1;
+  --border:         #262626;
+  --primary:        #E2E8F0;
+  --primary-glow:   rgba(226, 232, 240, 0.25);
+}
+.theme-titanium:not(.dark) {
+  --bg:             #FFFFFF;
+  --bg-card:        #FAFAFA;
+  --bg-muted:       #F5F5F5;
+  --fg:             #171717;
+  --fg-sub:         #737373;
+  --border:         #E5E5E5;
+  --primary:        #0F172A;
+}
+
+/* ── 3. NED Heritage Palette ──────────────────────────────────────────── */
+.theme-ned {
+  --primary:        #059669;
+  --primary-glow:   rgba(5, 150, 105, 0.35);
+  --secondary:      #D97706;
+  --secondary-glow: rgba(217, 119, 6, 0.3);
+  --accent:         #10B981;
+}
+.theme-ned.dark {
+  --bg:             #041009;
+  --bg-card:        #091E13;
+  --bg-muted:       #112E1E;
+  --fg:             #F2FAF5;
+  --fg-sub:         #86AD97;
+  --border:         #19432B;
+}
+.theme-ned:not(.dark) {
+  --bg:             #F5FAF7;
+  --bg-card:        #FFFFFF;
+  --bg-muted:       #E7F4ED;
+  --fg:             #072415;
+  --fg-sub:         #2D6144;
+  --border:         #C7E6D4;
+}
+
+/* ── Tailwind Theme Mapping ───────────────────────────────────────────── */
 @theme inline {
   --color-bg:        var(--bg);
   --color-card:      var(--bg-card);
@@ -51,12 +130,10 @@
   --color-fg:        var(--fg);
   --color-sub:       var(--fg-sub);
   --color-border:    var(--border);
-  --color-blue:      var(--blue);
-  --color-blue-light:var(--blue-light);
-  --color-coral:     var(--coral);
-  --color-amber:     var(--amber);
-  --color-violet:    var(--violet);
-  --color-cyan:      var(--cyan);
+  --color-primary:   var(--primary);
+  --color-secondary: var(--secondary);
+  --color-accent:    var(--accent);
+
   --font-sans:       var(--font-sans);
   --font-head:       var(--font-head);
   --font-mono:       var(--font-mono);
@@ -66,7 +143,7 @@
   --radius-xl:       var(--radius-xl);
 }
 
-/* ── Base Reset ──────────────────────────────────────────────────────── */
+/* ── Base Styling ─────────────────────────────────────────────────────── */
 @layer base {
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -74,123 +151,100 @@
     scroll-behavior: smooth;
     font-family: var(--font-sans);
     color: var(--fg);
-    background: var(--bg);
+    background-color: var(--bg);
+  }
+
+  body {
+    background-color: var(--bg);
+    color: var(--fg);
+    overflow-x: hidden;
   }
 
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-head);
-    letter-spacing: -0.025em;
-    line-height: 1.1;
+    letter-spacing: -0.03em;
+    line-height: 1.15;
   }
 
   ::selection {
-    background: var(--blue);
-    color: #fff;
+    background: var(--primary);
+    color: #000;
   }
 
   /* Custom scrollbar */
-  ::-webkit-scrollbar { width: 4px; }
-  ::-webkit-scrollbar-track { background: var(--bg-muted); }
-  ::-webkit-scrollbar-thumb { background: var(--blue); border-radius: 2px; }
+  ::-webkit-scrollbar { width: 5px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 4px; }
 }
 
-/* ── Utility classes ─────────────────────────────────────────────────── */
+/* ── DORMANT IMAGE EFFECT (BLACK & WHITE DORMANT, COLOR POP ON HOVER) ─── */
+/* All images are black & white in dormant state */
+.dormant-image,
+.group img,
+.img-dormant,
+img {
+  filter: grayscale(100%) contrast(0.92) brightness(0.92);
+  transition: filter 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* On hover over the parent card or image, color POPS vividly */
+.group:hover img,
+.dormant-image:hover,
+.img-dormant:hover,
+img:hover {
+  filter: grayscale(0%) contrast(1.08) saturate(1.2) brightness(1.03) !important;
+}
+
+/* Exclude SVGs/logos that require transparent colors or system icons */
+svg,
+svg img,
+.no-dormant,
+.no-dormant img {
+  filter: none !important;
+}
+
+/* ── Modern Tech Utility Classes (Inspired by Ali's & Mintlify) ───────── */
 @layer utilities {
-  /* gradient text */
-  .text-gradient-blue {
-    background: linear-gradient(135deg, var(--blue) 0%, var(--cyan) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-  .text-gradient-fire {
-    background: linear-gradient(135deg, var(--coral) 0%, var(--amber) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-  .text-gradient-spectrum {
-    background: linear-gradient(135deg, var(--blue) 0%, var(--violet) 50%, var(--coral) 100%);
+  .text-gradient-primary {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
 
-  /* Glow helpers */
-  .glow-blue  { box-shadow: 0 0 32px -4px rgba(26,107,255,0.45); }
-  .glow-coral { box-shadow: 0 0 32px -4px rgba(255,77,79,0.4); }
+  .glow-box-primary {
+    box-shadow: 0 0 30px -8px var(--primary-glow);
+  }
 
-  /* Glass card */
-  .glass {
-    background: rgba(255,255,255,0.06);
-    border: 1px solid rgba(255,255,255,0.10);
+  .glass-card {
+    background: color-mix(in srgb, var(--bg-card) 85%, transparent);
+    border: 1px solid var(--border);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
   }
-  .dark .glass {
-    background: rgba(0,0,0,0.30);
-    border-color: rgba(255,255,255,0.07);
+
+  /* Ali's exact grid pattern with radial fade mask */
+  .bg-grid-pattern {
+    background-size: 40px 40px;
+    background-image: 
+      linear-gradient(to right, color-mix(in srgb, var(--border) 40%, transparent) 1px, transparent 1px),
+      linear-gradient(to bottom, color-mix(in srgb, var(--border) 40%, transparent) 1px, transparent 1px);
+    mask-image: radial-gradient(circle at center, black 45%, transparent 85%);
+    -webkit-mask-image: radial-gradient(circle at center, black 45%, transparent 85%);
   }
 
-  /* animated underline on hover */
-  .underline-hover {
-    background-image: linear-gradient(var(--blue), var(--blue));
-    background-position: 0 100%;
-    background-repeat: no-repeat;
-    background-size: 0% 2px;
-    transition: background-size 0.3s ease;
-  }
-  .underline-hover:hover { background-size: 100% 2px; }
-
-  /* Dot grid pattern */
-  .dot-grid {
-    background-image: radial-gradient(circle, rgba(26,107,255,0.15) 1px, transparent 1px);
-    background-size: 28px 28px;
-  }
-
-  /* Tag chip */
-  .chip {
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    padding: 3px 10px;
-    border-radius: 999px;
-    font-size: 11px;
-    font-weight: 600;
-    font-family: var(--font-mono);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
+  /* Ali's exact dot pattern with radial fade mask */
+  .bg-dot-pattern {
+    background-size: 20px 20px;
+    background-image: radial-gradient(circle, color-mix(in srgb, var(--border) 60%, transparent) 1px, transparent 1px);
+    mask-image: radial-gradient(circle at center, black 45%, transparent 85%);
+    -webkit-mask-image: radial-gradient(circle at center, black 45%, transparent 85%);
   }
 }
 
-/* ── Global animations ───────────────────────────────────────────────── */
-@keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50%       { transform: translateY(-12px); }
-}
-@keyframes pulse-ring {
-  0%   { transform: scale(1); opacity: 0.6; }
-  100% { transform: scale(1.6); opacity: 0; }
-}
-@keyframes scan-line {
-  0%   { top: 0%; }
-  100% { top: 100%; }
-}
-
-.animate-float  { animation: float 4s ease-in-out infinite; }
-.animate-float-slow { animation: float 6s ease-in-out infinite 1s; }
-
-/* Reduce motion */
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation-duration: 0.01ms !important;
-    transition-duration: 0.01ms !important;
-  }
-}
-
-/* ── scroll-craft integration ────────────────────────────────────────── */
-
-/* reveal — elements start invisible and transition in when .sc-in is added */
+/* ── ScrollCraft Reveal Hooks ─────────────────────────────────────────── */
 [data-sc-reveal],
 [data-sc] {
   opacity: 0;
@@ -203,24 +257,3 @@
   opacity: 1 !important;
   transform: none !important;
 }
-
-/* progress / timeline fill — clip-path animated left-to-right */
-.sc-progress-step {
-  position: relative;
-  overflow: hidden;
-}
-.sc-progress-step .sc-fill {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(90deg, var(--blue) 0%, var(--coral) 100%);
-  clip-path: inset(0 100% 0 0);
-  transition: clip-path 0.1s linear;
-  pointer-events: none;
-  z-index: 0;
-}
-.sc-progress-step > *:not(.sc-fill) {
-  position: relative;
-  z-index: 1;
-}
-
-/* counter — no extra CSS needed; scroll-craft writes text content directly */
