@@ -1,363 +1,212 @@
-/* AIR Lab v2 — High-Tech AI & Robotics Research Lab Design System */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Geist+Mono:wght@300;400;500;600;700&display=swap');
+/* AIR Lab — Craftly Enterprise AI Design System */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap');
 @import "tailwindcss";
-@plugin "tailwindcss-animate";
-@custom-variant dark (&:where(.dark, .dark *));
 
-/* ── Base Theme Tokens (Default: Aurora Sunset — Inspiration Design) ── */
+/* ── 1. DESIGN TOKENS ── */
 :root {
-  /* Default: Clean SaaS Light Canvas with Aurora Mesh */
-  --bg:             #FAFAFC;
-  --bg-card:        #FFFFFF;
-  --bg-muted:       #F4F4F6;
-  --fg:             #09090B;
-  --fg-sub:         #52525B;
-  --border:         #E4E4E7;
+  --bg: #FAFAFC;
+  --surface: #FFFFFF;
+  --surface-glass: rgba(255, 255, 255, 0.65);
+  --ink: #0B0B0F;
+  --ink-2: #55555F;
+  --ink-3: #9A9AA5;
+  --line: rgba(11, 11, 15, 0.08);
+  --line-strong: rgba(11, 11, 15, 0.14);
+  --aurora: linear-gradient(90deg, #4F8BFF 0%, #8B7BFF 22%, #F25CC1 45%, #FF7A45 70%, #FFD24D 100%);
 
-  --primary:        #09090B;
-  --primary-fg:     #FFFFFF;
-  --primary-glow:   rgba(244, 63, 94, 0.25);
-  --secondary:      #F43F5E;
-  --secondary-glow: rgba(251, 146, 60, 0.2);
-  --accent:         #FB923C;
+  --radius-pill: 9999px;
+  --radius-card: 28px;
+  --radius-inner: 20px;
+  --radius-chip: 12px;
 
-  --radius-sm: 8px;
-  --radius:    12px;
-  --radius-lg: 18px;
-  --radius-xl: 24px;
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.04), 0 12px 40px rgba(20, 20, 60, 0.08);
+  --shadow-hover: 0 4px 16px rgba(0, 0, 0, 0.05), 0 20px 48px rgba(20, 20, 60, 0.12);
 
-  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-head: 'Plus Jakarta Sans', sans-serif;
-  --font-mono: 'Geist Mono', monospace;
+  --font-head: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
-/* Dark mode for Aurora Sunset */
-html.dark {
-  --bg:             #090A0F;
-  --bg-card:        #12131A;
-  --bg-muted:       #181A24;
-  --fg:             #F9FAFB;
-  --fg-sub:         #9CA3AF;
-  --border:         #1F2937;
-  --primary:        #FFFFFF;
-  --primary-fg:     #000000;
-  --primary-glow:   rgba(244, 63, 94, 0.35);
-  --secondary:      #F43F5E;
-  --secondary-glow: rgba(251, 146, 60, 0.3);
-  --accent:         #FB923C;
-}
-
-/* ── 1. Emerald Horizon Palette (Ali's Mint Tech) ────────────────────── */
-.theme-emerald {
-  --primary:        #09090B;
-  --primary-fg:     #FFFFFF;
-  --primary-glow:   rgba(16, 185, 129, 0.25);
-  --secondary:      #10B981;
-  --secondary-glow: rgba(6, 182, 212, 0.2);
-  --accent:         #06B6D4;
-}
-.theme-emerald.dark {
-  --bg:             #06110D;
-  --bg-card:        #0B1B15;
-  --bg-muted:       #10281F;
-  --fg:             #F0FDF4;
-  --fg-sub:         #86EFAC;
-  --border:         #14382B;
-  --primary:        #FFFFFF;
-  --primary-fg:     #000000;
-  --primary-glow:   rgba(16, 185, 129, 0.35);
-}
-
-/* ── 2. Electric Cobalt Palette (Deep Tech Frontier) ──────────────────── */
-.theme-cobalt {
-  --primary:        #09090B;
-  --primary-fg:     #FFFFFF;
-  --primary-glow:   rgba(37, 99, 235, 0.25);
-  --secondary:      #2563EB;
-  --secondary-glow: rgba(124, 58, 237, 0.2);
-  --accent:         #7C3AED;
-}
-.theme-cobalt.dark {
-  --bg:             #070B16;
-  --bg-card:        #0E1424;
-  --bg-muted:       #151F36;
-  --fg:             #F8FAFC;
-  --fg-sub:         #94A3B8;
-  --border:         #1C2A4A;
-  --primary:        #FFFFFF;
-  --primary-fg:     #000000;
-  --primary-glow:   rgba(37, 99, 235, 0.4);
-}
-
-/* ── 3. Cyber Canary Palette (High-Contrast Tech) ─────────────────────── */
-.theme-cyber {
-  --primary:        #09090B;
-  --primary-fg:     #FFFFFF;
-  --primary-glow:   rgba(255, 230, 0, 0.25);
-  --secondary:      #FFE600;
-  --secondary-glow: rgba(245, 158, 11, 0.2);
-  --accent:         #F59E0B;
-}
-.theme-cyber.dark {
-  --bg:             #0C0D12;
-  --bg-card:        #141620;
-  --bg-muted:       #1A1D2B;
-  --fg:             #FFFFFF;
-  --fg-sub:         #94A3B8;
-  --border:         #1E2232;
-  --primary:        #FFE600;
-  --primary-fg:     #000000;
-  --primary-glow:   rgba(255, 230, 0, 0.35);
-}
-
-/* ── Tailwind Theme Mapping ───────────────────────────────────────────── */
+/* ── Tailwind Theme Mapping ── */
 @theme inline {
-  --color-bg:        var(--bg);
-  --color-card:      var(--bg-card);
-  --color-muted:     var(--bg-muted);
-  --color-fg:        var(--fg);
-  --color-sub:       var(--fg-sub);
-  --color-border:    var(--border);
-  --color-primary:   var(--primary);
-  --color-secondary: var(--secondary);
-  --color-accent:    var(--accent);
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-glass: var(--surface-glass);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-line: var(--line);
 
-  --font-sans:       var(--font-sans);
-  --font-head:       var(--font-head);
-  --font-mono:       var(--font-mono);
-  --radius-sm:       var(--radius-sm);
-  --radius-md:       var(--radius);
-  --radius-lg:       var(--radius-lg);
-  --radius-xl:       var(--radius-xl);
+  --font-head: var(--font-head);
+  --font-sans: var(--font-sans);
 }
 
-/* ── Base Styling ─────────────────────────────────────────────────────── */
+/* ── Base Styling (Light Theme Only) ── */
 @layer base {
-  * { box-sizing: border-box; margin: 0; padding: 0; }
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
 
   html {
     scroll-behavior: smooth;
     font-family: var(--font-sans);
-    color: var(--fg);
+    color: var(--ink);
     background-color: var(--bg);
+    letter-spacing: -0.01em;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   body {
     background-color: var(--bg);
-    color: var(--fg);
+    color: var(--ink);
+    min-height: 100vh;
     overflow-x: hidden;
   }
 
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-head);
-    letter-spacing: -0.025em;
+    letter-spacing: -0.03em;
     font-weight: 500;
-    line-height: 1.15;
+    line-height: 1.02;
+    color: var(--ink);
+  }
+
+  h1 {
+    font-size: clamp(44px, 7vw, 84px);
+    line-height: 1.02;
+  }
+
+  h2 {
+    font-size: clamp(32px, 4.5vw, 56px);
+    line-height: 1.08;
+  }
+
+  h3 {
+    font-size: 24px;
+    line-height: 1.2;
+  }
+
+  p {
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--ink-2);
   }
 
   ::selection {
-    background: var(--primary);
-    color: #000;
+    background: #0B0B0F;
+    color: #FFFFFF;
   }
 
-  /* Custom scrollbar */
-  ::-webkit-scrollbar { width: 5px; }
-  ::-webkit-scrollbar-track { background: var(--bg); }
-  ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 4px; }
+  /* Custom Clean Minimal Scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--bg);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #D4D4DC;
+    border-radius: 9999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #9A9AA5;
+  }
 }
 
-/* ── DORMANT IMAGE EFFECT (BLACK & WHITE DORMANT, COLOR POP ON HOVER) ─── */
-/* All images are black & white in dormant state */
-.dormant-image,
-.group img,
-.img-dormant,
-img {
-  filter: grayscale(100%) contrast(0.92) brightness(0.92);
-  transition: filter 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-              box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+/* ── Aurora Slow Drift Animation ── */
+@keyframes aurora-drift {
+  0% {
+    transform: translateX(-3%) scaleY(1);
+  }
+  50% {
+    transform: translateX(3%) scaleY(1.05);
+  }
+  100% {
+    transform: translateX(-3%) scaleY(1);
+  }
 }
 
-/* On hover over the parent card or image, color POPS vividly */
-.group:hover img,
-.dormant-image:hover,
-.img-dormant:hover,
-img:hover {
-  filter: grayscale(0%) contrast(1.08) saturate(1.2) brightness(1.03) !important;
+.animate-aurora-drift {
+  animation: aurora-drift 18s ease-in-out infinite alternate;
 }
 
-/* Exclude SVGs/logos that require transparent colors or system icons */
-svg,
-svg img,
-.no-dormant,
-.no-dormant img {
-  filter: none !important;
+@media (prefers-reduced-motion: reduce) {
+  .animate-aurora-drift {
+    animation: none !important;
+  }
 }
 
-/* ── Modern Tech Utility Classes (Inspired by Ali's & Mintlify) ───────── */
+/* ── Craftly Utility & Card Classes ── */
 @layer utilities {
-  .text-gradient-primary {
-    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+  .craftly-container {
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 24px;
+    padding-right: 24px;
   }
 
-  .glow-box-primary {
-    box-shadow: 0 0 30px -8px var(--primary-glow);
+  .craftly-section {
+    padding-top: clamp(80px, 10vw, 130px);
+    padding-bottom: clamp(80px, 10vw, 130px);
   }
 
-  .glass-card {
-    background: color-mix(in srgb, var(--bg-card) 85%, transparent);
-    border: 1px solid var(--border);
+  .craftly-card {
+    background-color: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-card);
+    transition: transform 200ms ease-out, box-shadow 200ms ease-out, border-color 200ms ease-out;
+  }
+
+  .craftly-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-hover);
+    border-color: var(--line-strong);
+  }
+
+  .craftly-inner-card {
+    background-color: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-inner);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .craftly-glass {
+    background: var(--surface-glass);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--line);
   }
 
-  /* Exact Craftly Aurora Ribbon Blur (Soft, delicate multi-stop sunset airbrush) */
-  .bg-aurora-ribbon {
-    background: linear-gradient(
-      90deg,
-      rgba(56, 189, 248, 0.16) 0%,
-      rgba(129, 140, 248, 0.20) 15%,
-      rgba(236, 72, 153, 0.24) 35%,
-      rgba(244, 63, 94, 0.28) 52%,
-      rgba(251, 146, 60, 0.24) 70%,
-      rgba(253, 224, 71, 0.18) 88%,
-      rgba(251, 191, 36, 0.10) 100%
-    );
-    filter: blur(95px);
-    -webkit-filter: blur(95px);
+  .craftly-chip {
+    border-radius: var(--radius-chip);
   }
 
-  /* Craftly Bulletproof Light/Dark High-Contrast Buttons */
-  .btn-craftly-primary {
-    background-color: #09090B !important;
-    color: #FFFFFF !important;
-    border: 1px solid transparent !important;
-    box-shadow: 0 4px 14px 0 rgba(0, 0, 0, 0.12);
-    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-  .btn-craftly-primary * {
-    color: #FFFFFF !important;
-  }
-  .btn-craftly-primary:hover {
-    background-color: #27272A !important;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
-    transform: translateY(-1px);
-  }
-  :where(.dark, .dark *) .btn-craftly-primary {
-    background-color: #FFFFFF !important;
-    color: #09090B !important;
-    border: 1px solid transparent !important;
-    box-shadow: 0 4px 14px 0 rgba(255, 255, 255, 0.12);
-  }
-  :where(.dark, .dark *) .btn-craftly-primary * {
-    color: #09090B !important;
-  }
-  :where(.dark, .dark *) .btn-craftly-primary:hover {
-    background-color: #F4F4F5 !important;
-    box-shadow: 0 6px 20px rgba(255, 255, 255, 0.2);
+  .craftly-pill {
+    border-radius: var(--radius-pill);
   }
 
-  .btn-craftly-secondary {
-    background-color: #FFFFFF !important;
-    color: #09090B !important;
-    border: 1px solid #E4E4E7 !important;
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
-    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  /* Collaborator & Partner Logos (Grayscale 50% -> 100% on hover) */
+  .logo-grayscale {
+    filter: grayscale(100%);
+    opacity: 0.5;
+    transition: filter 300ms ease, opacity 300ms ease;
   }
-  .btn-craftly-secondary * {
-    color: #09090B !important;
-  }
-  .btn-craftly-secondary:hover {
-    background-color: #F4F4F5 !important;
-    border-color: #D4D4D8 !important;
-    transform: translateY(-1px);
-  }
-  :where(.dark, .dark *) .btn-craftly-secondary {
-    background-color: #12131A !important;
-    color: #F4F4F5 !important;
-    border: 1px solid #27272A !important;
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
-  }
-  :where(.dark, .dark *) .btn-craftly-secondary * {
-    color: #F4F4F5 !important;
-  }
-  :where(.dark, .dark *) .btn-craftly-secondary:hover {
-    background-color: #1A1D28 !important;
-    border-color: #3F3F46 !important;
+  .logo-grayscale:hover {
+    filter: grayscale(0%);
+    opacity: 1;
   }
 
-  /* Universal Tab Filter Pills */
-  .tab-pill-active {
-    background-color: var(--primary) !important;
-    color: var(--primary-fg) !important;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  /* Team Portrait Grayscale with Color Pop on Hover */
+  .portrait-grayscale {
+    filter: grayscale(100%) contrast(0.95);
+    transition: filter 400ms cubic-bezier(0.16, 1, 0.3, 1), transform 400ms cubic-bezier(0.16, 1, 0.3, 1);
   }
-  .tab-pill-active * {
-    color: var(--primary-fg) !important;
-  }
-  .tab-pill-inactive {
-    background-color: var(--bg-card) !important;
-    color: var(--fg-sub) !important;
-    border: 1px solid var(--border) !important;
-  }
-  .tab-pill-inactive:hover {
-    color: var(--fg) !important;
-    border-color: var(--primary) !important;
-  }
-
-  /* Exact Craftly Subtitle Text Gradient */
-  .text-craftly-gradient {
-    background-image: linear-gradient(
-      90deg,
-      #E11D48 0%,
-      #D946EF 25%,
-      #F97316 65%,
-      #F59E0B 100%
-    );
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  /* Ali's exact grid pattern with radial fade mask */
-  .bg-grid-pattern {
-    background-size: 40px 40px;
-    background-image: 
-      linear-gradient(to right, color-mix(in srgb, var(--border) 40%, transparent) 1px, transparent 1px),
-      linear-gradient(to bottom, color-mix(in srgb, var(--border) 40%, transparent) 1px, transparent 1px);
-    mask-image: radial-gradient(circle at center, black 45%, transparent 85%);
-    -webkit-mask-image: radial-gradient(circle at center, black 45%, transparent 85%);
-  }
-
-  /* Ali's exact dot pattern with radial fade mask */
-  .bg-dot-pattern {
-    background-size: 20px 20px;
-    background-image: radial-gradient(circle, color-mix(in srgb, var(--border) 60%, transparent) 1px, transparent 1px);
-    mask-image: radial-gradient(circle at center, black 45%, transparent 85%);
-    -webkit-mask-image: radial-gradient(circle at center, black 45%, transparent 85%);
-  }
-}
-
-/* ── ScrollCraft Reveal Hooks ─────────────────────────────────────────── */
-[data-sc-reveal],
-[data-sc] {
-  opacity: 0;
-  will-change: opacity, transform;
-  transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
-}
-[data-sc-reveal].sc-in,
-[data-sc].sc-in {
-  opacity: 1 !important;
-  transform: none !important;
-}
-
-/* Hide default OS cursor on desktop for custom cursor (from Ali's prototype) */
-@media (pointer: fine) {
-  * {
-    cursor: none !important;
+  .group:hover .portrait-grayscale,
+  .portrait-grayscale:hover {
+    filter: grayscale(0%) contrast(1.05);
   }
 }

@@ -1,8 +1,10 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Mail, FileText, Phone, ExternalLink, Sparkles, GraduationCap } from 'lucide-react'
+import { Mail, FileText, Phone, ExternalLink, GraduationCap, Users } from 'lucide-react'
 import teamData from '../data/team.json'
 import previousInternsData from '../data/previous_interns.json'
+import Badge from '../components/ui/Badge'
+import SectionReveal from '../components/ui/SectionReveal'
 import StudentApplicationModal from '../components/StudentApplicationModal'
 
 const Linkedin = ({ className = 'w-3 h-3' }: { className?: string }) => (
@@ -24,8 +26,7 @@ export default function Team() {
   // Research interns
   const currentInterns = teamData.filter(m => m.category === 'Research Interns')
 
-  // Row mapping for 4 - 3 - 4 Honeycomb layout matching screenshot
-  // Row 1 (4 members): Shaheer, Dr. Marvi (Lead), Kashaf, Haseeb
+  // Row mapping for 4 - 3 - 4 Honeycomb layout
   const row1 = [
     teamData.find(m => m.id === 'ri1') || teamData[1],
     teamData.find(m => m.id === 'f1') || teamData[0], // Dr. Murk Marvi (Lead)
@@ -33,14 +34,12 @@ export default function Team() {
     teamData.find(m => m.id === 'ri3') || teamData[3],
   ]
 
-  // Row 2 (3 members): Safee, Shamsi, Hashmi
   const row2 = [
     teamData.find(m => m.id === 'ri4') || teamData[4],
     teamData.find(m => m.id === 'ri5') || teamData[5],
     teamData.find(m => m.id === 'ri6') || teamData[6],
   ]
 
-  // Row 3 (4 members): Muhammed Ahmed, Roshaan, Hammad, Areeba
   const row3 = [
     teamData.find(m => m.id === 'ri7') || teamData[7],
     teamData.find(m => m.id === 'ri8') || teamData[8],
@@ -48,16 +47,16 @@ export default function Team() {
     teamData.find(m => m.id === 'ri10') || teamData[10],
   ]
 
-  const tabs = [
-    { id: 'all' as TabType, label: `All Members (${teamData.length})` },
-    { id: 'faculty' as TabType, label: `Faculty Members (${faculty.length})` },
-    { id: 'interns' as TabType, label: `Research Interns (${currentInterns.length})` },
-    { id: 'previous' as TabType, label: `Previous Interns (${previousInternsData.length})` },
-    { id: 'postgrad' as TabType, label: 'Postgraduate Students' },
-    { id: 'undergrad' as TabType, label: 'Undergraduate Students' },
+  const tabs: { id: TabType; label: string; count?: number }[] = [
+    { id: 'all', label: 'All Members', count: teamData.length },
+    { id: 'faculty', label: 'Faculty', count: faculty.length },
+    { id: 'interns', label: 'Research Interns', count: currentInterns.length },
+    { id: 'previous', label: 'Previous Interns', count: previousInternsData.length },
+    { id: 'postgrad', label: 'Postgraduate' },
+    { id: 'undergrad', label: 'Undergraduate' },
   ]
 
-  // Hexagon Component with Dormant B&W image + Color Pop on Hover
+  // Hexagon Component with Hairline border, B&W dormant image, color pop on hover, LEAD black pill, frosted glass overlay
   const HexagonCard = ({ member }: { member: any }) => {
     if (!member) return null
     const isLead = member.isLead || member.id === 'f1'
@@ -69,41 +68,42 @@ export default function Team() {
         aria-label={`${member.name} - ${member.role}`}
         className="group relative block w-[110px] h-[126px] sm:w-[142px] sm:h-[162px] md:w-[165px] md:h-[190px] focus:outline-none transition-transform duration-300 hover:z-40 hover:scale-105 cursor-pointer"
       >
+        {/* Hairline hexagon border container */}
         <div
-          className={`w-full h-full p-[2.5px] transition-all duration-300 ${
+          className={`w-full h-full p-[1.5px] transition-all duration-300 ${
             isLead
-              ? 'bg-gradient-to-b from-rose-500 via-rose-500/70 to-rose-500/30 group-hover:from-rose-500 group-hover:via-rose-500 group-hover:to-rose-500/80 drop-shadow-md'
-              : 'bg-gradient-to-b from-zinc-400/40 via-zinc-200 dark:via-zinc-800 to-zinc-400/10 group-hover:from-rose-500 group-hover:via-rose-500/70 group-hover:to-rose-500/40 drop-shadow-xs'
+              ? 'bg-[#0B0B0F] shadow-sm'
+              : 'bg-[var(--line)] group-hover:bg-[#0B0B0F]'
           }`}
           style={{ clipPath: HEXAGON_CLIP }}
         >
           <div
-            className="w-full h-full bg-[var(--bg-card)] relative overflow-hidden flex items-center justify-center"
+            className="w-full h-full bg-[var(--surface)] relative overflow-hidden flex items-center justify-center"
             style={{ clipPath: HEXAGON_CLIP }}
           >
             <img
               src={member.image}
               alt={member.name}
-              className="w-full h-full object-cover transition-all duration-500 filter grayscale contrast-[1.05] group-hover:grayscale-0 group-hover:scale-110"
+              className="w-full h-full object-cover transition-all duration-500 filter grayscale contrast-[1.02] group-hover:grayscale-0 group-hover:scale-108"
               loading="lazy"
             />
 
-            {/* Hover details overlay */}
-            <div className="absolute inset-x-0 bottom-0 pt-10 pb-3 px-2 bg-gradient-to-t from-black via-black/90 to-transparent flex flex-col justify-end items-center text-center opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-auto">
-              <span className="text-[9px] sm:text-[10px] font-mono font-bold text-rose-500 uppercase tracking-wider line-clamp-1">
+            {/* Frosted Glass Hover Overlay */}
+            <div className="absolute inset-x-0 bottom-0 pt-8 pb-3 px-2 bg-[rgba(11,11,15,0.72)] backdrop-blur-[8px] flex flex-col justify-end items-center text-center opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-auto">
+              <span className="text-[9px] sm:text-[10px] font-mono font-medium text-white/70 uppercase tracking-wider line-clamp-1">
                 {isLead ? 'Faculty Lead' : 'Intern'}
               </span>
-              <span className="text-[11px] sm:text-xs font-bold text-white leading-tight line-clamp-1 px-1">
+              <span className="text-[11px] sm:text-xs font-semibold text-white leading-tight line-clamp-1 px-1">
                 {member.name}
               </span>
-              
+
               <div className="flex items-center gap-1.5 mt-1">
                 {member.email && (
                   <a
                     href={`mailto:${member.email}`}
                     onClick={e => e.stopPropagation()}
                     title={`Email ${member.name}`}
-                    className="w-5 h-5 rounded-full bg-white/10 hover:bg-rose-500 text-white flex items-center justify-center transition-colors"
+                    className="w-5 h-5 rounded-full bg-white/20 hover:bg-white hover:text-black text-white flex items-center justify-center transition-colors"
                   >
                     <Mail className="w-2.5 h-2.5" />
                   </a>
@@ -115,7 +115,7 @@ export default function Team() {
                     rel="noopener noreferrer"
                     onClick={e => e.stopPropagation()}
                     title="LinkedIn Profile"
-                    className="w-5 h-5 rounded-full bg-white/10 hover:bg-blue-600 text-white flex items-center justify-center transition-colors"
+                    className="w-5 h-5 rounded-full bg-white/20 hover:bg-blue-600 text-white flex items-center justify-center transition-colors"
                   >
                     <Linkedin className="w-2.5 h-2.5" />
                   </a>
@@ -127,7 +127,7 @@ export default function Team() {
                     rel="noopener noreferrer"
                     onClick={e => e.stopPropagation()}
                     title="View Official CV"
-                    className="w-5 h-5 rounded-full bg-white/10 hover:bg-emerald-600 text-white flex items-center justify-center transition-colors"
+                    className="w-5 h-5 rounded-full bg-white/20 hover:bg-white hover:text-black text-white flex items-center justify-center transition-colors"
                   >
                     <FileText className="w-2.5 h-2.5" />
                   </a>
@@ -135,9 +135,9 @@ export default function Team() {
               </div>
             </div>
 
-            {/* Lead Tag Badge */}
+            {/* LEAD Badge: Black Pill */}
             {isLead && (
-              <div className="absolute top-2 left-1/2 -translate-x-1/2 px-2 py-0.5 rounded-full bg-rose-500 text-[9px] font-mono font-bold text-white tracking-wider uppercase shadow-xs">
+              <div className="absolute top-2 left-1/2 -translate-x-1/2 px-2.5 py-0.5 rounded-full bg-[#0B0B0F] text-[9px] font-mono font-bold text-white tracking-wider uppercase shadow-xs">
                 LEAD
               </div>
             )}
@@ -148,66 +148,73 @@ export default function Team() {
   }
 
   return (
-    <div className="min-h-screen pt-28 pb-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto relative">
-      {/* Background Subtle Matrix Grid */}
-      <div className="absolute inset-0 bg-grid-pattern opacity-30 pointer-events-none -z-10" />
+    <div className="min-h-screen pt-16 sm:pt-24 pb-28 px-6 max-w-[1200px] mx-auto relative font-sans">
+      {/* Header */}
+      <div className="mb-12 text-left max-w-3xl">
+        <SectionReveal delay={0}>
+          <div className="mb-4">
+            <Badge variant="white" icon={<Users className="w-3.5 h-3.5" />}>
+              RESEARCH FACULTY & FELLOWS
+            </Badge>
+          </div>
+        </SectionReveal>
 
-      {/* Page Title & Heading (Matching Screenshot Exactly) */}
-      <div className="mb-10 text-left">
-        <h1 className="text-4xl sm:text-5xl font-bold tracking-tight font-head text-[var(--fg)] mb-3">
-          Our Team
-        </h1>
-        <p className="text-base sm:text-lg text-[var(--fg-sub)] max-w-3xl font-sans">
-          Faculty, research interns, and scholars contributing to research and innovation at AIR Lab.
-        </p>
+        <SectionReveal delay={0.08}>
+          <h1 className="font-head font-medium text-[var(--ink)] mb-3 tracking-tight">
+            Our Team
+          </h1>
+        </SectionReveal>
+
+        <SectionReveal delay={0.16}>
+          <p className="text-[17px] sm:text-[18px] text-[var(--ink-2)] leading-relaxed font-normal">
+            Faculty leads, research interns, and scholars contributing to foundational AI and autonomous systems at AIR Lab.
+          </p>
+        </SectionReveal>
       </div>
 
-      {/* Sub-Tab Navigation Strip (Matching Screenshot Exactly) */}
-      <div className="flex items-center gap-2 overflow-x-auto pb-3 mb-10 border-b border-zinc-200 dark:border-zinc-800 text-sm no-scrollbar">
-        {tabs.map(tab => {
-          const isActive = activeTab === tab.id
-          return (
-            <button
-              key={tab.id}
-              onClick={() => setActiveTab(tab.id)}
-              className={`px-4 py-2 text-xs sm:text-sm font-medium whitespace-nowrap transition-all duration-200 relative cursor-pointer ${
-                isActive
-                  ? 'text-rose-500 font-bold'
-                  : 'text-[var(--fg-sub)] hover:text-[var(--fg)]'
-              }`}
-            >
-              <span>{tab.label}</span>
-              {isActive && (
-                <motion.div
-                  layoutId="teamActiveTabUnderline"
-                  className="absolute bottom-0 left-0 right-0 h-[2px] bg-rose-500"
-                />
-              )}
-            </button>
-          )
-        })}
+      {/* ── Sub-tabs as a Segmented Control: white pill container with hairline border ── */}
+      <div className="mb-12 overflow-x-auto pb-2 flex justify-start">
+        <div className="inline-flex items-center gap-1 p-1 bg-[var(--surface)] border border-[var(--line)] rounded-full shadow-[var(--shadow-sm)]">
+          {tabs.map(tab => {
+            const isActive = activeTab === tab.id
+            return (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                className={`relative px-4 py-1.5 rounded-full text-[13px] font-medium transition-all duration-150 cursor-pointer select-none whitespace-nowrap ${
+                  isActive
+                    ? 'bg-[#0B0B0F] text-white shadow-xs'
+                    : 'text-[var(--ink-2)] hover:text-[var(--ink)]'
+                }`}
+              >
+                <span>{tab.label}</span>
+                {tab.count !== undefined && (
+                  <sup className={`ml-1 text-[10px] font-mono ${isActive ? 'text-white/70' : 'text-[var(--ink-3)]'}`}>
+                    {tab.count}
+                  </sup>
+                )}
+              </button>
+            )
+          })}
+        </div>
       </div>
 
       {/* Tab Content Display */}
       <AnimatePresence mode="wait">
-        {/* ── TAB 1: ALL MEMBERS (INTERACTIVE HONEYCOMB MATRIX) ── */}
+        {/* ── TAB 1: ALL MEMBERS (4-3-4 HONEYCOMB LAYOUT) ── */}
         {activeTab === 'all' && (
           <motion.div
             key="all"
-            initial={{ opacity: 0, y: 15 }}
+            initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -15 }}
-            transition={{ duration: 0.3 }}
-            className="space-y-12"
+            exit={{ opacity: 0, y: -12 }}
+            transition={{ duration: 0.25 }}
+            className="space-y-10"
           >
-            {/* Honeycomb Header Badge & Subtitle (Matching Screenshot Exactly) */}
-            <div className="text-center max-w-2xl mx-auto space-y-2">
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-rose-500/10 text-rose-500 text-xs font-mono font-medium">
-                <Sparkles className="w-3.5 h-3.5" />
-                <span>Interactive Honeycomb Matrix</span>
-              </div>
-              <p className="text-xs sm:text-sm text-[var(--fg-sub)] font-mono">
-                Hover over any hexagon to view details and quick contact links • Explore sub-tabs for complete profiles
+            {/* Explanatory subtitle */}
+            <div className="text-center max-w-xl mx-auto">
+              <p className="text-[13px] text-[var(--ink-2)]">
+                Hover over any member to view details and quick contact links. Explore sub-tabs for complete profiles.
               </p>
             </div>
 
@@ -239,73 +246,78 @@ export default function Team() {
           </motion.div>
         )}
 
-        {/* ── TAB 2: FACULTY MEMBERS ── */}
+        {/* ── TAB 2: FACULTY (Large white card with aurora corner bloom) ── */}
         {activeTab === 'faculty' && (
           <motion.div
             key="faculty"
-            initial={{ opacity: 0, y: 15 }}
+            initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -15 }}
-            transition={{ duration: 0.3 }}
+            exit={{ opacity: 0, y: -12 }}
+            transition={{ duration: 0.25 }}
             className="max-w-4xl mx-auto space-y-6"
           >
             {faculty.map(f => (
               <div
                 key={f.id}
-                className="rounded-3xl border border-zinc-200 dark:border-zinc-800 bg-[var(--bg-card)] p-8 sm:p-10 shadow-xl flex flex-col md:flex-row gap-8 items-start relative overflow-hidden"
+                className="craftly-card p-8 sm:p-10 flex flex-col md:flex-row gap-8 items-start relative overflow-hidden group"
               >
-                {/* Corner Glow */}
-                <div className="absolute top-0 right-0 w-64 h-64 bg-rose-500/10 rounded-full blur-3xl pointer-events-none" />
+                {/* Aurora Corner Bloom (top-right, blur 60px, 25% opacity) */}
+                <div
+                  className="absolute -top-12 -right-12 w-72 h-72 rounded-full pointer-events-none opacity-25 blur-[60px]"
+                  style={{ background: 'var(--aurora)' }}
+                  aria-hidden="true"
+                />
 
-                <div className="w-32 h-32 sm:w-40 sm:h-40 rounded-2xl overflow-hidden border-2 border-rose-500/30 shrink-0 shadow-lg bg-zinc-900">
+                <div className="w-32 h-32 sm:w-40 sm:h-40 rounded-2xl overflow-hidden border border-[var(--line)] shrink-0 shadow-sm bg-[#EDEDF0]">
                   <img
                     src={f.image}
                     alt={f.name}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover portrait-grayscale"
                   />
                 </div>
 
-                <div className="flex-1 space-y-4">
+                <div className="flex-1 space-y-4 relative z-10">
                   <div>
-                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono font-bold bg-rose-500/10 text-rose-500 mb-2">
-                      <GraduationCap className="w-3.5 h-3.5" />
-                      <span>{f.role}</span>
+                    <div className="inline-flex items-center gap-2 mb-2">
+                      <Badge variant="dark" icon={<GraduationCap className="w-3.5 h-3.5 text-white" />}>
+                        {f.role}
+                      </Badge>
                     </div>
-                    <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-[var(--fg)] font-head">
+                    <h2 className="text-2xl sm:text-3xl font-medium font-head text-[var(--ink)]">
                       {f.name}
                     </h2>
-                    <p className="text-sm font-medium text-rose-500 mt-1 font-mono">
+                    <p className="text-sm font-medium text-[var(--ink-2)] mt-1">
                       {f.designation}
                     </p>
                   </div>
 
                   {f.qualifications && (
-                    <div className="space-y-1.5 pt-3 border-t border-zinc-100 dark:border-zinc-800 text-sm">
-                      <p className="text-xs font-mono uppercase tracking-wider text-[var(--fg-sub)] font-semibold mb-2">
+                    <div className="space-y-1.5 pt-3 border-t border-[var(--line)] text-sm">
+                      <p className="text-xs font-mono uppercase tracking-wider text-[var(--ink-3)] font-semibold mb-2">
                         Academic Qualifications
                       </p>
                       {f.qualifications.map((q: string, idx: number) => (
-                        <div key={idx} className="flex items-center gap-2 text-xs sm:text-sm text-[var(--fg-sub)]">
-                          <span className="w-1.5 h-1.5 rounded-full bg-rose-500 shrink-0" />
+                        <div key={idx} className="flex items-center gap-2 text-xs sm:text-sm text-[var(--ink-2)]">
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#0B0B0F] shrink-0" />
                           <span>{q}</span>
                         </div>
                       ))}
                     </div>
                   )}
 
-                  <div className="pt-4 border-t border-zinc-100 dark:border-zinc-800 flex flex-wrap items-center gap-4 text-xs font-mono">
+                  <div className="pt-4 border-t border-[var(--line)] flex flex-wrap items-center gap-4 text-xs font-mono">
                     {f.phone && (
-                      <div className="flex items-center gap-1.5 text-[var(--fg-sub)]">
-                        <Phone className="w-3.5 h-3.5 text-rose-500" />
+                      <div className="flex items-center gap-1.5 text-[var(--ink-2)]">
+                        <Phone className="w-3.5 h-3.5 text-[var(--ink-3)]" />
                         <span>{f.phone}</span>
                       </div>
                     )}
                     {f.email && (
                       <a
                         href={`mailto:${f.email}`}
-                        className="flex items-center gap-1.5 text-[var(--fg-sub)] hover:text-rose-500 transition-colors"
+                        className="flex items-center gap-1.5 text-[var(--ink-2)] hover:text-[var(--ink)] transition-colors"
                       >
-                        <Mail className="w-3.5 h-3.5 text-rose-500" />
+                        <Mail className="w-3.5 h-3.5 text-[var(--ink-3)]" />
                         <span>{f.email}</span>
                       </a>
                     )}
@@ -314,9 +326,9 @@ export default function Team() {
                         href={f.cvUrl}
                         target="_blank"
                         rel="noreferrer"
-                        className="btn-craftly-primary px-4 py-1.5 rounded-full text-xs font-bold inline-flex items-center gap-1.5 shadow-sm"
+                        className="h-8 px-4 rounded-full bg-[#0B0B0F] text-white text-xs font-medium inline-flex items-center gap-1.5 shadow-sm hover:bg-[#202028] transition-colors"
                       >
-                        <span>Download Official CV</span>
+                        <span>Official CV</span>
                         <ExternalLink className="w-3 h-3" />
                       </a>
                     )}
@@ -327,57 +339,59 @@ export default function Team() {
           </motion.div>
         )}
 
-        {/* ── TAB 3: CURRENT RESEARCH INTERNS ── */}
+        {/* ── TAB 3: CURRENT RESEARCH INTERNS (3-4 col grid of white cards) ── */}
         {activeTab === 'interns' && (
           <motion.div
             key="interns"
-            initial={{ opacity: 0, y: 15 }}
+            initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -15 }}
-            transition={{ duration: 0.3 }}
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+            exit={{ opacity: 0, y: -12 }}
+            transition={{ duration: 0.25 }}
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
           >
             {currentInterns.map(intern => (
               <div
                 key={intern.id}
-                className="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-[var(--bg-card)] p-6 shadow-sm hover:border-rose-500/50 hover:shadow-lg transition-all group flex flex-col justify-between"
+                className="craftly-card p-6 flex flex-col justify-between group"
               >
-                <div className="flex items-start gap-4 mb-4">
-                  <div className="w-16 h-16 rounded-xl overflow-hidden shrink-0 bg-zinc-900 border border-zinc-200 dark:border-zinc-700">
-                    <img
-                      src={intern.image}
-                      alt={intern.name}
-                      className="w-full h-full object-cover filter grayscale contrast-[1.05] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-300"
-                    />
-                  </div>
-                  <div>
-                    <h3 className="text-base font-bold font-head text-[var(--fg)] group-hover:text-rose-500 transition-colors">
-                      {intern.name}
-                    </h3>
-                    <span className="text-[11px] font-mono text-rose-500 font-semibold uppercase">
-                      {intern.role}
-                    </span>
-                    <div className="text-[11px] font-mono text-[var(--fg-sub)] mt-1 truncate max-w-[200px]">
-                      {intern.email}
+                <div>
+                  <div className="flex items-start gap-4 mb-4">
+                    <div className="w-14 h-14 rounded-2xl overflow-hidden shrink-0 bg-[#EDEDF0] border border-[var(--line)]">
+                      <img
+                        src={intern.image}
+                        alt={intern.name}
+                        className="w-full h-full object-cover portrait-grayscale"
+                      />
+                    </div>
+                    <div className="min-w-0">
+                      <h3 className="text-[16px] font-medium font-head text-[var(--ink)] truncate">
+                        {intern.name}
+                      </h3>
+                      <span className="text-[11px] font-mono text-[var(--ink-3)] uppercase block">
+                        {intern.role}
+                      </span>
+                      <div className="text-[11px] text-[var(--ink-2)] mt-0.5 truncate">
+                        {intern.email}
+                      </div>
                     </div>
                   </div>
                 </div>
 
-                <div className="pt-3 border-t border-zinc-100 dark:border-zinc-800 flex items-center justify-between text-xs font-mono">
+                <div className="pt-3 border-t border-[var(--line)] flex items-center justify-between text-xs font-mono">
                   <a
                     href={`mailto:${intern.email}`}
-                    className="text-[var(--fg-sub)] hover:text-rose-500 flex items-center gap-1.5 transition-colors"
+                    className="text-[var(--ink-2)] hover:text-[var(--ink)] flex items-center gap-1.5 transition-colors"
                   >
-                    <Mail className="w-3.5 h-3.5" /> Email
+                    <Mail className="w-3 h-3" /> Email
                   </a>
                   {intern.linkedin && (
                     <a
                       href={intern.linkedin}
                       target="_blank"
                       rel="noreferrer"
-                      className="text-[var(--fg-sub)] hover:text-blue-500 flex items-center gap-1.5 transition-colors"
+                      className="text-[var(--ink-2)] hover:text-[#0B0B0F] flex items-center gap-1.5 transition-colors"
                     >
-                      <Linkedin className="w-3.5 h-3.5" /> LinkedIn
+                      <Linkedin className="w-3 h-3" /> LinkedIn
                     </a>
                   )}
                 </div>
@@ -386,27 +400,27 @@ export default function Team() {
           </motion.div>
         )}
 
-        {/* ── TAB 4: PREVIOUS RESEARCH INTERNS (ALUMNI DIRECTORY) ── */}
+        {/* ── TAB 4: PREVIOUS INTERNS (Clean table with hairline rows, no zebra striping) ── */}
         {activeTab === 'previous' && (
           <motion.div
             key="previous"
-            initial={{ opacity: 0, y: 15 }}
+            initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -15 }}
-            transition={{ duration: 0.3 }}
+            exit={{ opacity: 0, y: -12 }}
+            transition={{ duration: 0.25 }}
             className="space-y-6"
           >
-            <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-[var(--bg-card)] overflow-hidden shadow-sm">
-              <div className="p-6 border-b border-zinc-200 dark:border-zinc-800 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div className="craftly-card overflow-hidden">
+              <div className="p-6 border-b border-[var(--line)] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div>
-                  <h3 className="text-xl font-bold font-head text-[var(--fg)]">
+                  <h3 className="text-xl font-medium font-head text-[var(--ink)]">
                     Previous Research Interns & Alumni
                   </h3>
-                  <p className="text-xs sm:text-sm text-[var(--fg-sub)] mt-0.5">
+                  <p className="text-xs sm:text-sm text-[var(--ink-2)] mt-0.5 font-normal">
                     Scholars who completed applied AI and machine learning research tenures at AIR Lab.
                   </p>
                 </div>
-                <span className="px-3 py-1 rounded-full text-xs font-mono font-bold bg-zinc-100 dark:bg-zinc-800 text-[var(--fg)] border border-zinc-200 dark:border-zinc-700 shrink-0">
+                <span className="px-3 py-1 rounded-full text-xs font-mono font-medium bg-[#F4F4F6] text-[var(--ink)] border border-[var(--line)] shrink-0">
                   {previousInternsData.length} Alumni Recorded
                 </span>
               </div>
@@ -414,24 +428,24 @@ export default function Team() {
               <div className="overflow-x-auto">
                 <table className="w-full text-left border-collapse text-xs sm:text-sm font-sans">
                   <thead>
-                    <tr className="border-b border-zinc-200 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-900/50 font-mono text-[11px] uppercase tracking-wider text-[var(--fg-sub)]">
-                      <th className="py-3.5 px-6">Name</th>
-                      <th className="py-3.5 px-6">Affiliation</th>
-                      <th className="py-3.5 px-6">NED Student Email</th>
-                      <th className="py-3.5 px-6 text-right">LinkedIn Profile</th>
+                    <tr className="border-b border-[var(--line)] font-mono text-[11px] uppercase tracking-wider text-[var(--ink-3)]">
+                      <th className="py-3.5 px-6 font-medium">Name</th>
+                      <th className="py-3.5 px-6 font-medium">Affiliation</th>
+                      <th className="py-3.5 px-6 font-medium">NED Student Email</th>
+                      <th className="py-3.5 px-6 text-right font-medium">LinkedIn Profile</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-zinc-100 dark:divide-zinc-800">
+                  <tbody className="divide-y divide-[var(--line)]">
                     {previousInternsData.map(p => (
-                      <tr key={p.id} className="hover:bg-zinc-50/80 dark:hover:bg-zinc-800/40 transition-colors">
-                        <td className="py-3.5 px-6 font-semibold text-[var(--fg)]">
+                      <tr key={p.id} className="hover:bg-[#F9F9FB] transition-colors">
+                        <td className="py-3.5 px-6 font-medium text-[var(--ink)]">
                           {p.name}
                         </td>
-                        <td className="py-3.5 px-6 text-[var(--fg-sub)] font-mono text-xs">
+                        <td className="py-3.5 px-6 text-[var(--ink-2)] font-mono text-xs">
                           {p.tenure} • {p.department}
                         </td>
-                        <td className="py-3.5 px-6 font-mono text-xs text-[var(--fg-sub)]">
-                          <a href={`mailto:${p.email}`} className="hover:text-rose-500 hover:underline">
+                        <td className="py-3.5 px-6 font-mono text-xs text-[var(--ink-2)]">
+                          <a href={`mailto:${p.email}`} className="hover:text-[var(--ink)] hover:underline">
                             {p.email}
                           </a>
                         </td>
@@ -440,9 +454,9 @@ export default function Team() {
                             href={p.linkedin}
                             target="_blank"
                             rel="noreferrer"
-                            className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-400 hover:bg-blue-500 hover:text-white transition-all text-xs font-mono"
+                            className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#F4F4F6] text-[var(--ink)] hover:bg-[#0B0B0F] hover:text-white transition-all text-xs font-mono"
                           >
-                            <Linkedin className="w-3.5 h-3.5" />
+                            <Linkedin className="w-3 h-3" />
                             <span>LinkedIn Profile</span>
                           </a>
                         </td>
@@ -455,34 +469,31 @@ export default function Team() {
           </motion.div>
         )}
 
-        {/* ── TAB 5: POSTGRADUATE & TAB 6: UNDERGRADUATE (PENDING STATES WITH APPLICATION CTA) ── */}
+        {/* ── TAB 5 & TAB 6: POSTGRADUATE / UNDERGRADUATE ── */}
         {(activeTab === 'postgrad' || activeTab === 'undergrad') && (
           <motion.div
             key="pending"
-            initial={{ opacity: 0, y: 15 }}
+            initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -15 }}
-            transition={{ duration: 0.3 }}
-            className="text-center py-16 px-6 rounded-3xl border border-zinc-200 dark:border-zinc-800 bg-[var(--bg-card)] max-w-2xl mx-auto shadow-sm"
+            exit={{ opacity: 0, y: -12 }}
+            transition={{ duration: 0.25 }}
+            className="craftly-card p-12 text-center max-w-xl mx-auto"
           >
-            <div className="w-16 h-16 rounded-full bg-rose-500/10 text-rose-500 mx-auto flex items-center justify-center mb-6">
-              <GraduationCap className="w-8 h-8" />
+            <div className="w-14 h-14 rounded-full bg-[#F4F4F6] border border-[var(--line)] text-[var(--ink)] mx-auto flex items-center justify-center mb-6">
+              <GraduationCap className="w-7 h-7" />
             </div>
-            <h3 className="text-2xl font-bold font-head text-[var(--fg)] mb-2">
+            <h3 className="text-2xl font-medium font-head text-[var(--ink)] mb-2">
               {activeTab === 'postgrad' ? 'Postgraduate MS & PhD Scholars' : 'Undergraduate Research Scholars'}
             </h3>
-            <p className="text-sm text-[var(--fg-sub)] max-w-md mx-auto mb-8 font-sans">
+            <p className="text-[14.5px] text-[var(--ink-2)] max-w-md mx-auto mb-8 font-normal leading-relaxed">
               Nominations and batch appointments for {activeTab === 'postgrad' ? 'MS & PhD thesis scholars' : 'undergraduate capstone fellowships'} are currently in progress. Apply now to secure research placement for the upcoming session.
             </p>
-            <div className="flex items-center justify-center gap-3">
-              <button
-                onClick={() => setApplyModalOpen(true)}
-                className="btn-craftly-primary px-8 py-3 rounded-full text-xs font-bold shadow-md cursor-pointer inline-flex items-center gap-2"
-              >
-                <span>Apply for Research Placement</span>
-                <span>→</span>
-              </button>
-            </div>
+            <button
+              onClick={() => setApplyModalOpen(true)}
+              className="h-11 px-6 rounded-full bg-[#0B0B0F] text-white text-xs font-medium cursor-pointer shadow-sm hover:bg-[#202028] transition-all"
+            >
+              Apply for Research Placement →
+            </button>
           </motion.div>
         )}
       </AnimatePresence>
