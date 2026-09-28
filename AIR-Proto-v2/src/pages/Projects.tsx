@@ -5,7 +5,7 @@ import TiltCard from '../components/TiltCard'
 import projectsData from '../data/projects.json'
 import { useScrollCraft } from '../hooks/useScrollCraft'
 
-type Category = 'All' | 'Funded' | 'R&D' | 'Undergraduate'
+type Category = 'All' | 'Funded' | 'R&D' | 'Undergraduate' | 'Postgraduate'
 
 export default function Projects() {
   const [active, setActive] = useState<Category>('All')
@@ -44,7 +44,7 @@ export default function Projects() {
     return matchesCat && matchesSearch
   })
 
-  const categories: Category[] = ['All', 'Funded', 'R&D', 'Undergraduate']
+  const categories: Category[] = ['All', 'Funded', 'R&D', 'Undergraduate', 'Postgraduate']
 
   return (
     <div className="min-h-screen pt-28 pb-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto relative">

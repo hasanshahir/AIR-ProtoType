@@ -1,14 +1,16 @@
 import { useState } from 'react'
 import { Link, NavLink, Outlet } from 'react-router-dom'
 import { motion, useScroll, useSpring, AnimatePresence } from 'framer-motion'
-import { Sun, Moon, Menu, X, Terminal, MapPin, Mail, Award, BookOpen, Users, FolderGit2, Camera, Handshake, UserCheck, ExternalLink } from 'lucide-react'
+import { Sun, Moon, Menu, X, Terminal, MapPin, Mail, Award, BookOpen, Users, FolderGit2, Camera, Handshake, UserCheck, ExternalLink, Sparkles } from 'lucide-react'
 import { useTheme } from './ThemeProvider'
 import ThemeSwitcher from './ThemeSwitcher'
 import AirLabLogo from './AirLabLogo'
+import StudentApplicationModal from './StudentApplicationModal'
 
 export default function Layout() {
   const { isDark, toggleDark } = useTheme()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [applyModalOpen, setApplyModalOpen] = useState(false)
   const { scrollYProgress } = useScroll()
   const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 })
 
@@ -43,20 +45,36 @@ export default function Layout() {
         style={{ scaleX }}
       />
 
-      {/* Top Banner (Clean SaaS Announcement with Official Portal Link) */}
-      <div className="w-full bg-[var(--bg-muted)] border-b border-[var(--border)] text-xs font-medium py-2 px-4 text-center flex items-center justify-center gap-2 z-50 text-[var(--fg-sub)]">
-        <span className="px-2 py-0.5 rounded-full text-[10px] bg-black/5 dark:bg-white/10 font-bold uppercase tracking-wider text-[var(--fg)]">
-          NEDUET CSIT
-        </span>
-        <span>Artificial Intelligence Research Lab • Department of Computer Science & IT</span>
-        <a
-          href="https://cct.neduet.edu.pk/AIR"
-          target="_blank"
-          rel="noreferrer"
-          className="inline-flex items-center gap-1 font-bold text-[var(--fg)] hover:underline ml-1"
-        >
-          Official Portal <ExternalLink className="w-3 h-3" />
-        </a>
+      {/* Student Application Vacancy Top Ribbon (Official Announcements & Immediate Apply) */}
+      <div className="w-full bg-[var(--bg-muted)] border-b border-[var(--border)] text-xs font-medium py-2 px-4 z-50 text-[var(--fg)]">
+        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2 text-center sm:text-left">
+          <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2">
+            <span className="w-2 h-2 rounded-full bg-rose-500 animate-pulse shrink-0" />
+            <span className="px-2 py-0.5 rounded-full text-[10px] bg-rose-500/10 text-rose-500 border border-rose-500/20 font-bold uppercase tracking-wider shrink-0">
+              Applications Open
+            </span>
+            <span className="text-xs text-[var(--fg-sub)] font-medium">
+              Student Research Internship & Fellowship Vacancies Open for Fall 2026 — NEDUET CSIT
+            </span>
+          </div>
+          <div className="flex items-center gap-2 shrink-0">
+            <button
+              onClick={() => setApplyModalOpen(true)}
+              className="btn-craftly-primary px-3.5 py-1 rounded-full text-[11px] font-bold shadow-xs cursor-pointer inline-flex items-center gap-1.5"
+            >
+              <span>Apply Now</span>
+              <span className="text-[10px]">→</span>
+            </button>
+            <a
+              href="https://cct.neduet.edu.pk/AIR"
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-1 text-[11px] font-medium text-[var(--fg-sub)] hover:text-[var(--fg)] hover:underline ml-1"
+            >
+              NED Portal <ExternalLink className="w-3 h-3" />
+            </a>
+          </div>
+        </div>
       </div>
 
       {/* Sticky Modern Navbar */}
@@ -127,12 +145,13 @@ export default function Layout() {
             </button>
 
             {/* Primary Pill Button (High contrast in Light & Dark mode) */}
-            <Link
-              to="/interns"
-              className="btn-craftly-primary hidden sm:inline-flex items-center justify-center px-5 py-2 rounded-full font-medium text-xs cursor-pointer"
+            <button
+              onClick={() => setApplyModalOpen(true)}
+              className="btn-craftly-primary hidden sm:inline-flex items-center justify-center gap-1.5 px-5 py-2 rounded-full font-bold text-xs cursor-pointer shadow-xs"
             >
-              Join the Lab
-            </Link>
+              <Sparkles className="w-3.5 h-3.5" />
+              <span>Apply Now</span>
+            </button>
 
             {/* Mobile Menu Toggle Button */}
             <button
@@ -265,6 +284,12 @@ export default function Layout() {
           </div>
         </div>
       </footer>
+
+      {/* Student Application Modal (Triggered by Top Ribbon & Navbar Apply Now) */}
+      <StudentApplicationModal
+        isOpen={applyModalOpen}
+        onClose={() => setApplyModalOpen(false)}
+      />
     </div>
   )
 }
