@@ -5,7 +5,8 @@ import Marquee from 'react-fast-marquee'
 import CountUpModule from 'react-countup'
 import Tilt from 'react-parallax-tilt'
 import { 
-  ArrowRight, 
+  ArrowRight,
+  ArrowUpRight,
   Brain, 
   Zap, 
   Code, 
@@ -23,6 +24,7 @@ import {
   Compass
 } from 'lucide-react'
 import TechParticles from '../components/TechParticles'
+import FloatingTechObjects from '../components/FloatingTechObjects'
 import { useTheme } from '../components/ThemeProvider'
 import { useScrollCraft } from '../hooks/useScrollCraft'
 import performersData from '../data/performers.json'
@@ -125,6 +127,9 @@ export default function Home() {
   return (
     <div className="relative w-full flex flex-col items-center overflow-hidden bg-[var(--bg)] text-[var(--fg)] transition-colors duration-300 font-sans">
       
+      {/* ── BACKGROUND FLOATING TECH OBJECTS (Ali's Parallax Floating Objects) ── */}
+      <FloatingTechObjects />
+
       {/* ── BACKGROUND JAVASCRIPT PARTICLES (Hero Viewport Constellation Mesh — Ultra Visible) ── */}
       <div className="absolute top-0 left-0 right-0 h-[920px] z-[5] pointer-events-auto overflow-hidden">
         <TechParticles id="hero-tech-particles" particleCount={115} interactive={true} />
@@ -133,17 +138,17 @@ export default function Home() {
       {/* ── HERO SECTION (Strictly Left-Aligned, Slender Typography, Exact Aurora Blurs) ── */}
       <section className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 sm:pt-24 pb-20 z-10 relative">
         
-        {/* ── EXACT CRAFTLY DUAL-LAYER AURORA MESH BLURS (Directly Behind Hero Content) ── */}
+        {/* ── REDUCED OPACITY CRAFTLY DUAL-LAYER AURORA MESH BLURS ── */}
         <div className="absolute top-24 sm:top-32 left-1/2 -translate-x-1/2 w-[130%] max-w-6xl h-[380px] pointer-events-none -z-10 overflow-visible">
-          {/* Layer 1: Wide horizontal rainbow sunset ribbon */}
-          <div className="w-full h-full rounded-full bg-aurora-ribbon opacity-95 dark:opacity-50" />
-          {/* Layer 2: Radiant hot fuchsia and sunset core */}
+          {/* Layer 1: Wide horizontal rainbow sunset ribbon (Soft & Delicate) */}
+          <div className="w-full h-full rounded-full bg-aurora-ribbon opacity-35 dark:opacity-20" />
+          {/* Layer 2: Ethereal radiant warm core */}
           <div 
-            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4/5 h-[240px] rounded-full opacity-90 dark:opacity-45"
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4/5 h-[240px] rounded-full opacity-25 dark:opacity-15"
             style={{
-              background: 'radial-gradient(ellipse at center, rgba(244, 63, 94, 0.98) 0%, rgba(251, 146, 60, 0.90) 45%, rgba(251, 191, 36, 0.70) 75%, transparent 100%)',
-              filter: 'blur(70px)',
-              WebkitFilter: 'blur(70px)'
+              background: 'radial-gradient(ellipse at center, rgba(244, 63, 94, 0.35) 0%, rgba(251, 146, 60, 0.25) 45%, rgba(251, 191, 36, 0.15) 75%, transparent 100%)',
+              filter: 'blur(80px)',
+              WebkitFilter: 'blur(80px)'
             }}
           />
         </div>
@@ -469,22 +474,28 @@ export default function Home() {
           </div>
         </div>
 
-        {/* ── 6 BENTO CARDS (Ali's Core Research Areas with Mockup's Clean Layout) ── */}
+        {/* ── 6 BENTO CARDS (Ali's Core Research Areas with Mockup's Clean Layout & Ali's Hover Animations) ── */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-24">
           
           {/* Card 1: Foundational Models */}
-          <Tilt tiltMaxAngleX={5} tiltMaxAngleY={5} glareEnable={true} glareMaxOpacity={0.05} className="rounded-2xl">
-            <div className="h-full bg-[var(--bg-card)] border border-zinc-200 dark:border-zinc-800 rounded-2xl p-7 flex flex-col justify-between hover:border-zinc-400 dark:hover:border-zinc-600 hover:shadow-lg transition-all group">
+          <Tilt tiltMaxAngleX={7} tiltMaxAngleY={7} scale={1.025} transitionSpeed={2000} className="rounded-2xl h-full">
+            <div className="h-full bg-[var(--bg-card)] border border-zinc-200 dark:border-zinc-800 rounded-2xl p-7 flex flex-col justify-between relative overflow-hidden group hover:border-rose-500/50 hover:shadow-[0_8px_30px_rgb(0,0,0,0.12)] dark:hover:shadow-[0_8px_30px_rgba(244,63,94,0.08)] transition-all duration-300 cursor-pointer">
+              {/* Ali's Exact Corner Volumetric Glow Bloom */}
+              <div className="absolute top-0 right-0 w-64 h-64 bg-rose-500/5 rounded-full blur-3xl group-hover:bg-rose-500/20 transition-colors duration-500 pointer-events-none" />
+              
               <div>
                 <div className="flex items-center justify-between mb-6">
-                  <div className="w-10 h-10 rounded-xl bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center text-zinc-900 dark:text-white">
-                    <Brain className="w-5 h-5" />
+                  <div className="w-10 h-10 rounded-xl bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center text-zinc-900 dark:text-white group-hover:bg-rose-500/10 dark:group-hover:bg-rose-500/20 group-hover:text-rose-500 transition-all duration-300">
+                    <Brain className="w-5 h-5 group-hover:scale-110 transition-transform duration-300" />
                   </div>
-                  <span className="text-[10px] font-mono font-normal text-zinc-600 dark:text-zinc-400 bg-zinc-100 dark:bg-zinc-800 px-2 py-0.5 rounded border border-zinc-200 dark:border-zinc-700">
-                    10x Productivity
-                  </span>
+                  <div className="flex items-center gap-2">
+                    <span className="text-[10px] font-mono font-normal text-zinc-600 dark:text-zinc-400 bg-zinc-100 dark:bg-zinc-800 px-2 py-0.5 rounded border border-zinc-200 dark:border-zinc-700 group-hover:border-rose-500/30 transition-colors">
+                      10x Productivity
+                    </span>
+                    <ArrowUpRight className="w-4 h-4 text-zinc-400 opacity-0 -translate-x-1 translate-y-1 group-hover:opacity-100 group-hover:translate-x-0 group-hover:translate-y-0 group-hover:text-rose-500 transition-all duration-300" />
+                  </div>
                 </div>
-                <h3 className="text-xl font-medium text-[var(--fg)] font-head mb-2">
+                <h3 className="text-xl font-medium text-[var(--fg)] font-head mb-2 group-hover:text-rose-500 transition-colors duration-300">
                   Foundational Models
                 </h3>
                 <p className="text-xs sm:text-sm text-[var(--fg-sub)] font-normal leading-relaxed font-sans">
@@ -495,18 +506,24 @@ export default function Home() {
           </Tilt>
 
           {/* Card 2: Edge AI Perception */}
-          <Tilt tiltMaxAngleX={5} tiltMaxAngleY={5} glareEnable={true} glareMaxOpacity={0.05} className="rounded-2xl">
-            <div className="h-full bg-[var(--bg-card)] border border-zinc-200 dark:border-zinc-800 rounded-2xl p-7 flex flex-col justify-between hover:border-zinc-400 dark:hover:border-zinc-600 hover:shadow-lg transition-all group">
+          <Tilt tiltMaxAngleX={7} tiltMaxAngleY={7} scale={1.025} transitionSpeed={2000} className="rounded-2xl h-full">
+            <div className="h-full bg-[var(--bg-card)] border border-zinc-200 dark:border-zinc-800 rounded-2xl p-7 flex flex-col justify-between relative overflow-hidden group hover:border-amber-500/50 hover:shadow-[0_8px_30px_rgb(0,0,0,0.12)] dark:hover:shadow-[0_8px_30px_rgba(245,158,11,0.08)] transition-all duration-300 cursor-pointer">
+              {/* Ali's Exact Corner Volumetric Glow Bloom */}
+              <div className="absolute top-0 right-0 w-64 h-64 bg-amber-500/5 rounded-full blur-3xl group-hover:bg-amber-500/20 transition-colors duration-500 pointer-events-none" />
+              
               <div>
                 <div className="flex items-center justify-between mb-6">
-                  <div className="w-10 h-10 rounded-xl bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center text-zinc-900 dark:text-white">
-                    <Zap className="w-5 h-5" />
+                  <div className="w-10 h-10 rounded-xl bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center text-zinc-900 dark:text-white group-hover:bg-amber-500/10 dark:group-hover:bg-amber-500/20 group-hover:text-amber-500 transition-all duration-300">
+                    <Zap className="w-5 h-5 group-hover:scale-110 transition-transform duration-300" />
                   </div>
-                  <span className="text-[10px] font-mono font-normal text-zinc-600 dark:text-zinc-400 bg-zinc-100 dark:bg-zinc-800 px-2 py-0.5 rounded border border-zinc-200 dark:border-zinc-700">
-                    5W Ultra-low Power
-                  </span>
+                  <div className="flex items-center gap-2">
+                    <span className="text-[10px] font-mono font-normal text-zinc-600 dark:text-zinc-400 bg-zinc-100 dark:bg-zinc-800 px-2 py-0.5 rounded border border-zinc-200 dark:border-zinc-700 group-hover:border-amber-500/30 transition-colors">
+                      5W Ultra-low Power
+                    </span>
+                    <ArrowUpRight className="w-4 h-4 text-zinc-400 opacity-0 -translate-x-1 translate-y-1 group-hover:opacity-100 group-hover:translate-x-0 group-hover:translate-y-0 group-hover:text-amber-500 transition-all duration-300" />
+                  </div>
                 </div>
-                <h3 className="text-xl font-medium text-[var(--fg)] font-head mb-2">
+                <h3 className="text-xl font-medium text-[var(--fg)] font-head mb-2 group-hover:text-amber-500 transition-colors duration-300">
                   Edge AI Perception
                 </h3>
                 <p className="text-xs sm:text-sm text-[var(--fg-sub)] font-normal leading-relaxed font-sans">
@@ -517,18 +534,24 @@ export default function Home() {
           </Tilt>
 
           {/* Card 3: Autonomous Robotics */}
-          <Tilt tiltMaxAngleX={5} tiltMaxAngleY={5} glareEnable={true} glareMaxOpacity={0.05} className="rounded-2xl">
-            <div className="h-full bg-[var(--bg-card)] border border-zinc-200 dark:border-zinc-800 rounded-2xl p-7 flex flex-col justify-between hover:border-zinc-400 dark:hover:border-zinc-600 hover:shadow-lg transition-all group">
+          <Tilt tiltMaxAngleX={7} tiltMaxAngleY={7} scale={1.025} transitionSpeed={2000} className="rounded-2xl h-full">
+            <div className="h-full bg-[var(--bg-card)] border border-zinc-200 dark:border-zinc-800 rounded-2xl p-7 flex flex-col justify-between relative overflow-hidden group hover:border-emerald-500/50 hover:shadow-[0_8px_30px_rgb(0,0,0,0.12)] dark:hover:shadow-[0_8px_30px_rgba(16,185,129,0.08)] transition-all duration-300 cursor-pointer">
+              {/* Ali's Exact Corner Volumetric Glow Bloom */}
+              <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-500/5 rounded-full blur-3xl group-hover:bg-emerald-500/20 transition-colors duration-500 pointer-events-none" />
+              
               <div>
                 <div className="flex items-center justify-between mb-6">
-                  <div className="w-10 h-10 rounded-xl bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center text-zinc-900 dark:text-white">
-                    <Cpu className="w-5 h-5" />
+                  <div className="w-10 h-10 rounded-xl bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center text-zinc-900 dark:text-white group-hover:bg-emerald-500/10 dark:group-hover:bg-emerald-500/20 group-hover:text-emerald-500 transition-all duration-300">
+                    <Cpu className="w-5 h-5 group-hover:scale-110 transition-transform duration-300" />
                   </div>
-                  <span className="text-[10px] font-mono font-normal text-zinc-600 dark:text-zinc-400 bg-zinc-100 dark:bg-zinc-800 px-2 py-0.5 rounded border border-zinc-200 dark:border-zinc-700">
-                    24/7 Coverage
-                  </span>
+                  <div className="flex items-center gap-2">
+                    <span className="text-[10px] font-mono font-normal text-zinc-600 dark:text-zinc-400 bg-zinc-100 dark:bg-zinc-800 px-2 py-0.5 rounded border border-zinc-200 dark:border-zinc-700 group-hover:border-emerald-500/30 transition-colors">
+                      24/7 Coverage
+                    </span>
+                    <ArrowUpRight className="w-4 h-4 text-zinc-400 opacity-0 -translate-x-1 translate-y-1 group-hover:opacity-100 group-hover:translate-x-0 group-hover:translate-y-0 group-hover:text-emerald-500 transition-all duration-300" />
+                  </div>
                 </div>
-                <h3 className="text-xl font-medium text-[var(--fg)] font-head mb-2">
+                <h3 className="text-xl font-medium text-[var(--fg)] font-head mb-2 group-hover:text-emerald-500 transition-colors duration-300">
                   Autonomous Robotics
                 </h3>
                 <p className="text-xs sm:text-sm text-[var(--fg-sub)] font-normal leading-relaxed font-sans">
@@ -539,18 +562,24 @@ export default function Home() {
           </Tilt>
 
           {/* Card 4: Open Source Tooling */}
-          <Tilt tiltMaxAngleX={5} tiltMaxAngleY={5} glareEnable={true} glareMaxOpacity={0.05} className="rounded-2xl">
-            <div className="h-full bg-[var(--bg-card)] border border-zinc-200 dark:border-zinc-800 rounded-2xl p-7 flex flex-col justify-between hover:border-zinc-400 dark:hover:border-zinc-600 hover:shadow-lg transition-all group">
+          <Tilt tiltMaxAngleX={7} tiltMaxAngleY={7} scale={1.025} transitionSpeed={2000} className="rounded-2xl h-full">
+            <div className="h-full bg-[var(--bg-card)] border border-zinc-200 dark:border-zinc-800 rounded-2xl p-7 flex flex-col justify-between relative overflow-hidden group hover:border-blue-500/50 hover:shadow-[0_8px_30px_rgb(0,0,0,0.12)] dark:hover:shadow-[0_8px_30px_rgba(59,130,246,0.08)] transition-all duration-300 cursor-pointer">
+              {/* Ali's Exact Corner Volumetric Glow Bloom */}
+              <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/5 rounded-full blur-3xl group-hover:bg-blue-500/20 transition-colors duration-500 pointer-events-none" />
+              
               <div>
                 <div className="flex items-center justify-between mb-6">
-                  <div className="w-10 h-10 rounded-xl bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center text-zinc-900 dark:text-white">
-                    <Code className="w-5 h-5" />
+                  <div className="w-10 h-10 rounded-xl bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center text-zinc-900 dark:text-white group-hover:bg-blue-500/10 dark:group-hover:bg-blue-500/20 group-hover:text-blue-500 transition-all duration-300">
+                    <Code className="w-5 h-5 group-hover:scale-110 transition-transform duration-300" />
                   </div>
-                  <span className="text-[10px] font-mono font-normal text-zinc-600 dark:text-zinc-400 bg-zinc-100 dark:bg-zinc-800 px-2 py-0.5 rounded border border-zinc-200 dark:border-zinc-700">
-                    Community Validated
-                  </span>
+                  <div className="flex items-center gap-2">
+                    <span className="text-[10px] font-mono font-normal text-zinc-600 dark:text-zinc-400 bg-zinc-100 dark:bg-zinc-800 px-2 py-0.5 rounded border border-zinc-200 dark:border-zinc-700 group-hover:border-blue-500/30 transition-colors">
+                      Community Validated
+                    </span>
+                    <ArrowUpRight className="w-4 h-4 text-zinc-400 opacity-0 -translate-x-1 translate-y-1 group-hover:opacity-100 group-hover:translate-x-0 group-hover:translate-y-0 group-hover:text-blue-500 transition-all duration-300" />
+                  </div>
                 </div>
-                <h3 className="text-xl font-medium text-[var(--fg)] font-head mb-2">
+                <h3 className="text-xl font-medium text-[var(--fg)] font-head mb-2 group-hover:text-blue-500 transition-colors duration-300">
                   Open Source Tooling
                 </h3>
                 <p className="text-xs sm:text-sm text-[var(--fg-sub)] font-normal leading-relaxed font-sans">
@@ -561,18 +590,24 @@ export default function Home() {
           </Tilt>
 
           {/* Card 5: Data Curation & Alignment */}
-          <Tilt tiltMaxAngleX={5} tiltMaxAngleY={5} glareEnable={true} glareMaxOpacity={0.05} className="rounded-2xl">
-            <div className="h-full bg-[var(--bg-card)] border border-zinc-200 dark:border-zinc-800 rounded-2xl p-7 flex flex-col justify-between hover:border-zinc-400 dark:hover:border-zinc-600 hover:shadow-lg transition-all group">
+          <Tilt tiltMaxAngleX={7} tiltMaxAngleY={7} scale={1.025} transitionSpeed={2000} className="rounded-2xl h-full">
+            <div className="h-full bg-[var(--bg-card)] border border-zinc-200 dark:border-zinc-800 rounded-2xl p-7 flex flex-col justify-between relative overflow-hidden group hover:border-purple-500/50 hover:shadow-[0_8px_30px_rgb(0,0,0,0.12)] dark:hover:shadow-[0_8px_30px_rgba(168,85,247,0.08)] transition-all duration-300 cursor-pointer">
+              {/* Ali's Exact Corner Volumetric Glow Bloom */}
+              <div className="absolute top-0 right-0 w-64 h-64 bg-purple-500/5 rounded-full blur-3xl group-hover:bg-purple-500/20 transition-colors duration-500 pointer-events-none" />
+              
               <div>
                 <div className="flex items-center justify-between mb-6">
-                  <div className="w-10 h-10 rounded-xl bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center text-zinc-900 dark:text-white">
-                    <Database className="w-5 h-5" />
+                  <div className="w-10 h-10 rounded-xl bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center text-zinc-900 dark:text-white group-hover:bg-purple-500/10 dark:group-hover:bg-purple-500/20 group-hover:text-purple-500 transition-all duration-300">
+                    <Database className="w-5 h-5 group-hover:scale-110 transition-transform duration-300" />
                   </div>
-                  <span className="text-[10px] font-mono font-normal text-zinc-600 dark:text-zinc-400 bg-zinc-100 dark:bg-zinc-800 px-2 py-0.5 rounded border border-zinc-200 dark:border-zinc-700">
-                    Zero Handset Friction
-                  </span>
+                  <div className="flex items-center gap-2">
+                    <span className="text-[10px] font-mono font-normal text-zinc-600 dark:text-zinc-400 bg-zinc-100 dark:bg-zinc-800 px-2 py-0.5 rounded border border-zinc-200 dark:border-zinc-700 group-hover:border-purple-500/30 transition-colors">
+                      Zero Handset Friction
+                    </span>
+                    <ArrowUpRight className="w-4 h-4 text-zinc-400 opacity-0 -translate-x-1 translate-y-1 group-hover:opacity-100 group-hover:translate-x-0 group-hover:translate-y-0 group-hover:text-purple-500 transition-all duration-300" />
+                  </div>
                 </div>
-                <h3 className="text-xl font-medium text-[var(--fg)] font-head mb-2">
+                <h3 className="text-xl font-medium text-[var(--fg)] font-head mb-2 group-hover:text-purple-500 transition-colors duration-300">
                   Data Curation & Alignment
                 </h3>
                 <p className="text-xs sm:text-sm text-[var(--fg-sub)] font-normal leading-relaxed font-sans">
@@ -583,18 +618,24 @@ export default function Home() {
           </Tilt>
 
           {/* Card 6: AI Safety & Alignment */}
-          <Tilt tiltMaxAngleX={5} tiltMaxAngleY={5} glareEnable={true} glareMaxOpacity={0.05} className="rounded-2xl">
-            <div className="h-full bg-[var(--bg-card)] border border-zinc-200 dark:border-zinc-800 rounded-2xl p-7 flex flex-col justify-between hover:border-zinc-400 dark:hover:border-zinc-600 hover:shadow-lg transition-all group">
+          <Tilt tiltMaxAngleX={7} tiltMaxAngleY={7} scale={1.025} transitionSpeed={2000} className="rounded-2xl h-full">
+            <div className="h-full bg-[var(--bg-card)] border border-zinc-200 dark:border-zinc-800 rounded-2xl p-7 flex flex-col justify-between relative overflow-hidden group hover:border-cyan-500/50 hover:shadow-[0_8px_30px_rgb(0,0,0,0.12)] dark:hover:shadow-[0_8px_30px_rgba(6,182,212,0.08)] transition-all duration-300 cursor-pointer">
+              {/* Ali's Exact Corner Volumetric Glow Bloom */}
+              <div className="absolute top-0 right-0 w-64 h-64 bg-cyan-500/5 rounded-full blur-3xl group-hover:bg-cyan-500/20 transition-colors duration-500 pointer-events-none" />
+              
               <div>
                 <div className="flex items-center justify-between mb-6">
-                  <div className="w-10 h-10 rounded-xl bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center text-zinc-900 dark:text-white">
-                    <LineChart className="w-5 h-5" />
+                  <div className="w-10 h-10 rounded-xl bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center text-zinc-900 dark:text-white group-hover:bg-cyan-500/10 dark:group-hover:bg-cyan-500/20 group-hover:text-cyan-500 transition-all duration-300">
+                    <LineChart className="w-5 h-5 group-hover:scale-110 transition-transform duration-300" />
                   </div>
-                  <span className="text-[10px] font-mono font-normal text-zinc-600 dark:text-zinc-400 bg-zinc-100 dark:bg-zinc-800 px-2 py-0.5 rounded border border-zinc-200 dark:border-zinc-700">
-                    Always on, never tired
-                  </span>
+                  <div className="flex items-center gap-2">
+                    <span className="text-[10px] font-mono font-normal text-zinc-600 dark:text-zinc-400 bg-zinc-100 dark:bg-zinc-800 px-2 py-0.5 rounded border border-zinc-200 dark:border-zinc-700 group-hover:border-cyan-500/30 transition-colors">
+                      Always on, never tired
+                    </span>
+                    <ArrowUpRight className="w-4 h-4 text-zinc-400 opacity-0 -translate-x-1 translate-y-1 group-hover:opacity-100 group-hover:translate-x-0 group-hover:translate-y-0 group-hover:text-cyan-500 transition-all duration-300" />
+                  </div>
                 </div>
-                <h3 className="text-xl font-medium text-[var(--fg)] font-head mb-2">
+                <h3 className="text-xl font-medium text-[var(--fg)] font-head mb-2 group-hover:text-cyan-500 transition-colors duration-300">
                   AI Safety & Alignment
                 </h3>
                 <p className="text-xs sm:text-sm text-[var(--fg-sub)] font-normal leading-relaxed font-sans">
@@ -833,13 +874,13 @@ export default function Home() {
       <section className="w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-20 z-10 relative">
         <div className="rounded-3xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-10 sm:p-16 shadow-2xl relative overflow-hidden flex flex-col items-center text-center">
           
-          {/* Sweeping Sunset Aurora Mesh on the bottom right of the card (Exact Mockup Detail) */}
+          {/* Sweeping Sunset Aurora Mesh on the bottom right of the card (Reduced Opacity, Delicate Ethereal) */}
           <div 
-            className="absolute -bottom-28 -right-28 w-[540px] h-[420px] rounded-full opacity-85 dark:opacity-50 pointer-events-none"
+            className="absolute -bottom-28 -right-28 w-[540px] h-[420px] rounded-full opacity-35 dark:opacity-20 pointer-events-none"
             style={{ 
-              background: 'radial-gradient(circle at bottom right, rgba(244, 63, 94, 0.95) 0%, rgba(251, 146, 60, 0.90) 35%, rgba(251, 191, 36, 0.80) 65%, rgba(56, 189, 248, 0.50) 100%)',
-              filter: 'blur(75px)',
-              WebkitFilter: 'blur(75px)'
+              background: 'radial-gradient(circle at bottom right, rgba(244, 63, 94, 0.45) 0%, rgba(251, 146, 60, 0.35) 35%, rgba(251, 191, 36, 0.25) 65%, rgba(56, 189, 248, 0.15) 100%)',
+              filter: 'blur(85px)',
+              WebkitFilter: 'blur(85px)'
             }}
           />
 

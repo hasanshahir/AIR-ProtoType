@@ -214,20 +214,20 @@ svg img,
     -webkit-backdrop-filter: blur(16px);
   }
 
-  /* Exact Craftly Aurora Ribbon Blur (Vibrant multi-stop sunset airbrush) */
+  /* Exact Craftly Aurora Ribbon Blur (Soft, delicate multi-stop sunset airbrush) */
   .bg-aurora-ribbon {
     background: linear-gradient(
       90deg,
-      rgba(56, 189, 248, 0.65) 0%,
-      rgba(129, 140, 248, 0.75) 15%,
-      rgba(236, 72, 153, 0.95) 35%,
-      rgba(244, 63, 94, 0.98) 52%,
-      rgba(251, 146, 60, 0.95) 70%,
-      rgba(253, 224, 71, 0.88) 88%,
-      rgba(251, 191, 36, 0.55) 100%
+      rgba(56, 189, 248, 0.16) 0%,
+      rgba(129, 140, 248, 0.20) 15%,
+      rgba(236, 72, 153, 0.24) 35%,
+      rgba(244, 63, 94, 0.28) 52%,
+      rgba(251, 146, 60, 0.24) 70%,
+      rgba(253, 224, 71, 0.18) 88%,
+      rgba(251, 191, 36, 0.10) 100%
     );
-    filter: blur(85px);
-    -webkit-filter: blur(85px);
+    filter: blur(95px);
+    -webkit-filter: blur(95px);
   }
 
   /* Craftly Bulletproof Light/Dark High-Contrast Buttons */
@@ -353,4 +353,11 @@ svg img,
 [data-sc].sc-in {
   opacity: 1 !important;
   transform: none !important;
+}
+
+/* Hide default OS cursor on desktop for custom cursor (from Ali's prototype) */
+@media (pointer: fine) {
+  * {
+    cursor: none !important;
+  }
 }
