@@ -130,109 +130,238 @@ export default function Home() {
         <TechParticles id="ambient-particles" />
       </div>
 
-      {/* ── HERO SECTION (Center-Aligned Exactly Matching Inspiration Mockup) ── */}
-      <section className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 sm:pt-28 pb-20 z-10 relative flex flex-col items-center text-center">
+      {/* ── HERO SECTION (Strictly Left-Aligned, Thinner Fonts, Exact Aurora Blurs) ── */}
+      <section className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 sm:pt-24 pb-20 z-10 relative">
         
-        {/* ── VIBRANT SUNSET AURORA MESH BACKGROUND BLUR (Inspiration UI) ── */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-5xl h-[420px] pointer-events-none -z-10 overflow-visible">
-          <div 
-            className="absolute top-0 left-0 w-[420px] h-[320px] rounded-full blur-[110px] opacity-70 dark:opacity-40 animate-pulse"
-            style={{ backgroundColor: 'var(--glow-1)', animationDuration: '8s' }}
-          />
-          <div 
-            className="absolute top-6 right-0 w-[440px] h-[320px] rounded-full blur-[110px] opacity-70 dark:opacity-40 animate-pulse"
-            style={{ backgroundColor: 'var(--glow-2)', animationDuration: '10s' }}
-          />
-          <div 
-            className="absolute -top-10 left-1/4 w-[540px] h-[280px] rounded-full blur-[120px] opacity-65 dark:opacity-35"
-            style={{ backgroundColor: 'var(--glow-3)' }}
-          />
-          <div 
-            className="absolute top-24 left-1/3 w-[400px] h-[240px] rounded-full blur-[100px] opacity-50 dark:opacity-25"
-            style={{ backgroundColor: 'var(--glow-4)' }}
-          />
+        {/* ── EXACT CRAFTLY AURORA MESH RIBBON BLUR ── */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[95%] max-w-6xl h-[340px] pointer-events-none -z-10 overflow-visible">
+          <div className="w-full h-full rounded-full bg-aurora-ribbon opacity-80 dark:opacity-35 transform -translate-y-4" />
         </div>
 
-        {/* Top Dark Badge: `▸ For Enterprise` */}
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4 }}
-          className="inline-flex items-center gap-2 rounded-md bg-zinc-950 text-white dark:bg-white dark:text-zinc-950 px-3 py-1 text-[11px] font-semibold mb-6 shadow-sm"
-        >
-          <span className="text-[10px]">▸</span>
-          <span>For Enterprise & Research</span>
-        </motion.div>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+          
+          {/* ── LEFT COLUMN: TYPOGRAPHY & VALUE PROPOSITION (Strictly Left-Aligned) ── */}
+          <div className="lg:col-span-7 flex flex-col items-start text-left">
+            
+            {/* Top Dark Badge: `▸ For Enterprise & Research` */}
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4 }}
+              className="inline-flex items-center gap-2 rounded-md bg-zinc-950 text-white dark:bg-white dark:text-zinc-950 px-3 py-1 text-[11px] font-medium mb-6 shadow-sm"
+            >
+              <span className="text-[10px]">▸</span>
+              <span>For Enterprise & Research</span>
+            </motion.div>
 
-        {/* Giant Bold Headline (Center-Aligned) */}
-        <motion.h1
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-          className="text-5xl sm:text-7xl lg:text-8xl font-extrabold text-[var(--fg)] tracking-[-0.04em] leading-[1.08] max-w-5xl mb-6 font-head"
-        >
-          Extend your team with a <br className="hidden sm:block" />
-          full team of experts.
-        </motion.h1>
+            {/* Main Headline (Thinner Font: font-medium / font-semibold 500-600, Strictly Left-Aligned) */}
+            <motion.h1
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className="text-4xl sm:text-6xl lg:text-7xl font-medium text-[var(--fg)] tracking-[-0.03em] leading-[1.12] mb-6 font-head text-left"
+            >
+              Extend your team with a <br className="hidden sm:block" />
+              full team of experts.
+            </motion.h1>
 
-        {/* Vibrant Gradient Subtitle (Center-Aligned — Mockup Style) */}
-        <motion.p
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          className="text-base sm:text-xl font-semibold max-w-3xl mb-8 leading-snug text-transparent bg-clip-text"
-          style={{ backgroundImage: 'var(--accent-gradient)' }}
-        >
-          Specialized AI agents for every role. Ship faster, prototype instantly, close deals smarter. Multiply your workforce without adding headcount.
-        </motion.p>
+            {/* Vibrant Gradient Subtitle (Thinner Font, Exact Colors, Left-Aligned) */}
+            <motion.p
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="text-base sm:text-lg lg:text-xl font-normal max-w-2xl mb-8 leading-snug text-left text-craftly-gradient"
+            >
+              Specialized AI agents for every role. Ship faster, prototype instantly, close deals smarter. Multiply your workforce without adding headcount.
+            </motion.p>
 
-        {/* Dual CTA Buttons (Solid Black + White Bordered) */}
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.3 }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-3.5 mb-8 w-full sm:w-auto"
-        >
-          <Link
-            to="/about"
-            className="w-full sm:w-auto px-7 py-3 rounded-full bg-zinc-950 text-white dark:bg-white dark:text-zinc-950 font-semibold text-xs sm:text-sm flex items-center justify-center gap-2 hover:opacity-90 hover:scale-[1.02] active:scale-[0.98] transition-all shadow-md cursor-pointer"
-          >
-            <span>Get started free</span>
-            <ArrowRight className="w-4 h-4" />
-          </Link>
-          <Link
-            to="/projects"
-            className="w-full sm:w-auto px-7 py-3 rounded-full bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-[var(--fg)] font-semibold text-xs sm:text-sm flex items-center justify-center hover:bg-zinc-50 dark:hover:bg-zinc-800/80 transition-all shadow-xs cursor-pointer"
-          >
-            Book a demo
-          </Link>
-        </motion.div>
+            {/* Dual CTA Buttons (Solid Black + White Bordered, Thinner Font, Left-Aligned) */}
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+              className="flex flex-col sm:flex-row items-center gap-3.5 mb-8 w-full sm:w-auto"
+            >
+              <Link
+                to="/about"
+                className="w-full sm:w-auto px-7 py-3 rounded-full bg-zinc-950 text-white dark:bg-white dark:text-zinc-950 font-medium text-xs sm:text-sm flex items-center justify-center gap-2 hover:opacity-90 hover:scale-[1.02] active:scale-[0.98] transition-all shadow-md cursor-pointer"
+              >
+                <span>Get started free</span>
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+              <Link
+                to="/projects"
+                className="w-full sm:w-auto px-7 py-3 rounded-full bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-[var(--fg)] font-medium text-xs sm:text-sm flex items-center justify-center hover:bg-zinc-50 dark:hover:bg-zinc-800/80 transition-all shadow-xs cursor-pointer"
+              >
+                Book a demo
+              </Link>
+            </motion.div>
 
-        {/* Trust Badges Checkmarks Row (Directly below buttons in Mockup) */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.4 }}
-          className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs text-[var(--fg-sub)] font-medium"
-        >
-          <div className="flex items-center gap-1.5">
-            <Check className="w-3.5 h-3.5 text-zinc-900 dark:text-zinc-100 stroke-[2.5]" />
-            <span>SOC 2- ready processes</span>
+            {/* Trust Badges Checkmarks Row (Left-Aligned Directly Below Buttons) */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.4 }}
+              className="flex flex-wrap items-center gap-x-6 gap-y-2 text-xs text-[var(--fg-sub)] font-normal pt-2"
+            >
+              <div className="flex items-center gap-1.5">
+                <Check className="w-3.5 h-3.5 text-zinc-900 dark:text-zinc-100 stroke-[2]" />
+                <span>SOC 2- ready processes</span>
+              </div>
+              <div className="flex items-center gap-1.5">
+                <Check className="w-3.5 h-3.5 text-zinc-900 dark:text-zinc-100 stroke-[2]" />
+                <span>SSO & SAML + Role-based access</span>
+              </div>
+              <div className="flex items-center gap-1.5">
+                <Check className="w-3.5 h-3.5 text-zinc-900 dark:text-zinc-100 stroke-[2]" />
+                <span>Data residency & privacy controls</span>
+              </div>
+              <div className="flex items-center gap-1.5">
+                <Check className="w-3.5 h-3.5 text-zinc-900 dark:text-zinc-100 stroke-[2]" />
+                <span>Dedicated support & SLAs</span>
+              </div>
+            </motion.div>
+
           </div>
-          <div className="flex items-center gap-1.5">
-            <Check className="w-3.5 h-3.5 text-zinc-900 dark:text-zinc-100 stroke-[2.5]" />
-            <span>SSO & SAML + Role-based access</span>
-          </div>
-          <div className="flex items-center gap-1.5">
-            <Check className="w-3.5 h-3.5 text-zinc-900 dark:text-zinc-100 stroke-[2.5]" />
-            <span>Data residency & privacy controls</span>
-          </div>
-          <div className="flex items-center gap-1.5">
-            <Check className="w-3.5 h-3.5 text-zinc-900 dark:text-zinc-100 stroke-[2.5]" />
-            <span>Dedicated support & SLAs</span>
-          </div>
-        </motion.div>
 
+          {/* ── RIGHT COLUMN: MAC WINDOW / MODEL PREVIEW (From Ali's Architecture) ── */}
+          <div className="lg:col-span-5">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.96, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="w-full rounded-2xl border border-[var(--border)] bg-[var(--bg-card)]/90 backdrop-blur-xl shadow-2xl overflow-hidden group"
+            >
+              {/* Mac Window Controls */}
+              <div className="bg-[var(--bg-muted)] border-b border-[var(--border)] px-4 py-3 flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <div className="w-3 h-3 rounded-full bg-rose-500/80" />
+                  <div className="w-3 h-3 rounded-full bg-amber-500/80" />
+                  <div className="w-3 h-3 rounded-full bg-emerald-500/80" />
+                  <span className="ml-3 text-xs font-mono text-[var(--fg-sub)]">
+                    air-lab/core-model.py
+                  </span>
+                </div>
+                <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-medium border border-emerald-500/20">
+                  16x H100 ONLINE
+                </span>
+              </div>
+
+              {/* Tab Selector */}
+              <div className="flex border-b border-[var(--border)] bg-[var(--bg-card)] text-xs font-mono">
+                <button
+                  onClick={() => setActiveTab('loss')}
+                  className={`flex-1 py-2.5 px-3 text-center border-b-2 font-medium transition-all cursor-pointer ${
+                    activeTab === 'loss'
+                      ? 'border-[var(--fg)] text-[var(--fg)] bg-[var(--bg-muted)]/50'
+                      : 'border-transparent text-[var(--fg-sub)] hover:text-[var(--fg)]'
+                  }`}
+                >
+                  // loss_curve.tsx
+                </button>
+                <button
+                  onClick={() => setActiveTab('training')}
+                  className={`flex-1 py-2.5 px-3 text-center border-b-2 font-medium transition-all cursor-pointer ${
+                    activeTab === 'training'
+                      ? 'border-[var(--fg)] text-[var(--fg)] bg-[var(--bg-muted)]/50'
+                      : 'border-transparent text-[var(--fg-sub)] hover:text-[var(--fg)]'
+                  }`}
+                >
+                  // train_urdu.py
+                </button>
+                <button
+                  onClick={() => setActiveTab('cluster')}
+                  className={`flex-1 py-2.5 px-3 text-center border-b-2 font-medium transition-all cursor-pointer ${
+                    activeTab === 'cluster'
+                      ? 'border-[var(--fg)] text-[var(--fg)] bg-[var(--bg-muted)]/50'
+                      : 'border-transparent text-[var(--fg-sub)] hover:text-[var(--fg)]'
+                  }`}
+                >
+                  // h100_node.sh
+                </button>
+              </div>
+
+              {/* Screen Content */}
+              <div className="p-6 bg-[var(--bg)]/50 relative">
+                <div className="absolute inset-0 bg-grid-pattern opacity-15 pointer-events-none" />
+
+                {activeTab === 'loss' && (
+                  <div>
+                    <div className="flex items-center justify-between mb-4">
+                      <div>
+                        <div className="text-xs font-medium text-[var(--fg)] font-mono">
+                          Pretraining UrduLLM-12B Foundation Model
+                        </div>
+                        <div className="text-[11px] text-[var(--fg-sub)] font-light">
+                          Step 84,200 / 120,000 • FP8 Mixed Precision
+                        </div>
+                      </div>
+                      <div className="text-right font-mono">
+                        <span className="text-xs text-emerald-600 dark:text-emerald-400 font-medium">
+                          Loss: 0.0418
+                        </span>
+                        <div className="text-[10px] text-[var(--fg-sub)]">Δ -0.0012/k</div>
+                      </div>
+                    </div>
+
+                    {/* SVG Loss Curve with Aurora Gradient Fill */}
+                    <div className="relative h-44 w-full overflow-hidden rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-2">
+                      <svg className="w-full h-full" viewBox="0 0 400 120" preserveAspectRatio="none">
+                        <defs>
+                          <linearGradient id="curveGradient" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stopColor="#F43F5E" stopOpacity="0.45" />
+                            <stop offset="100%" stopColor="#FBBF24" stopOpacity="0.0" />
+                          </linearGradient>
+                        </defs>
+                        <path
+                          d="M 0,110 Q 50,85 100,55 T 200,35 T 300,22 T 400,16 L 400,120 L 0,120 Z"
+                          fill="url(#curveGradient)"
+                        />
+                        <path
+                          d="M 0,110 Q 50,85 100,55 T 200,35 T 300,22 T 400,16"
+                          fill="none"
+                          stroke="#F43F5E"
+                          strokeWidth="2.5"
+                          strokeLinecap="round"
+                        />
+                        <circle cx="395" cy="16" r="4.5" fill="#F43F5E" className="animate-ping" />
+                        <circle cx="395" cy="16" r="3.5" fill="#FFFFFF" stroke="#F43F5E" strokeWidth="2" />
+                      </svg>
+                    </div>
+                  </div>
+                )}
+
+                {activeTab === 'training' && (
+                  <div className="font-mono text-xs text-[var(--fg)] space-y-1 py-2 font-light">
+                    <p className="text-[var(--fg-sub)]"># Distributed Deepspeed ZeRO-3 Initializer</p>
+                    <p><span className="text-pink-600 dark:text-pink-400">import</span> torch</p>
+                    <p><span className="text-pink-600 dark:text-pink-400">from</span> transformers <span className="text-pink-600 dark:text-pink-400">import</span> AutoModelForCausalLM</p>
+                    <p className="text-emerald-600 dark:text-emerald-400">model = AutoModelForCausalLM.from_pretrained(</p>
+                    <p className="pl-4 text-amber-600 dark:text-amber-300">"air-lab/UrduLLM-12B-Base",</p>
+                    <p className="pl-4">torch_dtype=torch.bfloat16,</p>
+                    <p className="pl-4">device_map="auto",</p>
+                    <p className="pl-4">attn_implementation="flash_attention_2"</p>
+                    <p className="text-emerald-600 dark:text-emerald-400">)</p>
+                  </div>
+                )}
+
+                {activeTab === 'cluster' && (
+                  <div className="font-mono text-xs text-[var(--fg)] space-y-1.5 py-2 font-light">
+                    <div className="flex justify-between items-center text-[var(--fg-sub)] text-[11px] pb-1 border-b border-[var(--border)]">
+                      <span>SLURM JOB: #98421</span>
+                      <span className="text-emerald-600 dark:text-emerald-400 font-medium">16 NODES ALLOCATED</span>
+                    </div>
+                    <p className="text-emerald-600 dark:text-emerald-400 font-medium">$ srun --nodes=2 --gpus-per-node=8 nvidia-smi</p>
+                    <p className="text-[11px] text-[var(--fg-sub)]">• GPU 0..7: NVIDIA H100 80GB HBM3 [Temp: 48C]</p>
+                    <p className="text-[11px] text-[var(--fg-sub)]">• GPU 8..15: NVIDIA H100 80GB HBM3 [Temp: 51C]</p>
+                    <p className="text-[11px] text-amber-600 dark:text-amber-300">• InfiniBand Fabric: 800 Gb/s Quantum-2 Full Duplex</p>
+                  </div>
+                )}
+              </div>
+            </motion.div>
+          </div>
+
+        </div>
       </section>
 
       {/* ── LOGOS MARQUEE (Matching the Mockup's Horizontal Row) ── */}
@@ -242,7 +371,7 @@ export default function Home() {
             {partners.map((partner, index) => (
               <span
                 key={index}
-                className="text-base sm:text-lg font-bold font-mono tracking-tight text-[var(--fg-sub)]/70 hover:text-[var(--fg)] transition-colors cursor-default whitespace-nowrap"
+                className="text-base sm:text-lg font-medium font-mono tracking-tight text-[var(--fg-sub)]/70 hover:text-[var(--fg)] transition-colors cursor-default whitespace-nowrap"
               >
                 {partner}
               </span>
@@ -251,13 +380,13 @@ export default function Home() {
         </MarqueeModule>
       </section>
 
-      {/* ── SECTION 2: "Enterprise AI that just works." (Exact Mockup Layout) ── */}
+      {/* ── SECTION 2: "Enterprise AI that just works." (Exact Mockup Layout, Thinner Fonts) ── */}
       <section className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 z-10 relative">
         <div className="mb-12">
-          <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-[var(--fg)] font-head mb-3">
+          <h2 className="text-3xl sm:text-5xl font-medium tracking-tight text-[var(--fg)] font-head mb-3">
             Enterprise AI that just works.
           </h2>
-          <p className="text-base sm:text-lg text-[var(--fg-sub)] max-w-2xl font-sans">
+          <p className="text-base sm:text-lg text-[var(--fg-sub)] max-w-2xl font-normal font-sans">
             Security, governance, and scalability are built in from day one. Deploy with confidence across your organization.
           </p>
         </div>
@@ -267,7 +396,7 @@ export default function Home() {
           {/* Glowing Iridescent Gradient Frame */}
           <div 
             className="absolute inset-0 rounded-3xl opacity-85 group-hover:opacity-100 transition-opacity blur-sm"
-            style={{ backgroundImage: 'var(--accent-gradient)' }}
+            style={{ backgroundImage: 'linear-gradient(135deg, #F43F5E 0%, #FB923C 50%, #FBBF24 100%)' }}
           />
 
           {/* Clean White / Dark Interior */}
@@ -276,10 +405,10 @@ export default function Home() {
             {/* Left Content Column */}
             <div className="lg:col-span-6 flex flex-col justify-between h-full">
               <div>
-                <h3 className="text-2xl sm:text-3xl font-extrabold text-[var(--fg)] font-head mb-4">
+                <h3 className="text-2xl sm:text-3xl font-medium text-[var(--fg)] font-head mb-4">
                   Deploy the way that works <br /> best for your team.
                 </h3>
-                <p className="text-sm sm:text-base text-[var(--fg-sub)] leading-relaxed mb-10">
+                <p className="text-sm sm:text-base text-[var(--fg-sub)] font-normal leading-relaxed mb-10">
                   Choose managed SaaS, private cloud, VPC, or on-prem. Zero-data-retention controls, custom network policies, and air-gapped deployments for the most demanding requirements.
                 </p>
               </div>
@@ -319,7 +448,7 @@ export default function Home() {
                   <div className="w-11 h-11 rounded-xl bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center text-zinc-900 dark:text-white">
                     <User className="w-5 h-5" />
                   </div>
-                  <div className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-zinc-950 text-white dark:bg-white dark:text-zinc-950 font-bold text-xs shadow-md">
+                  <div className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-zinc-950 text-white dark:bg-white dark:text-zinc-950 font-medium text-xs shadow-md">
                     <Send className="w-3.5 h-3.5" />
                     <span>Publish</span>
                   </div>
@@ -330,7 +459,7 @@ export default function Home() {
           </div>
         </div>
 
-        {/* ── 6 BENTO CARDS (From Ali's Architecture & Mockup's Top-Right Layout) ── */}
+        {/* ── 6 BENTO CARDS (From Ali's Architecture & Mockup's Top-Right Layout, Thinner Fonts) ── */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-24">
           
           {/* Card 1: Product / Foundational Models */}
@@ -341,14 +470,14 @@ export default function Home() {
                   <div className="w-10 h-10 rounded-xl bg-[var(--bg-muted)] border border-[var(--border)] flex items-center justify-center text-[var(--fg)]">
                     <Brain className="w-5 h-5" />
                   </div>
-                  <span className="text-[10px] font-mono font-medium text-[var(--fg-sub)] bg-[var(--bg-muted)] px-2 py-0.5 rounded border border-[var(--border)]">
+                  <span className="text-[10px] font-mono font-normal text-[var(--fg-sub)] bg-[var(--bg-muted)] px-2 py-0.5 rounded border border-[var(--border)]">
                     Ready for team
                   </span>
                 </div>
-                <h3 className="text-xl font-bold text-[var(--fg)] font-head mb-2">
+                <h3 className="text-xl font-medium text-[var(--fg)] font-head mb-2">
                   Product
                 </h3>
-                <p className="text-xs sm:text-sm text-[var(--fg-sub)] leading-relaxed font-sans">
+                <p className="text-xs sm:text-sm text-[var(--fg-sub)] font-normal leading-relaxed font-sans">
                   Pick your AI agents for prototyping, user research insights, and feature specifications—turning ideas into working demos within minutes.
                 </p>
               </div>
@@ -363,14 +492,14 @@ export default function Home() {
                   <div className="w-10 h-10 rounded-xl bg-[var(--bg-muted)] border border-[var(--border)] flex items-center justify-center text-[var(--fg)]">
                     <Zap className="w-5 h-5" />
                   </div>
-                  <span className="text-[10px] font-mono font-medium text-[var(--fg-sub)] bg-[var(--bg-muted)] px-2 py-0.5 rounded border border-[var(--border)]">
+                  <span className="text-[10px] font-mono font-normal text-[var(--fg-sub)] bg-[var(--bg-muted)] px-2 py-0.5 rounded border border-[var(--border)]">
                     Shorter sales cycles
                   </span>
                 </div>
-                <h3 className="text-xl font-bold text-[var(--fg)] font-head mb-2">
+                <h3 className="text-xl font-medium text-[var(--fg)] font-head mb-2">
                   Sales
                 </h3>
-                <p className="text-xs sm:text-sm text-[var(--fg-sub)] leading-relaxed font-sans">
+                <p className="text-xs sm:text-sm text-[var(--fg-sub)] font-normal leading-relaxed font-sans">
                   Equip teams with AI agents for custom demos, proposal creation, and technical Q&A—helping close deals faster with instant technical support.
                 </p>
               </div>
@@ -385,14 +514,14 @@ export default function Home() {
                   <div className="w-10 h-10 rounded-xl bg-[var(--bg-muted)] border border-[var(--border)] flex items-center justify-center text-[var(--fg)]">
                     <Cpu className="w-5 h-5" />
                   </div>
-                  <span className="text-[10px] font-mono font-medium text-[var(--fg-sub)] bg-[var(--bg-muted)] px-2 py-0.5 rounded border border-[var(--border)]">
+                  <span className="text-[10px] font-mono font-normal text-[var(--fg-sub)] bg-[var(--bg-muted)] px-2 py-0.5 rounded border border-[var(--border)]">
                     24/7 coverage
                   </span>
                 </div>
-                <h3 className="text-xl font-bold text-[var(--fg)] font-head mb-2">
+                <h3 className="text-xl font-medium text-[var(--fg)] font-head mb-2">
                   Support
                 </h3>
-                <p className="text-xs sm:text-sm text-[var(--fg-sub)] leading-relaxed font-sans">
+                <p className="text-xs sm:text-sm text-[var(--fg-sub)] font-normal leading-relaxed font-sans">
                   Support teams use AI agents for troubleshooting, knowledge base updates, and escalation management—resolving issues efficiently at scale.
                 </p>
               </div>
@@ -407,14 +536,14 @@ export default function Home() {
                   <div className="w-10 h-10 rounded-xl bg-[var(--bg-muted)] border border-[var(--border)] flex items-center justify-center text-[var(--fg)]">
                     <Code className="w-5 h-5" />
                   </div>
-                  <span className="text-[10px] font-mono font-medium text-[var(--fg-sub)] bg-[var(--bg-muted)] px-2 py-0.5 rounded border border-[var(--border)]">
+                  <span className="text-[10px] font-mono font-normal text-[var(--fg-sub)] bg-[var(--bg-muted)] px-2 py-0.5 rounded border border-[var(--border)]">
                     10x productivity
                   </span>
                 </div>
-                <h3 className="text-xl font-bold text-[var(--fg)] font-head mb-2">
+                <h3 className="text-xl font-medium text-[var(--fg)] font-head mb-2">
                   Engineering
                 </h3>
-                <p className="text-xs sm:text-sm text-[var(--fg-sub)] leading-relaxed font-sans">
+                <p className="text-xs sm:text-sm text-[var(--fg-sub)] font-normal leading-relaxed font-sans">
                   Every developer gets AI agents for code review, testing, documentation, and deployment. Ship faster without sacrificing quality.
                 </p>
               </div>
@@ -429,14 +558,14 @@ export default function Home() {
                   <div className="w-10 h-10 rounded-xl bg-[var(--bg-muted)] border border-[var(--border)] flex items-center justify-center text-[var(--fg)]">
                     <Database className="w-5 h-5" />
                   </div>
-                  <span className="text-[10px] font-mono font-medium text-[var(--fg-sub)] bg-[var(--bg-muted)] px-2 py-0.5 rounded border border-[var(--border)]">
+                  <span className="text-[10px] font-mono font-normal text-[var(--fg-sub)] bg-[var(--bg-muted)] px-2 py-0.5 rounded border border-[var(--border)]">
                     Zero-handset friction
                   </span>
                 </div>
-                <h3 className="text-xl font-bold text-[var(--fg)] font-head mb-2">
+                <h3 className="text-xl font-medium text-[var(--fg)] font-head mb-2">
                   Design
                 </h3>
-                <p className="text-xs sm:text-sm text-[var(--fg-sub)] leading-relaxed font-sans">
+                <p className="text-xs sm:text-sm text-[var(--fg-sub)] font-normal leading-relaxed font-sans">
                   Designers get AI agents for implementation, accessibility checks, and managing design systems. Turn every design into production ready code.
                 </p>
               </div>
@@ -451,14 +580,14 @@ export default function Home() {
                   <div className="w-10 h-10 rounded-xl bg-[var(--bg-muted)] border border-[var(--border)] flex items-center justify-center text-[var(--fg)]">
                     <LineChart className="w-5 h-5" />
                   </div>
-                  <span className="text-[10px] font-mono font-medium text-[var(--fg-sub)] bg-[var(--bg-muted)] px-2 py-0.5 rounded border border-[var(--border)]">
+                  <span className="text-[10px] font-mono font-normal text-[var(--fg-sub)] bg-[var(--bg-muted)] px-2 py-0.5 rounded border border-[var(--border)]">
                     Always on, never tired
                   </span>
                 </div>
-                <h3 className="text-xl font-bold text-[var(--fg)] font-head mb-2">
+                <h3 className="text-xl font-medium text-[var(--fg)] font-head mb-2">
                   Operations
                 </h3>
-                <p className="text-xs sm:text-sm text-[var(--fg-sub)] leading-relaxed font-sans">
+                <p className="text-xs sm:text-sm text-[var(--fg-sub)] font-normal leading-relaxed font-sans">
                   Give operations teams AI agents for continuous monitoring, rapid incident response, and automated workflows. Run precise, reduce manual effort, and scale operations without overloading your team.
                 </p>
               </div>
@@ -469,7 +598,7 @@ export default function Home() {
 
       </section>
 
-      {/* ── STATS STRIP (From Ali's Architecture) ── */}
+      {/* ── STATS STRIP (From Ali's Architecture, Thinner Numbers) ── */}
       <section className="w-full max-w-5xl mx-auto px-4 mb-20 z-10 relative">
         <motion.div 
           initial={{ opacity: 0, y: 16 }}
@@ -481,12 +610,12 @@ export default function Home() {
           {stats.map((s, idx) => (
             <div key={idx} className={idx !== 0 ? 'md:border-l md:border-[var(--border)]' : ''}>
               <div 
-                className="text-3xl sm:text-4xl font-extrabold font-mono tracking-tight"
+                className="text-3xl sm:text-4xl font-medium font-mono tracking-tight"
                 style={{ color: activeTheme.accent }}
               >
                 {s.prefix}<CountUp end={s.value} duration={2.2} />{s.suffix}
               </div>
-              <div className="text-xs text-[var(--fg-sub)] font-semibold uppercase tracking-wider mt-1 font-mono">
+              <div className="text-xs text-[var(--fg-sub)] font-medium uppercase tracking-wider mt-1 font-mono">
                 {s.label}
               </div>
             </div>
@@ -494,153 +623,21 @@ export default function Home() {
         </motion.div>
       </section>
 
-      {/* ── MAC WINDOW PREVIEW (From Ali's Architecture) ── */}
-      <section className="w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 mb-24 z-10 relative">
-        <div className="w-full rounded-2xl border border-[var(--border)] bg-[var(--bg-card)]/90 backdrop-blur-xl shadow-2xl overflow-hidden">
-          {/* Mac Window Controls */}
-          <div className="bg-[var(--bg-muted)] border-b border-[var(--border)] px-4 py-3 flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <div className="w-3 h-3 rounded-full bg-rose-500/80" />
-              <div className="w-3 h-3 rounded-full bg-amber-500/80" />
-              <div className="w-3 h-3 rounded-full bg-emerald-500/80" />
-              <span className="ml-3 text-xs font-mono text-[var(--fg-sub)]">
-                air-lab/core-model.py
-              </span>
-            </div>
-            <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-bold border border-emerald-500/20">
-              16x H100 ONLINE
-            </span>
-          </div>
-
-          {/* Tab Selector */}
-          <div className="flex border-b border-[var(--border)] bg-[var(--bg-card)] text-xs font-mono">
-            <button
-              onClick={() => setActiveTab('loss')}
-              className={`flex-1 py-2.5 px-3 text-center border-b-2 font-semibold transition-all cursor-pointer ${
-                activeTab === 'loss'
-                  ? 'border-[var(--fg)] text-[var(--fg)] bg-[var(--bg-muted)]/50'
-                  : 'border-transparent text-[var(--fg-sub)] hover:text-[var(--fg)]'
-              }`}
-            >
-              // loss_curve.tsx
-            </button>
-            <button
-              onClick={() => setActiveTab('training')}
-              className={`flex-1 py-2.5 px-3 text-center border-b-2 font-semibold transition-all cursor-pointer ${
-                activeTab === 'training'
-                  ? 'border-[var(--fg)] text-[var(--fg)] bg-[var(--bg-muted)]/50'
-                  : 'border-transparent text-[var(--fg-sub)] hover:text-[var(--fg)]'
-              }`}
-            >
-              // train_urdu.py
-            </button>
-            <button
-              onClick={() => setActiveTab('cluster')}
-              className={`flex-1 py-2.5 px-3 text-center border-b-2 font-semibold transition-all cursor-pointer ${
-                activeTab === 'cluster'
-                  ? 'border-[var(--fg)] text-[var(--fg)] bg-[var(--bg-muted)]/50'
-                  : 'border-transparent text-[var(--fg-sub)] hover:text-[var(--fg)]'
-              }`}
-            >
-              // h100_node.sh
-            </button>
-          </div>
-
-          {/* Interactive Screen Content */}
-          <div className="p-6 bg-[var(--bg)]/50 relative">
-            <div className="absolute inset-0 bg-grid-pattern opacity-15 pointer-events-none" />
-
-            {activeTab === 'loss' && (
-              <div>
-                <div className="flex items-center justify-between mb-4">
-                  <div>
-                    <div className="text-xs font-bold text-[var(--fg)] font-mono">
-                      Pretraining UrduLLM-12B Foundation Model
-                    </div>
-                    <div className="text-[11px] text-[var(--fg-sub)]">
-                      Step 84,200 / 120,000 • FP8 Mixed Precision
-                    </div>
-                  </div>
-                  <div className="text-right font-mono">
-                    <span className="text-xs text-emerald-600 dark:text-emerald-400 font-bold">
-                      Loss: 0.0418
-                    </span>
-                    <div className="text-[10px] text-[var(--fg-sub)]">Δ -0.0012/k</div>
-                  </div>
-                </div>
-
-                {/* SVG Loss Curve with Aurora Gradient Fill */}
-                <div className="relative h-44 w-full overflow-hidden rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-2">
-                  <svg className="w-full h-full" viewBox="0 0 400 120" preserveAspectRatio="none">
-                    <defs>
-                      <linearGradient id="curveGradient" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="0%" stopColor={activeTheme.accent} stopOpacity="0.45" />
-                        <stop offset="100%" stopColor={activeTheme.accent} stopOpacity="0.0" />
-                      </linearGradient>
-                    </defs>
-                    <path
-                      d="M 0,110 Q 50,85 100,55 T 200,35 T 300,22 T 400,16 L 400,120 L 0,120 Z"
-                      fill="url(#curveGradient)"
-                    />
-                    <path
-                      d="M 0,110 Q 50,85 100,55 T 200,35 T 300,22 T 400,16"
-                      fill="none"
-                      stroke={activeTheme.accent}
-                      strokeWidth="2.5"
-                      strokeLinecap="round"
-                    />
-                    <circle cx="395" cy="16" r="4.5" fill={activeTheme.accent} className="animate-ping" />
-                    <circle cx="395" cy="16" r="3.5" fill="#FFFFFF" stroke={activeTheme.accent} strokeWidth="2" />
-                  </svg>
-                </div>
-              </div>
-            )}
-
-            {activeTab === 'training' && (
-              <div className="font-mono text-xs text-[var(--fg)] space-y-1 py-2">
-                <p className="text-[var(--fg-sub)]"># Distributed Deepspeed ZeRO-3 Initializer</p>
-                <p><span className="text-pink-600 dark:text-pink-400">import</span> torch</p>
-                <p><span className="text-pink-600 dark:text-pink-400">from</span> transformers <span className="text-pink-600 dark:text-pink-400">import</span> AutoModelForCausalLM</p>
-                <p className="text-emerald-600 dark:text-emerald-400">model = AutoModelForCausalLM.from_pretrained(</p>
-                <p className="pl-4 text-amber-600 dark:text-amber-300">"air-lab/UrduLLM-12B-Base",</p>
-                <p className="pl-4">torch_dtype=torch.bfloat16,</p>
-                <p className="pl-4">device_map="auto",</p>
-                <p className="pl-4">attn_implementation="flash_attention_2"</p>
-                <p className="text-emerald-600 dark:text-emerald-400">)</p>
-              </div>
-            )}
-
-            {activeTab === 'cluster' && (
-              <div className="font-mono text-xs text-[var(--fg)] space-y-1.5 py-2">
-                <div className="flex justify-between items-center text-[var(--fg-sub)] text-[11px] pb-1 border-b border-[var(--border)]">
-                  <span>SLURM JOB: #98421</span>
-                  <span className="text-emerald-600 dark:text-emerald-400 font-bold">16 NODES ALLOCATED</span>
-                </div>
-                <p className="text-emerald-600 dark:text-emerald-400 font-bold">$ srun --nodes=2 --gpus-per-node=8 nvidia-smi</p>
-                <p className="text-[11px] text-[var(--fg-sub)]">• GPU 0..7: NVIDIA H100 80GB HBM3 [Temp: 48C]</p>
-                <p className="text-[11px] text-[var(--fg-sub)]">• GPU 8..15: NVIDIA H100 80GB HBM3 [Temp: 51C]</p>
-                <p className="text-[11px] text-amber-600 dark:text-amber-300">• InfiniBand Fabric: 800 Gb/s Quantum-2 Full Duplex</p>
-              </div>
-            )}
-          </div>
-        </div>
-      </section>
-
       {/* ── SECTION: FLAGSHIP PROJECTS (Worked Instances from Ali's Architecture) ── */}
       <section className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 z-10 relative">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12">
           <div>
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[var(--bg-muted)] text-[var(--fg)] text-xs font-mono font-bold border border-[var(--border)] mb-3">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[var(--bg-muted)] text-[var(--fg)] text-xs font-mono font-medium border border-[var(--border)] mb-3">
               <Compass className="w-3.5 h-3.5" style={{ color: activeTheme.accent }} />
               FLAGSHIP RESEARCH DEPLOYMENTS
             </div>
-            <h2 className="text-3xl sm:text-5xl font-extrabold text-[var(--fg)] tracking-tight font-head">
+            <h2 className="text-3xl sm:text-5xl font-medium text-[var(--fg)] tracking-tight font-head">
               Real-World AI in Production
             </h2>
           </div>
           <Link
             to="/projects"
-            className="inline-flex items-center gap-1.5 text-xs font-mono font-bold text-[var(--fg)] hover:underline mt-4 md:mt-0"
+            className="inline-flex items-center gap-1.5 text-xs font-mono font-medium text-[var(--fg)] hover:underline mt-4 md:mt-0"
           >
             View All 24 Projects <ArrowRight className="w-4 h-4" />
           </Link>
@@ -666,12 +663,12 @@ export default function Home() {
                       className="w-full h-full object-cover dormant-image group-hover:scale-105 transition-all duration-500"
                     />
                     <div className="absolute top-3 left-3">
-                      <span className="px-2.5 py-1 rounded-full text-[10px] font-mono font-bold uppercase tracking-wider bg-black/80 text-white border border-white/20 backdrop-blur-md">
+                      <span className="px-2.5 py-1 rounded-full text-[10px] font-mono font-medium uppercase tracking-wider bg-black/80 text-white border border-white/20 backdrop-blur-md">
                         {project.category}
                       </span>
                     </div>
                     <div className="absolute bottom-3 right-3">
-                      <span className="px-2.5 py-1 rounded-full text-[10px] font-mono font-bold bg-white/90 dark:bg-black/90 text-black dark:text-white border border-black/10 dark:border-white/20 backdrop-blur-md">
+                      <span className="px-2.5 py-1 rounded-full text-[10px] font-mono font-medium bg-white/90 dark:bg-black/90 text-black dark:text-white border border-black/10 dark:border-white/20 backdrop-blur-md">
                         {project.metric}
                       </span>
                     </div>
@@ -679,10 +676,10 @@ export default function Home() {
 
                   {/* Card Content */}
                   <div className="p-6">
-                    <h3 className="text-lg font-bold text-[var(--fg)] mb-2 font-head group-hover:text-rose-500 transition-colors">
+                    <h3 className="text-lg font-medium text-[var(--fg)] mb-2 font-head group-hover:text-rose-500 transition-colors">
                       {project.title}
                     </h3>
-                    <p className="text-xs text-[var(--fg-sub)] leading-relaxed mb-6 font-sans">
+                    <p className="text-xs text-[var(--fg-sub)] font-normal leading-relaxed mb-6 font-sans">
                       {project.desc}
                     </p>
                   </div>
@@ -693,7 +690,7 @@ export default function Home() {
                   {project.tech.map((t, i) => (
                     <span
                       key={i}
-                      className="text-[10px] font-mono px-2 py-0.5 rounded bg-[var(--bg-muted)] text-[var(--fg-sub)] border border-[var(--border)]"
+                      className="text-[10px] font-mono px-2 py-0.5 rounded bg-[var(--bg-muted)] text-[var(--fg-sub)] border border-[var(--border)] font-normal"
                     >
                       {t}
                     </span>
@@ -709,17 +706,17 @@ export default function Home() {
       <section className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 z-10 relative">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12">
           <div>
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[var(--bg-muted)] text-[var(--fg)] text-xs font-mono font-bold border border-[var(--border)] mb-3">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[var(--bg-muted)] text-[var(--fg)] text-xs font-mono font-medium border border-[var(--border)] mb-3">
               <Award className="w-3.5 h-3.5" style={{ color: activeTheme.accent }} />
               PEOPLE & TALENT
             </div>
-            <h2 className="text-3xl sm:text-5xl font-extrabold text-[var(--fg)] tracking-tight font-head">
+            <h2 className="text-3xl sm:text-5xl font-medium text-[var(--fg)] tracking-tight font-head">
               High-Velocity Researchers
             </h2>
           </div>
           <Link
             to="/performers"
-            className="inline-flex items-center gap-1.5 text-xs font-mono font-bold text-[var(--fg)] hover:underline mt-4 md:mt-0"
+            className="inline-flex items-center gap-1.5 text-xs font-mono font-medium text-[var(--fg)] hover:underline mt-4 md:mt-0"
           >
             View Full Honor Roll <ArrowRight className="w-4 h-4" />
           </Link>
@@ -741,31 +738,31 @@ export default function Home() {
                   />
                   <div>
                     <span 
-                      className="text-[10px] font-mono px-2 py-0.5 rounded font-bold border"
+                      className="text-[10px] font-mono px-2 py-0.5 rounded font-medium border"
                       style={{ color: activeTheme.accent, borderColor: activeTheme.accent + '33', backgroundColor: activeTheme.accent + '15' }}
                     >
                       RANK #{index + 1}
                     </span>
-                    <h3 className="text-base font-bold text-[var(--fg)] font-head mt-1">
+                    <h3 className="text-base font-medium text-[var(--fg)] font-head mt-1">
                       {perf.name}
                     </h3>
-                    <div className="text-xs text-[var(--fg-sub)]">
+                    <div className="text-xs text-[var(--fg-sub)] font-light">
                       {perf.role}
                     </div>
                   </div>
                 </div>
 
-                <div className="text-xs font-semibold text-[var(--fg)] mb-2">
+                <div className="text-xs font-medium text-[var(--fg)] mb-2">
                   {perf.title}
                 </div>
-                <p className="text-xs text-[var(--fg-sub)] leading-relaxed mb-4">
+                <p className="text-xs text-[var(--fg-sub)] font-normal leading-relaxed mb-4">
                   {perf.achievement}
                 </p>
               </div>
 
               <div className="pt-3 border-t border-[var(--border)] flex items-center justify-between text-xs font-mono text-[var(--fg-sub)]">
-                <span>Citations: <strong className="text-[var(--fg)]">{perf.metrics.citations}</strong></span>
-                <span className="font-bold" style={{ color: activeTheme.accent }}>{perf.tags[0]}</span>
+                <span>Citations: <strong className="text-[var(--fg)] font-medium">{perf.metrics.citations}</strong></span>
+                <span className="font-medium" style={{ color: activeTheme.accent }}>{perf.tags[0]}</span>
               </div>
             </div>
           ))}
@@ -775,10 +772,10 @@ export default function Home() {
       {/* ── FREQUENTLY ASKED QUESTIONS (Matching Mockup Accordion) ── */}
       <section className="w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-24 z-10 relative">
         <div className="text-center mb-16">
-          <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-[var(--fg)] font-head mb-4">
+          <h2 className="text-3xl sm:text-5xl font-medium tracking-tight text-[var(--fg)] font-head mb-4">
             Frequently Asked Questions
           </h2>
-          <p className="text-base text-[var(--fg-sub)]">
+          <p className="text-base text-[var(--fg-sub)] font-normal">
             Understand our credit-based pricing and fellowship compute allocation.
           </p>
         </div>
@@ -793,7 +790,7 @@ export default function Home() {
               >
                 <button
                   onClick={() => setActiveFaq(isOpen ? null : idx)}
-                  className="w-full p-5 sm:p-6 text-left flex items-center justify-between gap-4 font-semibold text-sm sm:text-base text-[var(--fg)] hover:text-rose-500 transition-colors cursor-pointer"
+                  className="w-full p-5 sm:p-6 text-left flex items-center justify-between gap-4 font-medium text-sm sm:text-base text-[var(--fg)] hover:text-rose-500 transition-colors cursor-pointer"
                 >
                   <span>{faq.q}</span>
                   <div className="w-8 h-8 rounded-full bg-[var(--bg-muted)] flex items-center justify-center shrink-0 text-[var(--fg)]">
@@ -810,7 +807,7 @@ export default function Home() {
                       transition={{ duration: 0.25, ease: 'easeOut' }}
                       className="overflow-hidden"
                     >
-                      <div className="px-5 pb-6 sm:px-6 sm:pb-6 text-xs sm:text-sm text-[var(--fg-sub)] leading-relaxed border-t border-[var(--border)]/60 pt-4 font-sans">
+                      <div className="px-5 pb-6 sm:px-6 sm:pb-6 text-xs sm:text-sm text-[var(--fg-sub)] font-normal leading-relaxed border-t border-[var(--border)]/60 pt-4 font-sans">
                         {faq.a}
                       </div>
                     </motion.div>
@@ -822,42 +819,44 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── FINAL CTA SECTION: "Let's talk deployment" (Matching Mockup Bottom Right) ── */}
+      {/* ── FINAL CTA SECTION: "Let's talk deployment" (Matching Mockup Bottom Right, Thinner Fonts) ── */}
       <section className="w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-20 z-10 relative">
         <div className="rounded-3xl border border-[var(--border)] bg-[var(--bg-card)] p-10 sm:p-16 shadow-2xl relative overflow-hidden flex flex-col items-center text-center">
           
           {/* Sweeping Sunset Aurora Mesh on the bottom right of the card (Exact Mockup Detail) */}
           <div 
-            className="absolute -bottom-24 -right-24 w-[480px] h-[360px] rounded-full blur-[110px] opacity-75 dark:opacity-40 pointer-events-none"
-            style={{ backgroundImage: 'var(--accent-gradient)' }}
+            className="absolute -bottom-24 -right-24 w-[480px] h-[360px] rounded-full blur-[90px] opacity-75 dark:opacity-40 pointer-events-none"
+            style={{ 
+              background: 'radial-gradient(circle at bottom right, rgba(244, 63, 94, 0.8) 0%, rgba(251, 146, 60, 0.75) 35%, rgba(251, 191, 36, 0.7) 65%, rgba(56, 189, 248, 0.4) 100%)' 
+            }}
           />
 
           <div className="relative z-10 max-w-2xl mx-auto flex flex-col items-center">
             {/* Small Pill: `▸ Enterprise` */}
-            <div className="inline-flex items-center gap-2 rounded-md bg-zinc-950 text-white dark:bg-white dark:text-zinc-950 px-3 py-1 text-[11px] font-semibold mb-6 shadow-sm">
+            <div className="inline-flex items-center gap-2 rounded-md bg-zinc-950 text-white dark:bg-white dark:text-zinc-950 px-3 py-1 text-[11px] font-medium mb-6 shadow-sm">
               <span className="text-[10px]">▸</span>
               <span>Enterprise & Fellowship</span>
             </div>
 
-            {/* Headline: "Let's talk deployment" */}
-            <h2 className="text-4xl sm:text-6xl font-extrabold text-[var(--fg)] tracking-tight mb-6 font-head">
+            {/* Headline: "Let's talk deployment" (Thinner Font: font-medium 500) */}
+            <h2 className="text-4xl sm:text-6xl font-medium text-[var(--fg)] tracking-tight mb-6 font-head">
               Let's talk deployment
             </h2>
 
-            <p className="text-sm sm:text-base text-[var(--fg-sub)] leading-relaxed mb-8 max-w-xl">
+            <p className="text-sm sm:text-base text-[var(--fg-sub)] font-normal leading-relaxed mb-8 max-w-xl">
               Custom workflows, dedicated compute, and enterprise infrastructure. The foundation for modern artificial intelligence.
             </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3.5">
               <Link
                 to="/interns"
-                className="w-full sm:w-auto px-8 py-3.5 rounded-full bg-zinc-950 text-white dark:bg-white dark:text-zinc-950 font-bold text-xs sm:text-sm hover:opacity-90 hover:scale-[1.02] active:scale-[0.98] transition-all shadow-md"
+                className="w-full sm:w-auto px-8 py-3.5 rounded-full bg-zinc-950 text-white dark:bg-white dark:text-zinc-950 font-medium text-xs sm:text-sm hover:opacity-90 hover:scale-[1.02] active:scale-[0.98] transition-all shadow-md"
               >
                 Get started free →
               </Link>
               <Link
                 to="/projects"
-                className="w-full sm:w-auto px-8 py-3.5 rounded-full bg-white dark:bg-zinc-900 border border-[var(--border)] text-[var(--fg)] font-semibold text-xs sm:text-sm hover:bg-[var(--bg-muted)] transition-all shadow-xs"
+                className="w-full sm:w-auto px-8 py-3.5 rounded-full bg-white dark:bg-zinc-900 border border-[var(--border)] text-[var(--fg)] font-medium text-xs sm:text-sm hover:bg-[var(--bg-muted)] transition-all shadow-xs"
               >
                 Book a demo
               </Link>

@@ -149,7 +149,8 @@ html.dark {
 
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-head);
-    letter-spacing: -0.03em;
+    letter-spacing: -0.025em;
+    font-weight: 500;
     line-height: 1.15;
   }
 
@@ -210,6 +211,35 @@ svg img,
     border: 1px solid var(--border);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
+  }
+
+  /* Exact Craftly Aurora Ribbon Blur */
+  .bg-aurora-ribbon {
+    background: linear-gradient(
+      90deg,
+      rgba(56, 189, 248, 0.45) 0%,
+      rgba(236, 72, 153, 0.75) 15%,
+      rgba(244, 63, 94, 0.85) 35%,
+      rgba(251, 146, 60, 0.90) 58%,
+      rgba(251, 191, 36, 0.85) 80%,
+      rgba(244, 63, 94, 0.65) 100%
+    );
+    filter: blur(100px);
+    -webkit-filter: blur(100px);
+  }
+
+  /* Exact Craftly Subtitle Text Gradient */
+  .text-craftly-gradient {
+    background-image: linear-gradient(
+      90deg,
+      #E11D48 0%,
+      #D946EF 25%,
+      #F97316 65%,
+      #F59E0B 100%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
 
   /* Ali's exact grid pattern with radial fade mask */
