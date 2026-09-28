@@ -78,14 +78,18 @@ export default function ThemeSwitcher() {
                     }`}
                   >
                     <div className="flex items-center gap-2.5">
-                      <div className="flex items-center -space-x-1">
+                      <div className="flex items-center -space-x-1.5">
                         <span
-                          className="w-4 h-4 rounded-full border border-black/20 shadow-sm"
+                          className="w-3.5 h-3.5 rounded-full border border-black/10 shadow-xs"
                           style={{ backgroundColor: opt.accent }}
                         />
                         <span
-                          className="w-4 h-4 rounded-full border border-black/20 shadow-sm"
+                          className="w-3.5 h-3.5 rounded-full border border-black/10 shadow-xs"
                           style={{ backgroundColor: opt.subAccent }}
+                        />
+                        <span
+                          className="w-3.5 h-3.5 rounded-full border border-black/10 shadow-xs"
+                          style={{ backgroundColor: opt.tertiary }}
                         />
                       </div>
                       <div>

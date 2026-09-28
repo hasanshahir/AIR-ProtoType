@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Link, NavLink, Outlet } from 'react-router-dom'
 import { motion, useScroll, useSpring, AnimatePresence } from 'framer-motion'
-import { Sun, Moon, Menu, X, ArrowRight, ArrowUpRight, Terminal, MapPin, Mail, Award, BookOpen, Users, FolderGit2, Camera, Handshake, UserCheck } from 'lucide-react'
+import { Sun, Moon, Menu, X, ArrowUpRight, Terminal, MapPin, Mail, Award, BookOpen, Users, FolderGit2, Camera, Handshake, UserCheck } from 'lucide-react'
 import { useTheme } from './ThemeProvider'
 import ThemeSwitcher from './ThemeSwitcher'
 
@@ -36,77 +36,98 @@ export default function Layout() {
         style={{ scaleX }}
       />
 
-      {/* Clean Top Announcement Banner (Ali's Mintlify style) */}
-      <div className="w-full bg-[var(--primary)] text-black text-xs md:text-sm font-semibold py-2 px-4 text-center flex items-center justify-center gap-2 z-50">
-        <span className="px-2 py-0.5 rounded-full text-[10px] bg-black/15 text-black font-bold uppercase tracking-wider">
-          NEW
+      {/* Top Banner (Clean SaaS Announcement) */}
+      <div className="w-full bg-[var(--bg-muted)] border-b border-[var(--border)] text-xs font-medium py-2.5 px-4 text-center flex items-center justify-center gap-2 z-50 text-[var(--fg-sub)]">
+        <span className="px-2 py-0.5 rounded-full text-[10px] bg-black/5 dark:bg-white/10 font-bold uppercase tracking-wider text-[var(--fg)]">
+          FELLOWSHIP
         </span>
-        <span>Applications for Summer 2026 Research Internships are now open.</span>
+        <span>Summer & Fall 2026 Research Fellowship applications are now open.</span>
         <Link
           to="/interns"
-          className="underline inline-flex items-center gap-1 font-bold ml-1 hover:opacity-80"
+          className="inline-flex items-center gap-1 font-bold text-[var(--fg)] hover:underline ml-1"
         >
-          Apply Now <ArrowRight className="w-3.5 h-3.5" />
+          Apply Now <ArrowUpRight className="w-3.5 h-3.5" />
         </Link>
       </div>
 
       {/* Sticky Modern Navbar */}
-      <header className="sticky top-0 z-40 backdrop-blur-md bg-[var(--bg)]/90 border-b border-[var(--border)] transition-all duration-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <header className="sticky top-0 z-40 backdrop-blur-xl bg-[var(--bg)]/85 border-b border-[var(--border)] transition-all duration-200">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 flex items-center justify-between">
           {/* Logo & Lab Identifier */}
-          <Link to="/" className="text-xl font-bold tracking-tight flex items-center gap-2.5 font-head group">
-            <div className="w-7 h-7 rounded-md bg-[var(--primary)] text-black flex items-center justify-center font-bold text-xs shadow-sm group-hover:scale-105 transition-transform">
-              A
+          <Link to="/" className="flex items-center gap-3 group">
+            <div 
+              className="w-8 h-8 rounded-lg flex items-center justify-center text-white font-black text-sm shadow-md group-hover:scale-105 transition-all"
+              style={{ background: 'var(--accent-gradient, #F43F5E)' }}
+            >
+              <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" />
+              </svg>
             </div>
-            <span className="font-extrabold text-base tracking-tight">AIR Lab</span>
-            <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-[var(--primary)]/15 text-[var(--primary)] font-bold border border-[var(--primary)]/20">
-              v2.0
-            </span>
+            <div className="flex flex-col">
+              <span className="font-extrabold text-base tracking-tight text-[var(--fg)] font-head flex items-center gap-1">
+                AIR<span className="text-transparent bg-clip-text" style={{ backgroundImage: 'var(--accent-gradient)' }}>Lab</span>
+              </span>
+              <span className="text-[10px] text-[var(--fg-sub)] tracking-wider uppercase font-mono -mt-0.5">
+                NED University
+              </span>
+            </div>
           </Link>
 
-          {/* Desktop Navigation Links */}
-          <nav className="hidden xl:flex items-center gap-1 font-mono text-xs">
+          {/* Center Pill Capsule Navigation Bar */}
+          <nav className="hidden lg:flex items-center bg-[var(--bg-card)]/80 border border-[var(--border)] rounded-full p-1 shadow-xs backdrop-blur-md">
+            <NavLink
+              to="/"
+              className={({ isActive }) =>
+                `px-3.5 py-1.5 rounded-full text-xs font-medium transition-all duration-150 ${
+                  isActive
+                    ? 'bg-[var(--bg-muted)] text-[var(--fg)] shadow-xs font-semibold'
+                    : 'text-[var(--fg-sub)] hover:text-[var(--fg)] hover:bg-[var(--bg-muted)]/50'
+                }`
+              }
+            >
+              Home
+            </NavLink>
             {navLinks.map(link => (
               <NavLink
-                  key={link.path}
-                  to={link.path}
-                  className={({ isActive }) =>
-                    `relative px-3 py-1.5 rounded-md transition-all duration-150 font-medium ${
-                      isActive
-                        ? 'text-[var(--primary)] font-bold bg-[var(--primary)]/10'
-                        : 'text-[var(--fg-sub)] hover:text-[var(--fg)] hover:bg-[var(--bg-muted)]'
-                    }`
-                  }
-                >
-                  {link.name}
-                </NavLink>
+                key={link.path}
+                to={link.path}
+                className={({ isActive }) =>
+                  `px-3 py-1.5 rounded-full text-xs font-medium transition-all duration-150 ${
+                    isActive
+                      ? 'bg-[var(--bg-muted)] text-[var(--fg)] shadow-xs font-semibold'
+                      : 'text-[var(--fg-sub)] hover:text-[var(--fg)] hover:bg-[var(--bg-muted)]/50'
+                  }`
+                }
+              >
+                {link.name}
+              </NavLink>
             ))}
           </nav>
 
           {/* Action Tools */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2.5">
             {/* Dark / Light Toggle */}
             <button
               onClick={toggleDark}
-              className="p-2 rounded-full border border-[var(--border)] bg-[var(--bg-card)] text-[var(--fg-sub)] hover:text-[var(--fg)] hover:border-[var(--primary)] transition-all cursor-pointer shadow-sm"
-              title={isDark ? 'Switch to Mint Light' : 'Switch to Mint Dark'}
-              aria-label="Toggle dark mode"
+              className="p-2 rounded-full border border-[var(--border)] bg-[var(--bg-card)] text-[var(--fg-sub)] hover:text-[var(--fg)] hover:border-[var(--fg)]/30 transition-all cursor-pointer shadow-xs"
+              title={isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+              aria-label="Toggle theme mode"
             >
-              {isDark ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-[var(--primary)]" />}
+              {isDark ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-zinc-700" />}
             </button>
 
-            {/* Join the Lab CTA Button (Ali's style) */}
+            {/* Primary Pill Button (Inspiration style) */}
             <Link
               to="/interns"
-              className="hidden sm:inline-flex items-center gap-1.5 px-5 py-2 rounded-full bg-[var(--primary)] text-black font-mono text-xs font-bold hover:shadow-md hover:scale-105 active:scale-95 transition-all"
+              className="hidden sm:inline-flex items-center justify-center px-5 py-2 rounded-full bg-[var(--primary)] text-[var(--primary-fg)] font-semibold text-xs hover:opacity-90 hover:scale-[1.02] active:scale-[0.98] transition-all shadow-sm"
             >
-              Join the Lab <ArrowUpRight className="w-3.5 h-3.5" />
+              Get in touch
             </Link>
 
             {/* Mobile Menu Toggle Button */}
             <button
               onClick={() => setMobileMenuOpen(prev => !prev)}
-              className="xl:hidden p-2 rounded-lg border border-[var(--border)] bg-[var(--bg-card)] text-[var(--fg)] hover:border-[var(--primary)] transition-colors cursor-pointer"
+              className="lg:hidden p-2 rounded-lg border border-[var(--border)] bg-[var(--bg-card)] text-[var(--fg)] hover:border-[var(--fg)]/40 transition-colors cursor-pointer"
               aria-label="Toggle menu"
             >
               {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}

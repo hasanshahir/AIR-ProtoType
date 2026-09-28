@@ -66,14 +66,14 @@ export default function TechParticles({
             },
             color: {
               value: isDark 
-                ? [primaryColor, '#34D399', '#38BDF8', '#E2E8F0']
-                : [primaryColor, '#059669', '#0284C7', '#334155'],
+                ? [primaryColor, activeTheme.subAccent, activeTheme.tertiary, '#FFFFFF']
+                : [primaryColor, activeTheme.subAccent, activeTheme.tertiary, '#71717A'],
             },
             shape: {
               type: 'circle',
             },
             opacity: {
-              value: { min: isDark ? 0.35 : 0.45, max: isDark ? 0.85 : 0.95 },
+              value: { min: isDark ? 0.30 : 0.25, max: isDark ? 0.80 : 0.70 },
               animation: {
                 enable: true,
                 speed: 1,
@@ -81,14 +81,14 @@ export default function TechParticles({
               },
             },
             size: {
-              value: { min: 2.0, max: 4.2 },
+              value: { min: 2.0, max: 3.8 },
             },
             links: {
               enable: true,
               distance: 145,
-              color: isDark ? primaryColor : '#059669',
-              opacity: isDark ? 0.35 : 0.45,
-              width: 1.2,
+              color: primaryColor,
+              opacity: isDark ? 0.35 : 0.22,
+              width: 1.1,
               triangles: {
                 enable: false,
               },
