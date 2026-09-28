@@ -18,9 +18,9 @@ import {
   Minus, 
   ChevronLeft, 
   ChevronRight, 
-  Sparkles, 
-  ShieldCheck,
-  Send
+  Send,
+  User,
+  Compass
 } from 'lucide-react'
 import TechParticles from '../components/TechParticles'
 import { useTheme } from '../components/ThemeProvider'
@@ -38,7 +38,7 @@ const stats = [
 ]
 
 const partners = [
-  'Google DeepMind', 'OpenAI', 'Meta AI', 'Hugging Face', 'Stanford HAI', 'MIT CSAIL', 'NVIDIA Research', 'HEC Pakistan'
+  'PLAID', 'Grasshopper', 'PAI 02', 'commune', 'DeepMind', 'Numeral', 'perplexity', 'Google DeepMind', 'OpenAI', 'Meta AI', 'Hugging Face', 'Stanford HAI', 'MIT CSAIL', 'NVIDIA Research', 'HEC Pakistan'
 ]
 
 const flagshipProjects = [
@@ -73,24 +73,28 @@ const flagshipProjects = [
 
 const faqs = [
   {
-    q: 'How can students or researchers apply for the AIR Lab fellowship?',
-    a: 'We evaluate candidates biannually for Summer and Fall cohorts. Applicants undergo a technical assessment in linear algebra, deep learning architectures (PyTorch), and systems engineering. Selected fellows receive fully funded compute access, stipend, and direct publication mentorship.'
+    q: 'What is the right fellowship or collaboration track for me?',
+    a: 'We offer specialized tracks for postgraduate researchers (12B+ foundation models), undergraduate scholars (edge robotics & CV), and industrial partners (custom model alignment, on-prem deployments, and sponsored labs).'
   },
   {
-    q: 'What compute infrastructure is available to research fellows?',
-    a: 'AIR Lab operates a dedicated 16x NVIDIA H100 SXM5 supercomputing cluster interconnected with 800Gb/s Quantum-2 InfiniBand fabric, yielding over 1.2 PFLOPS of FP8 tensor compute. Additionally, researchers utilize edge Jetson Orin testbeds and multi-rotor UAV swarms.'
+    q: 'How do compute allocations work on the 16x H100 cluster?',
+    a: 'Selected fellows and verified projects receive dedicated SLURM partitions on our 16x NVIDIA H100 SXM5 supercluster interconnected via 800Gb/s Quantum-2 InfiniBand for multi-node distributed pretraining.'
   },
   {
-    q: 'Are the trained models (such as UrduLLM) and datasets open-source?',
-    a: 'Yes. In accordance with our academic charter, validated model checkpoints, tokenizer configurations, and ethically vetted benchmarks are hosted publicly on Hugging Face under permissive open-weights licenses for the global research community.'
+    q: 'Can researchers access additional GPU hours at any time?',
+    a: 'Yes. High-priority training jobs and paper submission deadlines receive priority burst quotas through our automated compute scheduler.'
   },
   {
-    q: 'How do industry partners and enterprises collaborate with AIR Lab?',
-    a: 'Enterprises sponsor dedicated applied research tracks (e.g. edge computer vision, automated clinical diagnosis, bilingual conversational AI) with co-authored patents, tailored model fine-tuning, and direct integration support.'
+    q: 'How can outside teams and enterprise partners onboard at AIR Lab?',
+    a: 'Enterprise partners sponsor dedicated research cohorts with zero-data-retention guarantees, custom network security policies, and air-gapped model fine-tuning tailored to industrial applications.'
   },
   {
-    q: 'Can undergraduate scholars publish first-author peer-reviewed papers?',
-    a: 'Over 40% of our published papers at IEEE, CVPR, and NeurIPS workshops feature undergraduate scholars as lead or co-first authors under faculty supervision.'
+    q: 'Where can I view our open-source weights and documentation?',
+    a: 'All peer-reviewed model checkpoints, tokenizers, and benchmark evaluation suites are published publicly on our Hugging Face and GitHub repositories under permissive open-weights licenses.'
+  },
+  {
+    q: 'What happens when my project is accepted for IEEE/CVF publication?',
+    a: 'AIR Lab fully funds conference travel grants, presentation registration fees, and open-access publication costs for authors presenting at flagship venues.'
   }
 ]
 
@@ -98,7 +102,7 @@ export default function Home() {
   const { activeTheme } = useTheme()
   const sc = useScrollCraft()
   const [activeFaq, setActiveFaq] = useState<number | null>(0)
-  const [activeTab, setActiveTab] = useState<'training' | 'loss' | 'cluster'>('loss')
+  const [activeTab, setActiveTab] = useState<'loss' | 'training' | 'cluster'>('loss')
   const [activeSlide, setActiveSlide] = useState(0)
 
   useEffect(() => {
@@ -119,293 +123,350 @@ export default function Home() {
   }, [sc])
 
   return (
-    <div className="relative w-full flex flex-col items-center overflow-hidden bg-[var(--bg)] text-[var(--fg)] transition-colors duration-300">
+    <div className="relative w-full flex flex-col items-center overflow-hidden bg-[var(--bg)] text-[var(--fg)] transition-colors duration-300 font-sans">
       
-      {/* ── RICH AURORA MESH BACKGROUND BLURS (Inspiration Design) ── */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-[640px] overflow-hidden pointer-events-none -z-0">
-        <div 
-          className="absolute -top-32 left-1/6 w-[620px] h-[360px] rounded-full blur-[130px] opacity-75 dark:opacity-40 animate-pulse"
-          style={{ backgroundColor: 'var(--glow-1)', animationDuration: '9s' }}
-        />
-        <div 
-          className="absolute -top-20 right-1/6 w-[540px] h-[340px] rounded-full blur-[130px] opacity-75 dark:opacity-40 animate-pulse"
-          style={{ backgroundColor: 'var(--glow-2)', animationDuration: '11s' }}
-        />
-        <div 
-          className="absolute top-10 left-1/3 w-[680px] h-[280px] rounded-full blur-[140px] opacity-65 dark:opacity-35"
-          style={{ backgroundColor: 'var(--glow-3)' }}
-        />
-        <div 
-          className="absolute top-44 left-1/4 w-[480px] h-[260px] rounded-full blur-[120px] opacity-50 dark:opacity-30"
-          style={{ backgroundColor: 'var(--glow-4)' }}
-        />
-      </div>
-
-      {/* ── BACKGROUND JAVASCRIPT PARTICLES CONSTELLATION ── */}
-      <div className="absolute inset-0 z-0 pointer-events-none opacity-45 dark:opacity-55">
+      {/* ── BACKGROUND JAVASCRIPT PARTICLES (Requested: "add particles only") ── */}
+      <div className="absolute inset-0 z-0 pointer-events-none opacity-40 dark:opacity-50">
         <TechParticles id="ambient-particles" />
       </div>
 
-      {/* ── HERO SECTION: LEFT-ALIGNED AS SPECIFIED BY USER ── */}
-      <section className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 sm:pt-20 pb-20 z-10 relative">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
-          
-          {/* ── LEFT COLUMN: TYPOGRAPHY & VALUE PROPOSITION (Strictly Left-Aligned) ── */}
-          <div className="lg:col-span-7 flex flex-col items-start text-left">
-            
-            {/* Pill Badge (Left-Aligned) */}
-            <motion.div
-              initial={{ opacity: 0, y: 14 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4 }}
-              className="inline-flex items-center gap-2 rounded-full border border-black/10 dark:border-white/10 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md px-3.5 py-1.5 text-xs font-semibold mb-6 shadow-xs text-[var(--fg)]"
-            >
-              <span className="flex h-2 w-2 rounded-full animate-ping" style={{ backgroundColor: activeTheme.accent }} />
-              <span>For Enterprise & Research // NED University</span>
-            </motion.div>
+      {/* ── HERO SECTION (Center-Aligned Exactly Matching Inspiration Mockup) ── */}
+      <section className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 sm:pt-28 pb-20 z-10 relative flex flex-col items-center text-center">
+        
+        {/* ── VIBRANT SUNSET AURORA MESH BACKGROUND BLUR (Inspiration UI) ── */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-5xl h-[420px] pointer-events-none -z-10 overflow-visible">
+          <div 
+            className="absolute top-0 left-0 w-[420px] h-[320px] rounded-full blur-[110px] opacity-70 dark:opacity-40 animate-pulse"
+            style={{ backgroundColor: 'var(--glow-1)', animationDuration: '8s' }}
+          />
+          <div 
+            className="absolute top-6 right-0 w-[440px] h-[320px] rounded-full blur-[110px] opacity-70 dark:opacity-40 animate-pulse"
+            style={{ backgroundColor: 'var(--glow-2)', animationDuration: '10s' }}
+          />
+          <div 
+            className="absolute -top-10 left-1/4 w-[540px] h-[280px] rounded-full blur-[120px] opacity-65 dark:opacity-35"
+            style={{ backgroundColor: 'var(--glow-3)' }}
+          />
+          <div 
+            className="absolute top-24 left-1/3 w-[400px] h-[240px] rounded-full blur-[100px] opacity-50 dark:opacity-25"
+            style={{ backgroundColor: 'var(--glow-4)' }}
+          />
+        </div>
 
-            {/* Main Headline (Strictly Left-Aligned) */}
-            <motion.h1
-              initial={{ opacity: 0, y: 18 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              className="text-4xl sm:text-6xl lg:text-7xl font-bold tracking-[-0.035em] text-[var(--fg)] leading-[1.08] mb-6 font-head text-left"
-            >
-              Extend your capability with a <br className="hidden sm:block" />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-zinc-950 via-zinc-800 to-zinc-600 dark:from-white dark:via-zinc-200 dark:to-zinc-400">
-                full team of AI experts.
-              </span>
-            </motion.h1>
+        {/* Top Dark Badge: `▸ For Enterprise` */}
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4 }}
+          className="inline-flex items-center gap-2 rounded-md bg-zinc-950 text-white dark:bg-white dark:text-zinc-950 px-3 py-1 text-[11px] font-semibold mb-6 shadow-sm"
+        >
+          <span className="text-[10px]">▸</span>
+          <span>For Enterprise & Research</span>
+        </motion.div>
 
-            {/* Gradient Subtitle / Kicker (Strictly Left-Aligned — Inspiration Style) */}
-            <motion.p
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="text-base sm:text-lg font-semibold text-transparent bg-clip-text mb-4 text-left leading-snug"
-              style={{ backgroundImage: 'var(--accent-gradient)' }}
-            >
-              Specialized neural architectures for every domain. Ship faster, prototype instantly, discover deeper. Multiply your research workforce without adding headcount.
-            </motion.p>
+        {/* Giant Bold Headline (Center-Aligned) */}
+        <motion.h1
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+          className="text-5xl sm:text-7xl lg:text-8xl font-extrabold text-[var(--fg)] tracking-[-0.04em] leading-[1.08] max-w-5xl mb-6 font-head"
+        >
+          Extend your team with a <br className="hidden sm:block" />
+          full team of experts.
+        </motion.h1>
 
-            {/* Narrative Description (Left-Aligned) */}
-            <motion.p
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.25 }}
-              className="text-sm sm:text-base text-[var(--fg-sub)] max-w-xl mb-8 leading-relaxed text-left font-sans"
-            >
-              The Artificial Intelligence Research Laboratory (AIR Lab) at NED University bridges deep mathematical theory with real-world physical and digital deployment—pioneering bilingual foundation models, autonomous robotics swarms, and low-latency edge perception.
-            </motion.p>
+        {/* Vibrant Gradient Subtitle (Center-Aligned — Mockup Style) */}
+        <motion.p
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="text-base sm:text-xl font-semibold max-w-3xl mb-8 leading-snug text-transparent bg-clip-text"
+          style={{ backgroundImage: 'var(--accent-gradient)' }}
+        >
+          Specialized AI agents for every role. Ship faster, prototype instantly, close deals smarter. Multiply your workforce without adding headcount.
+        </motion.p>
 
-            {/* CTA Buttons (Strictly Left-Aligned) */}
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-              className="flex flex-col sm:flex-row items-center gap-3.5 w-full sm:w-auto mb-8"
-            >
-              <Link
-                to="/about"
-                className="w-full sm:w-auto px-7 py-3 rounded-full bg-[var(--primary)] text-[var(--primary-fg)] font-semibold text-xs sm:text-sm flex items-center justify-center gap-2 hover:opacity-90 hover:scale-[1.02] active:scale-[0.98] transition-all shadow-md cursor-pointer"
-              >
-                <span>Get started free</span>
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-              <Link
-                to="/projects"
-                className="w-full sm:w-auto px-7 py-3 rounded-full bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-[var(--fg)] font-semibold text-xs sm:text-sm flex items-center justify-center hover:bg-zinc-50 dark:hover:bg-zinc-800/80 transition-all shadow-xs cursor-pointer"
-              >
-                Book a demo
-              </Link>
-            </motion.div>
+        {/* Dual CTA Buttons (Solid Black + White Bordered) */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+          className="flex flex-col sm:flex-row items-center justify-center gap-3.5 mb-8 w-full sm:w-auto"
+        >
+          <Link
+            to="/about"
+            className="w-full sm:w-auto px-7 py-3 rounded-full bg-zinc-950 text-white dark:bg-white dark:text-zinc-950 font-semibold text-xs sm:text-sm flex items-center justify-center gap-2 hover:opacity-90 hover:scale-[1.02] active:scale-[0.98] transition-all shadow-md cursor-pointer"
+          >
+            <span>Get started free</span>
+            <ArrowRight className="w-4 h-4" />
+          </Link>
+          <Link
+            to="/projects"
+            className="w-full sm:w-auto px-7 py-3 rounded-full bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-[var(--fg)] font-semibold text-xs sm:text-sm flex items-center justify-center hover:bg-zinc-50 dark:hover:bg-zinc-800/80 transition-all shadow-xs cursor-pointer"
+          >
+            Book a demo
+          </Link>
+        </motion.div>
 
-            {/* Trust Badges Checkmarks Row (Inspiration style: ✓ SOC 2 ready...) */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-              className="flex flex-wrap items-center gap-x-6 gap-y-2 text-xs text-[var(--fg-sub)] font-medium pt-4 border-t border-black/5 dark:border-white/10"
-            >
-              <div className="flex items-center gap-1.5">
-                <Check className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400 stroke-[3]" />
-                <span>48+ IEEE & CVF Papers</span>
-              </div>
-              <div className="flex items-center gap-1.5">
-                <Check className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400 stroke-[3]" />
-                <span>16x NVIDIA H100 SXM5</span>
-              </div>
-              <div className="flex items-center gap-1.5">
-                <Check className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400 stroke-[3]" />
-                <span>PKR 45M Active Grants</span>
-              </div>
-              <div className="flex items-center gap-1.5">
-                <Check className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400 stroke-[3]" />
-                <span>120+ Active Fellows</span>
-              </div>
-            </motion.div>
-
+        {/* Trust Badges Checkmarks Row (Directly below buttons in Mockup) */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.4 }}
+          className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs text-[var(--fg-sub)] font-medium"
+        >
+          <div className="flex items-center gap-1.5">
+            <Check className="w-3.5 h-3.5 text-zinc-900 dark:text-zinc-100 stroke-[2.5]" />
+            <span>SOC 2- ready processes</span>
           </div>
+          <div className="flex items-center gap-1.5">
+            <Check className="w-3.5 h-3.5 text-zinc-900 dark:text-zinc-100 stroke-[2.5]" />
+            <span>SSO & SAML + Role-based access</span>
+          </div>
+          <div className="flex items-center gap-1.5">
+            <Check className="w-3.5 h-3.5 text-zinc-900 dark:text-zinc-100 stroke-[2.5]" />
+            <span>Data residency & privacy controls</span>
+          </div>
+          <div className="flex items-center gap-1.5">
+            <Check className="w-3.5 h-3.5 text-zinc-900 dark:text-zinc-100 stroke-[2.5]" />
+            <span>Dedicated support & SLAs</span>
+          </div>
+        </motion.div>
 
-          {/* ── RIGHT COLUMN: INTERACTIVE MODEL & MAC WINDOW PREVIEW (From Ali's Architecture) ── */}
-          <div className="lg:col-span-5">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.96, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="w-full rounded-2xl border border-[var(--border)] bg-[var(--bg-card)]/90 backdrop-blur-xl shadow-2xl overflow-hidden group"
-            >
-              {/* Mac Window Title Bar */}
-              <div className="bg-[var(--bg-muted)] border-b border-[var(--border)] px-4 py-3 flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 rounded-full bg-rose-500/80" />
-                  <div className="w-3 h-3 rounded-full bg-amber-500/80" />
-                  <div className="w-3 h-3 rounded-full bg-emerald-500/80" />
-                  <span className="ml-3 text-xs font-mono text-[var(--fg-sub)]">
-                    air-lab/core-model.py
-                  </span>
-                </div>
-                <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-bold border border-emerald-500/20">
-                  GPU CLUSTER ONLINE
+      </section>
+
+      {/* ── LOGOS MARQUEE (Matching the Mockup's Horizontal Row) ── */}
+      <section className="w-full border-y border-[var(--border)] bg-[var(--bg-muted)]/30 py-8 z-10 overflow-hidden">
+        <MarqueeModule gradient={false} speed={36} pauseOnHover={true}>
+          <div className="flex items-center gap-12 sm:gap-16 pr-12">
+            {partners.map((partner, index) => (
+              <span
+                key={index}
+                className="text-base sm:text-lg font-bold font-mono tracking-tight text-[var(--fg-sub)]/70 hover:text-[var(--fg)] transition-colors cursor-default whitespace-nowrap"
+              >
+                {partner}
+              </span>
+            ))}
+          </div>
+        </MarqueeModule>
+      </section>
+
+      {/* ── SECTION 2: "Enterprise AI that just works." (Exact Mockup Layout) ── */}
+      <section className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 z-10 relative">
+        <div className="mb-12">
+          <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-[var(--fg)] font-head mb-3">
+            Enterprise AI that just works.
+          </h2>
+          <p className="text-base sm:text-lg text-[var(--fg-sub)] max-w-2xl font-sans">
+            Security, governance, and scalability are built in from day one. Deploy with confidence across your organization.
+          </p>
+        </div>
+
+        {/* ── THE SIGNATURE IRIDESCENT GRADIENT BORDER CARD (Inspiration Mockup) ── */}
+        <div className="relative rounded-3xl p-1 mb-20 shadow-2xl overflow-hidden group">
+          {/* Glowing Iridescent Gradient Frame */}
+          <div 
+            className="absolute inset-0 rounded-3xl opacity-85 group-hover:opacity-100 transition-opacity blur-sm"
+            style={{ backgroundImage: 'var(--accent-gradient)' }}
+          />
+
+          {/* Clean White / Dark Interior */}
+          <div className="relative rounded-[22px] bg-[var(--bg-card)] p-8 sm:p-14 z-10 grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+            
+            {/* Left Content Column */}
+            <div className="lg:col-span-6 flex flex-col justify-between h-full">
+              <div>
+                <h3 className="text-2xl sm:text-3xl font-extrabold text-[var(--fg)] font-head mb-4">
+                  Deploy the way that works <br /> best for your team.
+                </h3>
+                <p className="text-sm sm:text-base text-[var(--fg-sub)] leading-relaxed mb-10">
+                  Choose managed SaaS, private cloud, VPC, or on-prem. Zero-data-retention controls, custom network policies, and air-gapped deployments for the most demanding requirements.
+                </p>
+              </div>
+
+              {/* Slider Controls `<` `>` */}
+              <div className="flex items-center gap-3">
+                <button
+                  onClick={() => setActiveSlide(prev => (prev === 0 ? 2 : prev - 1))}
+                  className="w-10 h-10 rounded-lg border border-[var(--border)] bg-[var(--bg-muted)] text-[var(--fg)] flex items-center justify-center hover:scale-105 active:scale-95 transition-all cursor-pointer shadow-xs"
+                  aria-label="Previous slide"
+                >
+                  <ChevronLeft className="w-4 h-4" />
+                </button>
+                <button
+                  onClick={() => setActiveSlide(prev => (prev === 2 ? 0 : prev + 1))}
+                  className="w-10 h-10 rounded-lg border border-[var(--border)] bg-[var(--bg-muted)] text-[var(--fg)] flex items-center justify-center hover:scale-105 active:scale-95 transition-all cursor-pointer shadow-xs"
+                  aria-label="Next slide"
+                >
+                  <ChevronRight className="w-4 h-4" />
+                </button>
+                <span className="text-xs font-mono text-[var(--fg-sub)] ml-2">
+                  0{activeSlide + 1} / 03
                 </span>
               </div>
+            </div>
 
-              {/* Code / Visualizer Tabs */}
-              <div className="flex border-b border-[var(--border)] bg-[var(--bg-card)] text-xs font-mono">
-                <button
-                  onClick={() => setActiveTab('loss')}
-                  className={`flex-1 py-2.5 px-3 text-center border-b-2 font-semibold transition-all cursor-pointer ${
-                    activeTab === 'loss'
-                      ? 'border-[var(--fg)] text-[var(--fg)] bg-[var(--bg-muted)]/50'
-                      : 'border-transparent text-[var(--fg-sub)] hover:text-[var(--fg)]'
-                  }`}
+            {/* Right Inset Panel with Floating `Publish` Button */}
+            <div className="lg:col-span-6">
+              <div className="rounded-2xl border border-[var(--border)] bg-zinc-100/70 dark:bg-zinc-900/60 p-10 sm:p-14 flex items-center justify-center min-h-[320px] relative">
+                <div className="absolute inset-0 bg-dot-pattern opacity-25 pointer-events-none" />
+                
+                {/* Floating Card: `[ 👤 ]  [ 🚀 Publish ]` (Mockup Exact Detail) */}
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  className="relative z-10 flex items-center gap-3 p-3 rounded-2xl bg-white dark:bg-zinc-950 shadow-2xl border border-zinc-200/80 dark:border-zinc-800"
                 >
-                  // loss_curve.tsx
-                </button>
-                <button
-                  onClick={() => setActiveTab('training')}
-                  className={`flex-1 py-2.5 px-3 text-center border-b-2 font-semibold transition-all cursor-pointer ${
-                    activeTab === 'training'
-                      ? 'border-[var(--fg)] text-[var(--fg)] bg-[var(--bg-muted)]/50'
-                      : 'border-transparent text-[var(--fg-sub)] hover:text-[var(--fg)]'
-                  }`}
-                >
-                  // train_urdu.py
-                </button>
-                <button
-                  onClick={() => setActiveTab('cluster')}
-                  className={`flex-1 py-2.5 px-3 text-center border-b-2 font-semibold transition-all cursor-pointer ${
-                    activeTab === 'cluster'
-                      ? 'border-[var(--fg)] text-[var(--fg)] bg-[var(--bg-muted)]/50'
-                      : 'border-transparent text-[var(--fg-sub)] hover:text-[var(--fg)]'
-                  }`}
-                >
-                  // h100_node.sh
-                </button>
+                  <div className="w-11 h-11 rounded-xl bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center text-zinc-900 dark:text-white">
+                    <User className="w-5 h-5" />
+                  </div>
+                  <div className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-zinc-950 text-white dark:bg-white dark:text-zinc-950 font-bold text-xs shadow-md">
+                    <Send className="w-3.5 h-3.5" />
+                    <span>Publish</span>
+                  </div>
+                </motion.div>
               </div>
+            </div>
 
-              {/* Visualizer Display Area */}
-              <div className="p-6 bg-[var(--bg)]/50 relative">
-                <div className="absolute inset-0 bg-grid-pattern opacity-15 pointer-events-none" />
-
-                {activeTab === 'loss' && (
-                  <div>
-                    <div className="flex items-center justify-between mb-4">
-                      <div>
-                        <div className="text-xs font-bold text-[var(--fg)] font-mono">
-                          Pretraining UrduLLM-12B
-                        </div>
-                        <div className="text-[11px] text-[var(--fg-sub)]">
-                          Step 84,200 / 120,000 • FP8 Mixed Precision
-                        </div>
-                      </div>
-                      <div className="text-right font-mono">
-                        <span className="text-xs text-emerald-600 dark:text-emerald-400 font-bold">
-                          Loss: 0.0418
-                        </span>
-                        <div className="text-[10px] text-[var(--fg-sub)]">Δ -0.0012/k</div>
-                      </div>
-                    </div>
-
-                    {/* Dynamic SVG Loss Curve with Aurora Gradient Fill */}
-                    <div className="relative h-40 w-full overflow-hidden rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-2">
-                      <svg className="w-full h-full" viewBox="0 0 400 120" preserveAspectRatio="none">
-                        <defs>
-                          <linearGradient id="curveGradient" x1="0" y1="0" x2="0" y2="1">
-                            <stop offset="0%" stopColor={activeTheme.accent} stopOpacity="0.45" />
-                            <stop offset="100%" stopColor={activeTheme.accent} stopOpacity="0.0" />
-                          </linearGradient>
-                        </defs>
-                        {/* Area Fill */}
-                        <path
-                          d="M 0,110 Q 50,85 100,55 T 200,35 T 300,22 T 400,16 L 400,120 L 0,120 Z"
-                          fill="url(#curveGradient)"
-                        />
-                        {/* Stroke Line */}
-                        <path
-                          d="M 0,110 Q 50,85 100,55 T 200,35 T 300,22 T 400,16"
-                          fill="none"
-                          stroke={activeTheme.accent}
-                          strokeWidth="2.5"
-                          strokeLinecap="round"
-                        />
-                        {/* Live Pulsing Point */}
-                        <circle cx="395" cy="16" r="4.5" fill={activeTheme.accent} className="animate-ping" />
-                        <circle cx="395" cy="16" r="3.5" fill="#FFFFFF" stroke={activeTheme.accent} strokeWidth="2" />
-                      </svg>
-                    </div>
-
-                    {/* Telemetry Grid */}
-                    <div className="grid grid-cols-3 gap-2 mt-4 text-center font-mono text-[11px]">
-                      <div className="p-2 rounded-lg bg-[var(--bg-card)] border border-[var(--border)]">
-                        <div className="text-[var(--fg-sub)] text-[9px] uppercase">Tokens</div>
-                        <div className="font-bold text-[var(--fg)] mt-0.5">12.4B</div>
-                      </div>
-                      <div className="p-2 rounded-lg bg-[var(--bg-card)] border border-[var(--border)]">
-                        <div className="text-[var(--fg-sub)] text-[9px] uppercase">Throughput</div>
-                        <div className="font-bold text-[var(--fg)] mt-0.5">4,820 t/s</div>
-                      </div>
-                      <div className="p-2 rounded-lg bg-[var(--bg-card)] border border-[var(--border)]">
-                        <div className="text-[var(--fg-sub)] text-[9px] uppercase">H100 VRAM</div>
-                        <div className="font-bold text-[var(--fg)] mt-0.5">76.4 / 80GB</div>
-                      </div>
-                    </div>
-                  </div>
-                )}
-
-                {activeTab === 'training' && (
-                  <div className="font-mono text-xs text-[var(--fg)] space-y-1 py-2">
-                    <p className="text-[var(--fg-sub)]"># Distributed Deepspeed ZeRO-3 Initializer</p>
-                    <p><span className="text-pink-600 dark:text-pink-400">import</span> torch</p>
-                    <p><span className="text-pink-600 dark:text-pink-400">from</span> transformers <span className="text-pink-600 dark:text-pink-400">import</span> AutoModelForCausalLM</p>
-                    <p className="text-emerald-600 dark:text-emerald-400">model = AutoModelForCausalLM.from_pretrained(</p>
-                    <p className="pl-4 text-amber-600 dark:text-amber-300">"air-lab/UrduLLM-12B-Base",</p>
-                    <p className="pl-4">torch_dtype=torch.bfloat16,</p>
-                    <p className="pl-4">device_map="auto",</p>
-                    <p className="pl-4">attn_implementation="flash_attention_2"</p>
-                    <p className="text-emerald-600 dark:text-emerald-400">)</p>
-                    <p className="text-[var(--fg-sub)] mt-2"># Pretraining step loss: 0.0418 (bfloat16)</p>
-                  </div>
-                )}
-
-                {activeTab === 'cluster' && (
-                  <div className="font-mono text-xs text-[var(--fg)] space-y-1.5 py-2">
-                    <div className="flex justify-between items-center text-[var(--fg-sub)] text-[11px] pb-1 border-b border-[var(--border)]">
-                      <span>SLURM JOB: #98421</span>
-                      <span className="text-emerald-600 dark:text-emerald-400 font-bold">16 NODES ALLOCATED</span>
-                    </div>
-                    <p className="text-emerald-600 dark:text-emerald-400 font-bold">$ srun --nodes=2 --gpus-per-node=8 nvidia-smi</p>
-                    <p className="text-[11px] text-[var(--fg-sub)]">• GPU 0..7: NVIDIA H100 80GB HBM3 [Temp: 48C]</p>
-                    <p className="text-[11px] text-[var(--fg-sub)]">• GPU 8..15: NVIDIA H100 80GB HBM3 [Temp: 51C]</p>
-                    <p className="text-[11px] text-amber-600 dark:text-amber-300">• InfiniBand Fabric: 800 Gb/s Quantum-2 Full Duplex</p>
-                    <p className="text-[11px] text-emerald-600 dark:text-emerald-400">• Checkpoint sync latency: 1.4ms</p>
-                  </div>
-                )}
-              </div>
-            </motion.div>
           </div>
+        </div>
+
+        {/* ── 6 BENTO CARDS (From Ali's Architecture & Mockup's Top-Right Layout) ── */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-24">
+          
+          {/* Card 1: Product / Foundational Models */}
+          <Tilt tiltMaxAngleX={5} tiltMaxAngleY={5} glareEnable={true} glareMaxOpacity={0.05} className="rounded-2xl">
+            <div className="h-full bg-[var(--bg-card)] border border-[var(--border)] rounded-2xl p-7 flex flex-col justify-between hover:border-[var(--fg)]/30 hover:shadow-lg transition-all group">
+              <div>
+                <div className="flex items-center justify-between mb-6">
+                  <div className="w-10 h-10 rounded-xl bg-[var(--bg-muted)] border border-[var(--border)] flex items-center justify-center text-[var(--fg)]">
+                    <Brain className="w-5 h-5" />
+                  </div>
+                  <span className="text-[10px] font-mono font-medium text-[var(--fg-sub)] bg-[var(--bg-muted)] px-2 py-0.5 rounded border border-[var(--border)]">
+                    Ready for team
+                  </span>
+                </div>
+                <h3 className="text-xl font-bold text-[var(--fg)] font-head mb-2">
+                  Product
+                </h3>
+                <p className="text-xs sm:text-sm text-[var(--fg-sub)] leading-relaxed font-sans">
+                  Pick your AI agents for prototyping, user research insights, and feature specifications—turning ideas into working demos within minutes.
+                </p>
+              </div>
+            </div>
+          </Tilt>
+
+          {/* Card 2: Sales / Edge AI */}
+          <Tilt tiltMaxAngleX={5} tiltMaxAngleY={5} glareEnable={true} glareMaxOpacity={0.05} className="rounded-2xl">
+            <div className="h-full bg-[var(--bg-card)] border border-[var(--border)] rounded-2xl p-7 flex flex-col justify-between hover:border-[var(--fg)]/30 hover:shadow-lg transition-all group">
+              <div>
+                <div className="flex items-center justify-between mb-6">
+                  <div className="w-10 h-10 rounded-xl bg-[var(--bg-muted)] border border-[var(--border)] flex items-center justify-center text-[var(--fg)]">
+                    <Zap className="w-5 h-5" />
+                  </div>
+                  <span className="text-[10px] font-mono font-medium text-[var(--fg-sub)] bg-[var(--bg-muted)] px-2 py-0.5 rounded border border-[var(--border)]">
+                    Shorter sales cycles
+                  </span>
+                </div>
+                <h3 className="text-xl font-bold text-[var(--fg)] font-head mb-2">
+                  Sales
+                </h3>
+                <p className="text-xs sm:text-sm text-[var(--fg-sub)] leading-relaxed font-sans">
+                  Equip teams with AI agents for custom demos, proposal creation, and technical Q&A—helping close deals faster with instant technical support.
+                </p>
+              </div>
+            </div>
+          </Tilt>
+
+          {/* Card 3: Support / Autonomous Robotics */}
+          <Tilt tiltMaxAngleX={5} tiltMaxAngleY={5} glareEnable={true} glareMaxOpacity={0.05} className="rounded-2xl">
+            <div className="h-full bg-[var(--bg-card)] border border-[var(--border)] rounded-2xl p-7 flex flex-col justify-between hover:border-[var(--fg)]/30 hover:shadow-lg transition-all group">
+              <div>
+                <div className="flex items-center justify-between mb-6">
+                  <div className="w-10 h-10 rounded-xl bg-[var(--bg-muted)] border border-[var(--border)] flex items-center justify-center text-[var(--fg)]">
+                    <Cpu className="w-5 h-5" />
+                  </div>
+                  <span className="text-[10px] font-mono font-medium text-[var(--fg-sub)] bg-[var(--bg-muted)] px-2 py-0.5 rounded border border-[var(--border)]">
+                    24/7 coverage
+                  </span>
+                </div>
+                <h3 className="text-xl font-bold text-[var(--fg)] font-head mb-2">
+                  Support
+                </h3>
+                <p className="text-xs sm:text-sm text-[var(--fg-sub)] leading-relaxed font-sans">
+                  Support teams use AI agents for troubleshooting, knowledge base updates, and escalation management—resolving issues efficiently at scale.
+                </p>
+              </div>
+            </div>
+          </Tilt>
+
+          {/* Card 4: Engineering / Open Source */}
+          <Tilt tiltMaxAngleX={5} tiltMaxAngleY={5} glareEnable={true} glareMaxOpacity={0.05} className="rounded-2xl">
+            <div className="h-full bg-[var(--bg-card)] border border-[var(--border)] rounded-2xl p-7 flex flex-col justify-between hover:border-[var(--fg)]/30 hover:shadow-lg transition-all group">
+              <div>
+                <div className="flex items-center justify-between mb-6">
+                  <div className="w-10 h-10 rounded-xl bg-[var(--bg-muted)] border border-[var(--border)] flex items-center justify-center text-[var(--fg)]">
+                    <Code className="w-5 h-5" />
+                  </div>
+                  <span className="text-[10px] font-mono font-medium text-[var(--fg-sub)] bg-[var(--bg-muted)] px-2 py-0.5 rounded border border-[var(--border)]">
+                    10x productivity
+                  </span>
+                </div>
+                <h3 className="text-xl font-bold text-[var(--fg)] font-head mb-2">
+                  Engineering
+                </h3>
+                <p className="text-xs sm:text-sm text-[var(--fg-sub)] leading-relaxed font-sans">
+                  Every developer gets AI agents for code review, testing, documentation, and deployment. Ship faster without sacrificing quality.
+                </p>
+              </div>
+            </div>
+          </Tilt>
+
+          {/* Card 5: Design / Data Curation */}
+          <Tilt tiltMaxAngleX={5} tiltMaxAngleY={5} glareEnable={true} glareMaxOpacity={0.05} className="rounded-2xl">
+            <div className="h-full bg-[var(--bg-card)] border border-[var(--border)] rounded-2xl p-7 flex flex-col justify-between hover:border-[var(--fg)]/30 hover:shadow-lg transition-all group">
+              <div>
+                <div className="flex items-center justify-between mb-6">
+                  <div className="w-10 h-10 rounded-xl bg-[var(--bg-muted)] border border-[var(--border)] flex items-center justify-center text-[var(--fg)]">
+                    <Database className="w-5 h-5" />
+                  </div>
+                  <span className="text-[10px] font-mono font-medium text-[var(--fg-sub)] bg-[var(--bg-muted)] px-2 py-0.5 rounded border border-[var(--border)]">
+                    Zero-handset friction
+                  </span>
+                </div>
+                <h3 className="text-xl font-bold text-[var(--fg)] font-head mb-2">
+                  Design
+                </h3>
+                <p className="text-xs sm:text-sm text-[var(--fg-sub)] leading-relaxed font-sans">
+                  Designers get AI agents for implementation, accessibility checks, and managing design systems. Turn every design into production ready code.
+                </p>
+              </div>
+            </div>
+          </Tilt>
+
+          {/* Card 6: Operations / AI Safety */}
+          <Tilt tiltMaxAngleX={5} tiltMaxAngleY={5} glareEnable={true} glareMaxOpacity={0.05} className="rounded-2xl">
+            <div className="h-full bg-[var(--bg-card)] border border-[var(--border)] rounded-2xl p-7 flex flex-col justify-between hover:border-[var(--fg)]/30 hover:shadow-lg transition-all group">
+              <div>
+                <div className="flex items-center justify-between mb-6">
+                  <div className="w-10 h-10 rounded-xl bg-[var(--bg-muted)] border border-[var(--border)] flex items-center justify-center text-[var(--fg)]">
+                    <LineChart className="w-5 h-5" />
+                  </div>
+                  <span className="text-[10px] font-mono font-medium text-[var(--fg-sub)] bg-[var(--bg-muted)] px-2 py-0.5 rounded border border-[var(--border)]">
+                    Always on, never tired
+                  </span>
+                </div>
+                <h3 className="text-xl font-bold text-[var(--fg)] font-head mb-2">
+                  Operations
+                </h3>
+                <p className="text-xs sm:text-sm text-[var(--fg-sub)] leading-relaxed font-sans">
+                  Give operations teams AI agents for continuous monitoring, rapid incident response, and automated workflows. Run precise, reduce manual effort, and scale operations without overloading your team.
+                </p>
+              </div>
+            </div>
+          </Tilt>
 
         </div>
+
       </section>
 
       {/* ── STATS STRIP (From Ali's Architecture) ── */}
@@ -433,253 +494,144 @@ export default function Home() {
         </motion.div>
       </section>
 
-      {/* ── MARQUEE SECTION: INDUSTRY & ACADEMIC COLLABORATIONS ── */}
-      <section className="w-full border-y border-[var(--border)] bg-[var(--bg-muted)]/30 py-10 z-10 overflow-hidden">
-        <div className="text-center text-xs font-semibold text-[var(--fg-sub)] mb-6 uppercase tracking-widest font-mono">
-          Industry & Academic Collaborations
-        </div>
-        <MarqueeModule gradient={false} speed={38} pauseOnHover={true}>
-          <div className="flex items-center gap-12 sm:gap-16 pr-12">
-            {partners.map((partner, index) => (
-              <span
-                key={index}
-                className="text-base sm:text-lg font-bold font-mono tracking-tight text-[var(--fg-sub)] hover:text-[var(--fg)] transition-colors cursor-default whitespace-nowrap"
-              >
-                // {partner}
+      {/* ── MAC WINDOW PREVIEW (From Ali's Architecture) ── */}
+      <section className="w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 mb-24 z-10 relative">
+        <div className="w-full rounded-2xl border border-[var(--border)] bg-[var(--bg-card)]/90 backdrop-blur-xl shadow-2xl overflow-hidden">
+          {/* Mac Window Controls */}
+          <div className="bg-[var(--bg-muted)] border-b border-[var(--border)] px-4 py-3 flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <div className="w-3 h-3 rounded-full bg-rose-500/80" />
+              <div className="w-3 h-3 rounded-full bg-amber-500/80" />
+              <div className="w-3 h-3 rounded-full bg-emerald-500/80" />
+              <span className="ml-3 text-xs font-mono text-[var(--fg-sub)]">
+                air-lab/core-model.py
               </span>
-            ))}
+            </div>
+            <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-bold border border-emerald-500/20">
+              16x H100 ONLINE
+            </span>
           </div>
-        </MarqueeModule>
-      </section>
 
-      {/* ── FEATURE SECTION: "Enterprise AI that just works." (Matching Inspiration Image) ── */}
-      <section className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 z-10 relative">
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-[var(--fg)] font-head mb-4">
-            Enterprise AI that just works.
-          </h2>
-          <p className="text-base sm:text-lg text-[var(--fg-sub)] leading-relaxed font-sans">
-            Security, governance, and scalability are built in from day one. Deploy with confidence across your organization.
-          </p>
-        </div>
-
-        {/* Iridescent Border Featured Bento Card (Matching the Inspiration Image) */}
-        <div className="relative rounded-3xl p-1 mb-16 shadow-2xl overflow-hidden group">
-          {/* Iridescent Ambient Gradient Background */}
-          <div 
-            className="absolute inset-0 rounded-3xl opacity-80 group-hover:opacity-100 transition-opacity blur-md"
-            style={{ backgroundImage: 'var(--accent-gradient)' }}
-          />
-
-          {/* White / Dark Card Interior */}
-          <div className="relative rounded-[22px] bg-[var(--bg-card)] p-8 sm:p-12 z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-            
-            {/* Left Content */}
-            <div className="lg:col-span-6 flex flex-col justify-between h-full">
-              <div>
-                <h3 className="text-2xl sm:text-3xl font-extrabold text-[var(--fg)] font-head mb-4">
-                  Deploy the way that works best for your team.
-                </h3>
-                <p className="text-sm sm:text-base text-[var(--fg-sub)] leading-relaxed mb-8">
-                  Choose managed cloud, private cluster, VPC, or on-prem. Zero-data-retention controls, custom network security policies, and air-gapped deployments for the most demanding mission-critical requirements.
-                </p>
-              </div>
-
-              {/* Slider Controls `<` `>` */}
-              <div className="flex items-center gap-3">
-                <button
-                  onClick={() => setActiveSlide(prev => (prev === 0 ? 2 : prev - 1))}
-                  className="w-10 h-10 rounded-full border border-[var(--border)] bg-[var(--bg-muted)] text-[var(--fg)] flex items-center justify-center hover:scale-105 active:scale-95 transition-all cursor-pointer shadow-xs"
-                  aria-label="Previous slide"
-                >
-                  <ChevronLeft className="w-4 h-4" />
-                </button>
-                <button
-                  onClick={() => setActiveSlide(prev => (prev === 2 ? 0 : prev + 1))}
-                  className="w-10 h-10 rounded-full border border-[var(--border)] bg-[var(--bg-muted)] text-[var(--fg)] flex items-center justify-center hover:scale-105 active:scale-95 transition-all cursor-pointer shadow-xs"
-                  aria-label="Next slide"
-                >
-                  <ChevronRight className="w-4 h-4" />
-                </button>
-                <span className="text-xs font-mono text-[var(--fg-sub)] ml-2">
-                  0{activeSlide + 1} / 03
-                </span>
-              </div>
-            </div>
-
-            {/* Right Inset Preview Box with Floating `Publish` Pill (From Inspiration Image) */}
-            <div className="lg:col-span-6">
-              <div className="rounded-2xl border border-[var(--border)] bg-[var(--bg-muted)]/60 p-8 sm:p-12 flex flex-col items-center justify-center relative min-h-[300px]">
-                <div className="absolute inset-0 bg-dot-pattern opacity-25 pointer-events-none" />
-                
-                {/* Floating Publish Toggle Pill (from Inspiration Screenshot) */}
-                <motion.div
-                  whileHover={{ scale: 1.05 }}
-                  className="relative z-10 flex items-center gap-3 px-5 py-3 rounded-2xl bg-zinc-950 text-white dark:bg-white dark:text-zinc-950 shadow-2xl border border-black/10 dark:border-white/20"
-                >
-                  <div className="p-2 rounded-xl bg-white/10 dark:bg-black/10">
-                    <Send className="w-4 h-4" />
-                  </div>
-                  <div className="flex flex-col text-left">
-                    <span className="text-xs font-bold leading-tight">Publish Model</span>
-                    <span className="text-[10px] text-zinc-400 dark:text-zinc-600">Deploy to 16x H100</span>
-                  </div>
-                </motion.div>
-
-                {/* Subtext info */}
-                <div className="relative z-10 mt-6 text-center text-xs text-[var(--fg-sub)] max-w-xs font-mono">
-                  Autonomous weights synchronization • TensorRT-LLM containerized instance
-                </div>
-              </div>
-            </div>
-
+          {/* Tab Selector */}
+          <div className="flex border-b border-[var(--border)] bg-[var(--bg-card)] text-xs font-mono">
+            <button
+              onClick={() => setActiveTab('loss')}
+              className={`flex-1 py-2.5 px-3 text-center border-b-2 font-semibold transition-all cursor-pointer ${
+                activeTab === 'loss'
+                  ? 'border-[var(--fg)] text-[var(--fg)] bg-[var(--bg-muted)]/50'
+                  : 'border-transparent text-[var(--fg-sub)] hover:text-[var(--fg)]'
+              }`}
+            >
+              // loss_curve.tsx
+            </button>
+            <button
+              onClick={() => setActiveTab('training')}
+              className={`flex-1 py-2.5 px-3 text-center border-b-2 font-semibold transition-all cursor-pointer ${
+                activeTab === 'training'
+                  ? 'border-[var(--fg)] text-[var(--fg)] bg-[var(--bg-muted)]/50'
+                  : 'border-transparent text-[var(--fg-sub)] hover:text-[var(--fg)]'
+              }`}
+            >
+              // train_urdu.py
+            </button>
+            <button
+              onClick={() => setActiveTab('cluster')}
+              className={`flex-1 py-2.5 px-3 text-center border-b-2 font-semibold transition-all cursor-pointer ${
+                activeTab === 'cluster'
+                  ? 'border-[var(--fg)] text-[var(--fg)] bg-[var(--bg-muted)]/50'
+                  : 'border-transparent text-[var(--fg-sub)] hover:text-[var(--fg)]'
+              }`}
+            >
+              // h100_node.sh
+            </button>
           </div>
-        </div>
 
-        {/* ── 6 BENTO CARDS (From Ali's Architecture & Inspiration Image Grid) ── */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          
-          {/* Card 1: Product / Foundation Models */}
-          <Tilt tiltMaxAngleX={6} tiltMaxAngleY={6} glareEnable={true} glareMaxOpacity={0.06} className="rounded-2xl">
-            <div className="h-full bg-[var(--bg-card)] border border-[var(--border)] rounded-2xl p-7 flex flex-col justify-between hover:border-[var(--fg)]/30 hover:shadow-lg transition-all group">
+          {/* Interactive Screen Content */}
+          <div className="p-6 bg-[var(--bg)]/50 relative">
+            <div className="absolute inset-0 bg-grid-pattern opacity-15 pointer-events-none" />
+
+            {activeTab === 'loss' && (
               <div>
-                <div className="flex items-center justify-between mb-6">
-                  <div className="w-10 h-10 rounded-xl bg-[var(--bg-muted)] border border-[var(--border)] flex items-center justify-center text-[var(--fg)]">
-                    <Brain className="w-5 h-5" />
+                <div className="flex items-center justify-between mb-4">
+                  <div>
+                    <div className="text-xs font-bold text-[var(--fg)] font-mono">
+                      Pretraining UrduLLM-12B Foundation Model
+                    </div>
+                    <div className="text-[11px] text-[var(--fg-sub)]">
+                      Step 84,200 / 120,000 • FP8 Mixed Precision
+                    </div>
                   </div>
-                  <span className="text-[10px] font-mono uppercase tracking-wider text-[var(--fg-sub)] bg-[var(--bg-muted)] px-2 py-0.5 rounded border border-[var(--border)]">
-                    Ready for deploy
-                  </span>
-                </div>
-                <h3 className="text-xl font-bold text-[var(--fg)] font-head mb-2 group-hover:text-rose-500 transition-colors">
-                  Foundational Models
-                </h3>
-                <p className="text-xs sm:text-sm text-[var(--fg-sub)] leading-relaxed font-sans">
-                  Developing state-of-the-art LLMs optimized for regional languages, specialized biomedical domains, and instruction-tuned reasoning.
-                </p>
-              </div>
-            </div>
-          </Tilt>
-
-          {/* Card 2: Edge AI */}
-          <Tilt tiltMaxAngleX={6} tiltMaxAngleY={6} glareEnable={true} glareMaxOpacity={0.06} className="rounded-2xl">
-            <div className="h-full bg-[var(--bg-card)] border border-[var(--border)] rounded-2xl p-7 flex flex-col justify-between hover:border-[var(--fg)]/30 hover:shadow-lg transition-all group">
-              <div>
-                <div className="flex items-center justify-between mb-6">
-                  <div className="w-10 h-10 rounded-xl bg-[var(--bg-muted)] border border-[var(--border)] flex items-center justify-center text-[var(--fg)]">
-                    <Zap className="w-5 h-5" />
+                  <div className="text-right font-mono">
+                    <span className="text-xs text-emerald-600 dark:text-emerald-400 font-bold">
+                      Loss: 0.0418
+                    </span>
+                    <div className="text-[10px] text-[var(--fg-sub)]">Δ -0.0012/k</div>
                   </div>
-                  <span className="text-[10px] font-mono uppercase tracking-wider text-[var(--fg-sub)] bg-[var(--bg-muted)] px-2 py-0.5 rounded border border-[var(--border)]">
-                    5W Ultra-low power
-                  </span>
                 </div>
-                <h3 className="text-xl font-bold text-[var(--fg)] font-head mb-2 group-hover:text-orange-500 transition-colors">
-                  Edge AI Perception
-                </h3>
-                <p className="text-xs sm:text-sm text-[var(--fg-sub)] leading-relaxed font-sans">
-                  Deploying high-performance computer vision on constrained embedded hardware, achieving 60 FPS at sub-5W consumption for urban smart transit.
-                </p>
-              </div>
-            </div>
-          </Tilt>
 
-          {/* Card 3: Support / Autonomous Robotics */}
-          <Tilt tiltMaxAngleX={6} tiltMaxAngleY={6} glareEnable={true} glareMaxOpacity={0.06} className="rounded-2xl">
-            <div className="h-full bg-[var(--bg-card)] border border-[var(--border)] rounded-2xl p-7 flex flex-col justify-between hover:border-[var(--fg)]/30 hover:shadow-lg transition-all group">
-              <div>
-                <div className="flex items-center justify-between mb-6">
-                  <div className="w-10 h-10 rounded-xl bg-[var(--bg-muted)] border border-[var(--border)] flex items-center justify-center text-[var(--fg)]">
-                    <Cpu className="w-5 h-5" />
-                  </div>
-                  <span className="text-[10px] font-mono uppercase tracking-wider text-[var(--fg-sub)] bg-[var(--bg-muted)] px-2 py-0.5 rounded border border-[var(--border)]">
-                    24/7 Autonomy
-                  </span>
+                {/* SVG Loss Curve with Aurora Gradient Fill */}
+                <div className="relative h-44 w-full overflow-hidden rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-2">
+                  <svg className="w-full h-full" viewBox="0 0 400 120" preserveAspectRatio="none">
+                    <defs>
+                      <linearGradient id="curveGradient" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stopColor={activeTheme.accent} stopOpacity="0.45" />
+                        <stop offset="100%" stopColor={activeTheme.accent} stopOpacity="0.0" />
+                      </linearGradient>
+                    </defs>
+                    <path
+                      d="M 0,110 Q 50,85 100,55 T 200,35 T 300,22 T 400,16 L 400,120 L 0,120 Z"
+                      fill="url(#curveGradient)"
+                    />
+                    <path
+                      d="M 0,110 Q 50,85 100,55 T 200,35 T 300,22 T 400,16"
+                      fill="none"
+                      stroke={activeTheme.accent}
+                      strokeWidth="2.5"
+                      strokeLinecap="round"
+                    />
+                    <circle cx="395" cy="16" r="4.5" fill={activeTheme.accent} className="animate-ping" />
+                    <circle cx="395" cy="16" r="3.5" fill="#FFFFFF" stroke={activeTheme.accent} strokeWidth="2" />
+                  </svg>
                 </div>
-                <h3 className="text-xl font-bold text-[var(--fg)] font-head mb-2 group-hover:text-amber-500 transition-colors">
-                  Autonomous Robotics
-                </h3>
-                <p className="text-xs sm:text-sm text-[var(--fg-sub)] leading-relaxed font-sans">
-                  Multi-UAV cooperative swarms and quadruped testbeds with real-time SLAM, LiDAR-inertial odometry, and physical environment interaction.
-                </p>
               </div>
-            </div>
-          </Tilt>
+            )}
 
-          {/* Card 4: Engineering / Open Source */}
-          <Tilt tiltMaxAngleX={6} tiltMaxAngleY={6} glareEnable={true} glareMaxOpacity={0.06} className="rounded-2xl">
-            <div className="h-full bg-[var(--bg-card)] border border-[var(--border)] rounded-2xl p-7 flex flex-col justify-between hover:border-[var(--fg)]/30 hover:shadow-lg transition-all group">
-              <div>
-                <div className="flex items-center justify-between mb-6">
-                  <div className="w-10 h-10 rounded-xl bg-[var(--bg-muted)] border border-[var(--border)] flex items-center justify-center text-[var(--fg)]">
-                    <Code className="w-5 h-5" />
-                  </div>
-                  <span className="text-[10px] font-mono uppercase tracking-wider text-[var(--fg-sub)] bg-[var(--bg-muted)] px-2 py-0.5 rounded border border-[var(--border)]">
-                    Open Weights
-                  </span>
+            {activeTab === 'training' && (
+              <div className="font-mono text-xs text-[var(--fg)] space-y-1 py-2">
+                <p className="text-[var(--fg-sub)]"># Distributed Deepspeed ZeRO-3 Initializer</p>
+                <p><span className="text-pink-600 dark:text-pink-400">import</span> torch</p>
+                <p><span className="text-pink-600 dark:text-pink-400">from</span> transformers <span className="text-pink-600 dark:text-pink-400">import</span> AutoModelForCausalLM</p>
+                <p className="text-emerald-600 dark:text-emerald-400">model = AutoModelForCausalLM.from_pretrained(</p>
+                <p className="pl-4 text-amber-600 dark:text-amber-300">"air-lab/UrduLLM-12B-Base",</p>
+                <p className="pl-4">torch_dtype=torch.bfloat16,</p>
+                <p className="pl-4">device_map="auto",</p>
+                <p className="pl-4">attn_implementation="flash_attention_2"</p>
+                <p className="text-emerald-600 dark:text-emerald-400">)</p>
+              </div>
+            )}
+
+            {activeTab === 'cluster' && (
+              <div className="font-mono text-xs text-[var(--fg)] space-y-1.5 py-2">
+                <div className="flex justify-between items-center text-[var(--fg-sub)] text-[11px] pb-1 border-b border-[var(--border)]">
+                  <span>SLURM JOB: #98421</span>
+                  <span className="text-emerald-600 dark:text-emerald-400 font-bold">16 NODES ALLOCATED</span>
                 </div>
-                <h3 className="text-xl font-bold text-[var(--fg)] font-head mb-2 group-hover:text-pink-500 transition-colors">
-                  Open Source Tooling
-                </h3>
-                <p className="text-xs sm:text-sm text-[var(--fg-sub)] leading-relaxed font-sans">
-                  Publishing open tokenizers, evaluation harness scripts, and pre-trained weights to democratize frontier AI accessibility worldwide.
-                </p>
+                <p className="text-emerald-600 dark:text-emerald-400 font-bold">$ srun --nodes=2 --gpus-per-node=8 nvidia-smi</p>
+                <p className="text-[11px] text-[var(--fg-sub)]">• GPU 0..7: NVIDIA H100 80GB HBM3 [Temp: 48C]</p>
+                <p className="text-[11px] text-[var(--fg-sub)]">• GPU 8..15: NVIDIA H100 80GB HBM3 [Temp: 51C]</p>
+                <p className="text-[11px] text-amber-600 dark:text-amber-300">• InfiniBand Fabric: 800 Gb/s Quantum-2 Full Duplex</p>
               </div>
-            </div>
-          </Tilt>
-
-          {/* Card 5: Design / Data Curation */}
-          <Tilt tiltMaxAngleX={6} tiltMaxAngleY={6} glareEnable={true} glareMaxOpacity={0.06} className="rounded-2xl">
-            <div className="h-full bg-[var(--bg-card)] border border-[var(--border)] rounded-2xl p-7 flex flex-col justify-between hover:border-[var(--fg)]/30 hover:shadow-lg transition-all group">
-              <div>
-                <div className="flex items-center justify-between mb-6">
-                  <div className="w-10 h-10 rounded-xl bg-[var(--bg-muted)] border border-[var(--border)] flex items-center justify-center text-[var(--fg)]">
-                    <Database className="w-5 h-5" />
-                  </div>
-                  <span className="text-[10px] font-mono uppercase tracking-wider text-[var(--fg-sub)] bg-[var(--bg-muted)] px-2 py-0.5 rounded border border-[var(--border)]">
-                    Multi-modal corpus
-                  </span>
-                </div>
-                <h3 className="text-xl font-bold text-[var(--fg)] font-head mb-2 group-hover:text-teal-500 transition-colors">
-                  Data Curation & Alignment
-                </h3>
-                <p className="text-xs sm:text-sm text-[var(--fg-sub)] leading-relaxed font-sans">
-                  Large-scale ethically verified bilingual datasets spanning jurisprudence, clinical case records, and high-fidelity speech phonetics.
-                </p>
-              </div>
-            </div>
-          </Tilt>
-
-          {/* Card 6: Operations / AI Safety */}
-          <Tilt tiltMaxAngleX={6} tiltMaxAngleY={6} glareEnable={true} glareMaxOpacity={0.06} className="rounded-2xl">
-            <div className="h-full bg-[var(--bg-card)] border border-[var(--border)] rounded-2xl p-7 flex flex-col justify-between hover:border-[var(--fg)]/30 hover:shadow-lg transition-all group">
-              <div>
-                <div className="flex items-center justify-between mb-6">
-                  <div className="w-10 h-10 rounded-xl bg-[var(--bg-muted)] border border-[var(--border)] flex items-center justify-center text-[var(--fg)]">
-                    <LineChart className="w-5 h-5" />
-                  </div>
-                  <span className="text-[10px] font-mono uppercase tracking-wider text-[var(--fg-sub)] bg-[var(--bg-muted)] px-2 py-0.5 rounded border border-[var(--border)]">
-                    Zero-hallucination
-                  </span>
-                </div>
-                <h3 className="text-xl font-bold text-[var(--fg)] font-head mb-2 group-hover:text-indigo-500 transition-colors">
-                  AI Safety & Alignment
-                </h3>
-                <p className="text-xs sm:text-sm text-[var(--fg-sub)] leading-relaxed font-sans">
-                  Ensuring verifiable, robust, and mathematically grounded outputs for safety-critical healthcare and autonomous robotics missions.
-                </p>
-              </div>
-            </div>
-          </Tilt>
-
+            )}
+          </div>
         </div>
       </section>
 
-      {/* ── SECTION: FLAGSHIP PROJECTS (Worked Instances with Dormant B&W to Color Pop) ── */}
+      {/* ── SECTION: FLAGSHIP PROJECTS (Worked Instances from Ali's Architecture) ── */}
       <section className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 z-10 relative">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12">
           <div>
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[var(--bg-muted)] text-[var(--fg)] text-xs font-mono font-bold border border-[var(--border)] mb-3">
-              <Sparkles className="w-3.5 h-3.5" style={{ color: activeTheme.accent }} />
+              <Compass className="w-3.5 h-3.5" style={{ color: activeTheme.accent }} />
               FLAGSHIP RESEARCH DEPLOYMENTS
             </div>
             <h2 className="text-3xl sm:text-5xl font-extrabold text-[var(--fg)] tracking-tight font-head">
@@ -820,14 +772,14 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── FREQUENTLY ASKED QUESTIONS (Matching Inspiration Image FAQ Section) ── */}
+      {/* ── FREQUENTLY ASKED QUESTIONS (Matching Mockup Accordion) ── */}
       <section className="w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-24 z-10 relative">
         <div className="text-center mb-16">
           <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-[var(--fg)] font-head mb-4">
             Frequently Asked Questions
           </h2>
           <p className="text-base text-[var(--fg-sub)]">
-            Understand our admissions criteria, compute access, and open-source models.
+            Understand our credit-based pricing and fellowship compute allocation.
           </p>
         </div>
 
@@ -870,41 +822,44 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── FINAL UNAMBIGUOUS CALL TO ACTION ── */}
-      <section className="w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-20 z-10 relative text-center">
-        <div className="rounded-3xl border border-[var(--border)] bg-[var(--bg-card)] p-10 sm:p-16 shadow-2xl relative overflow-hidden">
-          {/* Subtle Aurora Ambient Blur inside the card */}
+      {/* ── FINAL CTA SECTION: "Let's talk deployment" (Matching Mockup Bottom Right) ── */}
+      <section className="w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-20 z-10 relative">
+        <div className="rounded-3xl border border-[var(--border)] bg-[var(--bg-card)] p-10 sm:p-16 shadow-2xl relative overflow-hidden flex flex-col items-center text-center">
+          
+          {/* Sweeping Sunset Aurora Mesh on the bottom right of the card (Exact Mockup Detail) */}
           <div 
-            className="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-96 rounded-full blur-3xl opacity-40 pointer-events-none"
-            style={{ backgroundColor: 'var(--glow-1)' }}
+            className="absolute -bottom-24 -right-24 w-[480px] h-[360px] rounded-full blur-[110px] opacity-75 dark:opacity-40 pointer-events-none"
+            style={{ backgroundImage: 'var(--accent-gradient)' }}
           />
 
-          <div className="relative z-10 max-w-2xl mx-auto">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[var(--bg-muted)] text-[var(--fg)] text-xs font-mono font-bold border border-[var(--border)] mb-6">
-              <ShieldCheck className="w-3.5 h-3.5" style={{ color: activeTheme.accent }} />
-              JOIN THE RESEARCH FELLOWSHIP
+          <div className="relative z-10 max-w-2xl mx-auto flex flex-col items-center">
+            {/* Small Pill: `▸ Enterprise` */}
+            <div className="inline-flex items-center gap-2 rounded-md bg-zinc-950 text-white dark:bg-white dark:text-zinc-950 px-3 py-1 text-[11px] font-semibold mb-6 shadow-sm">
+              <span className="text-[10px]">▸</span>
+              <span>Enterprise & Fellowship</span>
             </div>
 
-            <h2 className="text-3xl sm:text-5xl font-extrabold text-[var(--fg)] tracking-tight mb-6 font-head">
-              Ready to advance the state of the art?
+            {/* Headline: "Let's talk deployment" */}
+            <h2 className="text-4xl sm:text-6xl font-extrabold text-[var(--fg)] tracking-tight mb-6 font-head">
+              Let's talk deployment
             </h2>
 
-            <p className="text-sm sm:text-base text-[var(--fg-sub)] leading-relaxed mb-8">
-              Whether you are an ambitious student aspiring for world-class AI fellowship or an industry partner seeking high-throughput edge deployment, we welcome collaboration.
+            <p className="text-sm sm:text-base text-[var(--fg-sub)] leading-relaxed mb-8 max-w-xl">
+              Custom workflows, dedicated compute, and enterprise infrastructure. The foundation for modern artificial intelligence.
             </p>
 
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3.5">
               <Link
                 to="/interns"
-                className="w-full sm:w-auto px-8 py-3.5 rounded-full bg-[var(--primary)] text-[var(--primary-fg)] font-bold text-xs sm:text-sm hover:opacity-90 hover:scale-[1.02] active:scale-[0.98] transition-all shadow-md"
+                className="w-full sm:w-auto px-8 py-3.5 rounded-full bg-zinc-950 text-white dark:bg-white dark:text-zinc-950 font-bold text-xs sm:text-sm hover:opacity-90 hover:scale-[1.02] active:scale-[0.98] transition-all shadow-md"
               >
-                Get started free ↗
+                Get started free →
               </Link>
               <Link
-                to="/publications"
+                to="/projects"
                 className="w-full sm:w-auto px-8 py-3.5 rounded-full bg-white dark:bg-zinc-900 border border-[var(--border)] text-[var(--fg)] font-semibold text-xs sm:text-sm hover:bg-[var(--bg-muted)] transition-all shadow-xs"
               >
-                Explore All Publications
+                Book a demo
               </Link>
             </div>
           </div>
