@@ -1,9 +1,10 @@
 import { useState } from 'react'
 import { Link, NavLink, Outlet } from 'react-router-dom'
 import { motion, useScroll, useSpring, AnimatePresence } from 'framer-motion'
-import { Sun, Moon, Menu, X, ArrowUpRight, Terminal, MapPin, Mail, Award, BookOpen, Users, FolderGit2, Camera, Handshake, UserCheck } from 'lucide-react'
+import { Sun, Moon, Menu, X, Terminal, MapPin, Mail, Award, BookOpen, Users, FolderGit2, Camera, Handshake, UserCheck, ExternalLink } from 'lucide-react'
 import { useTheme } from './ThemeProvider'
 import ThemeSwitcher from './ThemeSwitcher'
+import AirLabLogo from './AirLabLogo'
 
 export default function Layout() {
   const { isDark, toggleDark } = useTheme()
@@ -11,19 +12,25 @@ export default function Layout() {
   const { scrollYProgress } = useScroll()
   const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 })
 
-  const navLinks = [
+  // Primary Architecture Links from Ali's Prototype & NEDUET Portal
+  const primaryLinks = [
     { name: 'About', path: '/about', icon: Terminal },
     { name: 'Team', path: '/team', icon: Users },
     { name: 'Projects', path: '/projects', icon: FolderGit2 },
     { name: 'Publications', path: '/publications', icon: BookOpen },
-    { name: 'Performers', path: '/performers', icon: Award },
-    { name: 'Collaborations', path: '/collaborations', icon: Handshake },
-    { name: 'Interns', path: '/interns', icon: UserCheck },
     { name: 'Gallery', path: '/gallery', icon: Camera },
   ]
 
+  const secondaryLinks = [
+    { name: 'Performers', path: '/performers', icon: Award },
+    { name: 'Collaborations', path: '/collaborations', icon: Handshake },
+    { name: 'Interns', path: '/interns', icon: UserCheck },
+  ]
+
+  const allLinks = [...primaryLinks, ...secondaryLinks]
+
   return (
-    <div className="min-h-screen flex flex-col bg-[var(--bg)] text-[var(--fg)] transition-colors duration-300 relative selection:bg-[var(--primary)] selection:text-black font-sans">
+    <div className="min-h-screen flex flex-col bg-[var(--bg)] text-[var(--fg)] transition-colors duration-300 relative selection:bg-rose-500 selection:text-white font-sans">
       {/* Background Subtle Matrix Grid */}
       <div className="fixed inset-0 bg-grid-pattern opacity-35 pointer-events-none -z-10" />
 
@@ -32,48 +39,35 @@ export default function Layout() {
 
       {/* Fluid Scroll Progress Line */}
       <motion.div
-        className="fixed top-0 left-0 right-0 h-[2.5px] bg-[var(--primary)] z-[60] origin-left shadow-sm"
+        className="fixed top-0 left-0 right-0 h-[2.5px] bg-rose-500 z-[60] origin-left shadow-sm"
         style={{ scaleX }}
       />
 
-      {/* Top Banner (Clean SaaS Announcement) */}
-      <div className="w-full bg-[var(--bg-muted)] border-b border-[var(--border)] text-xs font-medium py-2.5 px-4 text-center flex items-center justify-center gap-2 z-50 text-[var(--fg-sub)]">
+      {/* Top Banner (Clean SaaS Announcement with Official Portal Link) */}
+      <div className="w-full bg-[var(--bg-muted)] border-b border-[var(--border)] text-xs font-medium py-2 px-4 text-center flex items-center justify-center gap-2 z-50 text-[var(--fg-sub)]">
         <span className="px-2 py-0.5 rounded-full text-[10px] bg-black/5 dark:bg-white/10 font-bold uppercase tracking-wider text-[var(--fg)]">
-          FELLOWSHIP
+          NEDUET CSIT
         </span>
-        <span>Summer & Fall 2026 Research Fellowship applications are now open.</span>
-        <Link
-          to="/interns"
+        <span>Artificial Intelligence Research Lab • Department of Computer Science & IT</span>
+        <a
+          href="https://cct.neduet.edu.pk/AIR"
+          target="_blank"
+          rel="noreferrer"
           className="inline-flex items-center gap-1 font-bold text-[var(--fg)] hover:underline ml-1"
         >
-          Apply Now <ArrowUpRight className="w-3.5 h-3.5" />
-        </Link>
+          Official Portal <ExternalLink className="w-3 h-3" />
+        </a>
       </div>
 
       {/* Sticky Modern Navbar */}
-      <header className="sticky top-0 z-40 backdrop-blur-xl bg-[var(--bg)]/85 border-b border-[var(--border)] transition-all duration-200">
+      <header className="sticky top-0 z-40 backdrop-blur-xl bg-[var(--bg)]/90 border-b border-[var(--border)] transition-all duration-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 flex items-center justify-between">
-          {/* Logo & Lab Identifier */}
-          <Link to="/" className="flex items-center gap-3 group">
-            <div 
-              className="w-8 h-8 rounded-lg flex items-center justify-center text-white font-black text-sm shadow-md group-hover:scale-105 transition-all"
-              style={{ background: 'var(--accent-gradient, #F43F5E)' }}
-            >
-              <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" />
-              </svg>
-            </div>
-            <div className="flex flex-col">
-              <span className="font-extrabold text-base tracking-tight text-[var(--fg)] font-head flex items-center gap-1">
-                AIR<span className="text-transparent bg-clip-text" style={{ backgroundImage: 'var(--accent-gradient)' }}>Lab</span>
-              </span>
-              <span className="text-[10px] text-[var(--fg-sub)] tracking-wider uppercase font-mono -mt-0.5">
-                NED University
-              </span>
-            </div>
+          {/* Official AIR Lab Monogram & Branding */}
+          <Link to="/" className="flex items-center gap-3 group py-1">
+            <AirLabLogo height={42} />
           </Link>
 
-          {/* Center Pill Capsule Navigation Bar */}
+          {/* Center Pill Capsule Navigation Bar (Ali's Architecture + Craftly Pill) */}
           <nav className="hidden lg:flex items-center bg-[var(--bg-card)]/80 border border-[var(--border)] rounded-full p-1 shadow-xs backdrop-blur-md">
             <NavLink
               to="/"
@@ -87,12 +81,28 @@ export default function Layout() {
             >
               Home
             </NavLink>
-            {navLinks.map(link => (
+            {primaryLinks.map(link => (
               <NavLink
                 key={link.path}
                 to={link.path}
                 className={({ isActive }) =>
                   `px-3 py-1.5 rounded-full text-xs font-medium transition-all duration-150 ${
+                    isActive
+                      ? 'bg-[var(--bg-muted)] text-[var(--fg)] shadow-xs font-semibold'
+                      : 'text-[var(--fg-sub)] hover:text-[var(--fg)] hover:bg-[var(--bg-muted)]/50'
+                  }`
+                }
+              >
+                {link.name}
+              </NavLink>
+            ))}
+            <div className="h-3.5 w-px bg-[var(--border)] mx-1" />
+            {secondaryLinks.map(link => (
+              <NavLink
+                key={link.path}
+                to={link.path}
+                className={({ isActive }) =>
+                  `px-2.5 py-1.5 rounded-full text-xs font-medium transition-all duration-150 ${
                     isActive
                       ? 'bg-[var(--bg-muted)] text-[var(--fg)] shadow-xs font-semibold'
                       : 'text-[var(--fg-sub)] hover:text-[var(--fg)] hover:bg-[var(--bg-muted)]/50'
@@ -109,19 +119,19 @@ export default function Layout() {
             {/* Dark / Light Toggle */}
             <button
               onClick={toggleDark}
-              className="p-2 rounded-full border border-[var(--border)] bg-[var(--bg-card)] text-[var(--fg-sub)] hover:text-[var(--fg)] hover:border-[var(--fg)]/30 transition-all cursor-pointer shadow-xs"
+              className="p-2 rounded-full border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 text-zinc-700 dark:text-zinc-200 hover:border-zinc-400 dark:hover:border-zinc-600 transition-all cursor-pointer shadow-xs"
               title={isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
               aria-label="Toggle theme mode"
             >
               {isDark ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-zinc-700" />}
             </button>
 
-            {/* Primary Pill Button (Inspiration style) */}
+            {/* Primary Pill Button (High contrast in Light & Dark mode) */}
             <Link
               to="/interns"
-              className="hidden sm:inline-flex items-center justify-center px-5 py-2 rounded-full bg-[var(--primary)] text-[var(--primary-fg)] font-semibold text-xs hover:opacity-90 hover:scale-[1.02] active:scale-[0.98] transition-all shadow-sm"
+              className="btn-craftly-primary hidden sm:inline-flex items-center justify-center px-5 py-2 rounded-full font-medium text-xs cursor-pointer"
             >
-              Get in touch
+              Join the Lab
             </Link>
 
             {/* Mobile Menu Toggle Button */}
@@ -146,7 +156,7 @@ export default function Layout() {
               className="xl:hidden border-b border-[var(--border)] bg-[var(--bg-card)] px-6 py-6 overflow-hidden"
             >
               <div className="grid grid-cols-2 gap-2">
-                {navLinks.map(link => {
+                {allLinks.map(link => {
                   const Icon = link.icon
                   return (
                     <Link
@@ -155,7 +165,7 @@ export default function Layout() {
                       onClick={() => setMobileMenuOpen(false)}
                       className="flex items-center gap-2 p-3 rounded-lg border border-[var(--border)] bg-[var(--bg)] hover:border-[var(--primary)] text-xs font-mono transition-colors"
                     >
-                      <Icon className="w-4 h-4 text-[var(--primary)]" />
+                      <Icon className="w-4 h-4 text-rose-500" />
                       <span>{link.name}</span>
                     </Link>
                   )
@@ -167,7 +177,7 @@ export default function Layout() {
                 <Link
                   to="/interns"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="px-4 py-2 rounded-full bg-[var(--primary)] text-black font-mono text-xs font-bold"
+                  className="btn-craftly-primary px-4 py-2 rounded-full font-mono text-xs font-bold"
                 >
                   Join the Lab
                 </Link>
@@ -188,23 +198,26 @@ export default function Layout() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-12 border-b border-[var(--border)]">
             {/* Lab Identity */}
             <div className="lg:col-span-2 space-y-4">
-              <div className="flex items-center gap-2.5">
-                <div className="w-7 h-7 rounded-md bg-[var(--primary)] text-black flex items-center justify-center font-bold text-xs shadow-sm font-head">
-                  A
-                </div>
-                <span className="font-extrabold text-base tracking-tight font-head">AIR LAB</span>
-              </div>
+              <Link to="/" className="inline-block py-1">
+                <AirLabLogo height={46} />
+              </Link>
               <p className="text-xs text-[var(--fg-sub)] leading-relaxed max-w-sm">
-                The Artificial Intelligence Research Laboratory at NED University of Engineering & Technology. Advancing foundational models, real-time computer vision, and autonomous robotics.
+                The Artificial Intelligence Research Laboratory, Department of Computer Science & Information Technology (CSIT), NED University of Engineering & Technology. Advancing foundation models, edge perception, and robotics.
               </p>
               <div className="pt-2 text-xs font-mono text-[var(--fg-sub)] space-y-1">
                 <div className="flex items-center gap-2">
-                  <MapPin className="w-3.5 h-3.5 text-[var(--primary)]" />
+                  <MapPin className="w-3.5 h-3.5 text-rose-500" />
                   <span>NED University Main Campus, Karachi 75270</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Mail className="w-3.5 h-3.5 text-[var(--primary)]" />
+                  <Mail className="w-3.5 h-3.5 text-rose-500" />
                   <span>contact@airlab.neduet.edu.pk</span>
+                </div>
+                <div className="flex items-center gap-2 pt-1">
+                  <ExternalLink className="w-3.5 h-3.5 text-rose-500" />
+                  <a href="https://cct.neduet.edu.pk/AIR" target="_blank" rel="noreferrer" className="hover:underline text-[var(--fg)] font-medium">
+                    cct.neduet.edu.pk/AIR
+                  </a>
                 </div>
               </div>
             </div>
@@ -213,28 +226,29 @@ export default function Layout() {
             <div>
               <h5 className="font-mono text-xs font-bold uppercase tracking-wider mb-4 text-[var(--fg)]">Research</h5>
               <ul className="space-y-2 text-xs font-mono text-[var(--fg-sub)]">
-                <li><Link to="/projects" className="hover:text-[var(--primary)] transition-colors">Projects Catalog</Link></li>
-                <li><Link to="/publications" className="hover:text-[var(--primary)] transition-colors">Publications</Link></li>
-                <li><Link to="/collaborations" className="hover:text-[var(--primary)] transition-colors">Alliances</Link></li>
-                <li><Link to="/gallery" className="hover:text-[var(--primary)] transition-colors">Lab Gallery</Link></li>
+                <li><Link to="/projects" className="hover:text-rose-500 transition-colors">Projects Catalog</Link></li>
+                <li><Link to="/publications" className="hover:text-rose-500 transition-colors">Publications</Link></li>
+                <li><Link to="/collaborations" className="hover:text-rose-500 transition-colors">Industry Alliances</Link></li>
+                <li><Link to="/gallery" className="hover:text-rose-500 transition-colors">Lab Gallery</Link></li>
               </ul>
             </div>
 
             <div>
               <h5 className="font-mono text-xs font-bold uppercase tracking-wider mb-4 text-[var(--fg)]">People</h5>
               <ul className="space-y-2 text-xs font-mono text-[var(--fg-sub)]">
-                <li><Link to="/team" className="hover:text-[var(--primary)] transition-colors">Faculty & Scholars</Link></li>
-                <li><Link to="/performers" className="hover:text-[var(--primary)] transition-colors">Hall of Fame</Link></li>
-                <li><Link to="/interns" className="hover:text-[var(--primary)] transition-colors">Interns & Alumni</Link></li>
-                <li><Link to="/about" className="hover:text-[var(--primary)] transition-colors">Lab Heritage</Link></li>
+                <li><Link to="/team" className="hover:text-rose-500 transition-colors">Faculty & Scholars</Link></li>
+                <li><Link to="/performers" className="hover:text-rose-500 transition-colors">Performers of the Month</Link></li>
+                <li><Link to="/interns" className="hover:text-rose-500 transition-colors">Research Interns & Alumni</Link></li>
+                <li><Link to="/about" className="hover:text-rose-500 transition-colors">About Us</Link></li>
               </ul>
             </div>
 
             <div>
               <h5 className="font-mono text-xs font-bold uppercase tracking-wider mb-4 text-[var(--fg)]">Prototypes</h5>
               <ul className="space-y-2 text-xs font-mono text-[var(--fg-sub)]">
-                <li><Link to="/" className="text-[var(--primary)] font-bold">Prototype v2 (Active)</Link></li>
-                <li><a href="./proto-master/" className="hover:text-[var(--primary)] transition-colors">Ali's Prototype</a></li>
+                <li><Link to="/" className="text-rose-500 font-bold">Prototype v2 (Active)</Link></li>
+                <li><a href="./proto-master/" className="hover:text-rose-500 transition-colors">Ali's Prototype</a></li>
+                <li><a href="https://cct.neduet.edu.pk/AIR" target="_blank" rel="noreferrer" className="hover:text-rose-500 transition-colors">Official Portal ↗</a></li>
               </ul>
             </div>
           </div>

@@ -2,6 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Geist+Mono:wght@300;400;500;600;700&display=swap');
 @import "tailwindcss";
 @plugin "tailwindcss-animate";
+@custom-variant dark (&:where(.dark, .dark *));
 
 /* ── Base Theme Tokens (Default: Aurora Sunset — Inspiration Design) ── */
 :root {
@@ -213,19 +214,98 @@ svg img,
     -webkit-backdrop-filter: blur(16px);
   }
 
-  /* Exact Craftly Aurora Ribbon Blur */
+  /* Exact Craftly Aurora Ribbon Blur (Vibrant multi-stop sunset airbrush) */
   .bg-aurora-ribbon {
     background: linear-gradient(
       90deg,
-      rgba(56, 189, 248, 0.45) 0%,
-      rgba(236, 72, 153, 0.75) 15%,
-      rgba(244, 63, 94, 0.85) 35%,
-      rgba(251, 146, 60, 0.90) 58%,
-      rgba(251, 191, 36, 0.85) 80%,
-      rgba(244, 63, 94, 0.65) 100%
+      rgba(56, 189, 248, 0.65) 0%,
+      rgba(129, 140, 248, 0.75) 15%,
+      rgba(236, 72, 153, 0.95) 35%,
+      rgba(244, 63, 94, 0.98) 52%,
+      rgba(251, 146, 60, 0.95) 70%,
+      rgba(253, 224, 71, 0.88) 88%,
+      rgba(251, 191, 36, 0.55) 100%
     );
-    filter: blur(100px);
-    -webkit-filter: blur(100px);
+    filter: blur(85px);
+    -webkit-filter: blur(85px);
+  }
+
+  /* Craftly Bulletproof Light/Dark High-Contrast Buttons */
+  .btn-craftly-primary {
+    background-color: #09090B !important;
+    color: #FFFFFF !important;
+    border: 1px solid transparent !important;
+    box-shadow: 0 4px 14px 0 rgba(0, 0, 0, 0.12);
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .btn-craftly-primary * {
+    color: #FFFFFF !important;
+  }
+  .btn-craftly-primary:hover {
+    background-color: #27272A !important;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    transform: translateY(-1px);
+  }
+  :where(.dark, .dark *) .btn-craftly-primary {
+    background-color: #FFFFFF !important;
+    color: #09090B !important;
+    border: 1px solid transparent !important;
+    box-shadow: 0 4px 14px 0 rgba(255, 255, 255, 0.12);
+  }
+  :where(.dark, .dark *) .btn-craftly-primary * {
+    color: #09090B !important;
+  }
+  :where(.dark, .dark *) .btn-craftly-primary:hover {
+    background-color: #F4F4F5 !important;
+    box-shadow: 0 6px 20px rgba(255, 255, 255, 0.2);
+  }
+
+  .btn-craftly-secondary {
+    background-color: #FFFFFF !important;
+    color: #09090B !important;
+    border: 1px solid #E4E4E7 !important;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .btn-craftly-secondary * {
+    color: #09090B !important;
+  }
+  .btn-craftly-secondary:hover {
+    background-color: #F4F4F5 !important;
+    border-color: #D4D4D8 !important;
+    transform: translateY(-1px);
+  }
+  :where(.dark, .dark *) .btn-craftly-secondary {
+    background-color: #12131A !important;
+    color: #F4F4F5 !important;
+    border: 1px solid #27272A !important;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
+  }
+  :where(.dark, .dark *) .btn-craftly-secondary * {
+    color: #F4F4F5 !important;
+  }
+  :where(.dark, .dark *) .btn-craftly-secondary:hover {
+    background-color: #1A1D28 !important;
+    border-color: #3F3F46 !important;
+  }
+
+  /* Universal Tab Filter Pills */
+  .tab-pill-active {
+    background-color: var(--primary) !important;
+    color: var(--primary-fg) !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  }
+  .tab-pill-active * {
+    color: var(--primary-fg) !important;
+  }
+  .tab-pill-inactive {
+    background-color: var(--bg-card) !important;
+    color: var(--fg-sub) !important;
+    border: 1px solid var(--border) !important;
+  }
+  .tab-pill-inactive:hover {
+    color: var(--fg) !important;
+    border-color: var(--primary) !important;
   }
 
   /* Exact Craftly Subtitle Text Gradient */

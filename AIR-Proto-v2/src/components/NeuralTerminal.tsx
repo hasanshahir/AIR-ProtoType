@@ -154,8 +154,8 @@ export default function NeuralTerminal() {
                 onClick={() => setModelType(type)}
                 className={`px-3 py-1 rounded-md text-xs font-bold transition-all cursor-pointer ${
                   modelType === type
-                    ? 'bg-[var(--primary)] text-black shadow-md shadow-[var(--primary)]/30'
-                    : 'bg-[var(--bg-muted)] text-[var(--fg-sub)] hover:text-[var(--fg)] border border-[var(--border)]'
+                    ? 'btn-craftly-primary shadow-md'
+                    : 'btn-craftly-secondary'
                 }`}
               >
                 {type}

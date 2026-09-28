@@ -66,8 +66,8 @@ export default function Gallery() {
             onClick={() => setActiveCat(cat)}
             className={`px-4 py-2 rounded-xl font-mono text-xs font-bold transition-all cursor-pointer ${
               activeCat === cat
-                ? 'bg-[var(--primary)] text-black shadow-md shadow-[var(--primary)]/20'
-                : 'bg-[var(--bg-card)] text-[var(--fg-sub)] border border-[var(--border)] hover:border-[var(--primary)] hover:text-[var(--fg)]'
+                ? 'btn-craftly-primary shadow-md'
+                : 'btn-craftly-secondary'
             }`}
           >
             {cat}
@@ -111,7 +111,7 @@ export default function Gallery() {
                   {/* Tile details */}
                   <div className="absolute inset-0 p-6 flex flex-col justify-between text-white z-10 pointer-events-none">
                     <div className="flex items-center justify-between">
-                      <span className="px-2.5 py-1 rounded text-[10px] font-mono font-bold bg-[var(--primary)] text-black">
+                      <span className="px-2.5 py-1 rounded text-[10px] font-mono font-bold bg-white/90 text-black border border-white/20 backdrop-blur-md">
                         {item.cat}
                       </span>
                       <span className="p-2 rounded-lg bg-black/60 text-white border border-white/20 opacity-0 group-hover:opacity-100 transition-opacity">
@@ -175,7 +175,7 @@ export default function Gallery() {
 
               <div className="p-6">
                 <div className="flex items-center gap-2 mb-2">
-                  <span className="px-2.5 py-0.5 rounded text-[10px] font-mono font-bold bg-[var(--primary)] text-black">
+                  <span className="px-2.5 py-0.5 rounded text-[10px] font-mono font-bold bg-white/90 text-black border border-white/20 backdrop-blur-md">
                     {selectedImage.cat}
                   </span>
                   <span className="text-xs font-mono text-[var(--fg-sub)]">{selectedImage.date}</span>

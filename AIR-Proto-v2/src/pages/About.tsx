@@ -145,7 +145,7 @@ export default function About() {
                       loading="lazy"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-                    <span className="absolute top-3 left-3 px-2.5 py-0.5 rounded text-[10px] font-mono font-bold bg-[var(--primary)] text-black">
+                    <span className="absolute top-3 left-3 px-2.5 py-0.5 rounded text-[10px] font-mono font-bold bg-white/90 text-black border border-white/20 backdrop-blur-md">
                       {item.tag}
                     </span>
                   </div>

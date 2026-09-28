@@ -73,8 +73,8 @@ export default function Publications() {
             onClick={() => setActiveVenue(v)}
             className={`px-4 py-2 rounded-xl font-mono text-xs font-bold transition-all cursor-pointer ${
               activeVenue === v
-                ? 'bg-[var(--primary)] text-black shadow-md shadow-[var(--primary)]/20'
-                : 'bg-[var(--bg-card)] text-[var(--fg-sub)] border border-[var(--border)] hover:border-[var(--primary)] hover:text-[var(--fg)]'
+                ? 'btn-craftly-primary shadow-md'
+                : 'btn-craftly-secondary'
             }`}
           >
             {v}
@@ -142,7 +142,7 @@ export default function Publications() {
 
                     <a
                       href={pub.link}
-                      className="px-4 py-2 rounded-xl bg-[var(--primary)] text-black text-xs font-mono font-bold hover:shadow-lg hover:shadow-[var(--primary)]/20 transition-all inline-flex items-center gap-1.5"
+                      className="px-4 py-2 rounded-xl btn-craftly-primary text-xs font-mono font-bold shadow-sm transition-all inline-flex items-center gap-1.5"
                     >
                       <span>Paper PDF</span>
                       <ExternalLink className="w-3 h-3" />

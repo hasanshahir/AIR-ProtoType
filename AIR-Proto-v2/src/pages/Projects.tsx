@@ -73,8 +73,8 @@ export default function Projects() {
               onClick={() => setActive(cat)}
               className={`px-4 py-2 rounded-xl font-mono text-xs font-bold transition-all cursor-pointer ${
                 active === cat
-                  ? 'bg-[var(--primary)] text-black shadow-md shadow-[var(--primary)]/20'
-                  : 'bg-[var(--bg-card)] text-[var(--fg-sub)] border border-[var(--border)] hover:border-[var(--primary)] hover:text-[var(--fg)]'
+                  ? 'btn-craftly-primary shadow-md'
+                  : 'btn-craftly-secondary'
               }`}
             >
               {cat}
@@ -124,7 +124,7 @@ export default function Projects() {
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
 
                     <div className="absolute top-3 left-3 right-3 flex items-center justify-between">
-                      <span className="px-2.5 py-0.5 rounded text-[10px] font-mono font-bold bg-[var(--primary)] text-black">
+                      <span className="px-2.5 py-0.5 rounded text-[10px] font-mono font-bold bg-white/90 text-black border border-white/20 backdrop-blur-md">
                         {proj.category}
                       </span>
                       <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-black/75 text-emerald-400 border border-emerald-500/30">

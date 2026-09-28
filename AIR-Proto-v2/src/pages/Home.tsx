@@ -125,17 +125,27 @@ export default function Home() {
   return (
     <div className="relative w-full flex flex-col items-center overflow-hidden bg-[var(--bg)] text-[var(--fg)] transition-colors duration-300 font-sans">
       
-      {/* ── BACKGROUND JAVASCRIPT PARTICLES (Requested: "add particles only") ── */}
-      <div className="absolute inset-0 z-0 pointer-events-none opacity-40 dark:opacity-50">
-        <TechParticles id="ambient-particles" />
+      {/* ── BACKGROUND JAVASCRIPT PARTICLES (Hero Viewport Constellation Mesh — Ultra Visible) ── */}
+      <div className="absolute top-0 left-0 right-0 h-[920px] z-[5] pointer-events-auto overflow-hidden">
+        <TechParticles id="hero-tech-particles" particleCount={115} interactive={true} />
       </div>
 
-      {/* ── HERO SECTION (Strictly Left-Aligned, Thinner Fonts, Exact Aurora Blurs) ── */}
+      {/* ── HERO SECTION (Strictly Left-Aligned, Slender Typography, Exact Aurora Blurs) ── */}
       <section className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 sm:pt-24 pb-20 z-10 relative">
         
-        {/* ── EXACT CRAFTLY AURORA MESH RIBBON BLUR ── */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[95%] max-w-6xl h-[340px] pointer-events-none -z-10 overflow-visible">
-          <div className="w-full h-full rounded-full bg-aurora-ribbon opacity-80 dark:opacity-35 transform -translate-y-4" />
+        {/* ── EXACT CRAFTLY DUAL-LAYER AURORA MESH BLURS (Directly Behind Hero Content) ── */}
+        <div className="absolute top-24 sm:top-32 left-1/2 -translate-x-1/2 w-[130%] max-w-6xl h-[380px] pointer-events-none -z-10 overflow-visible">
+          {/* Layer 1: Wide horizontal rainbow sunset ribbon */}
+          <div className="w-full h-full rounded-full bg-aurora-ribbon opacity-95 dark:opacity-50" />
+          {/* Layer 2: Radiant hot fuchsia and sunset core */}
+          <div 
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4/5 h-[240px] rounded-full opacity-90 dark:opacity-45"
+            style={{
+              background: 'radial-gradient(ellipse at center, rgba(244, 63, 94, 0.98) 0%, rgba(251, 146, 60, 0.90) 45%, rgba(251, 191, 36, 0.70) 75%, transparent 100%)',
+              filter: 'blur(70px)',
+              WebkitFilter: 'blur(70px)'
+            }}
+          />
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
@@ -143,39 +153,39 @@ export default function Home() {
           {/* ── LEFT COLUMN: TYPOGRAPHY & VALUE PROPOSITION (Strictly Left-Aligned) ── */}
           <div className="lg:col-span-7 flex flex-col items-start text-left">
             
-            {/* Top Dark Badge: `▸ For Enterprise & Research` */}
+            {/* Top Badge: `▸ Pioneering Intelligence // NED University CSIT` */}
             <motion.div
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4 }}
-              className="inline-flex items-center gap-2 rounded-md bg-zinc-950 text-white dark:bg-white dark:text-zinc-950 px-3 py-1 text-[11px] font-medium mb-6 shadow-sm"
+              className="inline-flex items-center gap-2 rounded-full bg-zinc-950 text-white dark:bg-white dark:text-zinc-950 px-3.5 py-1 text-[11px] font-medium mb-6 shadow-sm"
             >
-              <span className="text-[10px]">▸</span>
-              <span>For Enterprise & Research</span>
+              <span className="w-2 h-2 rounded-full bg-rose-500 animate-pulse" />
+              <span>Pioneering Intelligence // NED University CSIT</span>
             </motion.div>
 
-            {/* Main Headline (Thinner Font: font-medium / font-semibold 500-600, Strictly Left-Aligned) */}
+            {/* Main Headline (Thinner Font: font-medium 500, Strictly Left-Aligned) */}
             <motion.h1
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.1 }}
               className="text-4xl sm:text-6xl lg:text-7xl font-medium text-[var(--fg)] tracking-[-0.03em] leading-[1.12] mb-6 font-head text-left"
             >
-              Extend your team with a <br className="hidden sm:block" />
-              full team of experts.
+              Artificial Intelligence <br className="hidden sm:block" />
+              Research Laboratory.
             </motion.h1>
 
-            {/* Vibrant Gradient Subtitle (Thinner Font, Exact Colors, Left-Aligned) */}
+            {/* Vibrant Gradient Subtitle (Slender Font, Exact Colors, Left-Aligned) */}
             <motion.p
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
               className="text-base sm:text-lg lg:text-xl font-normal max-w-2xl mb-8 leading-snug text-left text-craftly-gradient"
             >
-              Specialized AI agents for every role. Ship faster, prototype instantly, close deals smarter. Multiply your workforce without adding headcount.
+              Building next-generation models and intelligent systems at NED University. We bridge theoretical research with real-world computational impact.
             </motion.p>
 
-            {/* Dual CTA Buttons (Solid Black + White Bordered, Thinner Font, Left-Aligned) */}
+            {/* Dual CTA Buttons (Clean High-Contrast in Light & Dark Mode) */}
             <motion.div
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
@@ -184,16 +194,16 @@ export default function Home() {
             >
               <Link
                 to="/about"
-                className="w-full sm:w-auto px-7 py-3 rounded-full bg-zinc-950 text-white dark:bg-white dark:text-zinc-950 font-medium text-xs sm:text-sm flex items-center justify-center gap-2 hover:opacity-90 hover:scale-[1.02] active:scale-[0.98] transition-all shadow-md cursor-pointer"
+                className="btn-craftly-primary w-full sm:w-auto px-7 py-3 rounded-full font-medium text-xs sm:text-sm flex items-center justify-center gap-2 cursor-pointer shadow-md"
               >
-                <span>Get started free</span>
+                <span>Discover Our Mission</span>
                 <ArrowRight className="w-4 h-4" />
               </Link>
               <Link
                 to="/projects"
-                className="w-full sm:w-auto px-7 py-3 rounded-full bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-[var(--fg)] font-medium text-xs sm:text-sm flex items-center justify-center hover:bg-zinc-50 dark:hover:bg-zinc-800/80 transition-all shadow-xs cursor-pointer"
+                className="btn-craftly-secondary w-full sm:w-auto px-7 py-3 rounded-full font-medium text-xs sm:text-sm flex items-center justify-center cursor-pointer shadow-xs"
               >
-                Book a demo
+                View Projects
               </Link>
             </motion.div>
 
@@ -205,20 +215,20 @@ export default function Home() {
               className="flex flex-wrap items-center gap-x-6 gap-y-2 text-xs text-[var(--fg-sub)] font-normal pt-2"
             >
               <div className="flex items-center gap-1.5">
-                <Check className="w-3.5 h-3.5 text-zinc-900 dark:text-zinc-100 stroke-[2]" />
-                <span>SOC 2- ready processes</span>
+                <Check className="w-3.5 h-3.5 text-zinc-900 dark:text-zinc-100 stroke-[2.5]" />
+                <span>48+ IEEE & CVF Papers</span>
               </div>
               <div className="flex items-center gap-1.5">
-                <Check className="w-3.5 h-3.5 text-zinc-900 dark:text-zinc-100 stroke-[2]" />
-                <span>SSO & SAML + Role-based access</span>
+                <Check className="w-3.5 h-3.5 text-zinc-900 dark:text-zinc-100 stroke-[2.5]" />
+                <span>16x NVIDIA H100 Supercluster</span>
               </div>
               <div className="flex items-center gap-1.5">
-                <Check className="w-3.5 h-3.5 text-zinc-900 dark:text-zinc-100 stroke-[2]" />
-                <span>Data residency & privacy controls</span>
+                <Check className="w-3.5 h-3.5 text-zinc-900 dark:text-zinc-100 stroke-[2.5]" />
+                <span>PKR 45M Active Grants</span>
               </div>
               <div className="flex items-center gap-1.5">
-                <Check className="w-3.5 h-3.5 text-zinc-900 dark:text-zinc-100 stroke-[2]" />
-                <span>Dedicated support & SLAs</span>
+                <Check className="w-3.5 h-3.5 text-zinc-900 dark:text-zinc-100 stroke-[2.5]" />
+                <span>120+ Research Fellows</span>
               </div>
             </motion.div>
 
@@ -380,7 +390,7 @@ export default function Home() {
         </MarqueeModule>
       </section>
 
-      {/* ── SECTION 2: "Enterprise AI that just works." (Exact Mockup Layout, Thinner Fonts) ── */}
+      {/* ── SECTION 2: "Enterprise AI that just works." (Exact Mockup Layout, Slender Fonts) ── */}
       <section className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 z-10 relative">
         <div className="mb-12">
           <h2 className="text-3xl sm:text-5xl font-medium tracking-tight text-[var(--fg)] font-head mb-3">
@@ -406,10 +416,10 @@ export default function Home() {
             <div className="lg:col-span-6 flex flex-col justify-between h-full">
               <div>
                 <h3 className="text-2xl sm:text-3xl font-medium text-[var(--fg)] font-head mb-4">
-                  Deploy the way that works <br /> best for your team.
+                  Deploy the way that works <br /> best for your research.
                 </h3>
                 <p className="text-sm sm:text-base text-[var(--fg-sub)] font-normal leading-relaxed mb-10">
-                  Choose managed SaaS, private cloud, VPC, or on-prem. Zero-data-retention controls, custom network policies, and air-gapped deployments for the most demanding requirements.
+                  Choose managed cloud, private cluster, VPC, or on-prem. Zero-data-retention controls, custom network security policies, and air-gapped deployments for the most demanding mission-critical requirements.
                 </p>
               </div>
 
@@ -417,14 +427,14 @@ export default function Home() {
               <div className="flex items-center gap-3">
                 <button
                   onClick={() => setActiveSlide(prev => (prev === 0 ? 2 : prev - 1))}
-                  className="w-10 h-10 rounded-lg border border-[var(--border)] bg-[var(--bg-muted)] text-[var(--fg)] flex items-center justify-center hover:scale-105 active:scale-95 transition-all cursor-pointer shadow-xs"
+                  className="w-10 h-10 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 text-zinc-900 dark:text-white flex items-center justify-center hover:scale-105 active:scale-95 transition-all cursor-pointer shadow-xs"
                   aria-label="Previous slide"
                 >
                   <ChevronLeft className="w-4 h-4" />
                 </button>
                 <button
                   onClick={() => setActiveSlide(prev => (prev === 2 ? 0 : prev + 1))}
-                  className="w-10 h-10 rounded-lg border border-[var(--border)] bg-[var(--bg-muted)] text-[var(--fg)] flex items-center justify-center hover:scale-105 active:scale-95 transition-all cursor-pointer shadow-xs"
+                  className="w-10 h-10 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 text-zinc-900 dark:text-white flex items-center justify-center hover:scale-105 active:scale-95 transition-all cursor-pointer shadow-xs"
                   aria-label="Next slide"
                 >
                   <ChevronRight className="w-4 h-4" />
@@ -437,7 +447,7 @@ export default function Home() {
 
             {/* Right Inset Panel with Floating `Publish` Button */}
             <div className="lg:col-span-6">
-              <div className="rounded-2xl border border-[var(--border)] bg-zinc-100/70 dark:bg-zinc-900/60 p-10 sm:p-14 flex items-center justify-center min-h-[320px] relative">
+              <div className="rounded-2xl border border-zinc-200/80 dark:border-zinc-800 bg-zinc-100/70 dark:bg-zinc-900/60 p-10 sm:p-14 flex items-center justify-center min-h-[320px] relative">
                 <div className="absolute inset-0 bg-dot-pattern opacity-25 pointer-events-none" />
                 
                 {/* Floating Card: `[ 👤 ]  [ 🚀 Publish ]` (Mockup Exact Detail) */}
@@ -450,7 +460,7 @@ export default function Home() {
                   </div>
                   <div className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-zinc-950 text-white dark:bg-white dark:text-zinc-950 font-medium text-xs shadow-md">
                     <Send className="w-3.5 h-3.5" />
-                    <span>Publish</span>
+                    <span>Publish Model</span>
                   </div>
                 </motion.div>
               </div>
@@ -459,136 +469,136 @@ export default function Home() {
           </div>
         </div>
 
-        {/* ── 6 BENTO CARDS (From Ali's Architecture & Mockup's Top-Right Layout, Thinner Fonts) ── */}
+        {/* ── 6 BENTO CARDS (Ali's Core Research Areas with Mockup's Clean Layout) ── */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-24">
           
-          {/* Card 1: Product / Foundational Models */}
+          {/* Card 1: Foundational Models */}
           <Tilt tiltMaxAngleX={5} tiltMaxAngleY={5} glareEnable={true} glareMaxOpacity={0.05} className="rounded-2xl">
-            <div className="h-full bg-[var(--bg-card)] border border-[var(--border)] rounded-2xl p-7 flex flex-col justify-between hover:border-[var(--fg)]/30 hover:shadow-lg transition-all group">
+            <div className="h-full bg-[var(--bg-card)] border border-zinc-200 dark:border-zinc-800 rounded-2xl p-7 flex flex-col justify-between hover:border-zinc-400 dark:hover:border-zinc-600 hover:shadow-lg transition-all group">
               <div>
                 <div className="flex items-center justify-between mb-6">
-                  <div className="w-10 h-10 rounded-xl bg-[var(--bg-muted)] border border-[var(--border)] flex items-center justify-center text-[var(--fg)]">
+                  <div className="w-10 h-10 rounded-xl bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center text-zinc-900 dark:text-white">
                     <Brain className="w-5 h-5" />
                   </div>
-                  <span className="text-[10px] font-mono font-normal text-[var(--fg-sub)] bg-[var(--bg-muted)] px-2 py-0.5 rounded border border-[var(--border)]">
-                    Ready for team
+                  <span className="text-[10px] font-mono font-normal text-zinc-600 dark:text-zinc-400 bg-zinc-100 dark:bg-zinc-800 px-2 py-0.5 rounded border border-zinc-200 dark:border-zinc-700">
+                    10x Productivity
                   </span>
                 </div>
                 <h3 className="text-xl font-medium text-[var(--fg)] font-head mb-2">
-                  Product
+                  Foundational Models
                 </h3>
                 <p className="text-xs sm:text-sm text-[var(--fg-sub)] font-normal leading-relaxed font-sans">
-                  Pick your AI agents for prototyping, user research insights, and feature specifications—turning ideas into working demos within minutes.
+                  Developing state-of-the-art LLMs optimized for regional languages and specialized domain tasks. Pre-trained on 12.4B tokens.
                 </p>
               </div>
             </div>
           </Tilt>
 
-          {/* Card 2: Sales / Edge AI */}
+          {/* Card 2: Edge AI Perception */}
           <Tilt tiltMaxAngleX={5} tiltMaxAngleY={5} glareEnable={true} glareMaxOpacity={0.05} className="rounded-2xl">
-            <div className="h-full bg-[var(--bg-card)] border border-[var(--border)] rounded-2xl p-7 flex flex-col justify-between hover:border-[var(--fg)]/30 hover:shadow-lg transition-all group">
+            <div className="h-full bg-[var(--bg-card)] border border-zinc-200 dark:border-zinc-800 rounded-2xl p-7 flex flex-col justify-between hover:border-zinc-400 dark:hover:border-zinc-600 hover:shadow-lg transition-all group">
               <div>
                 <div className="flex items-center justify-between mb-6">
-                  <div className="w-10 h-10 rounded-xl bg-[var(--bg-muted)] border border-[var(--border)] flex items-center justify-center text-[var(--fg)]">
+                  <div className="w-10 h-10 rounded-xl bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center text-zinc-900 dark:text-white">
                     <Zap className="w-5 h-5" />
                   </div>
-                  <span className="text-[10px] font-mono font-normal text-[var(--fg-sub)] bg-[var(--bg-muted)] px-2 py-0.5 rounded border border-[var(--border)]">
-                    Shorter sales cycles
+                  <span className="text-[10px] font-mono font-normal text-zinc-600 dark:text-zinc-400 bg-zinc-100 dark:bg-zinc-800 px-2 py-0.5 rounded border border-zinc-200 dark:border-zinc-700">
+                    5W Ultra-low Power
                   </span>
                 </div>
                 <h3 className="text-xl font-medium text-[var(--fg)] font-head mb-2">
-                  Sales
+                  Edge AI Perception
                 </h3>
                 <p className="text-xs sm:text-sm text-[var(--fg-sub)] font-normal leading-relaxed font-sans">
-                  Equip teams with AI agents for custom demos, proposal creation, and technical Q&A—helping close deals faster with instant technical support.
+                  Deploying high-performance computer vision on constrained hardware, achieving 60 FPS at sub-5W consumption for urban smart transit.
                 </p>
               </div>
             </div>
           </Tilt>
 
-          {/* Card 3: Support / Autonomous Robotics */}
+          {/* Card 3: Autonomous Robotics */}
           <Tilt tiltMaxAngleX={5} tiltMaxAngleY={5} glareEnable={true} glareMaxOpacity={0.05} className="rounded-2xl">
-            <div className="h-full bg-[var(--bg-card)] border border-[var(--border)] rounded-2xl p-7 flex flex-col justify-between hover:border-[var(--fg)]/30 hover:shadow-lg transition-all group">
+            <div className="h-full bg-[var(--bg-card)] border border-zinc-200 dark:border-zinc-800 rounded-2xl p-7 flex flex-col justify-between hover:border-zinc-400 dark:hover:border-zinc-600 hover:shadow-lg transition-all group">
               <div>
                 <div className="flex items-center justify-between mb-6">
-                  <div className="w-10 h-10 rounded-xl bg-[var(--bg-muted)] border border-[var(--border)] flex items-center justify-center text-[var(--fg)]">
+                  <div className="w-10 h-10 rounded-xl bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center text-zinc-900 dark:text-white">
                     <Cpu className="w-5 h-5" />
                   </div>
-                  <span className="text-[10px] font-mono font-normal text-[var(--fg-sub)] bg-[var(--bg-muted)] px-2 py-0.5 rounded border border-[var(--border)]">
-                    24/7 coverage
+                  <span className="text-[10px] font-mono font-normal text-zinc-600 dark:text-zinc-400 bg-zinc-100 dark:bg-zinc-800 px-2 py-0.5 rounded border border-zinc-200 dark:border-zinc-700">
+                    24/7 Coverage
                   </span>
                 </div>
                 <h3 className="text-xl font-medium text-[var(--fg)] font-head mb-2">
-                  Support
+                  Autonomous Robotics
                 </h3>
                 <p className="text-xs sm:text-sm text-[var(--fg-sub)] font-normal leading-relaxed font-sans">
-                  Support teams use AI agents for troubleshooting, knowledge base updates, and escalation management—resolving issues efficiently at scale.
+                  Cooperative multi-drone fleets and quadruped robotics testbeds with real-time SLAM, LiDAR-inertial odometry, and physical interaction.
                 </p>
               </div>
             </div>
           </Tilt>
 
-          {/* Card 4: Engineering / Open Source */}
+          {/* Card 4: Open Source Tooling */}
           <Tilt tiltMaxAngleX={5} tiltMaxAngleY={5} glareEnable={true} glareMaxOpacity={0.05} className="rounded-2xl">
-            <div className="h-full bg-[var(--bg-card)] border border-[var(--border)] rounded-2xl p-7 flex flex-col justify-between hover:border-[var(--fg)]/30 hover:shadow-lg transition-all group">
+            <div className="h-full bg-[var(--bg-card)] border border-zinc-200 dark:border-zinc-800 rounded-2xl p-7 flex flex-col justify-between hover:border-zinc-400 dark:hover:border-zinc-600 hover:shadow-lg transition-all group">
               <div>
                 <div className="flex items-center justify-between mb-6">
-                  <div className="w-10 h-10 rounded-xl bg-[var(--bg-muted)] border border-[var(--border)] flex items-center justify-center text-[var(--fg)]">
+                  <div className="w-10 h-10 rounded-xl bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center text-zinc-900 dark:text-white">
                     <Code className="w-5 h-5" />
                   </div>
-                  <span className="text-[10px] font-mono font-normal text-[var(--fg-sub)] bg-[var(--bg-muted)] px-2 py-0.5 rounded border border-[var(--border)]">
-                    10x productivity
+                  <span className="text-[10px] font-mono font-normal text-zinc-600 dark:text-zinc-400 bg-zinc-100 dark:bg-zinc-800 px-2 py-0.5 rounded border border-zinc-200 dark:border-zinc-700">
+                    Community Validated
                   </span>
                 </div>
                 <h3 className="text-xl font-medium text-[var(--fg)] font-head mb-2">
-                  Engineering
+                  Open Source Tooling
                 </h3>
                 <p className="text-xs sm:text-sm text-[var(--fg-sub)] font-normal leading-relaxed font-sans">
-                  Every developer gets AI agents for code review, testing, documentation, and deployment. Ship faster without sacrificing quality.
+                  Contributing open tokenizers, evaluation harness scripts, and pre-trained weights to democratize frontier AI accessibility worldwide.
                 </p>
               </div>
             </div>
           </Tilt>
 
-          {/* Card 5: Design / Data Curation */}
+          {/* Card 5: Data Curation & Alignment */}
           <Tilt tiltMaxAngleX={5} tiltMaxAngleY={5} glareEnable={true} glareMaxOpacity={0.05} className="rounded-2xl">
-            <div className="h-full bg-[var(--bg-card)] border border-[var(--border)] rounded-2xl p-7 flex flex-col justify-between hover:border-[var(--fg)]/30 hover:shadow-lg transition-all group">
+            <div className="h-full bg-[var(--bg-card)] border border-zinc-200 dark:border-zinc-800 rounded-2xl p-7 flex flex-col justify-between hover:border-zinc-400 dark:hover:border-zinc-600 hover:shadow-lg transition-all group">
               <div>
                 <div className="flex items-center justify-between mb-6">
-                  <div className="w-10 h-10 rounded-xl bg-[var(--bg-muted)] border border-[var(--border)] flex items-center justify-center text-[var(--fg)]">
+                  <div className="w-10 h-10 rounded-xl bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center text-zinc-900 dark:text-white">
                     <Database className="w-5 h-5" />
                   </div>
-                  <span className="text-[10px] font-mono font-normal text-[var(--fg-sub)] bg-[var(--bg-muted)] px-2 py-0.5 rounded border border-[var(--border)]">
-                    Zero-handset friction
+                  <span className="text-[10px] font-mono font-normal text-zinc-600 dark:text-zinc-400 bg-zinc-100 dark:bg-zinc-800 px-2 py-0.5 rounded border border-zinc-200 dark:border-zinc-700">
+                    Zero Handset Friction
                   </span>
                 </div>
                 <h3 className="text-xl font-medium text-[var(--fg)] font-head mb-2">
-                  Design
+                  Data Curation & Alignment
                 </h3>
                 <p className="text-xs sm:text-sm text-[var(--fg-sub)] font-normal leading-relaxed font-sans">
-                  Designers get AI agents for implementation, accessibility checks, and managing design systems. Turn every design into production ready code.
+                  Large-scale ethically verified bilingual datasets spanning jurisprudence, clinical case records, and high-fidelity speech phonetics.
                 </p>
               </div>
             </div>
           </Tilt>
 
-          {/* Card 6: Operations / AI Safety */}
+          {/* Card 6: AI Safety & Alignment */}
           <Tilt tiltMaxAngleX={5} tiltMaxAngleY={5} glareEnable={true} glareMaxOpacity={0.05} className="rounded-2xl">
-            <div className="h-full bg-[var(--bg-card)] border border-[var(--border)] rounded-2xl p-7 flex flex-col justify-between hover:border-[var(--fg)]/30 hover:shadow-lg transition-all group">
+            <div className="h-full bg-[var(--bg-card)] border border-zinc-200 dark:border-zinc-800 rounded-2xl p-7 flex flex-col justify-between hover:border-zinc-400 dark:hover:border-zinc-600 hover:shadow-lg transition-all group">
               <div>
                 <div className="flex items-center justify-between mb-6">
-                  <div className="w-10 h-10 rounded-xl bg-[var(--bg-muted)] border border-[var(--border)] flex items-center justify-center text-[var(--fg)]">
+                  <div className="w-10 h-10 rounded-xl bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center text-zinc-900 dark:text-white">
                     <LineChart className="w-5 h-5" />
                   </div>
-                  <span className="text-[10px] font-mono font-normal text-[var(--fg-sub)] bg-[var(--bg-muted)] px-2 py-0.5 rounded border border-[var(--border)]">
+                  <span className="text-[10px] font-mono font-normal text-zinc-600 dark:text-zinc-400 bg-zinc-100 dark:bg-zinc-800 px-2 py-0.5 rounded border border-zinc-200 dark:border-zinc-700">
                     Always on, never tired
                   </span>
                 </div>
                 <h3 className="text-xl font-medium text-[var(--fg)] font-head mb-2">
-                  Operations
+                  AI Safety & Alignment
                 </h3>
                 <p className="text-xs sm:text-sm text-[var(--fg-sub)] font-normal leading-relaxed font-sans">
-                  Give operations teams AI agents for continuous monitoring, rapid incident response, and automated workflows. Run precise, reduce manual effort, and scale operations without overloading your team.
+                  Ensuring robust, unbiased, and mathematically grounded outputs for safety-critical healthcare and autonomous robotics missions.
                 </p>
               </div>
             </div>
@@ -598,17 +608,17 @@ export default function Home() {
 
       </section>
 
-      {/* ── STATS STRIP (From Ali's Architecture, Thinner Numbers) ── */}
+      {/* ── STATS STRIP (From Ali's Architecture) ── */}
       <section className="w-full max-w-5xl mx-auto px-4 mb-20 z-10 relative">
         <motion.div 
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="grid grid-cols-2 md:grid-cols-4 gap-6 p-8 rounded-2xl border border-[var(--border)] bg-[var(--bg-card)]/80 backdrop-blur-md shadow-lg text-center"
+          className="grid grid-cols-2 md:grid-cols-4 gap-6 p-8 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md shadow-lg text-center"
         >
           {stats.map((s, idx) => (
-            <div key={idx} className={idx !== 0 ? 'md:border-l md:border-[var(--border)]' : ''}>
+            <div key={idx} className={idx !== 0 ? 'md:border-l md:border-zinc-200 dark:md:border-zinc-800' : ''}>
               <div 
                 className="text-3xl sm:text-4xl font-medium font-mono tracking-tight"
                 style={{ color: activeTheme.accent }}
@@ -627,7 +637,7 @@ export default function Home() {
       <section className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 z-10 relative">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12">
           <div>
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[var(--bg-muted)] text-[var(--fg)] text-xs font-mono font-medium border border-[var(--border)] mb-3">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-zinc-100 dark:bg-zinc-800 text-[var(--fg)] text-xs font-mono font-medium border border-zinc-200 dark:border-zinc-700 mb-3">
               <Compass className="w-3.5 h-3.5" style={{ color: activeTheme.accent }} />
               FLAGSHIP RESEARCH DEPLOYMENTS
             </div>
@@ -653,7 +663,7 @@ export default function Home() {
               glareMaxOpacity={0.08}
               className="rounded-2xl"
             >
-              <div className="bg-[var(--bg-card)] border border-[var(--border)] rounded-2xl overflow-hidden h-full flex flex-col justify-between hover:border-[var(--fg)]/40 hover:shadow-xl transition-all group">
+              <div className="bg-[var(--bg-card)] border border-zinc-200 dark:border-zinc-800 rounded-2xl overflow-hidden h-full flex flex-col justify-between hover:border-zinc-400 dark:hover:border-zinc-600 hover:shadow-xl transition-all group">
                 <div>
                   {/* Dormant Black & White Image with Vivid Hover Color Pop */}
                   <div className="relative h-48 w-full overflow-hidden bg-zinc-950">
@@ -686,11 +696,11 @@ export default function Home() {
                 </div>
 
                 {/* Tech Pills Footer */}
-                <div className="px-6 pb-6 pt-2 border-t border-[var(--border)] flex flex-wrap gap-1.5">
+                <div className="px-6 pb-6 pt-2 border-t border-zinc-100 dark:border-zinc-800 flex flex-wrap gap-1.5">
                   {project.tech.map((t, i) => (
                     <span
                       key={i}
-                      className="text-[10px] font-mono px-2 py-0.5 rounded bg-[var(--bg-muted)] text-[var(--fg-sub)] border border-[var(--border)] font-normal"
+                      className="text-[10px] font-mono px-2 py-0.5 rounded bg-zinc-100 dark:bg-zinc-800 text-[var(--fg-sub)] border border-zinc-200 dark:border-zinc-700 font-normal"
                     >
                       {t}
                     </span>
@@ -706,7 +716,7 @@ export default function Home() {
       <section className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 z-10 relative">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12">
           <div>
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[var(--bg-muted)] text-[var(--fg)] text-xs font-mono font-medium border border-[var(--border)] mb-3">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-zinc-100 dark:bg-zinc-800 text-[var(--fg)] text-xs font-mono font-medium border border-zinc-200 dark:border-zinc-700 mb-3">
               <Award className="w-3.5 h-3.5" style={{ color: activeTheme.accent }} />
               PEOPLE & TALENT
             </div>
@@ -726,7 +736,7 @@ export default function Home() {
           {performersData.slice(0, 3).map((perf, index) => (
             <div
               key={perf.id}
-              className="bg-[var(--bg-card)] border border-[var(--border)] rounded-2xl p-6 hover:border-[var(--fg)]/30 hover:shadow-lg transition-all flex flex-col justify-between group"
+              className="bg-[var(--bg-card)] border border-zinc-200 dark:border-zinc-800 rounded-2xl p-6 hover:border-zinc-400 dark:hover:border-zinc-600 hover:shadow-lg transition-all flex flex-col justify-between group"
             >
               <div>
                 <div className="flex items-center gap-4 mb-4">
@@ -734,7 +744,7 @@ export default function Home() {
                   <img
                     src={perf.image}
                     alt={perf.name}
-                    className="w-14 h-14 rounded-xl object-cover dormant-image border border-[var(--border)] group-hover:scale-105 transition-all"
+                    className="w-14 h-14 rounded-xl object-cover dormant-image border border-zinc-200 dark:border-zinc-700 group-hover:scale-105 transition-all"
                   />
                   <div>
                     <span 
@@ -760,7 +770,7 @@ export default function Home() {
                 </p>
               </div>
 
-              <div className="pt-3 border-t border-[var(--border)] flex items-center justify-between text-xs font-mono text-[var(--fg-sub)]">
+              <div className="pt-3 border-t border-zinc-100 dark:border-zinc-800 flex items-center justify-between text-xs font-mono text-[var(--fg-sub)]">
                 <span>Citations: <strong className="text-[var(--fg)] font-medium">{perf.metrics.citations}</strong></span>
                 <span className="font-medium" style={{ color: activeTheme.accent }}>{perf.tags[0]}</span>
               </div>
@@ -786,14 +796,14 @@ export default function Home() {
             return (
               <div
                 key={idx}
-                className="rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] overflow-hidden transition-all shadow-xs"
+                className="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 overflow-hidden transition-all shadow-xs"
               >
                 <button
                   onClick={() => setActiveFaq(isOpen ? null : idx)}
                   className="w-full p-5 sm:p-6 text-left flex items-center justify-between gap-4 font-medium text-sm sm:text-base text-[var(--fg)] hover:text-rose-500 transition-colors cursor-pointer"
                 >
                   <span>{faq.q}</span>
-                  <div className="w-8 h-8 rounded-full bg-[var(--bg-muted)] flex items-center justify-center shrink-0 text-[var(--fg)]">
+                  <div className="w-8 h-8 rounded-full bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center shrink-0 text-[var(--fg)]">
                     {isOpen ? <Minus className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
                   </div>
                 </button>
@@ -807,7 +817,7 @@ export default function Home() {
                       transition={{ duration: 0.25, ease: 'easeOut' }}
                       className="overflow-hidden"
                     >
-                      <div className="px-5 pb-6 sm:px-6 sm:pb-6 text-xs sm:text-sm text-[var(--fg-sub)] font-normal leading-relaxed border-t border-[var(--border)]/60 pt-4 font-sans">
+                      <div className="px-5 pb-6 sm:px-6 sm:pb-6 text-xs sm:text-sm text-[var(--fg-sub)] font-normal leading-relaxed border-t border-zinc-100 dark:border-zinc-800 pt-4 font-sans">
                         {faq.a}
                       </div>
                     </motion.div>
@@ -819,44 +829,46 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── FINAL CTA SECTION: "Let's talk deployment" (Matching Mockup Bottom Right, Thinner Fonts) ── */}
+      {/* ── FINAL CTA SECTION: "Let's talk deployment" (Matching Mockup Bottom Right, Clean Buttons) ── */}
       <section className="w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-20 z-10 relative">
-        <div className="rounded-3xl border border-[var(--border)] bg-[var(--bg-card)] p-10 sm:p-16 shadow-2xl relative overflow-hidden flex flex-col items-center text-center">
+        <div className="rounded-3xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-10 sm:p-16 shadow-2xl relative overflow-hidden flex flex-col items-center text-center">
           
           {/* Sweeping Sunset Aurora Mesh on the bottom right of the card (Exact Mockup Detail) */}
           <div 
-            className="absolute -bottom-24 -right-24 w-[480px] h-[360px] rounded-full blur-[90px] opacity-75 dark:opacity-40 pointer-events-none"
+            className="absolute -bottom-28 -right-28 w-[540px] h-[420px] rounded-full opacity-85 dark:opacity-50 pointer-events-none"
             style={{ 
-              background: 'radial-gradient(circle at bottom right, rgba(244, 63, 94, 0.8) 0%, rgba(251, 146, 60, 0.75) 35%, rgba(251, 191, 36, 0.7) 65%, rgba(56, 189, 248, 0.4) 100%)' 
+              background: 'radial-gradient(circle at bottom right, rgba(244, 63, 94, 0.95) 0%, rgba(251, 146, 60, 0.90) 35%, rgba(251, 191, 36, 0.80) 65%, rgba(56, 189, 248, 0.50) 100%)',
+              filter: 'blur(75px)',
+              WebkitFilter: 'blur(75px)'
             }}
           />
 
           <div className="relative z-10 max-w-2xl mx-auto flex flex-col items-center">
-            {/* Small Pill: `▸ Enterprise` */}
-            <div className="inline-flex items-center gap-2 rounded-md bg-zinc-950 text-white dark:bg-white dark:text-zinc-950 px-3 py-1 text-[11px] font-medium mb-6 shadow-sm">
-              <span className="text-[10px]">▸</span>
-              <span>Enterprise & Fellowship</span>
+            {/* Small Pill: `▸ Enterprise & Fellowship` */}
+            <div className="inline-flex items-center gap-2 rounded-full bg-zinc-950 text-white dark:bg-white dark:text-zinc-950 px-3.5 py-1 text-[11px] font-medium mb-6 shadow-sm">
+              <span className="w-1.5 h-1.5 rounded-full bg-rose-500 animate-pulse" />
+              <span>Enterprise & Fellowship // NEDUET CSIT</span>
             </div>
 
-            {/* Headline: "Let's talk deployment" (Thinner Font: font-medium 500) */}
+            {/* Headline: "Let's talk deployment" */}
             <h2 className="text-4xl sm:text-6xl font-medium text-[var(--fg)] tracking-tight mb-6 font-head">
               Let's talk deployment
             </h2>
 
             <p className="text-sm sm:text-base text-[var(--fg-sub)] font-normal leading-relaxed mb-8 max-w-xl">
-              Custom workflows, dedicated compute, and enterprise infrastructure. The foundation for modern artificial intelligence.
+              Collaborate with NED University's premier AI research faculty and accelerate your foundational model pipelines with dedicated H100 compute.
             </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3.5">
               <Link
                 to="/interns"
-                className="w-full sm:w-auto px-8 py-3.5 rounded-full bg-zinc-950 text-white dark:bg-white dark:text-zinc-950 font-medium text-xs sm:text-sm hover:opacity-90 hover:scale-[1.02] active:scale-[0.98] transition-all shadow-md"
+                className="btn-craftly-primary w-full sm:w-auto px-8 py-3.5 rounded-full font-medium text-xs sm:text-sm cursor-pointer shadow-md"
               >
                 Get started free →
               </Link>
               <Link
                 to="/projects"
-                className="w-full sm:w-auto px-8 py-3.5 rounded-full bg-white dark:bg-zinc-900 border border-[var(--border)] text-[var(--fg)] font-medium text-xs sm:text-sm hover:bg-[var(--bg-muted)] transition-all shadow-xs"
+                className="btn-craftly-secondary w-full sm:w-auto px-8 py-3.5 rounded-full font-medium text-xs sm:text-sm cursor-pointer shadow-xs"
               >
                 Book a demo
               </Link>

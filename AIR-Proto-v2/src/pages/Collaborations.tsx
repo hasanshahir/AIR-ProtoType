@@ -63,7 +63,7 @@ export default function Collaborations() {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
 
                   <div className="absolute top-4 left-4 right-4 flex items-center justify-between">
-                    <span className="px-3 py-1 rounded-md text-xs font-mono font-bold bg-[var(--primary)] text-black">
+                    <span className="px-3 py-1 rounded-md text-xs font-mono font-bold bg-white/90 text-black border border-white/20 backdrop-blur-md">
                       {collab.type}
                     </span>
                     <span className="px-3 py-1 rounded-md text-xs font-mono font-bold bg-black/75 text-white border border-white/20">

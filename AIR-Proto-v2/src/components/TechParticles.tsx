@@ -46,7 +46,7 @@ export default function TechParticles({
         containerRef.current = null
       }
 
-      const count = particleCount || (window.innerWidth > 1200 ? 95 : window.innerWidth > 768 ? 60 : 35)
+      const count = particleCount || (window.innerWidth > 1200 ? 115 : window.innerWidth > 768 ? 75 : 45)
 
       const instance = await tsParticles.load({
         id: containerId,
@@ -66,36 +66,36 @@ export default function TechParticles({
             },
             color: {
               value: isDark 
-                ? [primaryColor, activeTheme.subAccent, activeTheme.tertiary, '#FFFFFF']
-                : [primaryColor, activeTheme.subAccent, activeTheme.tertiary, '#71717A'],
+                ? ['#FFFFFF', '#38BDF8', '#F43F5E', '#FBBF24', '#C084FC', '#34D399']
+                : ['#0F172A', '#1E293B', '#334155', '#E11D48', '#2563EB', '#4338CA'],
             },
             shape: {
               type: 'circle',
             },
             opacity: {
-              value: { min: isDark ? 0.30 : 0.25, max: isDark ? 0.80 : 0.70 },
+              value: { min: isDark ? 0.75 : 0.70, max: isDark ? 1.0 : 0.95 },
               animation: {
                 enable: true,
-                speed: 1,
+                speed: 1.5,
                 sync: false,
               },
             },
             size: {
-              value: { min: 2.0, max: 3.8 },
+              value: { min: 3.5, max: 6.2 },
             },
             links: {
               enable: true,
-              distance: 145,
-              color: primaryColor,
-              opacity: isDark ? 0.35 : 0.22,
-              width: 1.1,
+              distance: 175,
+              color: isDark ? '#FFFFFF' : '#0F172A',
+              opacity: isDark ? 0.65 : 0.52,
+              width: 1.8,
               triangles: {
                 enable: false,
               },
             },
             move: {
               enable: true,
-              speed: 0.9,
+              speed: 1.1,
               direction: 'none',
               random: true,
               straight: false,
@@ -105,7 +105,7 @@ export default function TechParticles({
             },
           },
           interactivity: {
-            detectsOn: 'canvas',
+            detectsOn: 'window',
             events: {
               onHover: {
                 enable: interactive,
@@ -121,10 +121,10 @@ export default function TechParticles({
             },
             modes: {
               grab: {
-                distance: 190,
+                distance: 240,
                 links: {
-                  opacity: 0.85,
-                  color: primaryColor,
+                  opacity: 0.95,
+                  color: isDark ? '#38BDF8' : '#0F172A',
                 },
               },
               push: {

@@ -133,7 +133,7 @@ export default function Interns() {
 
           <a
             href="mailto:internships@airlab.neduet.edu.pk?subject=Summer%202026%20Research%20Internship%20Application"
-            className="px-8 py-3.5 rounded-xl bg-[var(--primary)] text-black font-mono text-xs font-bold hover:shadow-xl hover:shadow-[var(--primary)]/30 hover:scale-105 transition-all shrink-0 inline-flex items-center gap-2"
+            className="px-8 py-3.5 rounded-full btn-craftly-primary font-mono text-xs font-bold shrink-0 inline-flex items-center gap-2 cursor-pointer"
           >
             Apply for Summer '26 <ArrowRight className="w-4 h-4" />
           </a>

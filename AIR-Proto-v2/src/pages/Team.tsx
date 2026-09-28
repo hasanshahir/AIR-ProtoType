@@ -72,12 +72,12 @@ export default function Team() {
             onClick={() => setActive(tab.id)}
             className={`px-5 py-2.5 rounded-xl font-mono text-xs font-bold transition-all duration-200 cursor-pointer flex items-center gap-2 ${
               active === tab.id
-                ? 'bg-[var(--primary)] text-black shadow-lg shadow-[var(--primary)]/30'
-                : 'bg-[var(--bg-card)] text-[var(--fg-sub)] border border-[var(--border)] hover:border-[var(--primary)] hover:text-[var(--fg)]'
+                ? 'btn-craftly-primary shadow-lg'
+                : 'btn-craftly-secondary'
             }`}
           >
             <span>{tab.label}</span>
-            <span className={`px-2 py-0.5 rounded-full text-[10px] ${active === tab.id ? 'bg-black/20 text-black' : 'bg-[var(--bg-muted)] text-[var(--fg-sub)]'}`}>
+            <span className={`px-2 py-0.5 rounded-full text-[10px] ${active === tab.id ? 'bg-white/20 text-inherit' : 'bg-[var(--bg-muted)] text-[var(--fg-sub)]'}`}>
               {tab.count}
             </span>
           </button>
@@ -113,7 +113,7 @@ export default function Team() {
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-60 group-hover:opacity-20 transition-opacity duration-300" />
                     
                     <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity">
-                      <span className="p-1.5 rounded-lg bg-[var(--primary)] text-black flex items-center justify-center shadow-lg">
+                      <span className="p-1.5 rounded-lg btn-craftly-primary flex items-center justify-center shadow-lg">
                         <Sparkles className="w-3.5 h-3.5" />
                       </span>
                     </div>
