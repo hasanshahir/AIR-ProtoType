@@ -4,19 +4,19 @@
 
 /* ── 1. DESIGN TOKENS (Source of Truth) ── */
 :root {
-  /* Page & Backdrop Colors (Sampled directly from reference screenshot) */
-  --bg-page: #E3E0E6;          /* Soft lavender-gray: main section canvas */
-  --bg-backdrop: #C5B9CE;      /* Muted mauve: outer backdrop & frames */
-  --bg-surface: #FAFAFB;       /* Near-white: alternate sections, cards, sheets */
-  --bg-surface-glass: rgba(250, 250, 251, 0.85);
+  /* Page & Backdrop Colors (Brightened, Radiant & Clean) */
+  --bg-page: #F4F2F6;          /* Bright soft lavender-white: main section canvas */
+  --bg-backdrop: #DFD8E6;      /* Bright, refined soft mauve: outer backdrop & frames */
+  --bg-surface: #FFFFFF;       /* Crisp pure white: cards, sheets, panels */
+  --bg-surface-glass: rgba(255, 255, 255, 0.94);
 
   /* Vivid Accents */
   --accent-orange: #F04E1F;        /* Vivid red-orange: primary CTA, buttons, highlights */
   --accent-orange-hover: #D83F12;
-  --accent-orange-light: #FCECE7;
+  --accent-orange-light: #FDEEE9;
   --accent-purple: #6B3FE6;        /* Electric violet: highlight cards, tags, badges */
   --accent-purple-hover: #5A2FD4;
-  --accent-purple-light: #F1EDFD;
+  --accent-purple-light: #F4F1FD;
 
   /* Aliases for ecosystem compatibility */
   --primary: var(--accent-orange);
@@ -40,8 +40,8 @@
   --ink-3: var(--text-subtle);
 
   /* Hairline Borders */
-  --border-hairline: #C9C5CC;  /* 1px lines in slightly darker lavender-gray */
-  --border-hairline-dark: #AFA8B5;
+  --border-hairline: #DCD7E2;  /* 1px crisp clean hairline border */
+  --border-hairline-dark: #C4BDCC;
   --line: var(--border-hairline);
   --line-strong: var(--text-primary);
 

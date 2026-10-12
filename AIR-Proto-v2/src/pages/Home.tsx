@@ -1,98 +1,25 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import {
-  ArrowRight,
   Brain,
   Bot,
   Database,
-  Terminal,
-  Activity,
-  Lock,
-  Sparkles,
   Zap,
   Code,
   LineChart,
+  Layers,
+  Users,
 } from 'lucide-react'
 import Button from '../components/ui/Button'
 import SectionReveal from '../components/ui/SectionReveal'
 import StudentApplicationModal from '../components/StudentApplicationModal'
+import QuickDrawer from '../components/QuickDrawer'
 
 const labStats = [
   { value: '45+', label: 'Peer-Reviewed Publications', desc: 'IEEE, Springer, ACM & SOTA Conferences' },
   { value: '120+', label: 'Researchers & Scholars', desc: 'Faculty, Postgraduates & Research Interns' },
   { value: '15', label: 'Active Grants & Funds', desc: 'HEC NRPU, Ignite NCBC & Strategic Alliances' },
   { value: '100%', label: 'Open Source Benchmarks', desc: 'Reproducible Weights & Regional Corpora' },
-]
-
-const interactivePipelines = [
-  {
-    id: 'urdu-bert',
-    tabName: 'UrduBERT Foundation Model',
-    domain: 'Foundation Models & Regional NLP',
-    title: 'UrduBERT: Transformer for Regional Languages',
-    status: 'ACTIVE RUN',
-    dataset: '40M+ Vernacular Tokens (Literature, Media & Legal)',
-    throughput: '1,420 tokens/sec',
-    computeCluster: 'SLURM Supercluster Partitions (4x NVIDIA A100)',
-    lossRate: '1.24 (-0.38 epoch 4)',
-    metrics: { accuracy: '+34% F1 Score Gain', latency: '14.2ms / token' },
-    inspectorSteps: [
-      'Tokenize bilingual corpora with SentencePiece byte-fallback subwords',
-      'Execute multi-head flash attention pretraining across regional tokens',
-      'Benchmark downstream NLP classification, sentiment & named entity recognition',
-    ],
-  },
-  {
-    id: 'robo-sight',
-    tabName: 'RoboSight Edge Vision',
-    domain: 'Autonomous Perception & Edge AI',
-    title: 'RoboSight: Real-Time Drone Object Detection',
-    status: 'FIELD DEPLOYED',
-    dataset: 'Aerial Reconnaissance & Urban Corridor Telemetries',
-    throughput: '60 FPS @ 7.5W',
-    computeCluster: 'Edge Embedded Jetson Orin Nano & FPGA',
-    lossRate: '0.048 mAP@50',
-    metrics: { accuracy: '98.4% Precision', latency: '<20ms Latency' },
-    inspectorSteps: [
-      'Ingest optical feeds from aerial drone gimbal payloads at 4K 60FPS',
-      'Quantize custom YOLOv8 backbone to INT8 precision via TensorRT',
-      'Execute sub-20ms edge inference for autonomous obstacle avoidance',
-    ],
-  },
-  {
-    id: 'med-scan',
-    tabName: 'MedScan Pathology AI',
-    domain: 'Medical Diagnostics',
-    title: 'MedScan AI: Chest Radiograph Pathology Detection',
-    status: 'CLINICAL TRIAL',
-    dataset: 'NIH CheXNet Benchmark + Local Clinical Cohorts',
-    throughput: '450 scans / min',
-    computeCluster: 'HIPAA-Compliant Encrypted Medical Compute Node',
-    lossRate: '0.082 BCE Loss',
-    metrics: { accuracy: '94.2% ROC-AUC', latency: '120ms total inference' },
-    inspectorSteps: [
-      'Ingest DICOM standard clinical radiographs under privacy-preserving enclaves',
-      'Extract contrastive multi-scale representations across 14 thoracic pathologies',
-      'Generate localized explainability heatmaps using grad-CAM diagnostics',
-    ],
-  },
-  {
-    id: 'smart-grid',
-    tabName: 'SmartGrid Forecasting',
-    domain: 'Energy & Time-Series AI',
-    title: 'SmartGrid AI: Demand Forecasting & Load Balancing',
-    status: 'SIMULATOR LIVE',
-    dataset: 'National Grid Historical Dispatch & Weather Telemetry',
-    throughput: 'Real-Time Telemetry Stream',
-    computeCluster: 'Hybrid Transformer-LSTM Cluster',
-    lossRate: '0.031 MAPE',
-    metrics: { accuracy: '±3.1% MAPE', latency: 'Sub-second Dispatch' },
-    inspectorSteps: [
-      'Stream real-time multi-bus grid consumption and climate telemetry',
-      'Pass sequences through hybrid temporal transformer with self-attention',
-      'Predict peak surge 24-hours ahead to prevent cascading grid outages',
-    ],
-  },
 ]
 
 const coreResearchAreas = [
@@ -147,10 +74,19 @@ const institutionalPartners = [
 ]
 
 export default function Home() {
-  const [activePipelineIdx, setActivePipelineIdx] = useState(0)
   const [applyModalOpen, setApplyModalOpen] = useState(false)
+  const [drawerOpen, setDrawerOpen] = useState(false)
+  const [drawerTab, setDrawerTab] = useState<'projects' | 'members'>('projects')
 
-  const activePipeline = interactivePipelines[activePipelineIdx]
+  const openProjectsDrawer = () => {
+    setDrawerTab('projects')
+    setDrawerOpen(true)
+  }
+
+  const openMembersDrawer = () => {
+    setDrawerTab('members')
+    setDrawerOpen(true)
+  }
 
   return (
     <div className="w-full relative font-sans text-[var(--text-primary)] overflow-hidden">
@@ -190,7 +126,7 @@ export default function Home() {
               </div>
               <div className="flex flex-col sm:flex-row items-center gap-3 shrink-0">
                 <Button to="/projects" variant="primary" size="md" arrow>
-                  View Benchmarks
+                  Explore Research
                 </Button>
               </div>
             </div>
@@ -211,19 +147,48 @@ export default function Home() {
             </div>
           </SectionReveal>
 
-          {/* Right Column (7 cols): Editorial Pitch & Action Buttons */}
+          {/* Right Column (7 cols): Editorial Pitch & Big Action Buttons */}
           <SectionReveal delay={0.12} className="lg:col-span-7">
             <div className="lg:pl-6 lg:border-l border-[var(--border-hairline)]">
               <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-[42px] font-normal tracking-[-0.025em] leading-[1.12] text-[var(--text-primary)] mb-8 font-head">
                 Ignite intelligence, computational strength, and breakthrough innovation on every research frontier, turning lab discoveries into impactful real-world systems.
               </h2>
-              <div className="flex flex-wrap items-center gap-3.5">
-                <Button to="/projects" variant="primary" size="lg" arrow>
-                  Explore Projects
-                </Button>
-                <Button to="/team" variant="secondary" size="lg">
-                  Meet Core Team
-                </Button>
+              
+              {/* Big High-Visibility Project & Member Buttons (Opens Big Flyout Drawer from Right) */}
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 mb-4">
+                {/* Big Visible Orange Project Button */}
+                <button
+                  type="button"
+                  onClick={openProjectsDrawer}
+                  className="h-14 sm:h-16 px-8 sm:px-10 bg-[var(--accent-orange)] hover:bg-[var(--accent-orange-hover)] text-white text-base sm:text-lg font-bold rounded-[2px] shadow-lg shadow-[var(--accent-orange)]/25 hover:shadow-xl hover:scale-[1.02] active:scale-[0.99] transition-all duration-200 flex items-center justify-center gap-3 cursor-pointer group"
+                >
+                  <Layers className="w-5 h-5 shrink-0" />
+                  <span>Explore Projects</span>
+                  <span className="font-mono text-xl group-hover:translate-x-0.5 transition-transform">↳</span>
+                </button>
+
+                {/* Big Visible Members Button */}
+                <button
+                  type="button"
+                  onClick={openMembersDrawer}
+                  className="h-14 sm:h-16 px-8 sm:px-10 bg-[var(--bg-surface)] hover:bg-[var(--bg-page)] text-[var(--text-primary)] border-2 border-[var(--text-primary)] text-base sm:text-lg font-bold rounded-[2px] shadow-sm hover:shadow-md hover:scale-[1.02] active:scale-[0.99] transition-all duration-200 flex items-center justify-center gap-3 cursor-pointer group"
+                >
+                  <Users className="w-5 h-5 text-[var(--accent-purple)] shrink-0" />
+                  <span>Lab Members</span>
+                  <span className="font-mono text-xl group-hover:translate-x-0.5 transition-transform">↳</span>
+                </button>
+              </div>
+
+              {/* Direct Link Options */}
+              <div className="flex flex-wrap items-center gap-2 sm:gap-4 text-xs font-mono text-[var(--text-muted)]">
+                <span className="text-[var(--text-subtle)]">Direct navigation:</span>
+                <Link to="/projects" className="text-[var(--accent-orange)] hover:underline font-semibold flex items-center gap-1">
+                  Full Projects Page &rarr;
+                </Link>
+                <span>&bull;</span>
+                <Link to="/team" className="text-[var(--text-primary)] hover:underline font-semibold flex items-center gap-1">
+                  Full Team Directory &rarr;
+                </Link>
               </div>
             </div>
           </SectionReveal>
@@ -253,157 +218,6 @@ export default function Home() {
             </div>
           </div>
         </SectionReveal>
-      </section>
-
-      {/* ── 2. NEURAL ARCHITECTURE WORKBENCH PANEL ── */}
-      <section className="px-4 sm:px-6 mb-24 max-w-[1180px] mx-auto relative z-10">
-        <div className="rounded-[4px] p-4 sm:p-8 md:p-10 bg-[var(--bg-backdrop)] border border-[var(--border-hairline)] shadow-xl">
-          {/* Top Domain Switcher Bar */}
-          <div className="mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-left">
-            <div className="flex items-center gap-2">
-              <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-[var(--text-primary)] bg-[var(--bg-surface)] px-2.5 py-1 rounded-[2px] flex items-center gap-1.5 border border-[var(--border-hairline)]">
-                <Sparkles className="w-3.5 h-3.5 text-[var(--accent-orange)]" />
-                INTERACTIVE LAB BENCHMARK RUN:
-              </span>
-            </div>
-
-            {/* Rectangular Domain Tabs */}
-            <div className="flex flex-wrap items-center gap-1.5 bg-[var(--bg-surface)] p-1 rounded-[2px] border border-[var(--border-hairline)] shadow-xs">
-              {interactivePipelines.map((pipe, idx) => {
-                const isActive = activePipelineIdx === idx
-                return (
-                  <button
-                    key={pipe.id}
-                    onClick={() => setActivePipelineIdx(idx)}
-                    className={`h-7 px-3 text-xs font-mono font-medium rounded-[2px] transition-all cursor-pointer whitespace-nowrap ${
-                      isActive
-                        ? 'bg-[var(--accent-orange)] text-white shadow-xs'
-                        : 'text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-page)]'
-                    }`}
-                  >
-                    {pipe.tabName}
-                  </button>
-                )
-              })}
-            </div>
-          </div>
-
-          {/* Interactive Mock Window */}
-          <div className="ft-window bg-[var(--bg-surface)] rounded-[4px] overflow-hidden border border-[var(--border-hairline)] shadow-2xl text-left">
-            {/* Window Header */}
-            <div className="h-10 bg-[var(--bg-page)] border-b border-[var(--border-hairline)] px-4 flex items-center justify-between gap-4">
-              <div className="flex items-center gap-2">
-                <span className="w-2.5 h-2.5 rounded-full bg-[var(--accent-orange)]" />
-                <span className="w-2.5 h-2.5 rounded-full bg-[var(--accent-purple)]" />
-                <span className="w-2.5 h-2.5 rounded-full bg-[var(--border-hairline-dark)]" />
-              </div>
-
-              {/* URL Pill */}
-              <div className="flex-1 max-w-md mx-auto hidden sm:flex items-center justify-center">
-                <div className="h-6 px-3 rounded-[2px] bg-[var(--bg-surface)] border border-[var(--border-hairline)] text-[11px] font-mono text-[var(--text-muted)] flex items-center gap-1.5 w-full justify-center">
-                  <Lock className="w-3 h-3 text-[var(--accent-orange)]" />
-                  <span>airlab.neduet.edu.pk/models/{activePipeline.id}</span>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-2 text-[11px] font-mono text-[var(--text-subtle)]">
-                <span className="w-2 h-2 rounded-full bg-[var(--accent-orange)] animate-pulse" />
-                <span className="hidden sm:inline">Telemetry Streaming</span>
-              </div>
-            </div>
-
-            {/* Dotted Grid Workbench Canvas */}
-            <div className="p-6 sm:p-8 ft-dotted-grid bg-[var(--bg-surface)] relative">
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-                {/* Left: Model Diagnostics & Architecture */}
-                <div className="lg:col-span-7 space-y-5">
-                  <div className="flex items-center gap-2">
-                    <span className="px-2 py-0.5 rounded-[2px] text-[10px] font-mono font-bold bg-[var(--accent-orange-light)] text-[var(--accent-orange)] border border-[var(--accent-orange)]/20">
-                      {activePipeline.status}
-                    </span>
-                    <span className="text-xs font-mono text-[var(--text-subtle)]">{activePipeline.domain}</span>
-                  </div>
-
-                  <h3 className="font-head text-xl sm:text-2xl font-bold text-[var(--text-primary)] leading-snug">
-                    {activePipeline.title}
-                  </h3>
-
-                  {/* Telemetry Stats Pill Grid */}
-                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                    <div className="p-3 rounded-[2px] bg-[var(--bg-surface)] border border-[var(--border-hairline)]">
-                      <div className="text-[10px] font-mono text-[var(--text-subtle)] uppercase">Dataset Corpus</div>
-                      <div className="text-xs font-bold text-[var(--text-primary)] mt-0.5 truncate">{activePipeline.dataset}</div>
-                    </div>
-                    <div className="p-3 rounded-[2px] bg-[var(--bg-surface)] border border-[var(--border-hairline)]">
-                      <div className="text-[10px] font-mono text-[var(--text-subtle)] uppercase">Hardware Node</div>
-                      <div className="text-xs font-bold text-[var(--text-primary)] mt-0.5 truncate">{activePipeline.computeCluster}</div>
-                    </div>
-                    <div className="p-3 rounded-[2px] bg-[var(--bg-surface)] border border-[var(--border-hairline)]">
-                      <div className="text-[10px] font-mono text-[var(--text-subtle)] uppercase">SOTA Gain</div>
-                      <div className="text-xs font-bold text-[var(--accent-orange)] mt-0.5">{activePipeline.metrics.accuracy}</div>
-                    </div>
-                  </div>
-
-                  {/* Interactive Pipeline Sequence */}
-                  <div className="p-4 rounded-[2px] bg-[var(--bg-surface)] border border-[var(--border-hairline)] space-y-2.5">
-                    <div className="text-xs font-mono font-bold text-[var(--text-primary)] uppercase tracking-wider flex items-center gap-1.5">
-                      <Activity className="w-3.5 h-3.5 text-[var(--accent-purple)]" />
-                      Three-Stage Deployment Verification
-                    </div>
-                    <div className="space-y-2">
-                      {activePipeline.inspectorSteps.map((step, idx) => (
-                        <div key={idx} className="flex items-start gap-2.5 text-xs text-[var(--text-muted)]">
-                          <span className="font-mono font-bold text-[var(--accent-purple)] shrink-0 mt-0.5">0{idx + 1}.</span>
-                          <span>{step}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-
-                {/* Right: Simulated Model Architecture Card */}
-                <div className="lg:col-span-5 bg-[var(--text-primary)] text-white p-5 rounded-[2px] border border-[var(--text-primary)] shadow-lg font-mono text-xs space-y-4">
-                  <div className="flex items-center justify-between pb-3 border-b border-gray-800 text-[11px] text-gray-400">
-                    <span className="flex items-center gap-1.5">
-                      <Terminal className="w-3.5 h-3.5 text-[var(--accent-orange)]" />
-                      airlab-eval --weights --sota
-                    </span>
-                    <span className="text-[var(--accent-orange)]">PASSED</span>
-                  </div>
-
-                  <div className="space-y-2 text-[11px]">
-                    <div className="flex justify-between">
-                      <span className="text-gray-400">Inference Throughput:</span>
-                      <span className="text-[var(--accent-orange)] font-bold">{activePipeline.throughput}</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-gray-400">Measured Latency:</span>
-                      <span className="text-white font-bold">{activePipeline.metrics.latency}</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-gray-400">Convergence Rate:</span>
-                      <span className="text-gray-300">{activePipeline.lossRate}</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-gray-400">Licensing:</span>
-                      <span className="text-gray-300">Open Academic Apache-2.0</span>
-                    </div>
-                  </div>
-
-                  <div className="pt-3 border-t border-gray-800 flex items-center justify-between">
-                    <Link
-                      to="/projects"
-                      className="inline-flex items-center gap-1 text-[11px] text-[var(--accent-orange)] hover:underline"
-                    >
-                      Inspect Full Architecture <ArrowRight className="w-3 h-3" />
-                    </Link>
-                    <span className="text-[10px] text-gray-500">v2026.4</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
       </section>
 
       {/* ── 3. STRATEGIC & ACADEMIC ALLIANCES (Strip) ── */}
@@ -519,6 +333,13 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* Fast Directory Dropdown Drawer from Right */}
+      <QuickDrawer
+        isOpen={drawerOpen}
+        onClose={() => setDrawerOpen(false)}
+        initialTab={drawerTab}
+      />
 
       {/* Student Fellowship Modal */}
       <StudentApplicationModal
