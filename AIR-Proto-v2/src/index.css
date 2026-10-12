@@ -5,18 +5,18 @@
 /* ── 1. DESIGN TOKENS (Source of Truth) ── */
 :root {
   /* Page & Backdrop Colors (Brightened, Radiant & Clean) */
-  --bg-page: #F4F2F6;          /* Bright soft lavender-white: main section canvas */
-  --bg-backdrop: #DFD8E6;      /* Bright, refined soft mauve: outer backdrop & frames */
+  --bg-page: #FAF9FC;          /* Clean, radiant luminous off-white canvas */
+  --bg-backdrop: #ECE7F2;      /* Fresh, crisp, refined soft lavender-mauve backdrop */
   --bg-surface: #FFFFFF;       /* Crisp pure white: cards, sheets, panels */
-  --bg-surface-glass: rgba(255, 255, 255, 0.94);
+  --bg-surface-glass: rgba(255, 255, 255, 0.96);
 
   /* Vivid Accents */
   --accent-orange: #F04E1F;        /* Vivid red-orange: primary CTA, buttons, highlights */
   --accent-orange-hover: #D83F12;
-  --accent-orange-light: #FDEEE9;
+  --accent-orange-light: #FFF0EB;
   --accent-purple: #6B3FE6;        /* Electric violet: highlight cards, tags, badges */
   --accent-purple-hover: #5A2FD4;
-  --accent-purple-light: #F4F1FD;
+  --accent-purple-light: #F6F3FE;
 
   /* Aliases for ecosystem compatibility */
   --primary: var(--accent-orange);
@@ -39,9 +39,9 @@
   --ink-2: var(--text-muted);
   --ink-3: var(--text-subtle);
 
-  /* Hairline Borders */
-  --border-hairline: #DCD7E2;  /* 1px crisp clean hairline border */
-  --border-hairline-dark: #C4BDCC;
+  /* Hairline Borders (Crisp & Bright) */
+  --border-hairline: #E5E1EA;  /* 1px crisp clean hairline border */
+  --border-hairline-dark: #D4CEDC;
   --line: var(--border-hairline);
   --line-strong: var(--text-primary);
 
@@ -52,7 +52,7 @@
   --radius-pill: 2px;
 
   --shadow-sm: 0 1px 2px rgba(17, 17, 17, 0.04);
-  --shadow-card: 0 1px 3px rgba(17, 17, 17, 0.03), 0 8px 24px rgba(197, 185, 206, 0.12);
+  --shadow-card: 0 1px 3px rgba(17, 17, 17, 0.03), 0 8px 24px rgba(197, 185, 206, 0.10);
   --shadow-hover: 0 4px 12px rgba(17, 17, 17, 0.06), 0 14px 30px rgba(240, 78, 31, 0.10);
 
   /* Neo-Grotesk Typography Stack */
@@ -195,7 +195,7 @@
 
   /* Dotted grid canvas */
   .ft-dotted-grid {
-    background-image: radial-gradient(circle, #C9C5CC 1.2px, transparent 1.2px);
+    background-image: radial-gradient(circle, #D8D4DD 1.1px, transparent 1.1px);
     background-size: 16px 16px;
   }
 

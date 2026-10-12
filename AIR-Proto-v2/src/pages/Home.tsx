@@ -1,5 +1,5 @@
-﻿import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { useState, useRef, useEffect } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import {
   Brain,
   Bot,
@@ -59,18 +59,51 @@ const coreResearchAreas = [
 ]
 
 export default function Home() {
+  const navigate = useNavigate()
   const [applyModalOpen, setApplyModalOpen] = useState(false)
   const [drawerOpen, setDrawerOpen] = useState(false)
   const [drawerTab, setDrawerTab] = useState<'projects' | 'members'>('projects')
+  const closeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
-  const openProjectsDrawer = () => {
-    setDrawerTab('projects')
+  const cancelCloseTimer = () => {
+    if (closeTimerRef.current) {
+      clearTimeout(closeTimerRef.current)
+      closeTimerRef.current = null
+    }
+  }
+
+  const scheduleCloseTimer = () => {
+    cancelCloseTimer()
+    closeTimerRef.current = setTimeout(() => {
+      setDrawerOpen(false)
+    }, 380) // 380ms grace window for smooth travel from button to drawer
+  }
+
+  useEffect(() => {
+    return () => {
+      cancelCloseTimer()
+    }
+  }, [])
+
+  const handleHoverTrigger = (tab: 'projects' | 'members') => {
+    cancelCloseTimer()
+    setDrawerTab(tab)
     setDrawerOpen(true)
   }
 
-  const openMembersDrawer = () => {
-    setDrawerTab('members')
-    setDrawerOpen(true)
+  const handleDrawerClose = () => {
+    cancelCloseTimer()
+    setDrawerOpen(false)
+  }
+
+  const handleProjectButtonClick = () => {
+    handleDrawerClose()
+    navigate('/projects')
+  }
+
+  const handleMemberButtonClick = () => {
+    handleDrawerClose()
+    navigate('/team')
   }
 
   return (
@@ -104,11 +137,14 @@ export default function Home() {
                 Ignite intelligence, computational strength, and breakthrough innovation on every research frontier, turning lab discoveries into impactful real-world systems.
               </h2>
 
-              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 mb-4">
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 mb-3">
                 <button
                   type="button"
-                  onClick={openProjectsDrawer}
+                  onMouseEnter={() => handleHoverTrigger('projects')}
+                  onMouseLeave={scheduleCloseTimer}
+                  onClick={handleProjectButtonClick}
                   className="h-14 sm:h-16 px-8 sm:px-10 bg-[var(--accent-orange)] hover:bg-[var(--accent-orange-hover)] text-white text-base sm:text-lg font-bold rounded-[2px] shadow-lg shadow-[var(--accent-orange)]/25 hover:shadow-xl hover:scale-[1.02] active:scale-[0.99] transition-all duration-200 flex items-center justify-center gap-3 cursor-pointer group"
+                  title="Hover to slide out Projects &bull; Click to open full Projects page"
                 >
                   <Layers className="w-5 h-5 shrink-0" />
                   <span>Explore Projects</span>
@@ -117,13 +153,22 @@ export default function Home() {
 
                 <button
                   type="button"
-                  onClick={openMembersDrawer}
+                  onMouseEnter={() => handleHoverTrigger('members')}
+                  onMouseLeave={scheduleCloseTimer}
+                  onClick={handleMemberButtonClick}
                   className="h-14 sm:h-16 px-8 sm:px-10 bg-[var(--bg-surface)] hover:bg-[var(--bg-page)] text-[var(--text-primary)] border-2 border-[var(--text-primary)] text-base sm:text-lg font-bold rounded-[2px] shadow-sm hover:shadow-md hover:scale-[1.02] active:scale-[0.99] transition-all duration-200 flex items-center justify-center gap-3 cursor-pointer group"
+                  title="Hover to slide out Lab Members &bull; Click to open full Directory"
                 >
                   <Users className="w-5 h-5 text-[var(--accent-purple)] shrink-0" />
                   <span>Lab Members</span>
                   <span className="font-mono text-xl group-hover:translate-x-0.5 transition-transform">↳</span>
                 </button>
+              </div>
+
+              {/* Hover & Navigation Micro-Hint */}
+              <div className="flex items-center gap-2 text-[11px] font-mono text-[var(--text-subtle)] mb-4">
+                <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent-orange)] animate-pulse" />
+                <span>Hover buttons to slide out preview &bull; Click button or card to visit full page</span>
               </div>
 
               <div className="flex flex-wrap items-center gap-2 sm:gap-4 text-xs font-mono text-[var(--text-muted)]">
@@ -255,8 +300,10 @@ export default function Home() {
       {/* Fast Directory Dropdown Drawer from Right */}
       <QuickDrawer
         isOpen={drawerOpen}
-        onClose={() => setDrawerOpen(false)}
+        onClose={handleDrawerClose}
         initialTab={drawerTab}
+        onMouseEnter={cancelCloseTimer}
+        onMouseLeave={scheduleCloseTimer}
       />
 
       {/* Student Fellowship Modal */}
