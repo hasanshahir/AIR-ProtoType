@@ -167,35 +167,6 @@ export default function Home() {
 
       {/* ── 1. HERO SECTION (Neo-Grotesk 2-Column Split: Massive Wordmark + Editorial Pitch) ── */}
       <section className="pt-10 pb-12 sm:pt-16 sm:pb-16 px-4 sm:px-8 max-w-[1280px] mx-auto text-left relative z-10">
-        {/* Top Flagship Showcase Box (matching truck showcase card in reference) */}
-        <SectionReveal delay={0}>
-          <div className="mb-10 sm:mb-14 rounded-[4px] border border-[var(--border-hairline)] bg-[var(--bg-surface)] p-6 sm:p-10 relative overflow-hidden shadow-sm">
-            <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-              <div className="max-w-xl text-left">
-                <div className="mb-3 flex items-center gap-2">
-                  <span className="px-2 py-0.5 text-[10px] font-mono font-semibold bg-[var(--accent-orange)] text-white rounded-[2px] tracking-wider uppercase">
-                    Flagship Research Node
-                  </span>
-                  <span className="text-xs font-mono text-[var(--text-muted)]">
-                    NED University · Dept of CSIT
-                  </span>
-                </div>
-                <h3 className="text-2xl sm:text-3xl md:text-4xl font-normal tracking-[-0.02em] leading-tight text-[var(--text-primary)]">
-                  Next evolution in computational intelligence is here.
-                </h3>
-                <p className="text-xs sm:text-sm text-[var(--text-muted)] mt-2 leading-relaxed">
-                  High-performance computing cluster powering foundational Urdu LLMs, real-time edge vision, and autonomous robotics benchmarks.
-                </p>
-              </div>
-              <div className="flex flex-col sm:flex-row items-center gap-3 shrink-0">
-                <Button to="/projects" variant="primary" size="md" arrow>
-                  Explore Research
-                </Button>
-              </div>
-            </div>
-          </div>
-        </SectionReveal>
-
         {/* 2-Column Split: Massive Wordmark Left / Editorial Pitch & Actions Right */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start pb-12 border-b border-[var(--border-hairline)]">
           {/* Left Column (5 cols): Massive Display Wordmark & Description */}
