@@ -1,10 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
 
-export type ThemePalette = 
-  | 'default'         // Aurora Sunset (Craftly / BlockAI Studio inspiration)
-  | 'theme-emerald'   // Emerald Horizon (Ali's signature mint/emerald)
-  | 'theme-cobalt'    // Electric Cobalt (Deep tech frontier AI)
-  | 'theme-cyber'     // Cyber Canary (High-contrast canary gold)
+export type ThemePalette = 'default'
 
 export interface ThemeOption {
   id: ThemePalette
@@ -34,58 +30,10 @@ export const THEME_OPTIONS: ThemeOption[] = [
     description: 'Reference neo-grotesk industrial aesthetic: vivid red-orange, electric violet & soft lavender-gray',
     gradientText: 'linear-gradient(135deg, #F04E1F 0%, #6B3FE6 100%)',
     glows: {
-      c1: 'rgba(240, 78, 31, 0.25)',
-      c2: 'rgba(107, 63, 230, 0.20)',
-      c3: 'rgba(197, 185, 206, 0.35)',
-      c4: 'rgba(240, 78, 31, 0.15)',
-    }
-  },
-  {
-    id: 'theme-emerald',
-    name: 'Emerald Horizon',
-    accent: '#10B981',
-    subAccent: '#06B6D4',
-    tertiary: '#84CC16',
-    bgPreview: '#FAFAFA',
-    description: "Ali's signature aesthetic: crisp emerald, electric cyan & deep teal blurs",
-    gradientText: 'linear-gradient(135deg, #10B981 0%, #06B6D4 50%, #84CC16 100%)',
-    glows: {
-      c1: 'rgba(16, 185, 129, 0.40)',
-      c2: 'rgba(6, 182, 212, 0.40)',
-      c3: 'rgba(132, 204, 22, 0.35)',
-      c4: 'rgba(20, 184, 166, 0.25)',
-    }
-  },
-  {
-    id: 'theme-cobalt',
-    name: 'Electric Cobalt',
-    accent: '#2563EB',
-    subAccent: '#7C3AED',
-    tertiary: '#38BDF8',
-    bgPreview: '#F8FAFC',
-    description: 'Frontier AI research: cobalt blue, electric violet & sky cyan blurs',
-    gradientText: 'linear-gradient(135deg, #2563EB 0%, #7C3AED 50%, #38BDF8 100%)',
-    glows: {
-      c1: 'rgba(37, 99, 235, 0.40)',
-      c2: 'rgba(124, 58, 237, 0.40)',
-      c3: 'rgba(56, 189, 248, 0.35)',
-      c4: 'rgba(236, 72, 153, 0.25)',
-    }
-  },
-  {
-    id: 'theme-cyber',
-    name: 'Cyber Canary',
-    accent: '#FFE600',
-    subAccent: '#F59E0B',
-    tertiary: '#A3E635',
-    bgPreview: '#0C0D12',
-    description: 'High-contrast tech: luminous electric canary gold & amber blurs',
-    gradientText: 'linear-gradient(135deg, #FFE600 0%, #F59E0B 50%, #A3E635 100%)',
-    glows: {
-      c1: 'rgba(255, 230, 0, 0.40)',
-      c2: 'rgba(245, 158, 11, 0.40)',
-      c3: 'rgba(163, 230, 53, 0.35)',
-      c4: 'rgba(255, 215, 0, 0.25)',
+      c1: 'rgba(240, 78, 31, 0.18)',
+      c2: 'rgba(107, 63, 230, 0.14)',
+      c3: 'rgba(197, 185, 206, 0.25)',
+      c4: 'rgba(240, 78, 31, 0.10)',
     }
   }
 ]
@@ -101,28 +49,15 @@ interface ThemeContextType {
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined)
 
 export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  // Version 5: default to Aurora Sunset in Light mode
+  // Always default to Cruzeon Industrial in Light mode as in reference
   const [palette, setPaletteState] = useState<ThemePalette>(() => {
-    const version = localStorage.getItem('air_theme_aurora_v5')
-    if (!version) {
-      localStorage.setItem('air_theme_aurora_v5', '5.0')
-      localStorage.removeItem('air_theme_palette')
-      localStorage.removeItem('air_theme_mode')
-      return 'default'
-    }
-    const saved = localStorage.getItem('air_theme_palette') as ThemePalette
-    const valid = THEME_OPTIONS.some(o => o.id === saved)
-    return valid ? saved : 'default'
+    localStorage.removeItem('air_theme_aurora_v5')
+    localStorage.removeItem('air_theme_palette')
+    localStorage.removeItem('air_theme_mode')
+    return 'default'
   })
 
-  // Default to FALSE (Light mode like the inspiration design)
-  const [isDark, setIsDark] = useState<boolean>(() => {
-    const version = localStorage.getItem('air_theme_aurora_v5')
-    if (!version) return false
-    const saved = localStorage.getItem('air_theme_mode')
-    if (saved !== null) return saved === 'dark'
-    return false // Light mode default!
-  })
+  const [isDark, setIsDark] = useState<boolean>(false)
 
   const activeTheme = THEME_OPTIONS.find(t => t.id === palette) || THEME_OPTIONS[0]
 

@@ -14,7 +14,6 @@ import {
   LineChart,
 } from 'lucide-react'
 import Button from '../components/ui/Button'
-import CornerBracket from '../components/ui/CornerBracket'
 import SectionReveal from '../components/ui/SectionReveal'
 import StudentApplicationModal from '../components/StudentApplicationModal'
 
@@ -167,50 +166,65 @@ export default function Home() {
         <div className="absolute top-44 left-[20%] w-[440px] h-[440px] rounded-full bg-[var(--bg-backdrop)]/35 blur-[120px]" />
       </div>
 
-      {/* ── 1. HERO SECTION (Neo-Grotesk Display Typography & Clean Layout) ── */}
-      <section className="pt-20 pb-16 sm:pt-28 sm:pb-20 px-6 max-w-[1140px] mx-auto text-left relative z-10">
-        <div className="max-w-4xl">
-          {/* Eyebrow Label */}
-          <SectionReveal delay={0}>
-            <div className="mb-6 flex flex-wrap items-center gap-2">
-              <span className="px-2.5 py-1 text-[11px] font-mono font-semibold bg-[var(--accent-orange-light)] text-[var(--accent-orange)] rounded-[2px] border border-[var(--accent-orange)]/20 flex items-center gap-1.5 shadow-xs">
-                <span className="w-2 h-2 rounded-full bg-[var(--accent-orange)] animate-pulse" />
-                Pioneering Intelligence
-              </span>
-              <span className="text-xs font-mono text-[var(--text-muted)]">
-                NED University · Department of CSIT
-              </span>
+      {/* ── 1. HERO SECTION (Neo-Grotesk 2-Column Split: Massive Wordmark + Editorial Pitch) ── */}
+      <section className="pt-10 pb-12 sm:pt-16 sm:pb-16 px-4 sm:px-8 max-w-[1280px] mx-auto text-left relative z-10">
+        {/* Top Flagship Showcase Box (matching truck showcase card in reference) */}
+        <SectionReveal delay={0}>
+          <div className="mb-10 sm:mb-14 rounded-[4px] border border-[var(--border-hairline)] bg-[var(--bg-surface)] p-6 sm:p-10 relative overflow-hidden shadow-sm">
+            <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+              <div className="max-w-xl text-left">
+                <div className="mb-3 flex items-center gap-2">
+                  <span className="px-2 py-0.5 text-[10px] font-mono font-semibold bg-[var(--accent-orange)] text-white rounded-[2px] tracking-wider uppercase">
+                    Flagship Research Node
+                  </span>
+                  <span className="text-xs font-mono text-[var(--text-muted)]">
+                    NED University · Dept of CSIT
+                  </span>
+                </div>
+                <h3 className="text-2xl sm:text-3xl md:text-4xl font-normal tracking-[-0.02em] leading-tight text-[var(--text-primary)]">
+                  Next evolution in computational intelligence is here.
+                </h3>
+                <p className="text-xs sm:text-sm text-[var(--text-muted)] mt-2 leading-relaxed">
+                  High-performance computing cluster powering foundational Urdu LLMs, real-time edge vision, and autonomous robotics benchmarks.
+                </p>
+              </div>
+              <div className="flex flex-col sm:flex-row items-center gap-3 shrink-0">
+                <Button to="/projects" variant="primary" size="md" arrow>
+                  View Benchmarks
+                </Button>
+              </div>
+            </div>
+          </div>
+        </SectionReveal>
+
+        {/* 2-Column Split: Massive Wordmark Left / Editorial Pitch & Actions Right */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start pb-12 border-b border-[var(--border-hairline)]">
+          {/* Left Column (5 cols): Massive Display Wordmark & Description */}
+          <SectionReveal delay={0.06} className="lg:col-span-5">
+            <div>
+              <h1 className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-bold tracking-[-0.04em] leading-[0.95] text-[var(--text-primary)] font-head">
+                AIR Lab
+              </h1>
+              <p className="text-[13px] sm:text-[14px] text-[var(--text-muted)] max-w-sm leading-relaxed mt-5 font-normal">
+                The Artificial Intelligence Research Lab at NED University is pioneering foundational regional AI models, computer vision, and edge computing for real-world impact across national academia and industry.
+              </p>
             </div>
           </SectionReveal>
 
-          {/* Main Headline */}
-          <SectionReveal delay={0.06}>
-            <h1 className="font-head font-bold tracking-tight text-[var(--text-primary)] mb-6 text-left leading-[1.05] text-4xl sm:text-6xl md:text-7xl">
-              Artificial Intelligence
-              <div className="mt-3 flex items-center">
-                <CornerBracket tag="NEDUET CSIT" tagColor="bg-[var(--accent-orange)] text-white">
-                  Research Lab
-                </CornerBracket>
+          {/* Right Column (7 cols): Editorial Pitch & Action Buttons */}
+          <SectionReveal delay={0.12} className="lg:col-span-7">
+            <div className="lg:pl-6 lg:border-l border-[var(--border-hairline)]">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-[42px] font-normal tracking-[-0.025em] leading-[1.12] text-[var(--text-primary)] mb-8 font-head">
+                Ignite intelligence, computational strength, and breakthrough innovation on every research frontier, turning lab discoveries into impactful real-world systems.
+              </h2>
+              <div className="flex flex-wrap items-center gap-3.5">
+                <Button to="/projects" variant="primary" size="lg" arrow>
+                  Explore Projects
+                </Button>
+                <Button to="/team" variant="secondary" size="lg">
+                  Meet Core Team
+                </Button>
               </div>
-            </h1>
-          </SectionReveal>
-
-          {/* Subtitle */}
-          <SectionReveal delay={0.12}>
-            <p className="text-[17px] sm:text-[19px] text-[var(--text-muted)] max-w-2xl leading-relaxed mb-8 font-normal text-left">
-              Building next-generation models and intelligent systems at NED University. We bridge the gap between theoretical research and real-world impact.
-            </p>
-          </SectionReveal>
-
-          {/* Action Buttons */}
-          <SectionReveal delay={0.18}>
-            <div className="flex flex-wrap items-center gap-3.5 mb-14">
-              <Button to="/projects" variant="primary" size="lg" arrow>
-                Explore Projects
-              </Button>
-              <Button to="/team" variant="secondary" size="lg">
-                Meet Core Team
-              </Button>
             </div>
           </SectionReveal>
         </div>

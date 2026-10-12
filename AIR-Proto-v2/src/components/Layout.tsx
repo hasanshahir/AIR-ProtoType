@@ -38,9 +38,10 @@ export default function Layout() {
   ]
 
   return (
-    <div className="min-h-screen flex flex-col bg-[var(--bg-page)] text-[var(--text-primary)] relative selection:bg-[var(--accent-orange)] selection:text-white font-sans antialiased">
-      {/* ── Single shared ParticleField behind everything ── */}
-      <ParticleField />
+    <div className="min-h-screen bg-[var(--bg-backdrop)] py-0 lg:py-6 px-0 lg:px-8 selection:bg-[var(--accent-orange)] selection:text-white font-sans antialiased">
+      <div className="max-w-[1440px] mx-auto min-h-screen flex flex-col bg-[var(--bg-page)] text-[var(--text-primary)] border-x border-[var(--border-hairline)] shadow-2xl relative overflow-hidden">
+        {/* ── Single shared ParticleField behind everything ── */}
+        <ParticleField />
 
       {/* ── 1. Vacancy Ribbon (Clean bar, hairline border, pill badge, small eyebrow text) ── */}
       <div className="w-full bg-[var(--bg-surface)] border-b border-[var(--border-hairline)] text-xs font-medium py-2 px-4 sm:px-6 relative z-50">
@@ -299,6 +300,7 @@ export default function Layout() {
         isOpen={applyModalOpen}
         onClose={() => setApplyModalOpen(false)}
       />
+      </div>
     </div>
   )
 }
