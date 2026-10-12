@@ -62,15 +62,78 @@ const coreResearchAreas = [
 ]
 
 const institutionalPartners = [
-  'Google DeepMind',
-  'OpenAI',
-  'Meta AI',
-  'Hugging Face',
-  'Stanford HAI',
-  'MIT CSAIL',
-  'Ignite NCBC',
-  'HEC Pakistan',
-  'NED University CSIT',
+  {
+    name: 'Google DeepMind',
+    icon: ({ className = 'w-5 h-5' }: { className?: string }) => (
+      <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14.5v-9l6 4.5-6 4.5z" />
+      </svg>
+    ),
+  },
+  {
+    name: 'OpenAI',
+    icon: ({ className = 'w-5 h-5' }: { className?: string }) => (
+      <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+        <path d="M22.28 9.37a5.98 5.98 0 0 0-.52-4.14 6.06 6.06 0 0 0-4.96-3.08 5.99 5.99 0 0 0-4.57 2.05A6 6 0 0 0 4.14 5.7a6.06 6.06 0 0 0-2.4 4.86c0 1.34.43 2.63 1.22 3.7a5.98 5.98 0 0 0 .52 4.14 6.06 6.06 0 0 0 4.96 3.08c1.39 0 2.7-.49 3.75-1.37a6 6 0 0 0 8.09-1.5 6.06 6.06 0 0 0 2.4-4.86c0-1.34-.43-2.63-1.22-3.7zM12 14.7a2.7 2.7 0 1 1 0-5.4 2.7 2.7 0 0 1 0 5.4z" />
+      </svg>
+    ),
+  },
+  {
+    name: 'Meta AI',
+    icon: ({ className = 'w-5 h-5' }: { className?: string }) => (
+      <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 7.02c-3.15 0-5.75 2.1-6.72 5.08.76 2.37 2.98 4.09 5.6 4.09 1.48 0 2.84-.55 3.89-1.46l.24-.22.24.22a5.83 5.83 0 0 0 3.89 1.46c2.62 0 4.84-1.72 5.6-4.09-.97-2.98-3.57-5.08-6.72-5.08-1.57 0-3.01.62-4.08 1.63A5.76 5.76 0 0 0 12 7.02zm0 2.06c.92 0 1.76.36 2.39.95L12 12.44 9.61 10.03c.63-.59 1.47-.95 2.39-.95z" />
+      </svg>
+    ),
+  },
+  {
+    name: 'Hugging Face',
+    icon: ({ className = 'w-5 h-5' }: { className?: string }) => (
+      <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm-3.5 7.5a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3zm7 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3zm-7.6 6.8c.8 1.7 2.4 2.7 4.1 2.7s3.3-1 4.1-2.7a.8.8 0 1 0-1.4-.7c-.5 1.2-1.6 1.9-2.7 1.9s-2.2-.7-2.7-1.9a.8.8 0 0 0-1.4.7z" />
+      </svg>
+    ),
+  },
+  {
+    name: 'Stanford HAI',
+    icon: ({ className = 'w-5 h-5' }: { className?: string }) => (
+      <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 3L2 9l10 6 8-4.8V17h2V9L12 3zm0 8.7L5.5 9 12 5.3 18.5 9 12 11.7zM6 13.5v4.2c1.7 1.4 3.7 2.3 6 2.3s4.3-.9 6-2.3v-4.2l-6 3.6-6-3.6z" />
+      </svg>
+    ),
+  },
+  {
+    name: 'MIT CSAIL',
+    icon: ({ className = 'w-5 h-5' }: { className?: string }) => (
+      <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+        <path d="M3 4h3v16H3V4zm5 0h3v10H8V4zm5 0h3v16h-3V4zm5 0h3v8h-3V4z" />
+      </svg>
+    ),
+  },
+  {
+    name: 'Ignite NCBC',
+    icon: ({ className = 'w-5 h-5' }: { className?: string }) => (
+      <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 2c-.4 1.8-1.5 3.3-2.6 4.7-1.3 1.7-2.7 3.5-2.7 6.3 0 4.2 3.4 7.6 7.6 7.6s7.6-3.4 7.6-7.6c0-4.3-3.2-7.5-5.2-10.2-.4-.6-.8-1.2-1.1-1.8-1.2 2-2.3 3.6-3.6 4.8 1.4-1.2 2.3-2.6 2.3-4.3 0-.6-.1-1.1-.3-1.6z" />
+      </svg>
+    ),
+  },
+  {
+    name: 'HEC Pakistan',
+    icon: ({ className = 'w-5 h-5' }: { className?: string }) => (
+      <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 2L1 7l11 5 9-4.09V17h2V7L12 2zm-7 9.88V17c0 3.31 3.13 6 7 6s7-2.69 7-6v-5.12l-7 3.18-7-3.18z" />
+      </svg>
+    ),
+  },
+  {
+    name: 'NED University CSIT',
+    icon: ({ className = 'w-5 h-5' }: { className?: string }) => (
+      <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 3a9 9 0 0 0-9 9c0 4.97 4.03 9 9 9s9-4.03 9-9a9 9 0 0 0-9-9zm-1 4h2v3h3v2h-3v5h-2v-5H8v-2h3V7z" />
+      </svg>
+    ),
+  },
 ]
 
 export default function Home() {
@@ -221,27 +284,78 @@ export default function Home() {
       </section>
 
       {/* ── 3. STRATEGIC & ACADEMIC ALLIANCES (Strip) ── */}
-      <section className="py-10 border-y border-[var(--border-hairline)] bg-[var(--bg-surface)] mb-20 overflow-hidden text-left relative z-10">
+      <section className="py-12 border-y border-[var(--border-hairline)] bg-[var(--bg-surface)] mb-20 overflow-hidden text-left relative z-10">
         <div className="max-w-[1140px] mx-auto px-6">
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
-            <span className="text-xs font-mono font-bold tracking-wider text-[var(--text-subtle)] uppercase shrink-0">
-              Compute & Academic Partners:
-            </span>
-            <div className="flex flex-wrap items-center gap-6 sm:gap-8">
-              {institutionalPartners.map((partner, i) => (
-                <span
-                  key={i}
-                  className="text-sm sm:text-base font-head font-medium text-[var(--text-muted)] hover:text-[var(--accent-orange)] transition-colors cursor-default"
-                >
-                  {partner}
-                </span>
-              ))}
+          <div className="flex flex-col gap-6">
+            <div className="flex items-center justify-between">
+              <span className="text-xs font-mono font-bold tracking-wider text-[var(--text-subtle)] uppercase">
+                Compute & Academic Partners
+              </span>
+              <Link to="/collaborations" className="text-xs font-mono text-[var(--accent-orange)] hover:underline inline-flex items-center gap-1 font-medium">
+                <span>View All Collaborations</span>
+                <span>&rarr;</span>
+              </Link>
+            </div>
+
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-9 gap-4 items-stretch">
+              {institutionalPartners.map((partner, i) => {
+                const IconComponent = partner.icon
+                return (
+                  <div
+                    key={i}
+                    className="p-3.5 rounded-[4px] bg-[var(--bg-page)] border border-[var(--border-hairline)] hover:border-[var(--accent-purple)] hover:shadow-md transition-all duration-200 flex flex-col items-center justify-center text-center gap-2 group cursor-default"
+                  >
+                    <div className="w-9 h-9 rounded-[2px] bg-[var(--bg-surface)] border border-[var(--border-hairline)] flex items-center justify-center text-[var(--text-muted)] group-hover:text-[var(--accent-orange)] group-hover:scale-110 transition-all shadow-2xs">
+                      <IconComponent className="w-5 h-5 transition-transform" />
+                    </div>
+                    <span className="text-xs font-head font-medium text-[var(--text-muted)] group-hover:text-[var(--text-primary)] transition-colors leading-tight">
+                      {partner.name}
+                    </span>
+                  </div>
+                )
+              })}
             </div>
           </div>
         </div>
       </section>
 
-      {/* ── 4. RESEARCH INITIATIVES (6 Sharp Cards) ── */}
+      {/* ── 4. FULL-WIDTH ORANGE CTA / ABOUT AIR LAB SECTION ── */}
+      <section className="py-12 px-6 max-w-[1140px] mx-auto text-left mb-20 relative z-10">
+        <div className="bg-[var(--accent-orange)] text-white rounded-[4px] p-8 sm:p-12 relative overflow-hidden transition-all duration-200 shadow-xl border border-[var(--accent-orange)]">
+          <div className="max-w-3xl relative z-10">
+            <div className="flex items-center gap-2 text-white/90 font-mono font-semibold uppercase text-xs mb-3">
+              <div className="w-6 h-[2px] bg-white" />
+              ABOUT AIR LAB · NED UNIVERSITY
+            </div>
+            <h2 className="text-2xl sm:text-4xl font-head font-normal text-white tracking-tight mb-4">
+              Empowering Regional AI Innovation at NED University
+            </h2>
+            <div className="space-y-4 text-sm sm:text-base text-white/90 leading-relaxed font-normal">
+              <p>
+                The Artificial Intelligence Research Lab (AIR Lab) at NED University is dedicated to pushing the boundaries of machine learning, natural language processing, and computer vision.
+              </p>
+              <p>
+                Our mission is to develop foundational models optimized for the region's unique linguistic and infrastructural challenges, ensuring AI benefits all segments of society.
+              </p>
+            </div>
+
+            <div className="mt-8 pt-6 border-t border-white/20 flex flex-wrap gap-4">
+              <Button to="/team" variant="secondary" size="md" className="bg-white text-[var(--text-primary)] hover:bg-gray-100 border-white">
+                Meet the Team
+              </Button>
+              <button
+                onClick={() => setApplyModalOpen(true)}
+                className="h-9 px-4 rounded-[2px] border border-white text-white hover:bg-white/10 text-[13px] font-medium tracking-tight transition-colors cursor-pointer inline-flex items-center gap-1.5"
+              >
+                <span>Apply for Vacancy</span>
+                <span className="text-[12px] leading-none">↳</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── 5. RESEARCH INITIATIVES (6 Sharp Cards) ── */}
       <section className="py-12 px-6 max-w-[1140px] mx-auto mb-20 text-left relative z-10">
         {/* Subtle background color auras */}
         <div className="absolute -top-16 -left-12 w-80 h-80 rounded-full bg-[var(--accent-orange)]/8 blur-[100px] pointer-events-none" aria-hidden="true" />
@@ -295,42 +409,6 @@ export default function Home() {
               </div>
             )
           })}
-        </div>
-      </section>
-
-      {/* ── 5. FULL-WIDTH ORANGE CTA / NEWSLETTER BAND (Matching Reference Screenshot) ── */}
-      <section className="py-16 px-6 max-w-[1140px] mx-auto text-left mb-20 relative z-10">
-        <div className="bg-[var(--accent-orange)] text-white rounded-[4px] p-8 sm:p-12 relative overflow-hidden transition-all duration-200 shadow-xl border border-[var(--accent-orange)]">
-          <div className="max-w-3xl relative z-10">
-            <div className="flex items-center gap-2 text-white/90 font-mono font-semibold uppercase text-xs mb-3">
-              <div className="w-6 h-[2px] bg-white" />
-              ABOUT AIR LAB · NED UNIVERSITY
-            </div>
-            <h2 className="text-2xl sm:text-4xl font-head font-normal text-white tracking-tight mb-4">
-              Empowering Regional AI Innovation at NED University
-            </h2>
-            <div className="space-y-4 text-sm sm:text-base text-white/90 leading-relaxed font-normal">
-              <p>
-                The Artificial Intelligence Research Lab (AIR Lab) at NED University is dedicated to pushing the boundaries of machine learning, natural language processing, and computer vision.
-              </p>
-              <p>
-                Our mission is to develop foundational models optimized for the region's unique linguistic and infrastructural challenges, ensuring AI benefits all segments of society.
-              </p>
-            </div>
-
-            <div className="mt-8 pt-6 border-t border-white/20 flex flex-wrap gap-4">
-              <Button to="/team" variant="secondary" size="md" className="bg-white text-[var(--text-primary)] hover:bg-gray-100 border-white">
-                Meet the Team
-              </Button>
-              <button
-                onClick={() => setApplyModalOpen(true)}
-                className="h-9 px-4 rounded-[2px] border border-white text-white hover:bg-white/10 text-[13px] font-medium tracking-tight transition-colors cursor-pointer inline-flex items-center gap-1.5"
-              >
-                <span>Apply for Vacancy</span>
-                <span className="text-[12px] leading-none">↳</span>
-              </button>
-            </div>
-          </div>
         </div>
       </section>
 

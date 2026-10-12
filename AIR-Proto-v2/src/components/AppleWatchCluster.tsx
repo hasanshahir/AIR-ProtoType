@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ExternalLink, Mail, Users, Compass } from 'lucide-react'
+import { ExternalLink, Mail } from 'lucide-react'
 import { TeamMemberEntity } from '../entities/TeamMemberEntity'
 
 interface AppleWatchClusterProps {
@@ -31,41 +31,8 @@ export const AppleWatchCluster: React.FC<AppleWatchClusterProps> = ({
   const currentPanRef = useRef<{ x: number; y: number }>({ x: 0, y: 0 })
 
   const [activeHoverId, setActiveHoverId] = useState<string | null>(null)
-  const [scaleMode50, setScaleMode50] = useState<boolean>(false)
 
-  // 50 scaled mock entities for demonstration if toggled
-  const displayedMembers = React.useMemo(() => {
-    if (!scaleMode50) return members
-
-    const expanded: TeamMemberEntity[] = [...members]
-    const avatars = [
-      'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&q=80',
-      'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80',
-      'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&q=80',
-      'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&q=80',
-      'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&q=80',
-      'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&q=80',
-    ]
-
-    for (let i = members.length; i < 50; i++) {
-      expanded.push(
-        new TeamMemberEntity({
-          id: `scaled-${i + 1}`,
-          name: `Scholar ${i + 1}`,
-          role: i % 3 === 0 ? 'MS Researcher' : 'Research Intern',
-          category: 'Research Interns',
-          image: avatars[i % avatars.length],
-          email: `scholar${i + 1}@cloud.neduet.edu.pk`,
-          linkedin: 'https://www.linkedin.com',
-          department: 'Computer Science & IT',
-          researchFocus: i % 2 === 0 ? 'Foundation Models' : 'Autonomous Perception',
-          year: 2026,
-          order: 50 - i,
-        })
-      )
-    }
-    return expanded
-  }, [members, scaleMode50])
+  const displayedMembers = members
 
   // Concentric hexagonal layout with generous breathing space between nodes
   const nodePositions = React.useMemo(() => {
@@ -168,31 +135,6 @@ export const AppleWatchCluster: React.FC<AppleWatchClusterProps> = ({
 
   return (
     <div className="w-full relative select-none">
-      {/* Scalability toggle bar */}
-      <div className="mb-4 flex flex-wrap items-center justify-between gap-3 px-1">
-        <div className="flex items-center gap-2">
-          <button
-            onClick={() => setScaleMode50(!scaleMode50)}
-            className={`h-8 px-3 rounded-[2px] text-xs font-mono font-medium transition-all cursor-pointer flex items-center gap-1.5 border ${
-              scaleMode50
-                ? 'bg-[var(--accent-orange)] text-white border-[var(--accent-orange)]'
-                : 'bg-[var(--bg-surface)] text-[var(--text-muted)] border-[var(--border-hairline)] hover:border-[var(--accent-orange)]'
-            }`}
-          >
-            <Users className="w-3.5 h-3.5" />
-            <span>{scaleMode50 ? 'Scalability: 50 Members Active' : 'Test 50 Members Scalability'}</span>
-          </button>
-
-          <span className="text-[11px] font-mono text-[var(--text-subtle)] hidden sm:inline">
-            Focal lens magnifies icons under cursor — corner nodes swell on hover while center nodes shrink
-          </span>
-        </div>
-
-        <div className="inline-flex items-center gap-1 px-2.5 py-1 bg-[var(--bg-surface)] border border-[var(--border-hairline)] rounded-[2px] text-[11px] font-mono text-[var(--accent-orange)]">
-          <Compass className="w-3.5 h-3.5 animate-spin" style={{ animationDuration: '6s' }} />
-          <span>Dynamic Fisheye Lens</span>
-        </div>
-      </div>
 
       {/* ── Hover-Driven Dynamic Fisheye Canvas Container ── */}
       <div

@@ -162,13 +162,6 @@ export default function Team() {
             transition={{ duration: 0.25 }}
             className="space-y-6"
           >
-            {/* Guide banner */}
-            <div className="p-3 rounded-[2px] bg-[var(--bg-surface)] border border-[var(--border-hairline)] text-center max-w-2xl mx-auto text-[var(--text-muted)] text-xs sm:text-sm font-medium flex items-center justify-center gap-2 shadow-xs">
-              <Sparkles className="w-4 h-4 text-[var(--accent-orange)] shrink-0" />
-              <span>
-                <strong>Apple Watch Spherical View:</strong> Centered nodes are prominent with fisheye proximity scaling. Scalable for 10 to 50+ members. Hover to explore!
-              </span>
-            </div>
 
             {/* Apple Watch Spherical Cluster */}
             <AppleWatchCluster
