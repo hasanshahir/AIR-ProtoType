@@ -1,9 +1,8 @@
 import { useState, useMemo, useEffect } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Mail, Phone, ExternalLink, GraduationCap, Users, Sparkles } from 'lucide-react'
-import teamData from '../data/team.json'
-import previousInternsData from '../data/previous_interns.json'
+import { Mail, ExternalLink, GraduationCap, Users, Calendar, Tag, Search, Sparkles } from 'lucide-react'
+import { getTeamMembers, getPreviousInterns } from '../lib/data'
 import { TeamMemberEntity } from '../entities/TeamMemberEntity'
 import Badge from '../components/ui/Badge'
 import SectionReveal from '../components/ui/SectionReveal'
@@ -16,19 +15,20 @@ const Linkedin = ({ className = 'w-3.5 h-3.5' }: { className?: string }) => (
   </svg>
 )
 
-type TabType = 'all' | 'faculty' | 'interns' | 'previous' | 'postgrad' | 'undergrad'
+type TabType = 'all' | 'faculty' | 'interns' | 'previous'
 
 export default function Team() {
   const [searchParams] = useSearchParams()
   const [activeTab, setActiveTab] = useState<TabType>('all')
   const [applyModalOpen, setApplyModalOpen] = useState(false)
   const [highlightedMemberId, setHighlightedMemberId] = useState<string | null>(null)
+  const [selectedTag, setSelectedTag] = useState<string>('All')
+  const [searchQuery, setSearchQuery] = useState('')
 
-  // Listen to deep-link search params from Performer of the Month or external links
   useEffect(() => {
     const tabParam = searchParams.get('tab') as TabType
     const memberParam = searchParams.get('member')
-    if (tabParam && ['all', 'faculty', 'interns', 'previous', 'postgrad', 'undergrad'].includes(tabParam)) {
+    if (tabParam && ['all', 'faculty', 'interns', 'previous'].includes(tabParam)) {
       setActiveTab(tabParam)
     }
     if (memberParam) {
@@ -42,11 +42,13 @@ export default function Team() {
     }
   }, [searchParams])
 
-  // Instantiate OOP Entities from raw data
+  const allMembersRaw = useMemo(() => getTeamMembers(), [])
+  const sortedPreviousInterns = useMemo(() => getPreviousInterns(), [])
+
   const allMembers = useMemo(() => {
-    const list = TeamMemberEntity.fromArray(teamData)
+    const list = TeamMemberEntity.fromArray(allMembersRaw)
     return TeamMemberEntity.sortByRecent(list)
-  }, [])
+  }, [allMembersRaw])
 
   const facultyMembers = useMemo(() => {
     return allMembers.filter(m => m.isFacultyLead() || m.category === 'Faculty')
@@ -56,12 +58,32 @@ export default function Team() {
     return allMembers.filter(m => m.category === 'Research Interns')
   }, [allMembers])
 
-  // Sorted previous interns (newest first)
-  const sortedPreviousInterns = useMemo(() => {
-    return [...previousInternsData]
-  }, [])
+  // Extract all unique research area tags across active members
+  const allTags = useMemo(() => {
+    const set = new Set<string>()
+    allMembersRaw.forEach(m => {
+      if (Array.isArray(m.tags)) {
+        m.tags.forEach(t => set.add(t))
+      }
+    })
+    return ['All', ...Array.from(set).sort()]
+  }, [allMembersRaw])
 
-  // Auto-clear highlight after 3.5 seconds
+  const filteredInterns = useMemo(() => {
+    return internMembers.filter(intern => {
+      const raw = allMembersRaw.find(m => m.id === intern.id)
+      const matchesTag =
+        selectedTag === 'All' ||
+        (raw?.tags && Array.isArray(raw.tags) && raw.tags.includes(selectedTag))
+      const matchesSearch =
+        searchQuery === '' ||
+        intern.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        (intern.researchFocus && intern.researchFocus.toLowerCase().includes(searchQuery.toLowerCase())) ||
+        (raw?.tags && raw.tags.some(t => t.toLowerCase().includes(searchQuery.toLowerCase())))
+      return matchesTag && matchesSearch
+    })
+  }, [internMembers, allMembersRaw, selectedTag, searchQuery])
+
   useEffect(() => {
     if (highlightedMemberId) {
       const timer = setTimeout(() => setHighlightedMemberId(null), 3500)
@@ -73,15 +95,12 @@ export default function Team() {
     { id: 'all', label: 'Overview', count: allMembers.length },
     { id: 'faculty', label: 'Faculty', count: facultyMembers.length },
     { id: 'interns', label: 'Research Interns', count: internMembers.length },
-    { id: 'previous', label: 'Previous Interns', count: sortedPreviousInterns.length },
-    { id: 'postgrad', label: 'Postgraduate' },
-    { id: 'undergrad', label: 'Undergraduate' },
+    { id: 'previous', label: 'Alumni Interns', count: sortedPreviousInterns.length },
   ]
 
-  // Handler when clicking a member in Overview: jumps directly to their category and highlights them
   const handleOverviewClick = (member: TeamMemberEntity) => {
     const targetTab = member.getCategoryTab()
-    setActiveTab(targetTab)
+    setActiveTab(targetTab === 'faculty' ? 'faculty' : 'interns')
     setHighlightedMemberId(member.id)
     setTimeout(() => {
       const el = document.getElementById(`member-${member.id}`)
@@ -111,13 +130,13 @@ export default function Team() {
 
         <SectionReveal delay={0.16}>
           <p className="text-[16px] sm:text-[18px] text-[var(--text-muted)] leading-relaxed font-normal">
-            Faculty leads, research interns, and undergraduate scholars driving foundational AI and autonomous systems at AIR Lab.
+            Faculty leads, research interns, and scholars driving foundational regional AI, computer vision, and autonomous robotics at NED University.
           </p>
         </SectionReveal>
       </div>
 
-      {/* ── Sub-tabs Segmented Control ── */}
-      <div className="mb-8 overflow-x-auto pb-2 flex justify-start">
+      {/* Tabs Control */}
+      <div className="mb-8 flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-[var(--border-hairline)] pb-5">
         <div className="inline-flex items-center gap-1.5 p-1 bg-[var(--bg-surface)] border border-[var(--border-hairline)] rounded-[2px] shadow-xs">
           {tabs.map(tab => {
             const isActive = activeTab === tab.id
@@ -148,11 +167,47 @@ export default function Team() {
             )
           })}
         </div>
+
+        {/* Search bar inside interns tab */}
+        {activeTab === 'interns' && (
+          <div className="relative w-full sm:w-72">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-[var(--text-subtle)]" />
+            <input
+              type="text"
+              placeholder="Filter by name or tag..."
+              value={searchQuery}
+              onChange={e => setSearchQuery(e.target.value)}
+              className="w-full pl-9 pr-3 h-8.5 rounded-[2px] border border-[var(--border-hairline)] bg-[var(--bg-surface)] text-xs font-mono text-[var(--text-primary)] placeholder:text-[var(--text-subtle)] focus:outline-none focus:border-[var(--accent-orange)] transition-all"
+            />
+          </div>
+        )}
       </div>
+
+      {/* Tag Filter Pills (shown in interns tab) */}
+      {activeTab === 'interns' && (
+        <div className="mb-8 flex flex-wrap items-center gap-1.5 text-left">
+          <span className="text-xs font-mono text-[var(--text-subtle)] mr-1 flex items-center gap-1">
+            <Tag className="w-3 h-3 text-[var(--accent-purple)]" /> Filter Tag:
+          </span>
+          {allTags.map(tag => (
+            <button
+              key={tag}
+              onClick={() => setSelectedTag(tag)}
+              className={`px-2.5 py-1 rounded-[2px] text-xs font-mono transition-all cursor-pointer ${
+                selectedTag === tag
+                  ? 'bg-[var(--accent-purple)] text-white shadow-xs'
+                  : 'bg-[var(--bg-surface)] text-[var(--text-muted)] border border-[var(--border-hairline)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-page)]'
+              }`}
+            >
+              {tag}
+            </button>
+          ))}
+        </div>
+      )}
 
       {/* Tab Content Display */}
       <AnimatePresence mode="wait">
-        {/* ── TAB 1: ALL MEMBERS (APPLE WATCH SPHERICAL FISHEYE CLUSTER) ── */}
+        {/* TAB 1: ALL MEMBERS (CLUSTER) */}
         {activeTab === 'all' && (
           <motion.div
             key="all"
@@ -162,8 +217,6 @@ export default function Team() {
             transition={{ duration: 0.25 }}
             className="space-y-6"
           >
-
-            {/* Apple Watch Spherical Cluster */}
             <AppleWatchCluster
               members={allMembers}
               onSelectMember={handleOverviewClick}
@@ -171,7 +224,7 @@ export default function Team() {
           </motion.div>
         )}
 
-        {/* ── TAB 2: FACULTY ── */}
+        {/* TAB 2: FACULTY */}
         {activeTab === 'faculty' && (
           <motion.div
             key="faculty"
@@ -182,6 +235,7 @@ export default function Team() {
             className="max-w-4xl mx-auto space-y-6"
           >
             {facultyMembers.map(f => {
+              const raw = allMembersRaw.find(m => m.id === f.id)
               const isHighlighted = highlightedMemberId === f.id
               return (
                 <div
@@ -191,13 +245,6 @@ export default function Team() {
                     isHighlighted ? 'ring-2 ring-[var(--accent-orange)] shadow-xl' : ''
                   }`}
                 >
-                  {/* Subtle Corner Glow */}
-                  <div
-                    className="absolute -top-12 -right-12 w-80 h-80 rounded-full pointer-events-none opacity-20 blur-[80px] bg-[var(--accent-purple)]/20"
-                    aria-hidden="true"
-                  />
-
-                  {/* Faculty Photo */}
                   <div
                     onClick={() => {
                       if (f.hasLinkedIn()) window.open(f.getLinkedInUrl()!, '_blank')
@@ -216,42 +263,40 @@ export default function Team() {
 
                   <div className="flex-1 space-y-4 relative z-10 text-left">
                     <div>
-                      <div className="inline-flex items-center gap-2 mb-2">
+                      <div className="flex flex-wrap items-center gap-2 mb-2">
                         <span className="px-2.5 py-1 rounded-[2px] text-xs font-semibold bg-[var(--accent-purple)] text-white flex items-center gap-1.5 shadow-xs">
                           <GraduationCap className="w-3.5 h-3.5" />
                           {f.role}
                         </span>
-                        <span className="px-2.5 py-1 rounded-[2px] text-xs font-medium bg-[var(--bg-page)] text-[var(--text-muted)] border border-[var(--border-hairline)]">
-                          {f.department}
+                        <span className="px-2.5 py-1 rounded-[2px] text-xs font-mono font-medium bg-[var(--bg-page)] text-[var(--accent-orange)] border border-[var(--border-hairline)] flex items-center gap-1">
+                          <Calendar className="w-3 h-3" />
+                          Tenure: {raw?.tenure || '2020 — Present'}
                         </span>
                       </div>
+
                       <h2 className="text-2xl sm:text-3xl font-normal font-head text-[var(--text-primary)]">
                         {f.name}
                       </h2>
-                      <p className="text-sm font-medium text-[var(--text-muted)] mt-1">
-                        {f.designation}
+                      <p className="text-sm font-medium text-[var(--text-muted)] mt-1 font-mono">
+                        {f.designation} · {f.department}
                       </p>
-                      {f.researchFocus && (
-                        <p className="text-xs font-mono text-[var(--accent-orange)] font-semibold mt-1">
-                          Research Focus: {f.researchFocus}
-                        </p>
+
+                      {/* Research Tags */}
+                      {raw?.tags && (
+                        <div className="flex flex-wrap gap-1.5 mt-2.5">
+                          {raw.tags.map((t, idx) => (
+                            <span
+                              key={idx}
+                              className="px-2 py-0.5 rounded-[2px] text-[11px] font-mono bg-[var(--bg-page)] text-[var(--text-muted)] border border-[var(--border-hairline)]"
+                            >
+                              #{t}
+                            </span>
+                          ))}
+                        </div>
                       )}
                     </div>
 
-                    {f.qualifications && (
-                      <div className="space-y-1.5 pt-3 border-t border-[var(--border-hairline)] text-sm">
-                        <p className="text-xs font-mono uppercase tracking-wider text-[var(--text-subtle)] font-semibold mb-2">
-                          Academic Qualifications
-                        </p>
-                        {f.qualifications.map((q: string, idx: number) => (
-                          <div key={idx} className="flex items-center gap-2 text-xs sm:text-sm text-[var(--text-muted)]">
-                            <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent-orange)] shrink-0" />
-                            <span>{q}</span>
-                          </div>
-                        ))}
-                      </div>
-                    )}
-
+                    {/* Action buttons */}
                     <div className="pt-4 border-t border-[var(--border-hairline)] flex flex-wrap items-center gap-3 text-xs font-mono">
                       {f.hasLinkedIn() && (
                         <a
@@ -261,34 +306,24 @@ export default function Team() {
                           className="h-9 px-4 rounded-[2px] bg-[var(--accent-orange)] hover:bg-[var(--accent-orange-hover)] text-white text-xs font-medium inline-flex items-center gap-2 shadow-xs transition-colors"
                         >
                           <Linkedin className="w-3.5 h-3.5" />
-                          <span>LinkedIn Profile ↳</span>
+                          <span>LinkedIn ↳</span>
                         </a>
                       )}
-
                       {f.hasEmail() && (
                         <a
-                          href={f.getEmailFallback()!}
-                          className="h-9 px-4 rounded-[2px] bg-[var(--bg-page)] hover:bg-[var(--border-hairline)] text-[var(--text-muted)] text-xs font-medium inline-flex items-center gap-2 border border-[var(--border-hairline)] transition-colors"
-                          title="Email fallback"
+                          href={`mailto:${f.email}`}
+                          className="h-9 px-4 rounded-[2px] bg-[var(--bg-page)] hover:bg-[var(--border-hairline)] text-[var(--text-primary)] text-xs font-medium inline-flex items-center gap-2 border border-[var(--border-hairline)] transition-colors"
                         >
-                          <Mail className="w-3.5 h-3.5 text-[var(--accent-purple)]" />
+                          <Mail className="w-3.5 h-3.5 text-[var(--accent-orange)]" />
                           <span>{f.email}</span>
                         </a>
                       )}
-
-                      {f.phone && (
-                        <div className="flex items-center gap-1.5 text-[var(--text-muted)] px-2.5 py-1 bg-[var(--bg-page)] rounded-[2px] border border-[var(--border-hairline)]">
-                          <Phone className="w-3.5 h-3.5 text-[var(--text-subtle)]" />
-                          <span>{f.phone}</span>
-                        </div>
-                      )}
-
                       {f.cvUrl && (
                         <a
                           href={f.cvUrl}
                           target="_blank"
                           rel="noreferrer"
-                          className="h-9 px-4 rounded-[2px] bg-[var(--text-primary)] text-white text-xs font-medium inline-flex items-center gap-1.5 shadow-xs hover:bg-black transition-colors"
+                          className="h-9 px-4 rounded-[2px] bg-[var(--text-primary)] text-white text-xs font-medium inline-flex items-center gap-1.5 shadow-xs"
                         >
                           <span>Official CV</span>
                           <ExternalLink className="w-3 h-3" />
@@ -302,7 +337,7 @@ export default function Team() {
           </motion.div>
         )}
 
-        {/* ── TAB 3: CURRENT RESEARCH INTERNS ── */}
+        {/* TAB 3: CURRENT RESEARCH INTERNS */}
         {activeTab === 'interns' && (
           <motion.div
             key="interns"
@@ -310,9 +345,10 @@ export default function Team() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -12 }}
             transition={{ duration: 0.25 }}
-            className="grid grid-cols-1 lg:grid-cols-2 gap-8 text-left"
+            className="grid grid-cols-1 lg:grid-cols-2 gap-6 text-left"
           >
-            {internMembers.map(intern => {
+            {filteredInterns.map(intern => {
+              const raw = allMembersRaw.find(m => m.id === intern.id)
               const isHighlighted = highlightedMemberId === intern.id
               const primaryUrl = intern.getPrimaryActionUrl()
 
@@ -320,59 +356,48 @@ export default function Team() {
                 <div
                   id={`member-${intern.id}`}
                   key={intern.id}
-                  className={`craftly-card p-6 sm:p-8 flex flex-col justify-between group hover:border-[var(--accent-purple)] hover:shadow-xl transition-all duration-200 relative overflow-hidden bg-[var(--bg-surface)] border border-[var(--border-hairline)] cursor-pointer ${
+                  className={`craftly-card p-6 rounded-[4px] flex flex-col justify-between group hover:border-[var(--accent-purple)] hover:shadow-xl transition-all duration-200 bg-[var(--bg-surface)] border border-[var(--border-hairline)] ${
                     isHighlighted ? 'ring-2 ring-[var(--accent-orange)] shadow-xl' : ''
                   }`}
                 >
                   <div>
-                    {/* Top Row: Large Portrait & Member Info */}
-                    <div className="flex items-start gap-5 mb-5">
+                    <div className="flex items-start gap-4 mb-4">
                       <a
                         href={primaryUrl}
                         target={intern.hasLinkedIn() ? '_blank' : undefined}
                         rel={intern.hasLinkedIn() ? 'noopener noreferrer' : undefined}
-                        title={`Click photo to view ${intern.name}'s profile on LinkedIn`}
-                        className="relative w-24 h-24 sm:w-28 sm:h-28 rounded-[4px] overflow-hidden shrink-0 bg-[var(--bg-page)] border border-[var(--border-hairline)] group-hover:border-[var(--accent-purple)] shadow-xs cursor-pointer transition-all duration-300"
+                        className="relative w-24 h-24 sm:w-28 sm:h-28 rounded-[4px] overflow-hidden shrink-0 bg-[var(--bg-page)] border border-[var(--border-hairline)] group-hover:border-[var(--accent-purple)] shadow-xs transition-all"
                       >
                         <img
                           src={intern.image}
                           alt={intern.name}
                           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                          loading="lazy"
                         />
-                        <div className="absolute inset-0 bg-black/15 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                          <ExternalLink className="w-5 h-5 text-white drop-shadow-md" />
-                        </div>
                       </a>
 
-                      {/* Header details */}
                       <div className="min-w-0 flex-1">
-                        <div className="flex flex-wrap items-center gap-2 mb-1.5">
-                          <span className="px-2.5 py-0.5 rounded-[2px] text-[11px] font-mono font-semibold bg-[var(--accent-purple-light)] text-[var(--accent-purple)] border border-[var(--accent-purple)]/20">
+                        <div className="flex flex-wrap items-center gap-1.5 mb-1.5">
+                          <span className="px-2 py-0.5 rounded-[2px] text-[10px] font-mono font-semibold bg-[var(--accent-purple-light)] text-[var(--accent-purple)]">
                             {intern.role}
                           </span>
-                          <span className="px-2.5 py-0.5 rounded-[2px] text-[11px] font-mono text-[var(--text-subtle)] bg-[var(--bg-page)] border border-[var(--border-hairline)]">
-                            {intern.term}
+                          <span className="px-2 py-0.5 rounded-[2px] text-[10px] font-mono text-[var(--text-subtle)] bg-[var(--bg-page)] border border-[var(--border-hairline)] flex items-center gap-1">
+                            <Calendar className="w-2.5 h-2.5" />
+                            {raw?.tenure || intern.term}
                           </span>
                         </div>
 
-                        {/* Name */}
-                        <a
-                          href={primaryUrl}
-                          target={intern.hasLinkedIn() ? '_blank' : undefined}
-                          rel={intern.hasLinkedIn() ? 'noopener noreferrer' : undefined}
-                          className="text-[20px] sm:text-[22px] font-medium font-head text-[var(--text-primary)] hover:text-[var(--accent-orange)] transition-colors block truncate"
-                        >
+                        <h3 className="text-lg sm:text-xl font-medium font-head text-[var(--text-primary)] group-hover:text-[var(--accent-orange)] transition-colors truncate">
                           {intern.name}
-                        </a>
+                        </h3>
 
-                        <div className="text-xs text-[var(--text-muted)] font-mono mt-0.5">
+                        <div className="text-[11px] text-[var(--text-muted)] font-mono mt-0.5">
                           {intern.department}
                         </div>
 
-                        {/* Research Focus Badge */}
                         {intern.researchFocus && (
-                          <div className="mt-2.5">
-                            <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-[2px] text-xs font-medium bg-[var(--bg-page)] text-[var(--accent-purple)] border border-[var(--accent-purple)]/20">
+                          <div className="mt-2">
+                            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-[2px] text-[11px] font-medium bg-[var(--bg-page)] text-[var(--accent-purple)] border border-[var(--accent-purple)]/20">
                               <Sparkles className="w-3 h-3 text-[var(--accent-purple)]" />
                               {intern.researchFocus}
                             </span>
@@ -380,34 +405,46 @@ export default function Team() {
                         )}
                       </div>
                     </div>
+
+                    {/* Tags List */}
+                    {raw?.tags && (
+                      <div className="flex flex-wrap gap-1.5 mb-4">
+                        {raw.tags.map((t, idx) => (
+                          <button
+                            key={idx}
+                            onClick={() => setSelectedTag(t)}
+                            className="px-2 py-0.5 rounded-[2px] text-[10px] font-mono bg-[var(--bg-page)] text-[var(--text-muted)] border border-[var(--border-hairline)] hover:border-[var(--accent-purple)] cursor-pointer"
+                          >
+                            #{t}
+                          </button>
+                        ))}
+                      </div>
+                    )}
                   </div>
 
-                  {/* Bottom Row */}
-                  <div className="pt-4 border-t border-[var(--border-hairline)] mt-2 flex flex-wrap items-center justify-between gap-3 text-xs font-mono">
-                    {/* LinkedIn Button */}
+                  {/* Contact Links */}
+                  <div className="pt-3 border-t border-[var(--border-hairline)] flex flex-wrap items-center justify-between gap-2 text-xs font-mono">
                     {intern.hasLinkedIn() ? (
                       <a
                         href={intern.getLinkedInUrl()!}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="h-8 px-3.5 rounded-[2px] bg-[var(--accent-orange)] hover:bg-[var(--accent-orange-hover)] text-white font-medium flex items-center gap-1.5 shadow-xs transition-all cursor-pointer"
+                        className="h-7.5 px-3 rounded-[2px] bg-[var(--accent-orange)] hover:bg-[var(--accent-orange-hover)] text-white font-medium flex items-center gap-1.5 shadow-xs transition-all"
                       >
-                        <Linkedin className="w-3.5 h-3.5" />
-                        <span>LinkedIn Profile ↳</span>
+                        <Linkedin className="w-3 h-3" />
+                        <span>LinkedIn ↳</span>
                       </a>
                     ) : (
-                      <span className="text-[var(--text-subtle)] text-xs italic">No LinkedIn profile</span>
+                      <span className="text-[var(--text-subtle)] text-xs italic">No LinkedIn</span>
                     )}
 
-                    {/* Email Fallback Button */}
                     {intern.hasEmail() && (
                       <a
-                        href={intern.getEmailFallback()!}
-                        title={`Send email fallback to ${intern.email}`}
-                        className="h-8 px-3 rounded-[2px] border border-[var(--border-hairline)] bg-[var(--bg-surface)] hover:bg-[var(--bg-page)] text-[var(--text-muted)] font-medium flex items-center gap-1.5 transition-colors cursor-pointer"
+                        href={`mailto:${intern.email}`}
+                        className="h-7.5 px-2.5 rounded-[2px] border border-[var(--border-hairline)] bg-[var(--bg-page)] hover:bg-[var(--border-hairline)] text-[var(--text-primary)] font-medium flex items-center gap-1.5 transition-colors truncate max-w-[200px]"
                       >
-                        <Mail className="w-3.5 h-3.5 text-[var(--accent-purple)]" />
-                        <span className="truncate max-w-[170px] sm:max-w-none">{intern.email}</span>
+                        <Mail className="w-3 h-3 text-[var(--accent-orange)]" />
+                        <span className="truncate">{intern.email}</span>
                       </a>
                     )}
                   </div>
@@ -417,7 +454,7 @@ export default function Team() {
           </motion.div>
         )}
 
-        {/* ── TAB 4: PREVIOUS INTERNS ── */}
+        {/* TAB 4: PREVIOUS INTERNS & ALUMNI */}
         {activeTab === 'previous' && (
           <motion.div
             key="previous"
@@ -427,7 +464,7 @@ export default function Team() {
             transition={{ duration: 0.25 }}
             className="space-y-6 text-left"
           >
-            <div className="craftly-card overflow-hidden bg-[var(--bg-surface)] border border-[var(--border-hairline)]">
+            <div className="craftly-card overflow-hidden bg-[var(--bg-surface)] border border-[var(--border-hairline)] rounded-[4px]">
               <div className="p-6 border-b border-[var(--border-hairline)] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div>
                   <h3 className="text-xl font-medium font-head text-[var(--text-primary)]">
@@ -447,23 +484,23 @@ export default function Team() {
                   <thead>
                     <tr className="border-b border-[var(--border-hairline)] font-mono text-[11px] uppercase tracking-wider text-[var(--text-subtle)] bg-[var(--bg-page)]">
                       <th className="py-3.5 px-6 font-medium">Name</th>
-                      <th className="py-3.5 px-6 font-medium">Affiliation & Department</th>
-                      <th className="py-3.5 px-6 font-medium">Email Fallback</th>
-                      <th className="py-3.5 px-6 text-right font-medium">LinkedIn Profile</th>
+                      <th className="py-3.5 px-6 font-medium">Tenure & Department</th>
+                      <th className="py-3.5 px-6 font-medium">Email</th>
+                      <th className="py-3.5 px-6 text-right font-medium">LinkedIn</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-[var(--border-hairline)]">
-                    {sortedPreviousInterns.map(p => (
+                    {sortedPreviousInterns.map((p: any) => (
                       <tr key={p.id} className="hover:bg-[var(--bg-page)] transition-colors">
                         <td className="py-3.5 px-6 font-medium text-[var(--text-primary)]">
                           {p.name}
                         </td>
                         <td className="py-3.5 px-6 text-[var(--text-muted)] font-mono text-xs">
-                          {p.tenure} • {p.department}
+                          {p.tenure || 'Former Research Intern'} • {p.department}
                         </td>
                         <td className="py-3.5 px-6 font-mono text-xs text-[var(--text-muted)]">
-                          <a href={`mailto:${p.email}`} className="text-[var(--accent-purple)] hover:underline flex items-center gap-1">
-                            <Mail className="w-3 h-3 text-[var(--text-subtle)]" />
+                          <a href={`mailto:${p.email}`} className="text-[var(--accent-orange)] hover:underline flex items-center gap-1">
+                            <Mail className="w-3 h-3 text-[var(--accent-orange)]" />
                             {p.email}
                           </a>
                         </td>
@@ -486,38 +523,8 @@ export default function Team() {
             </div>
           </motion.div>
         )}
-
-        {/* ── TAB 5 & TAB 6: POSTGRADUATE / UNDERGRADUATE ── */}
-        {(activeTab === 'postgrad' || activeTab === 'undergrad') && (
-          <motion.div
-            key="pending"
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -12 }}
-            transition={{ duration: 0.25 }}
-            className="craftly-card p-12 text-center max-w-xl mx-auto bg-[var(--bg-surface)] border border-[var(--border-hairline)]"
-          >
-            <div className="w-12 h-12 rounded-[2px] bg-[var(--accent-purple-light)] border border-[var(--accent-purple)]/20 text-[var(--accent-purple)] mx-auto flex items-center justify-center mb-6 shadow-xs">
-              <GraduationCap className="w-6 h-6" />
-            </div>
-            <h3 className="text-2xl font-normal font-head text-[var(--text-primary)] mb-2">
-              {activeTab === 'postgrad' ? 'Postgraduate MS & PhD Scholars' : 'Undergraduate Research Scholars'}
-            </h3>
-            <p className="text-[14px] text-[var(--text-muted)] max-w-md mx-auto mb-8 font-normal leading-relaxed">
-              Nominations and batch appointments for {activeTab === 'postgrad' ? 'MS & PhD thesis scholars' : 'undergraduate capstone fellowships'} are currently in progress. Apply now to secure research placement for the upcoming session.
-            </p>
-            <button
-              onClick={() => setApplyModalOpen(true)}
-              className="h-10 px-6 rounded-[2px] bg-[var(--accent-orange)] hover:bg-[var(--accent-orange-hover)] text-white text-xs font-medium cursor-pointer shadow-xs transition-all inline-flex items-center gap-1.5"
-            >
-              <span>Apply for Research Placement</span>
-              <span className="text-[12px]">↳</span>
-            </button>
-          </motion.div>
-        )}
       </AnimatePresence>
 
-      {/* Student Application Modal */}
       <StudentApplicationModal
         isOpen={applyModalOpen}
         onClose={() => setApplyModalOpen(false)}

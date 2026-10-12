@@ -64,7 +64,7 @@ export default function QuickDrawer({
     return (
       p.title.toLowerCase().includes(q) ||
       p.description.toLowerCase().includes(q) ||
-      p.supervisor.toLowerCase().includes(q) ||
+      p.funding.toLowerCase().includes(q) ||
       p.category.toLowerCase().includes(q)
     )
   })
@@ -233,7 +233,7 @@ export default function QuickDrawer({
                           </p>
 
                           <div className="flex flex-wrap items-center justify-between gap-2 pt-2.5 border-t border-[var(--border-hairline)] text-[11px] font-mono text-[var(--text-subtle)]">
-                            <span>Supervisor: <strong className="text-[var(--text-primary)]">{proj.supervisor}</strong></span>
+                            <span>Status: <strong className="text-[var(--text-primary)]">{proj.status}</strong></span>
                             <span>{proj.funding}</span>
                           </div>
                         </div>

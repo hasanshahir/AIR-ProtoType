@@ -1,4 +1,4 @@
-[
+﻿[
   {
     "id": "f1",
     "name": "Dr. Murk Marvi",
@@ -16,10 +16,15 @@
     "image": "./pfp/marvi.jpeg",
     "department": "Department of CSIT, NED University",
     "researchFocus": "Foundational AI, High Performance Networks & Distributed Systems",
+    "tags": ["NLP", "High Performance Computing", "Distributed Systems", "Foundational AI"],
+    "startDate": "2020",
+    "endDate": "Present",
+    "tenure": "2020 — Present (Tenured Faculty)",
     "term": "Tenured Faculty",
     "year": 2026,
     "order": 100,
-    "isLead": true
+    "isLead": true,
+    "placeholder": false
   },
   {
     "id": "ri1",
@@ -31,9 +36,14 @@
     "image": "./pfp/shaheer.png",
     "department": "Computer Science & IT",
     "researchFocus": "Bilingual Transformers & Large Language Models",
+    "tags": ["NLP", "Transformers", "LLMs"],
+    "startDate": "Aug 2025",
+    "endDate": "Present",
+    "tenure": "Aug 2025 — Present",
     "term": "2025 – 2026",
     "year": 2026,
-    "order": 10
+    "order": 10,
+    "placeholder": false
   },
   {
     "id": "ri2",
@@ -45,9 +55,14 @@
     "image": "./pfp/kashaf.png",
     "department": "Computer Science & IT",
     "researchFocus": "Computer Vision & Autonomous Perception Systems",
+    "tags": ["Computer Vision", "Perception", "Deep Learning"],
+    "startDate": "Aug 2025",
+    "endDate": "Present",
+    "tenure": "Aug 2025 — Present",
     "term": "2025 – 2026",
     "year": 2026,
-    "order": 9
+    "order": 9,
+    "placeholder": false
   },
   {
     "id": "ri3",
@@ -59,9 +74,14 @@
     "image": "./pfp/haseeb.png",
     "department": "Computer Science & IT",
     "researchFocus": "Autonomous Robotics & SLAM Navigation",
+    "tags": ["Robotics", "SLAM", "Autonomous Systems"],
+    "startDate": "Aug 2025",
+    "endDate": "Present",
+    "tenure": "Aug 2025 — Present",
     "term": "2025 – 2026",
     "year": 2026,
-    "order": 8
+    "order": 8,
+    "placeholder": false
   },
   {
     "id": "ri4",
@@ -73,9 +93,14 @@
     "image": "./pfp/umer.png",
     "department": "Computer Science & IT",
     "researchFocus": "Distributed Training & Neural Acceleration",
+    "tags": ["Distributed Training", "Energy AI", "Acceleration"],
+    "startDate": "Aug 2025",
+    "endDate": "Present",
+    "tenure": "Aug 2025 — Present",
     "term": "2025 – 2026",
     "year": 2026,
-    "order": 7
+    "order": 7,
+    "placeholder": false
   },
   {
     "id": "ri5",
@@ -87,9 +112,14 @@
     "image": "./pfp/omer.png",
     "department": "Computer Science & IT",
     "researchFocus": "Deep Learning Pipelines & Model Quantization",
+    "tags": ["Quantization", "Model Compression", "Edge AI"],
+    "startDate": "Aug 2025",
+    "endDate": "Present",
+    "tenure": "Aug 2025 — Present",
     "term": "2025 – 2026",
     "year": 2026,
-    "order": 6
+    "order": 6,
+    "placeholder": false
   },
   {
     "id": "ri6",
@@ -101,9 +131,14 @@
     "image": "./pfp/shujauddin.png",
     "department": "Computer Science & IT",
     "researchFocus": "Bio-Medical AI & Diagnostic Vision",
+    "tags": ["Healthcare AI", "Medical Imaging", "Computer Vision"],
+    "startDate": "Aug 2025",
+    "endDate": "Present",
+    "tenure": "Aug 2025 — Present",
     "term": "2025 – 2026",
     "year": 2026,
-    "order": 5
+    "order": 5,
+    "placeholder": false
   },
   {
     "id": "ri7",
@@ -115,9 +150,14 @@
     "image": "./pfp/muhammed-ahmed.jpeg",
     "department": "Computer Science & IT",
     "researchFocus": "Reinforcement Learning & Multi-Agent Swarms",
+    "tags": ["Reinforcement Learning", "Multi-Agent Swarms", "Robotics"],
+    "startDate": "Aug 2025",
+    "endDate": "Present",
+    "tenure": "Aug 2025 — Present",
     "term": "2025 – 2026",
     "year": 2026,
-    "order": 4
+    "order": 4,
+    "placeholder": false
   },
   {
     "id": "ri8",
@@ -129,9 +169,14 @@
     "image": "./pfp/roshaan.jpg",
     "department": "Computer Science & IT",
     "researchFocus": "Edge Computing & Embedded AI Hardware",
+    "tags": ["TinyML", "Embedded Systems", "Edge Computing"],
+    "startDate": "Aug 2025",
+    "endDate": "Present",
+    "tenure": "Aug 2025 — Present",
     "term": "2025 – 2026",
     "year": 2026,
-    "order": 3
+    "order": 3,
+    "placeholder": false
   },
   {
     "id": "ri9",
@@ -143,9 +188,14 @@
     "image": "./pfp/hammad.jpg",
     "department": "Computer Science & IT",
     "researchFocus": "Applied NLP & Multimodal Representation",
+    "tags": ["NLP", "Multimodal", "Representation Learning"],
+    "startDate": "Aug 2025",
+    "endDate": "Present",
+    "tenure": "Aug 2025 — Present",
     "term": "2025 – 2026",
     "year": 2026,
-    "order": 2
+    "order": 2,
+    "placeholder": false
   },
   {
     "id": "ri10",
@@ -157,8 +207,13 @@
     "image": "./pfp/areeba.jpeg",
     "department": "Computer Science & IT",
     "researchFocus": "Data Analytics & Ethical AI Auditing",
+    "tags": ["AI Ethics", "Data Analytics", "Fairness & Bias"],
+    "startDate": "Aug 2025",
+    "endDate": "Present",
+    "tenure": "Aug 2025 — Present",
     "term": "2025 – 2026",
     "year": 2026,
-    "order": 1
+    "order": 1,
+    "placeholder": false
   }
 ]

@@ -1,79 +1,132 @@
-[
+﻿[
   {
     "id": 1,
-    "title": "UrduBERT: Transformer for Regional Languages",
+    "title": "UrduBERT: Multilingual Transformer for Regional Dialects",
     "category": "Funded",
-    "description": "A BERT-based foundation model fine-tuned on 40M+ tokens of Urdu corpus from newspapers, social media, and literature, achieving SOTA on downstream NLP tasks.",
-    "supervisor": "Dr. Ayesha Qureshi",
+    "description": "A high-performance BERT-based foundation model fine-tuned on 40M+ tokens of Urdu corpus across news media, public discourse, and classical literature, achieving state-of-the-art results on Urdu NLP benchmarks.",
     "funding": "HEC NRPU Grant",
-    "status": "Active",
-    "image": "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=600&q=80",
-    "metric": "+34% F1 Score"
+    "grantId": "grant-hec-nrpu-2024",
+    "status": "Ongoing",
+    "startDate": "Jan 2024",
+    "endDate": "Present",
+    "coverImage": "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=800&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=800&q=80",
+      "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=800&q=80"
+    ],
+    "metric": "+34% F1 Score",
+    "tags": ["NLP", "Transformers", "Urdu Language"],
+    "placeholder": false
   },
   {
     "id": 2,
-    "title": "RoboSight: Real-Time Object Detection for Drones",
+    "title": "RoboSight: Real-Time Edge Vision for Autonomous Aerial Drones",
     "category": "R&D",
-    "description": "Lightweight YOLOv8-based pipeline deployed on edge hardware for autonomous aerial reconnaissance with sub-20ms inference latency.",
-    "supervisor": "Dr. Imran Baig",
-    "funding": "Internal Lab Budget",
-    "status": "Active",
-    "image": "https://images.unsplash.com/photo-1527430253228-e93688616381?w=600&q=80",
-    "metric": "<20ms Latency"
+    "description": "Lightweight custom YOLOv8 backbone quantized with TensorRT and deployed directly onto Jetson Orin Nano hardware for sub-20ms aerial reconnaissance and obstacle avoidance.",
+    "funding": "PyTorch / Meta AI Hardware Grant",
+    "grantId": "grant-meta-pytorch",
+    "status": "Ongoing",
+    "startDate": "Feb 2025",
+    "endDate": "Present",
+    "coverImage": "https://images.unsplash.com/photo-1527430253228-e93688616381?w=800&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1527430253228-e93688616381?w=800&q=80",
+      "https://images.unsplash.com/photo-1508614589041-895b88991e3e?w=800&q=80"
+    ],
+    "metric": "<20ms Latency",
+    "tags": ["Computer Vision", "Edge AI", "Robotics"],
+    "placeholder": false
   },
   {
     "id": 3,
-    "title": "MedScan AI: Chest X-Ray Pathology Detection",
+    "title": "MedScan AI: Multi-Class Chest X-Ray Pathology Localization",
     "category": "Funded",
-    "description": "Deep learning model trained on CheXNet benchmarks to detect 14 thoracic pathologies from chest radiographs with radiologist-level accuracy.",
-    "supervisor": "Dr. Sadia Naz",
+    "description": "Self-supervised deep neural model trained to recognize 14 thoracic abnormalities in low-dose chest radiographs, validated across hospital clinics with radiologist-level ROC-AUC.",
     "funding": "Ignite NCBC Grant",
-    "status": "Completed",
-    "image": "https://images.unsplash.com/photo-1584036561566-baf8f5f1b144?w=600&q=80",
-    "metric": "94.2% AUC"
+    "grantId": "grant-ignite-ncbc",
+    "status": "Finished",
+    "startDate": "Mar 2023",
+    "endDate": "Dec 2024",
+    "coverImage": "https://images.unsplash.com/photo-1584036561566-baf8f5f1b144?w=800&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1584036561566-baf8f5f1b144?w=800&q=80",
+      "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&q=80"
+    ],
+    "metric": "94.2% AUC",
+    "tags": ["Healthcare AI", "Diagnostics", "Computer Vision"],
+    "placeholder": false
   },
   {
     "id": 4,
-    "title": "SmartGrid AI: Demand Forecasting",
+    "title": "SmartGrid AI: Predictive Dispatch & Load Shedding Forecasting",
     "category": "R&D",
-    "description": "An LSTM-Transformer hybrid model for predicting peak electricity demand in Pakistan's national grid to optimize load balancing.",
-    "supervisor": "Dr. Imran Baig",
+    "description": "Spatio-temporal LSTM and Transformer ensemble trained on regional sub-station telemetries to predict peak industrial electricity demand with sub-3.1% MAPE error.",
     "funding": "Internal Lab Budget",
-    "status": "Active",
-    "image": "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=600&q=80",
-    "metric": "±3.1% MAPE"
+    "grantId": "grant-internal-ned",
+    "status": "Ongoing",
+    "startDate": "Sep 2024",
+    "endDate": "Present",
+    "coverImage": "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=800&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=800&q=80"
+    ],
+    "metric": "±3.1% MAPE",
+    "tags": ["Smart Grid", "Deep Learning", "Forecasting"],
+    "placeholder": false
   },
   {
     "id": 5,
-    "title": "Automated Plagiarism Detection for Urdu Text",
+    "title": "Automated Cross-Lingual Plagiarism Engine for Urdu Documents",
     "category": "Undergraduate",
-    "description": "FYDP leveraging semantic embeddings to detect paraphrased and cross-lingual plagiarism in Urdu academic documents.",
-    "supervisor": "Dr. Ayesha Qureshi",
-    "funding": "FYDP",
-    "status": "Active",
-    "image": "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=600&q=80",
-    "metric": "88% Precision"
+    "description": "Semantic multilingual embedding pipeline developed as a capstone FYDP to catch syntactic obfuscation and paraphrasing across academic Urdu research corpora.",
+    "funding": "NED FYDP Grant",
+    "grantId": "grant-internal-ned",
+    "status": "Finished",
+    "startDate": "Oct 2023",
+    "endDate": "Jun 2024",
+    "coverImage": "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=800&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=800&q=80"
+    ],
+    "metric": "88% Precision",
+    "tags": ["NLP", "Education", "Semantics"],
+    "placeholder": false
   },
   {
     "id": 6,
-    "title": "Sign Language Interpreter using MediaPipe",
+    "title": "Real-Time Pakistani Sign Language Gesture Synthesizer",
     "category": "Undergraduate",
-    "description": "Real-time Pakistani Sign Language recognition system using hand landmark detection and a custom gesture classifier.",
-    "supervisor": "Dr. Sadia Naz",
-    "funding": "FYDP",
-    "status": "Active",
-    "image": "https://images.unsplash.com/photo-1531746790731-6c087fecd65a?w=600&q=80",
-    "metric": "92% Accuracy"
+    "description": "Vision-based landmark extractor and LSTM gesture classifier converting regional sign language gestures to real-time speech synthesis at 30 FPS.",
+    "funding": "NED FYDP Grant",
+    "grantId": "grant-internal-ned",
+    "status": "Finished",
+    "startDate": "Oct 2023",
+    "endDate": "Jun 2024",
+    "coverImage": "https://images.unsplash.com/photo-1531746790731-6c087fecd65a?w=800&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1531746790731-6c087fecd65a?w=800&q=80"
+    ],
+    "metric": "92% Accuracy",
+    "tags": ["Accessibility", "Vision", "Edge AI"],
+    "placeholder": false
   },
   {
     "id": 7,
-    "title": "Generative Scene Synthesis for Autonomous Vehicles",
+    "title": "Generative Autonomous Traffic Scene Simulator for South Asian Roads",
     "category": "Postgraduate",
-    "description": "MS thesis developing a diffusion model-based synthetic data pipeline for training autonomous vehicle perception systems in low-resource settings.",
-    "supervisor": "Dr. Imran Baig",
-    "funding": "HEC Indigenous PhD",
-    "status": "Active",
-    "image": "https://images.unsplash.com/photo-1557804506-669a67965ba0?w=600&q=80",
-    "metric": "FID Score: 18.4"
+    "description": "Diffusion model-driven synthetic scene generator synthesizing unstructured, high-density traffic scenes and erratic vehicle movement for autonomous perception validation.",
+    "funding": "HEC NRPU Grant",
+    "grantId": "grant-hec-nrpu-2024",
+    "status": "Ongoing",
+    "startDate": "May 2024",
+    "endDate": "Present",
+    "coverImage": "https://images.unsplash.com/photo-1557804506-669a67965ba0?w=800&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1557804506-669a67965ba0?w=800&q=80",
+      "https://images.unsplash.com/photo-1519681393784-d120267933ba?w=800&q=80"
+    ],
+    "metric": "FID Score: 18.4",
+    "tags": ["Generative AI", "Autonomous Vehicles", "Diffusion Models"],
+    "placeholder": false
   }
 ]

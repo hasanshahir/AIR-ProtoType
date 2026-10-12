@@ -1,0 +1,83 @@
+﻿[
+  {
+    "id": "sp-google",
+    "name": "Google DeepMind",
+    "type": "Foundation Models & Research Compute",
+    "tier": "Strategic Compute",
+    "url": "https://deepmind.google",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg",
+    "placeholder": false
+  },
+  {
+    "id": "sp-meta",
+    "name": "Meta AI (PyTorch Foundation)",
+    "type": "Open Source Deep Learning Frameworks",
+    "tier": "Strategic Compute",
+    "url": "https://ai.meta.com",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/7/7b/Meta_Platforms_Inc._logo.svg",
+    "placeholder": false
+  },
+  {
+    "id": "sp-hec",
+    "name": "Higher Education Commission (HEC)",
+    "type": "National Research Programs (NRPU)",
+    "tier": "Government & National",
+    "url": "https://www.hec.gov.pk",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/Flag_of_Pakistan.svg/320px-Flag_of_Pakistan.svg.png",
+    "placeholder": false
+  },
+  {
+    "id": "sp-ignite",
+    "name": "Ignite National Technology Fund",
+    "type": "NCBC Center of Big Data & Cloud Computing",
+    "tier": "Government & National",
+    "url": "https://ignite.org.pk",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/Flag_of_Pakistan.svg/320px-Flag_of_Pakistan.svg.png",
+    "placeholder": false
+  },
+  {
+    "id": "sp-stanford",
+    "name": "Stanford HAI",
+    "type": "Human-Centered AI Academic Partner",
+    "tier": "Academic",
+    "url": "https://hai.stanford.edu",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/b/b5/Seal_of_Leland_Stanford_Junior_University.svg",
+    "placeholder": false
+  },
+  {
+    "id": "sp-mit",
+    "name": "MIT CSAIL",
+    "type": "Computer Science & Artificial Intelligence Lab",
+    "tier": "Academic",
+    "url": "https://www.csail.mit.edu",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/0/0c/MIT_logo.svg",
+    "placeholder": false
+  },
+  {
+    "id": "sp-hf",
+    "name": "Hugging Face",
+    "type": "Open Model Hub & Evaluation Benchmarks",
+    "tier": "Strategic Compute",
+    "url": "https://huggingface.co",
+    "logo": "https://huggingface.co/front/assets/huggingface_logo-noborder.svg",
+    "placeholder": false
+  },
+  {
+    "id": "sp-openai",
+    "name": "OpenAI",
+    "type": "Academic Researcher Access Program",
+    "tier": "Strategic Compute",
+    "url": "https://openai.com",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/4/4d/OpenAI_Logo.svg",
+    "placeholder": false
+  },
+  {
+    "id": "sp-ned",
+    "name": "NED University of Engg & Tech (CSIT)",
+    "type": "Host University & Laboratory Facilities",
+    "tier": "Academic",
+    "url": "https://www.neduet.edu.pk",
+    "logo": "https://cct.neduet.edu.pk/AIR/assets/img/ned-logo.png",
+    "placeholder": false
+  }
+]

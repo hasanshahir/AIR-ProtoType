@@ -1,7 +1,7 @@
-import { useState, useMemo } from 'react'
+﻿import { useState, useMemo } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { BookOpen, Copy, Check, Award, FileText } from 'lucide-react'
-import pubData from '../data/publications.json'
+import { BookOpen, Copy, Check, Award, FileText, Download, ExternalLink, Search } from 'lucide-react'
+import { getPublications } from '../lib/data'
 import Badge from '../components/ui/Badge'
 import SectionReveal from '../components/ui/SectionReveal'
 
@@ -10,7 +10,10 @@ type FilterType = 'All' | 'Journal' | 'Conference'
 export default function Publications() {
   const [activeType, setActiveType] = useState<FilterType>('All')
   const [activeVenue, setActiveVenue] = useState('All')
+  const [searchQuery, setSearchQuery] = useState('')
   const [copiedId, setCopiedId] = useState<number | null>(null)
+
+  const pubData = useMemo(() => getPublications(), [])
 
   // Enforce sorted order: recent papers at top (descending by year, then id)
   const sortedPublications = useMemo(() => {
@@ -18,7 +21,7 @@ export default function Publications() {
       if (b.year !== a.year) return b.year - a.year
       return b.id - a.id
     })
-  }, [])
+  }, [pubData])
 
   const types: { id: FilterType; label: string; count: number }[] = [
     { id: 'All', label: 'All Publications', count: sortedPublications.length },
@@ -32,9 +35,15 @@ export default function Publications() {
     return sortedPublications.filter(p => {
       const matchType = activeType === 'All' || p.type === activeType
       const matchVenue = activeVenue === 'All' || p.venue.toLowerCase().includes(activeVenue.toLowerCase())
-      return matchType && matchVenue
+      const matchSearch =
+        searchQuery === '' ||
+        p.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        p.authors.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        p.venue.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        (p.tags && p.tags.some(t => t.toLowerCase().includes(searchQuery.toLowerCase())))
+      return matchType && matchVenue && matchSearch
     })
-  }, [sortedPublications, activeType, activeVenue])
+  }, [sortedPublications, activeType, activeVenue, searchQuery])
 
   const copyBibtex = (p: typeof pubData[0]) => {
     const bib = `@${p.type === 'Journal' ? 'article' : 'inproceedings'}{air_${p.id},\n  title={${p.title}},\n  author={${p.authors}},\n  ${p.type === 'Journal' ? 'journal' : 'booktitle'}={${p.venue}},\n  year={${p.year}}\n}`
@@ -63,12 +72,12 @@ export default function Publications() {
 
         <SectionReveal delay={0.16}>
           <p className="text-[16px] sm:text-[18px] text-[var(--text-muted)] leading-relaxed font-normal">
-            Groundbreaking peer-reviewed journals, international conference proceedings, and foundational preprints from AIR Lab researchers.
+            Groundbreaking peer-reviewed journals, international conference proceedings, and foundational preprints sorted chronologically by year.
           </p>
         </SectionReveal>
       </div>
 
-      {/* Primary Category Filter */}
+      {/* Primary Category Filter & Search Bar */}
       <div className="mb-8 flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-[var(--border-hairline)] pb-6">
         <div className="inline-flex items-center gap-1.5 p-1 bg-[var(--bg-surface)] border border-[var(--border-hairline)] rounded-[2px] shadow-xs">
           {types.map(t => {
@@ -99,30 +108,42 @@ export default function Publications() {
           })}
         </div>
 
-        {/* Venue Filter Pills */}
-        <div className="flex flex-wrap items-center gap-1.5">
-          <span className="text-xs font-mono text-[var(--text-subtle)] mr-1">Filter Venue:</span>
-          {venues.map(v => (
-            <button
-              key={v}
-              onClick={() => setActiveVenue(v)}
-              className={`px-3 py-1 rounded-[2px] text-xs font-mono transition-all cursor-pointer ${
-                activeVenue === v
-                  ? 'bg-[var(--accent-purple)] text-white shadow-xs'
-                  : 'bg-[var(--bg-surface)] text-[var(--text-muted)] border border-[var(--border-hairline)] hover:text-[var(--text-primary)]'
-              }`}
-            >
-              {v}
-            </button>
-          ))}
+        {/* Search bar */}
+        <div className="relative w-full md:w-80">
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--text-subtle)]" />
+          <input
+            type="text"
+            placeholder="Search title, author, venue, tag..."
+            value={searchQuery}
+            onChange={e => setSearchQuery(e.target.value)}
+            className="w-full pl-9 pr-3 h-9 rounded-[2px] border border-[var(--border-hairline)] bg-[var(--bg-surface)] text-xs font-mono text-[var(--text-primary)] placeholder:text-[var(--text-subtle)] focus:outline-none focus:border-[var(--accent-orange)] transition-all"
+          />
         </div>
+      </div>
+
+      {/* Venue Filter Pills */}
+      <div className="flex flex-wrap items-center gap-1.5 mb-8 text-left">
+        <span className="text-xs font-mono text-[var(--text-subtle)] mr-1">Filter Venue:</span>
+        {venues.map(v => (
+          <button
+            key={v}
+            onClick={() => setActiveVenue(v)}
+            className={`px-3 py-1 rounded-[2px] text-xs font-mono transition-all cursor-pointer ${
+              activeVenue === v
+                ? 'bg-[var(--accent-purple)] text-white shadow-xs'
+                : 'bg-[var(--bg-surface)] text-[var(--text-muted)] border border-[var(--border-hairline)] hover:text-[var(--text-primary)]'
+            }`}
+          >
+            {v}
+          </button>
+        ))}
       </div>
 
       {/* Publications List */}
       <div className="space-y-6">
         <AnimatePresence mode="wait">
           <motion.div
-            key={`${activeType}-${activeVenue}`}
+            key={`${activeType}-${activeVenue}-${searchQuery}`}
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -12 }}
@@ -134,8 +155,8 @@ export default function Publications() {
               return (
                 <div
                   key={pub.id}
-                  className="craftly-card p-6 sm:p-8 flex flex-col md:flex-row md:items-start justify-between gap-6 group hover:border-[var(--accent-purple)] hover:shadow-xl hover:-translate-y-1 transition-all duration-200 cursor-pointer text-left bg-[var(--bg-surface)] border border-[var(--border-hairline)] rounded-[4px]"
-                  style={{ transitionDelay: `${i * 30}ms` }}
+                  className="craftly-card p-6 sm:p-8 flex flex-col md:flex-row md:items-start justify-between gap-6 group hover:border-[var(--accent-purple)] hover:shadow-xl hover:-translate-y-1 transition-all duration-200 text-left bg-[var(--bg-surface)] border border-[var(--border-hairline)] rounded-[4px]"
+                  style={{ transitionDelay: `${i * 20}ms` }}
                 >
                   <div className="space-y-3 flex-1">
                     {/* Header Badges */}
@@ -158,17 +179,17 @@ export default function Publications() {
                         </span>
                       )}
 
-                      <span className="px-2.5 py-0.5 rounded-[2px] text-xs font-mono font-semibold bg-[var(--bg-page)] text-[var(--text-primary)] border border-[var(--border-hairline)]">
-                        {pub.year}
+                      <span className="px-2.5 py-0.5 rounded-[2px] text-xs font-mono font-semibold bg-[var(--bg-page)] text-[var(--accent-orange)] border border-[var(--border-hairline)]">
+                        Year: {pub.year}
                       </span>
 
                       <span className="text-xs font-mono text-[var(--text-subtle)]">#PUB-{pub.id}</span>
                     </div>
 
                     {/* Paper Title */}
-                    <h3 className="text-[19px] sm:text-[21px] font-medium font-head text-[var(--text-primary)] group-hover:text-[var(--accent-orange)] transition-colors leading-snug">
+                    <h2 className="text-[19px] sm:text-[21px] font-medium font-head text-[var(--text-primary)] group-hover:text-[var(--accent-orange)] transition-colors leading-snug">
                       {pub.title}
-                    </h3>
+                    </h2>
 
                     {/* Venue */}
                     <div className="text-sm font-medium text-[var(--text-muted)] flex items-center gap-1.5">
@@ -181,15 +202,22 @@ export default function Publications() {
                       Authors: <span className="text-[var(--text-primary)] font-semibold">{pub.authors}</span>
                     </p>
 
+                    {/* DOI */}
+                    {pub.doi && (
+                      <div className="text-xs font-mono text-[var(--text-subtle)]">
+                        DOI: <a href={`https://doi.org/${pub.doi}`} target="_blank" rel="noreferrer" className="text-[var(--accent-orange)] hover:underline">{pub.doi}</a>
+                      </div>
+                    )}
+
                     {/* Abstract snippet */}
-                    {'abstract' in pub && pub.abstract && (
+                    {pub.abstract && (
                       <p className="text-xs sm:text-[13.5px] text-[var(--text-muted)] italic leading-relaxed pt-1">
                         "{pub.abstract}"
                       </p>
                     )}
 
                     {/* Tags */}
-                    {'tags' in pub && Array.isArray(pub.tags) && (
+                    {pub.tags && Array.isArray(pub.tags) && (
                       <div className="flex flex-wrap gap-1.5 pt-2">
                         {pub.tags.map((tag: string, idx: number) => (
                           <span
@@ -203,21 +231,35 @@ export default function Publications() {
                     )}
                   </div>
 
-                  {/* Action Buttons */}
-                  <div className="flex sm:flex-col items-center sm:items-end gap-2.5 shrink-0 pt-4 md:pt-0 border-t md:border-t-0 border-[var(--border-hairline)]">
-                    <a
-                      href={pub.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="h-9 px-4 rounded-[2px] bg-[var(--accent-orange)] hover:bg-[var(--accent-orange-hover)] text-white text-xs font-medium shadow-xs transition-all inline-flex items-center gap-1.5 cursor-pointer whitespace-nowrap"
-                    >
-                      <span>Read Paper</span>
-                      <span className="text-[11px]">↳</span>
-                    </a>
+                  {/* Action Buttons: Read Link, PDF, BibTeX Cite */}
+                  <div className="flex sm:flex-col items-center sm:items-end gap-2 shrink-0 pt-4 md:pt-0 border-t md:border-t-0 border-[var(--border-hairline)]">
+                    {pub.link && (
+                      <a
+                        href={pub.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="h-8.5 px-3.5 rounded-[2px] bg-[var(--accent-orange)] hover:bg-[var(--accent-orange-hover)] text-white text-xs font-medium shadow-xs transition-all inline-flex items-center gap-1.5 cursor-pointer whitespace-nowrap"
+                      >
+                        <span>Official Link</span>
+                        <ExternalLink className="w-3 h-3" />
+                      </a>
+                    )}
+
+                    {pub.pdf && (
+                      <a
+                        href={pub.pdf}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="h-8.5 px-3.5 rounded-[2px] bg-[var(--accent-purple)] hover:opacity-90 text-white text-xs font-medium shadow-xs transition-all inline-flex items-center gap-1.5 cursor-pointer whitespace-nowrap"
+                      >
+                        <Download className="w-3 h-3" />
+                        <span>Download PDF</span>
+                      </a>
+                    )}
 
                     <button
                       onClick={() => copyBibtex(pub)}
-                      className="h-9 px-4 rounded-[2px] border border-[var(--border-hairline)] bg-[var(--bg-surface)] hover:bg-[var(--bg-page)] text-xs font-mono flex items-center gap-1.5 transition-colors cursor-pointer text-[var(--text-muted)] hover:text-[var(--text-primary)] whitespace-nowrap"
+                      className="h-8.5 px-3.5 rounded-[2px] border border-[var(--border-hairline)] bg-[var(--bg-surface)] hover:bg-[var(--bg-page)] text-xs font-mono flex items-center gap-1.5 transition-colors cursor-pointer text-[var(--text-muted)] hover:text-[var(--text-primary)] whitespace-nowrap"
                       title="Copy BibTeX Citation"
                     >
                       {copiedId === pub.id ? (
@@ -238,6 +280,12 @@ export default function Publications() {
             })}
           </motion.div>
         </AnimatePresence>
+
+        {filtered.length === 0 && (
+          <div className="text-center py-16 border border-dashed border-[var(--border-hairline)] rounded-[4px] bg-[var(--bg-surface)]">
+            <p className="text-sm font-mono text-[var(--text-muted)]">No publications matched your search criteria.</p>
+          </div>
+        )}
       </div>
     </div>
   )

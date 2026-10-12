@@ -1,0 +1,74 @@
+﻿[
+  {
+    "id": "grant-hec-nrpu-2024",
+    "title": "Bilingual Speech & Urdu Foundation Model Pretraining",
+    "funder": "HEC National Research Program for Universities (NRPU)",
+    "amount": "PKR 14.5M",
+    "duration": "2024 — 2026",
+    "status": "Active",
+    "leadInvestigator": "Dr. Murk Marvi",
+    "description": "Pretraining high-throughput Urdu foundational linguistic models and dialect speech synthesis benchmark sets.",
+    "url": "https://www.hec.gov.pk",
+    "placeholder": false
+  },
+  {
+    "id": "grant-ignite-ncbc",
+    "title": "National Center of Big Data & Cloud Computing (NCBC) Testbed",
+    "funder": "Ignite National Technology Fund",
+    "amount": "PKR 45M",
+    "duration": "2023 — 2026",
+    "status": "Active",
+    "leadInvestigator": "Dr. Murk Marvi",
+    "description": "GPU cluster infrastructure compute grant supporting federated multi-modal clinical diagnostic models.",
+    "url": "https://ignite.org.pk",
+    "placeholder": false
+  },
+  {
+    "id": "grant-google-academic",
+    "title": "Low-Resource Regional Language Knowledge Distillation",
+    "funder": "Google Academic Research Awards",
+    "amount": "$120,000",
+    "duration": "2024 — Present",
+    "status": "Active",
+    "leadInvestigator": "Dr. Murk Marvi",
+    "description": "Cross-lingual parameter-efficient fine-tuning exploring transfer from high-resource Indo-Aryan languages to regional scripts.",
+    "url": "https://research.google",
+    "placeholder": false
+  },
+  {
+    "id": "grant-meta-pytorch",
+    "title": "Sub-4-Bit Quantized Edge Robotics Acceleration",
+    "funder": "PyTorch Foundation / Meta AI Hardware Grant",
+    "amount": "Hardware Grant ($35,000 Equiv.)",
+    "duration": "2025 — Present",
+    "status": "Active",
+    "leadInvestigator": "Dr. Murk Marvi",
+    "description": "Edge deployment kernels testing INT4/FP4 quantization for embedded aerial UAV spatial visual odometry.",
+    "url": "https://pytorch.org",
+    "placeholder": false
+  },
+  {
+    "id": "grant-internal-ned",
+    "title": "NED University CSIT Dean's AI Seed Grant",
+    "funder": "NED University Internal R&D Fund",
+    "amount": "PKR 3.0M",
+    "duration": "2025 — 2026",
+    "status": "Active",
+    "leadInvestigator": "Dr. Murk Marvi",
+    "description": "Undergraduate fellowship stipends and sensor benches for autonomous ground vehicle testing on campus.",
+    "url": "https://cct.neduet.edu.pk/AIR",
+    "placeholder": false
+  },
+  {
+    "id": "grant-stanford-visiting",
+    "title": "Human-Centered Clinical AI Diagnostics Advisory",
+    "funder": "Stanford HAI Collaborative Initiative",
+    "amount": "Visiting Fellowship & Compute Allocation",
+    "duration": "2023 — 2024",
+    "status": "Completed",
+    "leadInvestigator": "Dr. Murk Marvi",
+    "description": "Multi-center clinical validation of automated chest radiography and pathology localisation across clinics in Sindh.",
+    "url": "https://hai.stanford.edu",
+    "placeholder": false
+  }
+]
