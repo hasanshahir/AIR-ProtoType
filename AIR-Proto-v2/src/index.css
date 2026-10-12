@@ -1,47 +1,96 @@
-/* AIR Lab — Craftly Enterprise AI Design System */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap');
+/* AIR Lab — Reference Cruzeon Design System: Neo-Grotesk, Soft Lavender-Gray, Vivid Orange & Electric Purple */
+@import url('https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,300..700;1,300..700&family=Inter+Tight:ital,wght@0,300..700;1,300..700&display=swap');
 @import "tailwindcss";
 
-/* ── 1. DESIGN TOKENS ── */
+/* ── 1. DESIGN TOKENS (Source of Truth) ── */
 :root {
-  --bg: #FAFAFC;
-  --surface: #FFFFFF;
-  --surface-glass: rgba(255, 255, 255, 0.65);
-  --ink: #0B0B0F;
-  --ink-2: #55555F;
-  --ink-3: #9A9AA5;
-  --line: rgba(11, 11, 15, 0.08);
-  --line-strong: rgba(11, 11, 15, 0.14);
-  --aurora: linear-gradient(90deg, #4F8BFF 0%, #8B7BFF 22%, #F25CC1 45%, #FF7A45 70%, #FFD24D 100%);
+  /* Page & Backdrop Colors (Sampled directly from reference screenshot) */
+  --bg-page: #E3E0E6;          /* Soft lavender-gray: main section canvas */
+  --bg-backdrop: #C5B9CE;      /* Muted mauve: outer backdrop & frames */
+  --bg-surface: #FAFAFB;       /* Near-white: alternate sections, cards, sheets */
+  --bg-surface-glass: rgba(250, 250, 251, 0.85);
 
-  --radius-pill: 9999px;
-  --radius-card: 28px;
-  --radius-inner: 20px;
-  --radius-chip: 12px;
+  /* Vivid Accents */
+  --accent-orange: #F04E1F;        /* Vivid red-orange: primary CTA, buttons, highlights */
+  --accent-orange-hover: #D83F12;
+  --accent-orange-light: #FCECE7;
+  --accent-purple: #6B3FE6;        /* Electric violet: highlight cards, tags, badges */
+  --accent-purple-hover: #5A2FD4;
+  --accent-purple-light: #F1EDFD;
 
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
-  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.04), 0 12px 40px rgba(20, 20, 60, 0.08);
-  --shadow-hover: 0 4px 16px rgba(0, 0, 0, 0.05), 0 20px 48px rgba(20, 20, 60, 0.12);
+  /* Aliases for ecosystem compatibility */
+  --primary: var(--accent-orange);
+  --primary-hover: var(--accent-orange-hover);
+  --primary-light: var(--accent-orange-light);
+  --secondary: var(--accent-purple);
+  --secondary-hover: var(--accent-purple-hover);
+  --secondary-light: var(--accent-purple-light);
 
-  --font-head: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --bg: var(--bg-page);
+  --surface: var(--bg-surface);
+  --surface-alt: var(--bg-page);
+
+  /* Typography Colors */
+  --text-primary: #111111;     /* Near-black */
+  --text-muted: #4A4A4F;       /* Dark gray for body/descriptions */
+  --text-subtle: #7A7A82;      /* Hairline metadata */
+
+  --ink: var(--text-primary);
+  --ink-2: var(--text-muted);
+  --ink-3: var(--text-subtle);
+
+  /* Hairline Borders */
+  --border-hairline: #C9C5CC;  /* 1px lines in slightly darker lavender-gray */
+  --border-hairline-dark: #AFA8B5;
+  --line: var(--border-hairline);
+  --line-strong: var(--text-primary);
+
+  /* Sharp Rectangular Geometry (0 to 4px) */
+  --radius-btn: 2px;
+  --radius-card: 4px;
+  --radius-inner: 2px;
+  --radius-pill: 2px;
+
+  --shadow-sm: 0 1px 2px rgba(17, 17, 17, 0.04);
+  --shadow-card: 0 1px 3px rgba(17, 17, 17, 0.03), 0 8px 24px rgba(197, 185, 206, 0.12);
+  --shadow-hover: 0 4px 12px rgba(17, 17, 17, 0.06), 0 14px 30px rgba(240, 78, 31, 0.10);
+
+  /* Neo-Grotesk Typography Stack */
+  --font-sans: 'Inter Tight', 'Hanken Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --font-head: 'Inter Tight', 'Hanken Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
 }
 
 /* ── Tailwind Theme Mapping ── */
 @theme inline {
-  --color-bg: var(--bg);
-  --color-surface: var(--surface);
-  --color-surface-glass: var(--surface-glass);
-  --color-ink: var(--ink);
-  --color-ink-2: var(--ink-2);
-  --color-ink-3: var(--ink-3);
-  --color-line: var(--line);
+  --color-bg-page: var(--bg-page);
+  --color-bg-backdrop: var(--bg-backdrop);
+  --color-bg-surface: var(--bg-surface);
+  --color-accent-orange: var(--accent-orange);
+  --color-accent-orange-hover: var(--accent-orange-hover);
+  --color-accent-orange-light: var(--accent-orange-light);
+  --color-accent-purple: var(--accent-purple);
+  --color-accent-purple-hover: var(--accent-purple-hover);
+  --color-accent-purple-light: var(--accent-purple-light);
 
-  --font-head: var(--font-head);
+  --color-text-primary: var(--text-primary);
+  --color-text-muted: var(--text-muted);
+  --color-text-subtle: var(--text-subtle);
+  --color-border-hairline: var(--border-hairline);
+
+  --color-bg: var(--bg-page);
+  --color-surface: var(--bg-surface);
+  --color-primary: var(--accent-orange);
+  --color-secondary: var(--accent-purple);
+  --color-ink: var(--text-primary);
+  --color-ink-2: var(--text-muted);
+  --color-ink-3: var(--text-subtle);
+  --color-line: var(--border-hairline);
+
   --font-sans: var(--font-sans);
+  --font-head: var(--font-head);
 }
 
-/* ── Base Styling (Light Theme Only) ── */
+/* ── Base Styling (Clean Neo-Grotesk Typography & Contrast) ── */
 @layer base {
   *, *::before, *::after {
     box-sizing: border-box;
@@ -50,170 +99,133 @@
   html {
     scroll-behavior: smooth;
     font-family: var(--font-sans);
-    color: var(--ink);
-    background-color: var(--bg);
-    letter-spacing: -0.01em;
+    color: var(--text-primary);
+    background-color: var(--bg-backdrop);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
 
   body {
-    background-color: var(--bg);
-    color: var(--ink);
+    background-color: var(--bg-page);
+    color: var(--text-primary);
     min-height: 100vh;
     overflow-x: hidden;
+    font-family: var(--font-sans);
+    font-size: 14px;
+    line-height: 1.5;
   }
 
+  /* Display & Wordmarks: Weight 700, Tight Tracking -0.04em, line-height 1.0 */
+  .display-wordmark, .hero-display {
+    font-family: var(--font-head);
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    line-height: 1.0;
+    color: var(--text-primary);
+  }
+
+  /* Section Headings: Weight 300 to 400, 36 to 48px, Tracking -0.02em, line-height 1.1 */
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-head);
-    letter-spacing: -0.03em;
-    font-weight: 500;
-    line-height: 1.02;
-    color: var(--ink);
+    color: var(--text-primary);
   }
 
   h1 {
-    font-size: clamp(44px, 7vw, 84px);
-    line-height: 1.02;
+    font-weight: 400;
+    font-size: clamp(38px, 5.5vw, 64px);
+    line-height: 1.08;
+    letter-spacing: -0.035em;
   }
 
   h2 {
-    font-size: clamp(32px, 4.5vw, 56px);
-    line-height: 1.08;
+    font-weight: 400;
+    font-size: clamp(30px, 3.8vw, 48px);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
   }
 
   h3 {
-    font-size: 24px;
-    line-height: 1.2;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 1.25;
+    letter-spacing: -0.015em;
   }
 
   p {
-    font-size: 16px;
-    line-height: 1.6;
-    color: var(--ink-2);
+    font-weight: 400;
+    font-size: 13.5px;
+    line-height: 1.55;
+    color: var(--text-muted);
+  }
+
+  button, input, select, textarea {
+    font-family: var(--font-sans);
   }
 
   ::selection {
-    background: #0B0B0F;
+    background: var(--accent-orange);
+    color: #FFFFFF;
+  }
+}
+
+/* ── Reference Components & Utilities ── */
+@layer utilities {
+  .ft-container {
+    max-width: 1140px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  /* Sharp rectangular cards with hairline border */
+  .craftly-card, .ft-card {
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-hairline);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-card);
+    transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+  }
+
+  .craftly-card:hover, .ft-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-hover);
+    border-color: var(--border-hairline-dark);
+  }
+
+  /* Dotted grid canvas */
+  .ft-dotted-grid {
+    background-image: radial-gradient(circle, #C9C5CC 1.2px, transparent 1.2px);
+    background-size: 16px 16px;
+  }
+
+  /* Full-width CTA / Newsletter Band (Vivid Red-Orange with White Text) */
+  .cta-orange-band {
+    background-color: var(--accent-orange);
     color: #FFFFFF;
   }
 
-  /* Custom Clean Minimal Scrollbar */
-  ::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
-  }
-  ::-webkit-scrollbar-track {
-    background: var(--bg);
-  }
-  ::-webkit-scrollbar-thumb {
-    background: #D4D4DC;
-    border-radius: 9999px;
-  }
-  ::-webkit-scrollbar-thumb:hover {
-    background: #9A9AA5;
-  }
-}
-
-/* ── Aurora Slow Drift Animation ── */
-@keyframes aurora-drift {
-  0% {
-    transform: translateX(-3%) scaleY(1);
-  }
-  50% {
-    transform: translateX(3%) scaleY(1.05);
-  }
-  100% {
-    transform: translateX(-3%) scaleY(1);
-  }
-}
-
-.animate-aurora-drift {
-  animation: aurora-drift 18s ease-in-out infinite alternate;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .animate-aurora-drift {
-    animation: none !important;
-  }
-}
-
-/* ── Craftly Utility & Card Classes ── */
-@layer utilities {
-  .craftly-container {
-    max-width: 1200px;
-    margin-left: auto;
-    margin-right: auto;
-    padding-left: 24px;
-    padding-right: 24px;
+  /* Electric Purple Highlight Card */
+  .highlight-purple-card {
+    background-color: var(--accent-purple);
+    color: #FFFFFF;
   }
 
-  .craftly-section {
-    padding-top: clamp(80px, 10vw, 130px);
-    padding-bottom: clamp(80px, 10vw, 130px);
+  /* Subtle Hero Ambient Aura (Orange to Purple) */
+  .hero-ambient-glow {
+    background: radial-gradient(circle at 50% 30%, rgba(240, 78, 31, 0.12) 0%, rgba(107, 63, 230, 0.08) 45%, transparent 70%);
   }
 
-  .craftly-card {
-    background-color: var(--surface);
-    border: 1px solid var(--line);
-    border-radius: var(--radius-card);
-    box-shadow: var(--shadow-card);
-    transition: transform 200ms ease-out, box-shadow 200ms ease-out, border-color 200ms ease-out;
+  /* Sharp rectangular mock window */
+  .ft-window {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-hairline);
+    border-radius: 4px;
+    box-shadow: 0 10px 30px rgba(17, 17, 17, 0.05);
   }
 
-  .craftly-card:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-hover);
-    border-color: var(--line-strong);
-  }
-
-  .craftly-inner-card {
-    background-color: var(--surface);
-    border: 1px solid var(--line);
-    border-radius: var(--radius-inner);
-    box-shadow: var(--shadow-sm);
-  }
-
-  .craftly-glass {
-    background: var(--surface-glass);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid var(--line);
-  }
-
-  .craftly-chip {
-    border-radius: var(--radius-chip);
-  }
-
-  .craftly-pill {
-    border-radius: var(--radius-pill);
-  }
-
-  /* Collaborator & Partner Logos (Grayscale 50% -> 100% on hover) */
-  .logo-grayscale {
-    filter: grayscale(100%);
-    opacity: 0.5;
-    transition: filter 300ms ease, opacity 300ms ease;
-  }
-  .logo-grayscale:hover {
-    filter: grayscale(0%);
-    opacity: 1;
-  }
-
-  /* Team Portrait Grayscale with Color Pop on Hover */
   .portrait-grayscale {
-    filter: grayscale(100%) contrast(0.95);
-    transition: filter 400ms cubic-bezier(0.16, 1, 0.3, 1), transform 400ms cubic-bezier(0.16, 1, 0.3, 1);
-  }
-  .group:hover .portrait-grayscale,
-  .portrait-grayscale:hover {
-    filter: grayscale(0%) contrast(1.05);
-  }
-}
-
-/* Hide default cursor on desktop for custom hollow cursor */
-@media (pointer: fine) {
-  * {
-    cursor: none !important;
+    filter: none;
+    transition: transform 300ms ease;
   }
 }

@@ -1,9 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { ArrowRight } from 'lucide-react'
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'secondary' | 'outline' | 'pill'
+  variant?: 'primary' | 'secondary' | 'outline' | 'ghost'
   size?: 'sm' | 'md' | 'lg'
   arrow?: boolean
   to?: string
@@ -15,7 +14,7 @@ export const Button: React.FC<ButtonProps> = ({
   children,
   variant = 'primary',
   size = 'md',
-  arrow = false,
+  arrow,
   to,
   href,
   icon,
@@ -23,30 +22,35 @@ export const Button: React.FC<ButtonProps> = ({
   ...props
 }) => {
   const sizeStyles = {
-    sm: 'h-9 px-4 text-xs',
-    md: 'h-12 px-6 text-sm',
-    lg: 'h-13 px-7 text-base',
+    sm: 'h-8 px-3 text-xs',
+    md: 'h-9 px-4 text-[13px]',
+    lg: 'h-11 px-5 text-sm',
   }
 
+  // Reference style: Vivid orange primary with white text, hairline secondary, weight 500
   const variantStyles = {
     primary:
-      'bg-[#0B0B0F] text-white border border-transparent shadow-[0_1px_2px_rgba(0,0,0,0.06),0_4px_14px_rgba(11,11,15,0.12)] hover:bg-[#202028] hover:shadow-[0_6px_20px_rgba(11,11,15,0.18)]',
+      'bg-[var(--accent-orange)] hover:bg-[var(--accent-orange-hover)] text-white border border-[var(--accent-orange)] font-medium shadow-xs transition-colors',
     secondary:
-      'bg-[rgba(255,255,255,0.65)] hover:bg-[rgba(255,255,255,0.95)] text-[#0B0B0F] border border-[var(--line)] shadow-[0_1px_2px_rgba(0,0,0,0.04)] hover:border-[rgba(11,11,15,0.16)]',
+      'bg-transparent hover:bg-[rgba(17,17,17,0.04)] text-[var(--text-primary)] border border-[var(--border-hairline)] font-medium transition-colors',
     outline:
-      'bg-transparent hover:bg-white text-[#0B0B0F] border border-[var(--line)] shadow-none hover:border-[rgba(11,11,15,0.2)]',
-    pill:
-      'bg-white text-[#0B0B0F] border border-[var(--line)] shadow-[var(--shadow-sm)] hover:border-[rgba(11,11,15,0.2)]',
+      'bg-transparent hover:bg-[rgba(17,17,17,0.04)] text-[var(--text-primary)] border border-[var(--border-hairline)] font-medium transition-colors',
+    ghost:
+      'bg-transparent hover:bg-[rgba(17,17,17,0.04)] text-[var(--text-primary)] font-medium transition-colors',
   }
 
-  const sharedClasses = `group inline-flex items-center justify-center gap-2 rounded-full font-medium transition-all duration-200 active:scale-[0.98] select-none cursor-pointer tracking-tight ${sizeStyles[size]} ${variantStyles[variant]} ${className}`
+  const showArrow = arrow !== undefined ? arrow : variant === 'primary'
+
+  const sharedClasses = `group inline-flex items-center justify-center gap-1.5 rounded-[2px] tracking-tight font-sans transition-all active:translate-y-[1px] select-none cursor-pointer whitespace-nowrap ${sizeStyles[size]} ${variantStyles[variant]} ${className}`
 
   const content = (
     <>
       {icon && <span className="shrink-0">{icon}</span>}
       <span>{children}</span>
-      {arrow && (
-        <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1 shrink-0" />
+      {showArrow && (
+        <span className="text-[12px] leading-none transition-transform duration-150 group-hover:translate-x-0.5 group-hover:translate-y-0.5 font-sans shrink-0">
+          ↳
+        </span>
       )}
     </>
   )

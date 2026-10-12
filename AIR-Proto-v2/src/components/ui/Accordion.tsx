@@ -32,16 +32,16 @@ export const Accordion: React.FC<AccordionProps> = ({
           <div key={idx} className="group py-5 sm:py-6 transition-colors">
             <button
               onClick={() => toggle(idx)}
-              className="w-full flex items-center justify-between gap-6 text-left cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#4F8BFF] rounded-lg"
+              className="w-full flex items-center justify-between gap-6 text-left cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent-purple)] rounded-[2px]"
               aria-expanded={isOpen}
             >
-              <span className="text-[17px] sm:text-[19px] font-medium tracking-tight text-[var(--ink)] group-hover:text-black transition-colors font-sans">
+              <span className="text-[17px] sm:text-[19px] font-medium tracking-tight text-[var(--ink)] group-hover:text-[var(--accent-orange)] transition-colors font-sans">
                 {item.q}
               </span>
               <motion.div
                 animate={{ rotate: isOpen ? 45 : 0 }}
                 transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
-                className="w-7 h-7 rounded-full bg-[var(--surface)] border border-[var(--line)] flex items-center justify-center shrink-0 text-[var(--ink-2)] shadow-[var(--shadow-sm)] group-hover:border-[rgba(11,11,15,0.2)]"
+                className="w-7 h-7 rounded-[2px] bg-[var(--surface)] border border-[var(--line)] flex items-center justify-center shrink-0 text-[var(--ink-2)] shadow-[var(--shadow-sm)] group-hover:border-[var(--accent-purple)]"
               >
                 <Plus className="w-4 h-4" />
               </motion.div>

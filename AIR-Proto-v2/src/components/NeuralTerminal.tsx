@@ -137,8 +137,8 @@ export default function NeuralTerminal() {
           </div>
 
           <div className="flex items-center gap-2">
-            <span className="px-2 py-0.5 rounded text-[10px] bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 flex items-center gap-1">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+            <span className="px-2 py-0.5 rounded text-[10px] bg-[var(--accent-purple)]/15 text-[var(--accent-purple)] border border-[var(--accent-purple)]/30 flex items-center gap-1">
+              <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent-orange)] animate-pulse" />
               8x H100 ONLINE
             </span>
           </div>
@@ -168,7 +168,7 @@ export default function NeuralTerminal() {
               onClick={() => setIsRunning(!isRunning)}
               className="flex items-center gap-1 px-2.5 py-1 rounded bg-[var(--bg-card)] border border-[var(--border)] hover:border-[var(--primary)] text-[var(--fg)] text-[11px] transition-colors cursor-pointer"
             >
-              {isRunning ? <Activity className="w-3 h-3 text-emerald-400 animate-spin" /> : <Play className="w-3 h-3 text-amber-400" />}
+              {isRunning ? <Activity className="w-3 h-3 text-[var(--accent-purple)] animate-spin" /> : <Play className="w-3 h-3 text-amber-400" />}
               {isRunning ? 'Pause Telemetry' : 'Resume Telemetry'}
             </button>
             <button
@@ -224,7 +224,7 @@ export default function NeuralTerminal() {
               </div>
               <div className="flex justify-between items-center text-xs">
                 <span className="text-[var(--fg-sub)]">Compute Load:</span>
-                <span className="font-bold text-emerald-400">97.8% Peak</span>
+                <span className="font-bold text-[var(--accent-orange)]">97.8% Peak</span>
               </div>
               <div className="flex justify-between items-center text-xs">
                 <span className="text-[var(--fg-sub)]">Memory Usage:</span>
@@ -237,7 +237,7 @@ export default function NeuralTerminal() {
             </div>
 
             <div className="rounded-xl bg-[var(--bg-muted)]/70 border border-[var(--border)] p-3 text-[11px] text-[var(--fg-sub)] flex items-start gap-2">
-              <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+              <CheckCircle2 className="w-4 h-4 text-[var(--accent-purple)] shrink-0 mt-0.5" />
               <span>Real-time telemetry stream synchronized with AIR Lab HEC supercomputing nodes.</span>
             </div>
           </div>
@@ -245,7 +245,7 @@ export default function NeuralTerminal() {
 
         {/* Live Terminal Log Output */}
         <div className="px-5 pb-4">
-          <div className="rounded-lg bg-black/80 border border-white/10 p-3 text-[11px] leading-relaxed space-y-1 overflow-x-auto text-emerald-400/90 shadow-inner">
+          <div className="rounded-lg bg-black/80 border border-white/10 p-3 text-[11px] leading-relaxed space-y-1 overflow-x-auto text-[var(--bg-surface)] shadow-inner">
             {logs.map((log, i) => (
               <div key={i} className="flex items-center gap-2">
                 <span className="text-[var(--primary)] select-none">❯</span>

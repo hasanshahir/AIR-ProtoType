@@ -101,8 +101,8 @@ export function CustomCursor() {
         style={{
           x: cursorX,
           y: cursorY,
-          backgroundColor: '#4F8BFF',
-          boxShadow: '0 0 8px rgba(79, 139, 255, 0.75)',
+          backgroundColor: 'var(--accent-orange)',
+          boxShadow: '0 0 8px rgba(240, 78, 31, 0.65)',
           opacity: isVisible ? 1 : 0,
         }}
         animate={{
@@ -117,16 +117,16 @@ export function CustomCursor() {
         style={{
           x: cursorXSpring,
           y: cursorYSpring,
-          backgroundColor: 'transparent', // STRICTLY HOLLOW
-          border: '1.75px solid #4F8BFF', // Outline of the color theme
+          backgroundColor: 'transparent',
+          border: '1.75px solid var(--accent-orange)',
           boxShadow: isHovering
-            ? '0 0 16px rgba(79, 139, 255, 0.55), inset 0 0 6px rgba(79, 139, 255, 0.2)'
-            : '0 0 8px rgba(79, 139, 255, 0.35)',
+            ? '0 0 16px rgba(240, 78, 31, 0.45), inset 0 0 6px rgba(240, 78, 31, 0.15)'
+            : '0 0 8px rgba(240, 78, 31, 0.25)',
           opacity: isVisible ? 1 : 0,
         }}
         animate={{
           scale: targetScale,
-          borderColor: isClicking ? '#8B7BFF' : '#4F8BFF',
+          borderColor: isClicking ? 'var(--accent-purple)' : 'var(--accent-orange)',
         }}
         transition={{
           type: 'spring',

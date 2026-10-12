@@ -26,18 +26,18 @@ export interface ThemeOption {
 export const THEME_OPTIONS: ThemeOption[] = [
   {
     id: 'default',
-    name: 'Aurora Sunset',
-    accent: '#F43F5E',
-    subAccent: '#FB923C',
-    tertiary: '#FBBF24',
-    bgPreview: '#FFFFFF',
-    description: 'Inspiration palette: vibrant magenta, sunset coral & warm amber gold blurs',
-    gradientText: 'linear-gradient(135deg, #F43F5E 0%, #FB923C 50%, #FBBF24 100%)',
+    name: 'Cruzeon Industrial',
+    accent: '#F04E1F',
+    subAccent: '#6B3FE6',
+    tertiary: '#C5B9CE',
+    bgPreview: '#E3E0E6',
+    description: 'Reference neo-grotesk industrial aesthetic: vivid red-orange, electric violet & soft lavender-gray',
+    gradientText: 'linear-gradient(135deg, #F04E1F 0%, #6B3FE6 100%)',
     glows: {
-      c1: 'rgba(244, 63, 94, 0.40)',
-      c2: 'rgba(251, 146, 60, 0.40)',
-      c3: 'rgba(251, 191, 36, 0.35)',
-      c4: 'rgba(168, 85, 247, 0.25)',
+      c1: 'rgba(240, 78, 31, 0.25)',
+      c2: 'rgba(107, 63, 230, 0.20)',
+      c3: 'rgba(197, 185, 206, 0.35)',
+      c4: 'rgba(240, 78, 31, 0.15)',
     }
   },
   {

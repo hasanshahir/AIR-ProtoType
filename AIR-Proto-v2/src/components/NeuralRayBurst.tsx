@@ -7,7 +7,7 @@ interface NeuralRayBurstProps {
 
 export default function NeuralRayBurst({
   className = '',
-  accentColor = '#FFE600',
+  accentColor = '#F04E1F',
 }: NeuralRayBurstProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
 
@@ -66,7 +66,7 @@ export default function NeuralRayBurst({
     }
 
     const particles: RayParticle[] = []
-    const colors = ['#FFFFFF', '#FFE600', '#FDE047', '#E2E8F0', '#94A3B8']
+    const colors = ['#FFFFFF', '#F04E1F', '#6B3FE6', '#C5B9CE', '#FAFAFB']
 
     for (let i = 0; i < RAY_COUNT; i++) {
       // Fan angle between 20 deg and 160 deg (downwards)
@@ -116,9 +116,9 @@ export default function NeuralRayBurst({
         const endY = originY + Math.sin(angle) * maxRadius * beam.length
 
         const grad = ctx.createLinearGradient(originX, originY, endX, endY)
-        grad.addColorStop(0, 'rgba(255, 230, 0, 0.45)')
+        grad.addColorStop(0, 'rgba(240, 78, 31, 0.40)')
         grad.addColorStop(0.15, `rgba(255, 255, 255, ${beam.opacity})`)
-        grad.addColorStop(0.7, `rgba(255, 230, 0, ${beam.opacity * 0.3})`)
+        grad.addColorStop(0.7, `rgba(107, 63, 230, ${beam.opacity * 0.3})`)
         grad.addColorStop(1, 'rgba(0, 0, 0, 0)')
 
         ctx.strokeStyle = grad
@@ -146,8 +146,10 @@ export default function NeuralRayBurst({
         const currentAlpha = p.alpha * pulse * (1 - p.distance * 0.7)
 
         // Draw particle glow
-        ctx.fillStyle = p.color === '#FFE600' 
-          ? `rgba(255, 230, 0, ${currentAlpha})` 
+        ctx.fillStyle = p.color === '#F04E1F' 
+          ? `rgba(240, 78, 31, ${currentAlpha})` 
+          : p.color === '#6B3FE6'
+          ? `rgba(107, 63, 230, ${currentAlpha})`
           : `rgba(255, 255, 255, ${currentAlpha})`
 
         ctx.beginPath()
@@ -168,7 +170,7 @@ export default function NeuralRayBurst({
         originX, originY, 0,
         originX, originY, 80 * window.devicePixelRatio
       )
-      focalGrad.addColorStop(0, 'rgba(255, 230, 0, 0.75)')
+      focalGrad.addColorStop(0, 'rgba(240, 78, 31, 0.65)')
       focalGrad.addColorStop(0.3, 'rgba(255, 255, 255, 0.4)')
       focalGrad.addColorStop(1, 'rgba(0, 0, 0, 0)')
 

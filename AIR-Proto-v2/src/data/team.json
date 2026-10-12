@@ -6,7 +6,7 @@
     "designation": "PhD Approved Supervisor",
     "category": "Faculty",
     "qualifications": [
-      "Ph.D. (NED)",
+      "Ph.D. (NED University)",
       "ME (Computer System and Networks), MUET",
       "B.E. (Telecommunication), MUET"
     ],
@@ -14,6 +14,11 @@
     "email": "marvi@cloud.neduet.edu.pk",
     "cvUrl": "https://cct.neduet.edu.pk/sites/default/files/csit/CV_new/Marvi25.pdf",
     "image": "./pfp/marvi.jpeg",
+    "department": "Department of CSIT, NED University",
+    "researchFocus": "Foundational AI, High Performance Networks & Distributed Systems",
+    "term": "Tenured Faculty",
+    "year": 2026,
+    "order": 100,
     "isLead": true
   },
   {
@@ -23,7 +28,12 @@
     "category": "Research Interns",
     "email": "khan4731403@cloud.neduet.edu.pk",
     "linkedin": "https://www.linkedin.com/in/muhammad-shaheer-86043359/",
-    "image": "./pfp/shaheer.png"
+    "image": "./pfp/shaheer.png",
+    "department": "Computer Science & IT",
+    "researchFocus": "Bilingual Transformers & Large Language Models",
+    "term": "2025 – 2026",
+    "year": 2026,
+    "order": 10
   },
   {
     "id": "ri2",
@@ -32,7 +42,12 @@
     "category": "Research Interns",
     "email": "zia4630038@cloud.neduet.edu.pk",
     "linkedin": "https://www.linkedin.com/in/kashaf-zia-24774a2ba/",
-    "image": "./pfp/kashaf.png"
+    "image": "./pfp/kashaf.png",
+    "department": "Computer Science & IT",
+    "researchFocus": "Computer Vision & Autonomous Perception Systems",
+    "term": "2025 – 2026",
+    "year": 2026,
+    "order": 9
   },
   {
     "id": "ri3",
@@ -41,7 +56,12 @@
     "category": "Research Interns",
     "email": "yaqoob4705143@cloud.neduet.edu.pk",
     "linkedin": "https://www.linkedin.com/in/haseeb-yaqoob-864360287/",
-    "image": "./pfp/haseeb.png"
+    "image": "./pfp/haseeb.png",
+    "department": "Computer Science & IT",
+    "researchFocus": "Autonomous Robotics & SLAM Navigation",
+    "term": "2025 – 2026",
+    "year": 2026,
+    "order": 8
   },
   {
     "id": "ri4",
@@ -50,7 +70,12 @@
     "category": "Research Interns",
     "email": "safee4600033@cloud.neduet.edu.pk",
     "linkedin": "https://www.linkedin.com/in/muhammad-umer-safee-b48256296",
-    "image": "./pfp/umer.png"
+    "image": "./pfp/umer.png",
+    "department": "Computer Science & IT",
+    "researchFocus": "Distributed Training & Neural Acceleration",
+    "term": "2025 – 2026",
+    "year": 2026,
+    "order": 7
   },
   {
     "id": "ri5",
@@ -59,7 +84,12 @@
     "category": "Research Interns",
     "email": "shamsi4601801@cloud.neduet.edu.pk",
     "linkedin": "https://www.linkedin.com/in/syed-omer-ahmed-shamsi-b3aa6a251",
-    "image": "./pfp/omer.png"
+    "image": "./pfp/omer.png",
+    "department": "Computer Science & IT",
+    "researchFocus": "Deep Learning Pipelines & Model Quantization",
+    "term": "2025 – 2026",
+    "year": 2026,
+    "order": 6
   },
   {
     "id": "ri6",
@@ -68,7 +98,12 @@
     "category": "Research Interns",
     "email": "hashmi4630439@cloud.neduet.edu.pk",
     "linkedin": "https://www.linkedin.com/in/syed-shujauddin-hashmi-612050291/",
-    "image": "./pfp/shujauddin.png"
+    "image": "./pfp/shujauddin.png",
+    "department": "Computer Science & IT",
+    "researchFocus": "Bio-Medical AI & Diagnostic Vision",
+    "term": "2025 – 2026",
+    "year": 2026,
+    "order": 5
   },
   {
     "id": "ri7",
@@ -77,7 +112,12 @@
     "category": "Research Interns",
     "email": "ahmed4605214@cloud.neduet.edu.pk",
     "linkedin": "https://www.linkedin.com/in/syedmuhammedahmed/",
-    "image": "./pfp/muhammed-ahmed.jpeg"
+    "image": "./pfp/muhammed-ahmed.jpeg",
+    "department": "Computer Science & IT",
+    "researchFocus": "Reinforcement Learning & Multi-Agent Swarms",
+    "term": "2025 – 2026",
+    "year": 2026,
+    "order": 4
   },
   {
     "id": "ri8",
@@ -86,7 +126,12 @@
     "category": "Research Interns",
     "email": "tahir4600051@cloud.neduet.edu.pk",
     "linkedin": "https://www.linkedin.com/in/roshaantahir/",
-    "image": "./pfp/roshaan.jpg"
+    "image": "./pfp/roshaan.jpg",
+    "department": "Computer Science & IT",
+    "researchFocus": "Edge Computing & Embedded AI Hardware",
+    "term": "2025 – 2026",
+    "year": 2026,
+    "order": 3
   },
   {
     "id": "ri9",
@@ -95,7 +140,12 @@
     "category": "Research Interns",
     "email": "khan4600572@cloud.neduet.edu.pk",
     "linkedin": "https://www.linkedin.com/in/hammad-khan-308395286/",
-    "image": "./pfp/hammad.jpg"
+    "image": "./pfp/hammad.jpg",
+    "department": "Computer Science & IT",
+    "researchFocus": "Applied NLP & Multimodal Representation",
+    "term": "2025 – 2026",
+    "year": 2026,
+    "order": 2
   },
   {
     "id": "ri10",
@@ -103,7 +153,12 @@
     "role": "Research Intern",
     "category": "Research Interns",
     "email": "jafrri4603155@cloud.neduet.edu.pk",
-    "linkedin": "https://cct.neduet.edu.pk/www.linkedin.com/in/areeba-zehra-jafri",
-    "image": "./pfp/areeba.jpeg"
+    "linkedin": "https://www.linkedin.com/in/areeba-zehra-jafri",
+    "image": "./pfp/areeba.jpeg",
+    "department": "Computer Science & IT",
+    "researchFocus": "Data Analytics & Ethical AI Auditing",
+    "term": "2025 – 2026",
+    "year": 2026,
+    "order": 1
   }
 ]

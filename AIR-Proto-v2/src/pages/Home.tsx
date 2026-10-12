@@ -1,463 +1,512 @@
 import { useState } from 'react'
-import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import {
   ArrowRight,
-  Sparkles,
-  ChevronLeft,
-  ChevronRight,
   Brain,
-  Eye,
   Bot,
-  Layers,
   Database,
-  ShieldCheck,
-  Check,
-  Send,
-  User,
+  Terminal,
+  Activity,
+  Lock,
+  Sparkles,
+  Zap,
+  Code,
+  LineChart,
 } from 'lucide-react'
-import AuroraBackground from '../components/ui/AuroraBackground'
-import Badge from '../components/ui/Badge'
 import Button from '../components/ui/Button'
-import Accordion from '../components/ui/Accordion'
+import CornerBracket from '../components/ui/CornerBracket'
 import SectionReveal from '../components/ui/SectionReveal'
 import StudentApplicationModal from '../components/StudentApplicationModal'
 
-const collaborators = [
-  'PLAID',
-  'Grasshopper',
-  'PAI 02',
-  'commune',
-  'DeepMind',
-  'Numeral',
-  'perplexity',
-  'NVIDIA Research',
-  'HEC Pakistan',
-  'NEDUET CSIT',
+const labStats = [
+  { value: '45+', label: 'Peer-Reviewed Publications', desc: 'IEEE, Springer, ACM & SOTA Conferences' },
+  { value: '120+', label: 'Researchers & Scholars', desc: 'Faculty, Postgraduates & Research Interns' },
+  { value: '15', label: 'Active Grants & Funds', desc: 'HEC NRPU, Ignite NCBC & Strategic Alliances' },
+  { value: '100%', label: 'Open Source Benchmarks', desc: 'Reproducible Weights & Regional Corpora' },
 ]
 
-const featuredProjects = [
+const interactivePipelines = [
   {
-    title: 'UrduLLM — Bilingual Foundation Model',
-    tag: 'Foundation Models',
-    badge: 'SLURM Supercluster',
-    desc: 'Bilingual Urdu-English transformer architecture benchmarked on regional statutes, biomedical literature, and low-resource vernacular syntax for national computational sovereignty.',
-    actionLabel: 'Deploy Model',
-    secondaryLabel: 'View Weights',
-    metric: '12.4B Tokens',
-    accent: '#4F8BFF',
+    id: 'urdu-bert',
+    tabName: 'UrduBERT Foundation Model',
+    domain: 'Foundation Models & Regional NLP',
+    title: 'UrduBERT: Transformer for Regional Languages',
+    status: 'ACTIVE RUN',
+    dataset: '40M+ Vernacular Tokens (Literature, Media & Legal)',
+    throughput: '1,420 tokens/sec',
+    computeCluster: 'SLURM Supercluster Partitions (4x NVIDIA A100)',
+    lossRate: '1.24 (-0.38 epoch 4)',
+    metrics: { accuracy: '+34% F1 Score Gain', latency: '14.2ms / token' },
+    inspectorSteps: [
+      'Tokenize bilingual corpora with SentencePiece byte-fallback subwords',
+      'Execute multi-head flash attention pretraining across regional tokens',
+      'Benchmark downstream NLP classification, sentiment & named entity recognition',
+    ],
   },
   {
-    title: 'EdgeVision — Low-Latency Transit AI',
-    tag: 'Autonomous Perception',
-    badge: '60 FPS @ 5W',
-    desc: 'Real-time urban edge perception deployed across Karachi traffic corridors for adaptive signal timing, multi-class vehicle trajectory tracking, and safety anomaly alerts.',
-    actionLabel: 'Inspect Pipeline',
-    secondaryLabel: 'Field Metrics',
-    metric: '60 FPS Embedded',
-    accent: '#F25CC1',
+    id: 'robo-sight',
+    tabName: 'RoboSight Edge Vision',
+    domain: 'Autonomous Perception & Edge AI',
+    title: 'RoboSight: Real-Time Drone Object Detection',
+    status: 'FIELD DEPLOYED',
+    dataset: 'Aerial Reconnaissance & Urban Corridor Telemetries',
+    throughput: '60 FPS @ 7.5W',
+    computeCluster: 'Edge Embedded Jetson Orin Nano & FPGA',
+    lossRate: '0.048 mAP@50',
+    metrics: { accuracy: '98.4% Precision', latency: '<20ms Latency' },
+    inspectorSteps: [
+      'Ingest optical feeds from aerial drone gimbal payloads at 4K 60FPS',
+      'Quantize custom YOLOv8 backbone to INT8 precision via TensorRT',
+      'Execute sub-20ms edge inference for autonomous obstacle avoidance',
+    ],
   },
   {
-    title: 'AgriSwarm — Autonomous UAV Collective',
-    tag: 'Robotics & Swarms',
-    badge: 'Multispectral SLAM',
-    desc: 'Cooperative drone fleet utilizing decentralized visual odometry and multispectral imaging for autonomous crop stress identification and micro-fertilizer optimization.',
-    actionLabel: 'Simulate Swarm',
-    secondaryLabel: 'ROS2 Docs',
-    metric: '98.2% Accuracy',
-    accent: '#FF7A45',
+    id: 'med-scan',
+    tabName: 'MedScan Pathology AI',
+    domain: 'Medical Diagnostics',
+    title: 'MedScan AI: Chest Radiograph Pathology Detection',
+    status: 'CLINICAL TRIAL',
+    dataset: 'NIH CheXNet Benchmark + Local Clinical Cohorts',
+    throughput: '450 scans / min',
+    computeCluster: 'HIPAA-Compliant Encrypted Medical Compute Node',
+    lossRate: '0.082 BCE Loss',
+    metrics: { accuracy: '94.2% ROC-AUC', latency: '120ms total inference' },
+    inspectorSteps: [
+      'Ingest DICOM standard clinical radiographs under privacy-preserving enclaves',
+      'Extract contrastive multi-scale representations across 14 thoracic pathologies',
+      'Generate localized explainability heatmaps using grad-CAM diagnostics',
+    ],
+  },
+  {
+    id: 'smart-grid',
+    tabName: 'SmartGrid Forecasting',
+    domain: 'Energy & Time-Series AI',
+    title: 'SmartGrid AI: Demand Forecasting & Load Balancing',
+    status: 'SIMULATOR LIVE',
+    dataset: 'National Grid Historical Dispatch & Weather Telemetry',
+    throughput: 'Real-Time Telemetry Stream',
+    computeCluster: 'Hybrid Transformer-LSTM Cluster',
+    lossRate: '0.031 MAPE',
+    metrics: { accuracy: '±3.1% MAPE', latency: 'Sub-second Dispatch' },
+    inspectorSteps: [
+      'Stream real-time multi-bus grid consumption and climate telemetry',
+      'Pass sequences through hybrid temporal transformer with self-attention',
+      'Predict peak surge 24-hours ahead to prevent cascading grid outages',
+    ],
   },
 ]
 
-const cardFeatures = [
+const coreResearchAreas = [
   {
     icon: Brain,
-    title: 'Foundation Models & NLP',
-    desc: 'State-of-the-art transformer pretraining and tokenization specialized for Urdu, regional vernaculars, and multi-modal alignment.',
-    link: '/projects',
-  },
-  {
-    icon: Eye,
-    title: 'Edge Computer Vision',
-    desc: 'Lightweight neural networks optimized for NVIDIA Jetson and low-power embedded processors executing real-time object detection.',
-    link: '/projects',
+    title: 'Foundational Models & NLP',
+    desc: 'Pretraining multilingual LLMs tailored for low-resource regional dialects with advanced byte-level tokenizers and parameter-efficient fine-tuning.',
+    tag: 'Urdu & Multilingual NLP',
   },
   {
     icon: Bot,
-    title: 'Autonomous Robotics & Swarms',
-    desc: 'Multi-agent robotic coordination, decentralized SLAM, and cooperative path planning for precision agriculture and inspection.',
-    link: '/projects',
-  },
-  {
-    icon: Layers,
-    title: 'Distributed Supercomputing',
-    desc: 'High-throughput cluster partitions interconnected via high-speed fabric for large-scale distributed neural network pretraining.',
-    link: '/projects',
-  },
-  {
-    icon: ShieldCheck,
-    title: 'Ethical & Robust AI',
-    desc: 'Empirical model safety verification, explainability toolkits, and bias audit pipelines ensuring responsible deployment in critical sectors.',
-    link: '/about',
+    title: 'Autonomous Robotics & Edge AI',
+    desc: 'Real-time perception algorithms, spatial visual odometry, and edge TensorRT neural inference pipelines for robotic vehicles and aerial UAVs.',
+    tag: 'Robotics & Embedded Vision',
   },
   {
     icon: Database,
-    title: 'Open Datasets & Benchmarks',
-    desc: 'Curated standardized datasets and reproducible benchmarks advancing machine learning research across Pakistani academic institutions.',
-    link: '/publications',
+    title: 'Clinical Diagnostics & Healthcare',
+    desc: 'Deep multi-modal medical imaging classification, diagnostic explainability, and chest radiograph analysis deployed across partner clinics.',
+    tag: 'Medical AI Systems',
+  },
+  {
+    icon: Zap,
+    title: 'Smart Energy & Infrastructure',
+    desc: 'Forecasting power grid surge anomalies, localized microgrid load shedding schedules, and renewable power dispatch with transformer models.',
+    tag: 'Grid Intelligence',
+  },
+  {
+    icon: Code,
+    title: 'Efficient Computing & TinyML',
+    desc: 'Hardware-aware neural architecture search (NAS), INT8 quantization, and ultra-low-latency deployment on FPGAs and embedded SoCs.',
+    tag: 'TinyML & Edge Acceleration',
+  },
+  {
+    icon: LineChart,
+    title: 'AI Safety & Alignment',
+    desc: 'Ensuring robust, unbiased, and safe deployment of intelligent systems in critical healthcare, power grids, and national infrastructure.',
+    tag: 'AI Safety',
   },
 ]
 
-const faqs = [
-  {
-    q: 'What is the right fellowship or collaboration track for me?',
-    a: 'We offer specialized tracks for postgraduate researchers (12B+ foundation models), undergraduate scholars (edge robotics & CV), and industrial partners (custom model alignment, on-prem deployments, and sponsored labs).',
-  },
-  {
-    q: 'How do compute allocations work on the lab supercluster?',
-    a: 'Selected fellows and verified projects receive dedicated SLURM partitions on high-performance compute clusters interconnected via high-speed fabric for multi-node distributed pretraining.',
-  },
-  {
-    q: 'Can researchers access additional GPU hours at any time?',
-    a: 'Yes. High-priority training jobs and paper submission deadlines receive priority burst quotas through our automated compute scheduler.',
-  },
-  {
-    q: 'How can outside teams and enterprise partners collaborate with AIR Lab?',
-    a: 'Enterprise partners sponsor dedicated research cohorts with zero-data-retention guarantees, custom network security policies, and specialized model fine-tuning tailored to industrial applications.',
-  },
-  {
-    q: 'Where can I view our open-source weights and documentation?',
-    a: 'All peer-reviewed model checkpoints, tokenizers, and benchmark evaluation suites are published publicly on our Hugging Face and GitHub repositories under permissive open-weights licenses.',
-  },
-  {
-    q: 'What happens when my project is accepted for IEEE/CVF publication?',
-    a: 'AIR Lab fully supports conference travel grants, presentation registration fees, and open-access publication costs for authors presenting at flagship venues.',
-  },
+const institutionalPartners = [
+  'Google DeepMind',
+  'OpenAI',
+  'Meta AI',
+  'Hugging Face',
+  'Stanford HAI',
+  'MIT CSAIL',
+  'Ignite NCBC',
+  'HEC Pakistan',
+  'NED University CSIT',
 ]
 
 export default function Home() {
-  const [activeSlide, setActiveSlide] = useState(0)
+  const [activePipelineIdx, setActivePipelineIdx] = useState(0)
   const [applyModalOpen, setApplyModalOpen] = useState(false)
 
-  const nextSlide = () => {
-    setActiveSlide(prev => (prev + 1) % featuredProjects.length)
-  }
-
-  const prevSlide = () => {
-    setActiveSlide(prev => (prev - 1 + featuredProjects.length) % featuredProjects.length)
-  }
-
-  const currentProject = featuredProjects[activeSlide]
+  const activePipeline = interactivePipelines[activePipelineIdx]
 
   return (
-    <div className="w-full relative overflow-hidden">
-      {/* ── 1. HERO SECTION (Centered, Aurora behind H1) ── */}
-      <section className="relative pt-20 pb-28 md:pt-28 md:pb-36 px-6 text-center flex flex-col items-center">
-        {/* Reusable Aurora Background centered vertically on hero */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[1100px] pointer-events-none -z-10">
-          <AuroraBackground />
-        </div>
+    <div className="w-full relative font-sans text-[var(--text-primary)] overflow-hidden">
+      {/* ── Ambient Background Color Glows (Subtle Orange to Purple Gradient) ── */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-[720px] pointer-events-none overflow-hidden z-0 select-none" aria-hidden="true">
+        {/* Subtle Orange Glow top right */}
+        <div className="absolute top-12 right-[-6%] w-[540px] h-[540px] rounded-full bg-[var(--accent-orange)]/10 blur-[130px]" />
+        
+        {/* Subtle Electric Purple Glow top left */}
+        <div className="absolute top-20 left-[-8%] w-[500px] h-[500px] rounded-full bg-[var(--accent-purple)]/10 blur-[130px]" />
 
-        {/* Small pill badge above H1: white, hairline border, tiny icon + "NEDUET · CSIT" */}
-        <SectionReveal delay={0}>
-          <div className="inline-flex items-center mb-6">
-            <Badge variant="white" icon={<Sparkles className="w-3.5 h-3.5" />}>
-              NEDUET · CSIT
-            </Badge>
-          </div>
-        </SectionReveal>
+        {/* Core Muted Aura */}
+        <div className="absolute top-44 left-[20%] w-[440px] h-[440px] rounded-full bg-[var(--bg-backdrop)]/35 blur-[120px]" />
+      </div>
 
-        {/* H1: Centered, two lines, huge, tight */}
-        <SectionReveal delay={0.08}>
-          <h1 className="max-w-4xl mx-auto font-head font-medium tracking-tight text-[var(--ink)] mb-6 text-balance">
-            Extend your intelligence with a full team of researchers.
-          </h1>
-        </SectionReveal>
-
-        {/* Subhead: 18px ink-2, max-width 560px */}
-        <SectionReveal delay={0.16}>
-          <p className="text-[17px] sm:text-[18px] text-[var(--ink-2)] max-w-[560px] mx-auto leading-relaxed mb-8 font-normal font-sans text-balance">
-            Pioneering foundational artificial intelligence, real-time edge perception, and autonomous robotics at NED University of Engineering & Technology.
-          </p>
-        </SectionReveal>
-
-        {/* Two buttons: black pill "Explore Research →" + soft outline pill "Meet the Team" */}
-        <SectionReveal delay={0.22}>
-          <div className="flex flex-wrap items-center justify-center gap-3.5 mb-10">
-            <Button to="/projects" variant="primary" size="md" arrow>
-              Explore Research
-            </Button>
-            <Button to="/team" variant="secondary" size="md">
-              Meet the Team
-            </Button>
-          </div>
-        </SectionReveal>
-
-        {/* One line of small gray trust chips with tiny check/dot icons */}
-        <SectionReveal delay={0.28}>
-          <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-[13px] text-[var(--ink-2)]">
-            <div className="inline-flex items-center gap-1.5">
-              <Check className="w-3.5 h-3.5 text-[var(--ink-3)]" />
-              <span>Funded research projects</span>
-            </div>
-            <div className="inline-flex items-center gap-1.5">
-              <Check className="w-3.5 h-3.5 text-[var(--ink-3)]" />
-              <span>Research interns & fellows</span>
-            </div>
-            <div className="inline-flex items-center gap-1.5">
-              <Check className="w-3.5 h-3.5 text-[var(--ink-3)]" />
-              <span>Industry collaborations</span>
-            </div>
-            <div className="inline-flex items-center gap-1.5">
-              <Check className="w-3.5 h-3.5 text-[var(--ink-3)]" />
-              <span>Peer-reviewed publications</span>
-            </div>
-          </div>
-        </SectionReveal>
-      </section>
-
-      {/* ── 2. LOGO / COLLABORATOR STRIP ── */}
-      <section className="w-full border-y border-[var(--line)] bg-[var(--surface)] py-7 px-6">
-        <div className="max-w-[1200px] mx-auto">
-          <div className="flex flex-wrap items-center justify-between gap-6 sm:gap-10">
-            {collaborators.map((name, idx) => (
-              <span
-                key={idx}
-                className="logo-grayscale font-head text-[14px] sm:text-[15px] font-semibold tracking-tight text-[var(--ink)] cursor-default select-none"
-              >
-                {name}
+      {/* ── 1. HERO SECTION (Neo-Grotesk Display Typography & Clean Layout) ── */}
+      <section className="pt-20 pb-16 sm:pt-28 sm:pb-20 px-6 max-w-[1140px] mx-auto text-left relative z-10">
+        <div className="max-w-4xl">
+          {/* Eyebrow Label */}
+          <SectionReveal delay={0}>
+            <div className="mb-6 flex flex-wrap items-center gap-2">
+              <span className="px-2.5 py-1 text-[11px] font-mono font-semibold bg-[var(--accent-orange-light)] text-[var(--accent-orange)] rounded-[2px] border border-[var(--accent-orange)]/20 flex items-center gap-1.5 shadow-xs">
+                <span className="w-2 h-2 rounded-full bg-[var(--accent-orange)] animate-pulse" />
+                Pioneering Intelligence
               </span>
-            ))}
-          </div>
-        </div>
-      </section>
+              <span className="text-xs font-mono text-[var(--text-muted)]">
+                NED University · Department of CSIT
+              </span>
+            </div>
+          </SectionReveal>
 
-      {/* ── 3. SECTION INTRO ("What we do" style) ── */}
-      <section className="pt-24 sm:pt-32 pb-12 px-6">
-        <div className="max-w-[1200px] mx-auto text-left">
-          <SectionReveal>
-            <h2 className="font-head font-medium text-[var(--ink)] mb-3 tracking-tight">
-              Enterprise AI that just works.
-            </h2>
-            <p className="text-[17px] sm:text-[18px] text-[var(--ink-2)] max-w-xl font-normal leading-relaxed">
-              Security, governance, and computational scalability built in from day one. Deploy with confidence across your organization.
+          {/* Main Headline */}
+          <SectionReveal delay={0.06}>
+            <h1 className="font-head font-bold tracking-tight text-[var(--text-primary)] mb-6 text-left leading-[1.05] text-4xl sm:text-6xl md:text-7xl">
+              Artificial Intelligence
+              <div className="mt-3 flex items-center">
+                <CornerBracket tag="NEDUET CSIT" tagColor="bg-[var(--accent-orange)] text-white">
+                  Research Lab
+                </CornerBracket>
+              </div>
+            </h1>
+          </SectionReveal>
+
+          {/* Subtitle */}
+          <SectionReveal delay={0.12}>
+            <p className="text-[17px] sm:text-[19px] text-[var(--text-muted)] max-w-2xl leading-relaxed mb-8 font-normal text-left">
+              Building next-generation models and intelligent systems at NED University. We bridge the gap between theoretical research and real-world impact.
             </p>
           </SectionReveal>
+
+          {/* Action Buttons */}
+          <SectionReveal delay={0.18}>
+            <div className="flex flex-wrap items-center gap-3.5 mb-14">
+              <Button to="/projects" variant="primary" size="lg" arrow>
+                Explore Projects
+              </Button>
+              <Button to="/team" variant="secondary" size="lg">
+                Meet Core Team
+              </Button>
+            </div>
+          </SectionReveal>
         </div>
+
+        {/* ── Real Lab Stats Strip with Top Hairline Gradient Highlight ── */}
+        <SectionReveal delay={0.24}>
+          <div className="relative rounded-[4px] overflow-hidden bg-[var(--bg-surface)] backdrop-blur-xs border border-[var(--border-hairline)] shadow-sm">
+            <div className="h-[2px] w-full bg-gradient-to-r from-[var(--accent-orange)] via-[var(--accent-purple)] to-[var(--accent-orange)]" />
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 p-4 sm:p-6">
+            {labStats.map((stat, i) => (
+              <div
+                key={i}
+                className="p-3 border-r border-[var(--border-hairline)] last:border-r-0 text-left rounded-[2px] transition-all duration-200 hover:-translate-y-1 hover:scale-[1.02] hover:bg-[var(--bg-page)]"
+              >
+                <div className="text-2xl sm:text-4xl font-bold font-mono text-[var(--accent-orange)] tracking-tight">
+                  {stat.value}
+                </div>
+                <div className="text-xs sm:text-sm font-semibold text-[var(--text-primary)] mt-1 font-head">
+                  {stat.label}
+                </div>
+                <div className="text-[11px] text-[var(--text-subtle)] font-mono mt-0.5 line-clamp-1">
+                  {stat.desc}
+                </div>
+              </div>
+            ))}
+            </div>
+          </div>
+        </SectionReveal>
       </section>
 
-      {/* ── 4. FEATURED PANEL (Large rounded 32px container with soft aurora background) ── */}
-      <section className="pb-24 sm:pb-32 px-6">
-        <div className="max-w-[1200px] mx-auto">
-          <SectionReveal>
-            <div
-              className="relative rounded-[32px] p-4 sm:p-7 md:p-9 border border-[var(--line)] overflow-hidden shadow-[var(--shadow-card)]"
-              style={{
-                background:
-                  'linear-gradient(135deg, rgba(79,139,255,0.12) 0%, rgba(139,123,255,0.10) 22%, rgba(242,92,193,0.12) 48%, rgba(255,122,69,0.11) 75%, rgba(255,210,77,0.12) 100%)',
-              }}
-            >
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch min-h-[420px]">
-                {/* Left Inset Card (20px radius) */}
-                <div className="lg:col-span-6 bg-[var(--surface)] border border-[var(--line)] rounded-[20px] p-6 sm:p-8 flex flex-col justify-between shadow-[var(--shadow-sm)]">
-                  <div>
-                    <div className="flex items-center gap-2 mb-4">
-                      <span className="h-6 px-2.5 rounded-full bg-[#F4F4F6] text-[11px] font-medium text-[var(--ink-2)] border border-[var(--line)]">
-                        {currentProject.tag}
-                      </span>
-                      <span className="h-6 px-2.5 rounded-full bg-[#0B0B0F] text-white text-[11px] font-medium">
-                        {currentProject.badge}
-                      </span>
-                    </div>
+      {/* ── 2. NEURAL ARCHITECTURE WORKBENCH PANEL ── */}
+      <section className="px-4 sm:px-6 mb-24 max-w-[1180px] mx-auto relative z-10">
+        <div className="rounded-[4px] p-4 sm:p-8 md:p-10 bg-[var(--bg-backdrop)] border border-[var(--border-hairline)] shadow-xl">
+          {/* Top Domain Switcher Bar */}
+          <div className="mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-left">
+            <div className="flex items-center gap-2">
+              <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-[var(--text-primary)] bg-[var(--bg-surface)] px-2.5 py-1 rounded-[2px] flex items-center gap-1.5 border border-[var(--border-hairline)]">
+                <Sparkles className="w-3.5 h-3.5 text-[var(--accent-orange)]" />
+                INTERACTIVE LAB BENCHMARK RUN:
+              </span>
+            </div>
 
-                    <h3 className="text-[22px] sm:text-[26px] font-medium font-head text-[var(--ink)] mb-3 leading-snug">
-                      {currentProject.title}
-                    </h3>
+            {/* Rectangular Domain Tabs */}
+            <div className="flex flex-wrap items-center gap-1.5 bg-[var(--bg-surface)] p-1 rounded-[2px] border border-[var(--border-hairline)] shadow-xs">
+              {interactivePipelines.map((pipe, idx) => {
+                const isActive = activePipelineIdx === idx
+                return (
+                  <button
+                    key={pipe.id}
+                    onClick={() => setActivePipelineIdx(idx)}
+                    className={`h-7 px-3 text-xs font-mono font-medium rounded-[2px] transition-all cursor-pointer whitespace-nowrap ${
+                      isActive
+                        ? 'bg-[var(--accent-orange)] text-white shadow-xs'
+                        : 'text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-page)]'
+                    }`}
+                  >
+                    {pipe.tabName}
+                  </button>
+                )
+              })}
+            </div>
+          </div>
 
-                    <p className="text-[14.5px] text-[var(--ink-2)] leading-relaxed mb-6 font-sans">
-                      {currentProject.desc}
-                    </p>
+          {/* Interactive Mock Window */}
+          <div className="ft-window bg-[var(--bg-surface)] rounded-[4px] overflow-hidden border border-[var(--border-hairline)] shadow-2xl text-left">
+            {/* Window Header */}
+            <div className="h-10 bg-[var(--bg-page)] border-b border-[var(--border-hairline)] px-4 flex items-center justify-between gap-4">
+              <div className="flex items-center gap-2">
+                <span className="w-2.5 h-2.5 rounded-full bg-[var(--accent-orange)]" />
+                <span className="w-2.5 h-2.5 rounded-full bg-[var(--accent-purple)]" />
+                <span className="w-2.5 h-2.5 rounded-full bg-[var(--border-hairline-dark)]" />
+              </div>
+
+              {/* URL Pill */}
+              <div className="flex-1 max-w-md mx-auto hidden sm:flex items-center justify-center">
+                <div className="h-6 px-3 rounded-[2px] bg-[var(--bg-surface)] border border-[var(--border-hairline)] text-[11px] font-mono text-[var(--text-muted)] flex items-center gap-1.5 w-full justify-center">
+                  <Lock className="w-3 h-3 text-[var(--accent-orange)]" />
+                  <span>airlab.neduet.edu.pk/models/{activePipeline.id}</span>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-2 text-[11px] font-mono text-[var(--text-subtle)]">
+                <span className="w-2 h-2 rounded-full bg-[var(--accent-orange)] animate-pulse" />
+                <span className="hidden sm:inline">Telemetry Streaming</span>
+              </div>
+            </div>
+
+            {/* Dotted Grid Workbench Canvas */}
+            <div className="p-6 sm:p-8 ft-dotted-grid bg-[var(--bg-surface)] relative">
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                {/* Left: Model Diagnostics & Architecture */}
+                <div className="lg:col-span-7 space-y-5">
+                  <div className="flex items-center gap-2">
+                    <span className="px-2 py-0.5 rounded-[2px] text-[10px] font-mono font-bold bg-[var(--accent-orange-light)] text-[var(--accent-orange)] border border-[var(--accent-orange)]/20">
+                      {activePipeline.status}
+                    </span>
+                    <span className="text-xs font-mono text-[var(--text-subtle)]">{activePipeline.domain}</span>
                   </div>
 
-                  <div className="pt-6 border-t border-[var(--line)] flex items-center justify-between gap-4">
-                    {/* Prev / Next Small Square White Buttons with 1px border */}
-                    <div className="flex items-center gap-2">
-                      <button
-                        onClick={prevSlide}
-                        aria-label="Previous featured project"
-                        className="w-8 h-8 rounded-lg bg-[var(--surface)] border border-[var(--line)] flex items-center justify-center text-[var(--ink)] hover:border-[rgba(11,11,15,0.25)] hover:shadow-xs transition-all cursor-pointer"
-                      >
-                        <ChevronLeft className="w-4 h-4" />
-                      </button>
-                      <button
-                        onClick={nextSlide}
-                        aria-label="Next featured project"
-                        className="w-8 h-8 rounded-lg bg-[var(--surface)] border border-[var(--line)] flex items-center justify-center text-[var(--ink)] hover:border-[rgba(11,11,15,0.25)] hover:shadow-xs transition-all cursor-pointer"
-                      >
-                        <ChevronRight className="w-4 h-4" />
-                      </button>
-                      <span className="text-xs text-[var(--ink-3)] font-mono ml-1">
-                        0{activeSlide + 1} / 0{featuredProjects.length}
-                      </span>
-                    </div>
+                  <h3 className="font-head text-xl sm:text-2xl font-bold text-[var(--text-primary)] leading-snug">
+                    {activePipeline.title}
+                  </h3>
 
-                    {/* Action button */}
-                    <Link
-                      to="/projects"
-                      className="inline-flex items-center gap-1.5 text-xs font-semibold text-[var(--ink)] hover:text-[#4F8BFF] transition-colors"
-                    >
-                      <span>Explore Projects</span>
-                      <ArrowRight className="w-3.5 h-3.5" />
-                    </Link>
+                  {/* Telemetry Stats Pill Grid */}
+                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                    <div className="p-3 rounded-[2px] bg-[var(--bg-surface)] border border-[var(--border-hairline)]">
+                      <div className="text-[10px] font-mono text-[var(--text-subtle)] uppercase">Dataset Corpus</div>
+                      <div className="text-xs font-bold text-[var(--text-primary)] mt-0.5 truncate">{activePipeline.dataset}</div>
+                    </div>
+                    <div className="p-3 rounded-[2px] bg-[var(--bg-surface)] border border-[var(--border-hairline)]">
+                      <div className="text-[10px] font-mono text-[var(--text-subtle)] uppercase">Hardware Node</div>
+                      <div className="text-xs font-bold text-[var(--text-primary)] mt-0.5 truncate">{activePipeline.computeCluster}</div>
+                    </div>
+                    <div className="p-3 rounded-[2px] bg-[var(--bg-surface)] border border-[var(--border-hairline)]">
+                      <div className="text-[10px] font-mono text-[var(--text-subtle)] uppercase">SOTA Gain</div>
+                      <div className="text-xs font-bold text-[var(--accent-orange)] mt-0.5">{activePipeline.metrics.accuracy}</div>
+                    </div>
+                  </div>
+
+                  {/* Interactive Pipeline Sequence */}
+                  <div className="p-4 rounded-[2px] bg-[var(--bg-surface)] border border-[var(--border-hairline)] space-y-2.5">
+                    <div className="text-xs font-mono font-bold text-[var(--text-primary)] uppercase tracking-wider flex items-center gap-1.5">
+                      <Activity className="w-3.5 h-3.5 text-[var(--accent-purple)]" />
+                      Three-Stage Deployment Verification
+                    </div>
+                    <div className="space-y-2">
+                      {activePipeline.inspectorSteps.map((step, idx) => (
+                        <div key={idx} className="flex items-start gap-2.5 text-xs text-[var(--text-muted)]">
+                          <span className="font-mono font-bold text-[var(--accent-purple)] shrink-0 mt-0.5">0{idx + 1}.</span>
+                          <span>{step}</span>
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 </div>
 
-                {/* Right Half: Light-gray (#EDEDF0) rounded media tile with centered floating button */}
-                <div className="lg:col-span-6 bg-[#EDEDF0] rounded-[20px] border border-[rgba(11,11,15,0.06)] p-8 sm:p-12 flex flex-col items-center justify-center relative overflow-hidden min-h-[300px]">
-                  {/* Subtle decorative dot lattice */}
-                  <div
-                    className="absolute inset-0 opacity-40 pointer-events-none"
-                    style={{
-                      backgroundImage: 'radial-gradient(circle, rgba(11,11,15,0.15) 1px, transparent 1px)',
-                      backgroundSize: '18px 18px',
-                    }}
-                  />
-
-                  {/* Centered Floating Black Pill Button + Small White Icon Tile (matching reference) */}
-                  <div className="relative z-10 flex items-center gap-3">
-                    {/* Small white icon tile */}
-                    <motion.div
-                      whileHover={{ scale: 1.05 }}
-                      className="w-11 h-11 rounded-xl bg-white border border-[var(--line)] shadow-[var(--shadow-sm)] flex items-center justify-center text-[var(--ink)] shrink-0"
-                    >
-                      <User className="w-5 h-5 text-[var(--ink-2)]" />
-                    </motion.div>
-
-                    {/* Centered floating black pill button */}
-                    <motion.button
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
-                      onClick={() => setApplyModalOpen(true)}
-                      className="h-11 px-5 rounded-full bg-[#0B0B0F] text-white shadow-[0_4px_16px_rgba(11,11,15,0.15)] flex items-center gap-2 text-xs font-medium cursor-pointer"
-                    >
-                      <Send className="w-3.5 h-3.5" />
-                      <span>Publish & Deploy</span>
-                    </motion.button>
+                {/* Right: Simulated Model Architecture Card */}
+                <div className="lg:col-span-5 bg-[var(--text-primary)] text-white p-5 rounded-[2px] border border-[var(--text-primary)] shadow-lg font-mono text-xs space-y-4">
+                  <div className="flex items-center justify-between pb-3 border-b border-gray-800 text-[11px] text-gray-400">
+                    <span className="flex items-center gap-1.5">
+                      <Terminal className="w-3.5 h-3.5 text-[var(--accent-orange)]" />
+                      airlab-eval --weights --sota
+                    </span>
+                    <span className="text-[var(--accent-orange)]">PASSED</span>
                   </div>
 
-                  {/* Floating metric chip */}
-                  <div className="mt-8 relative z-10 px-3 py-1 rounded-full bg-white/80 backdrop-blur-sm border border-[var(--line)] text-[11px] text-[var(--ink-2)] font-mono">
-                    Active Benchmark: <span className="font-semibold text-[var(--ink)]">{currentProject.metric}</span>
+                  <div className="space-y-2 text-[11px]">
+                    <div className="flex justify-between">
+                      <span className="text-gray-400">Inference Throughput:</span>
+                      <span className="text-[var(--accent-orange)] font-bold">{activePipeline.throughput}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-gray-400">Measured Latency:</span>
+                      <span className="text-white font-bold">{activePipeline.metrics.latency}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-gray-400">Convergence Rate:</span>
+                      <span className="text-gray-300">{activePipeline.lossRate}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-gray-400">Licensing:</span>
+                      <span className="text-gray-300">Open Academic Apache-2.0</span>
+                    </div>
+                  </div>
+
+                  <div className="pt-3 border-t border-gray-800 flex items-center justify-between">
+                    <Link
+                      to="/projects"
+                      className="inline-flex items-center gap-1 text-[11px] text-[var(--accent-orange)] hover:underline"
+                    >
+                      Inspect Full Architecture <ArrowRight className="w-3 h-3" />
+                    </Link>
+                    <span className="text-[10px] text-gray-500">v2026.4</span>
                   </div>
                 </div>
               </div>
             </div>
-          </SectionReveal>
-        </div>
-      </section>
-
-      {/* ── 5. CARDS GRID (3-up white cards, 28px radius, hairline border, shadow) ── */}
-      <section className="pb-24 sm:pb-32 px-6">
-        <div className="max-w-[1200px] mx-auto">
-          <SectionReveal>
-            <div className="mb-12 text-left">
-              <h2 className="font-head font-medium text-[var(--ink)] mb-3 tracking-tight">
-                Pioneering Pillars & Research Capabilities
-              </h2>
-              <p className="text-[17px] text-[var(--ink-2)] max-w-xl font-normal">
-                Disciplined engineering, rigorous scientific inquiry, and open scientific contributions.
-              </p>
-            </div>
-          </SectionReveal>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {cardFeatures.map((item, idx) => {
-              const Icon = item.icon
-              return (
-                <SectionReveal key={idx} staggerIndex={idx}>
-                  <Link
-                    to={item.link}
-                    className="craftly-card p-8 flex flex-col justify-between group h-full block cursor-pointer"
-                  >
-                    <div>
-                      {/* Icon in rounded chip */}
-                      <div className="w-12 h-12 rounded-xl bg-[#F4F4F6] border border-[var(--line)] flex items-center justify-center text-[var(--ink)] mb-6 group-hover:bg-[#EBEBEF] transition-colors">
-                        <Icon className="w-5 h-5 text-[var(--ink)]" />
-                      </div>
-
-                      <h3 className="font-head text-[20px] font-medium text-[var(--ink)] mb-2.5">
-                        {item.title}
-                      </h3>
-
-                      <p className="text-[14.5px] text-[var(--ink-2)] leading-relaxed font-sans font-normal">
-                        {item.desc}
-                      </p>
-                    </div>
-
-                    {/* Subtle arrow that nudges right on hover */}
-                    <div className="pt-6 mt-6 border-t border-[var(--line)] flex items-center justify-between text-xs font-medium text-[var(--ink)]">
-                      <span>Explore domain</span>
-                      <ArrowRight className="w-4 h-4 text-[var(--ink-3)] group-hover:text-[var(--ink)] transition-transform duration-200 group-hover:translate-x-1" />
-                    </div>
-                  </Link>
-                </SectionReveal>
-              )
-            })}
           </div>
         </div>
       </section>
 
-      {/* ── 6. FAQ (Accordion with hairline dividers, question left / + rotating to ×) ── */}
-      <section className="pb-24 sm:pb-36 px-6">
-        <div className="max-w-[840px] mx-auto text-left">
-          <SectionReveal>
-            <div className="mb-10">
-              <h2 className="font-head font-medium text-[var(--ink)] mb-3 tracking-tight">
-                Frequently Asked Questions
-              </h2>
-              <p className="text-[16px] text-[var(--ink-2)] font-normal">
-                Everything you need to know about joining AIR Lab, research grants, compute clusters, and publication guidelines.
+      {/* ── 3. STRATEGIC & ACADEMIC ALLIANCES (Strip) ── */}
+      <section className="py-10 border-y border-[var(--border-hairline)] bg-[var(--bg-surface)] mb-20 overflow-hidden text-left relative z-10">
+        <div className="max-w-[1140px] mx-auto px-6">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+            <span className="text-xs font-mono font-bold tracking-wider text-[var(--text-subtle)] uppercase shrink-0">
+              Compute & Academic Partners:
+            </span>
+            <div className="flex flex-wrap items-center gap-6 sm:gap-8">
+              {institutionalPartners.map((partner, i) => (
+                <span
+                  key={i}
+                  className="text-sm sm:text-base font-head font-medium text-[var(--text-muted)] hover:text-[var(--accent-orange)] transition-colors cursor-default"
+                >
+                  {partner}
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── 4. RESEARCH INITIATIVES (6 Sharp Cards) ── */}
+      <section className="py-12 px-6 max-w-[1140px] mx-auto mb-20 text-left relative z-10">
+        {/* Subtle background color auras */}
+        <div className="absolute -top-16 -left-12 w-80 h-80 rounded-full bg-[var(--accent-orange)]/8 blur-[100px] pointer-events-none" aria-hidden="true" />
+        <div className="absolute top-1/2 -right-12 w-80 h-80 rounded-full bg-[var(--accent-purple)]/8 blur-[100px] pointer-events-none" aria-hidden="true" />
+
+        <div className="max-w-2xl mb-12 relative z-10">
+          <span className="text-xs font-mono uppercase font-bold text-[var(--accent-purple)]">
+            LAB INITIATIVES
+          </span>
+          <h2 className="text-3xl sm:text-4xl font-head font-normal text-[var(--text-primary)] tracking-tight mt-1">
+            Core Research Areas
+          </h2>
+          <p className="text-sm sm:text-base text-[var(--text-muted)] mt-2">
+            Exploring the frontiers of machine learning, natural language processing, edge computer vision, and autonomous robotics.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 relative z-10">
+          {coreResearchAreas.map((area, idx) => {
+            const Icon = area.icon
+            return (
+              <div
+                key={idx}
+                className="p-6 bg-[var(--bg-surface)] border border-[var(--border-hairline)] rounded-[4px] flex flex-col justify-between hover:border-[var(--accent-purple)] hover:shadow-xl hover:-translate-y-2 hover:scale-[1.02] transition-all duration-200 group cursor-pointer"
+              >
+                <div>
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="w-10 h-10 rounded-[2px] bg-[var(--accent-purple-light)] text-[var(--accent-purple)] flex items-center justify-center group-hover:scale-110 transition-transform">
+                      <Icon className="w-5 h-5" />
+                    </div>
+                    <span className="text-[10px] font-mono text-[var(--text-muted)] uppercase px-2 py-0.5 bg-[var(--bg-page)] rounded-[2px] border border-[var(--border-hairline)]">
+                      {area.tag}
+                    </span>
+                  </div>
+
+                  <h3 className="font-head font-medium text-lg text-[var(--text-primary)] group-hover:text-[var(--accent-orange)] transition-colors mb-2">
+                    {area.title}
+                  </h3>
+
+                  <p className="text-xs sm:text-sm text-[var(--text-muted)] leading-relaxed font-normal">
+                    {area.desc}
+                  </p>
+                </div>
+
+                <div className="pt-4 mt-4 border-t border-[var(--border-hairline)] flex items-center justify-between text-xs font-mono font-medium text-[var(--accent-orange)]">
+                  <Link to="/projects" className="inline-flex items-center gap-1 hover:underline">
+                    <span>Explore domain</span>
+                    <span className="text-[11px] leading-none">↳</span>
+                  </Link>
+                </div>
+              </div>
+            )
+          })}
+        </div>
+      </section>
+
+      {/* ── 5. FULL-WIDTH ORANGE CTA / NEWSLETTER BAND (Matching Reference Screenshot) ── */}
+      <section className="py-16 px-6 max-w-[1140px] mx-auto text-left mb-20 relative z-10">
+        <div className="bg-[var(--accent-orange)] text-white rounded-[4px] p-8 sm:p-12 relative overflow-hidden transition-all duration-200 shadow-xl border border-[var(--accent-orange)]">
+          <div className="max-w-3xl relative z-10">
+            <div className="flex items-center gap-2 text-white/90 font-mono font-semibold uppercase text-xs mb-3">
+              <div className="w-6 h-[2px] bg-white" />
+              ABOUT AIR LAB · NED UNIVERSITY
+            </div>
+            <h2 className="text-2xl sm:text-4xl font-head font-normal text-white tracking-tight mb-4">
+              Empowering Regional AI Innovation at NED University
+            </h2>
+            <div className="space-y-4 text-sm sm:text-base text-white/90 leading-relaxed font-normal">
+              <p>
+                The Artificial Intelligence Research Lab (AIR Lab) at NED University is dedicated to pushing the boundaries of machine learning, natural language processing, and computer vision.
+              </p>
+              <p>
+                Our mission is to develop foundational models optimized for the region's unique linguistic and infrastructural challenges, ensuring AI benefits all segments of society.
               </p>
             </div>
-          </SectionReveal>
 
-          <SectionReveal delay={0.1}>
-            <Accordion items={faqs} />
-          </SectionReveal>
-        </div>
-      </section>
-
-      {/* ── 7. CLOSING CTA ("Let's talk deployment" style) ── */}
-      <section className="relative py-24 sm:py-32 px-6 text-center overflow-hidden border-t border-[var(--line)] bg-[var(--surface)]">
-        {/* Aurora band bloom behind at low opacity */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[800px] pointer-events-none -z-10 opacity-40 blur-[80px]">
-          <div
-            className="w-[90vw] max-w-[800px] h-[300px] rounded-full mx-auto"
-            style={{ background: 'var(--aurora)' }}
-          />
-        </div>
-
-        <div className="max-w-[700px] mx-auto relative z-10">
-          <SectionReveal>
-            <h2 className="font-head font-medium text-[var(--ink)] mb-4 tracking-tight">
-              Let's talk deployment.
-            </h2>
-            <p className="text-[17px] sm:text-[18px] text-[var(--ink-2)] leading-relaxed mb-8 max-w-xl mx-auto font-normal">
-              Whether you are an enterprise seeking high-performance AI deployment, a university scholar, or a prospective fellow — let's build together.
-            </p>
-            <div className="flex flex-wrap items-center justify-center gap-3.5">
-              <Button onClick={() => setApplyModalOpen(true)} variant="primary" size="md" arrow>
-                Apply for Fellowship
+            <div className="mt-8 pt-6 border-t border-white/20 flex flex-wrap gap-4">
+              <Button to="/team" variant="secondary" size="md" className="bg-white text-[var(--text-primary)] hover:bg-gray-100 border-white">
+                Meet the Team
               </Button>
-              <Button href="mailto:contact@airlab.neduet.edu.pk" variant="secondary" size="md">
-                Contact Lab Team
-              </Button>
+              <button
+                onClick={() => setApplyModalOpen(true)}
+                className="h-9 px-4 rounded-[2px] border border-white text-white hover:bg-white/10 text-[13px] font-medium tracking-tight transition-colors cursor-pointer inline-flex items-center gap-1.5"
+              >
+                <span>Apply for Vacancy</span>
+                <span className="text-[12px] leading-none">↳</span>
+              </button>
             </div>
-          </SectionReveal>
+          </div>
         </div>
       </section>
 
-      {/* Student Application Modal */}
+      {/* Student Fellowship Modal */}
       <StudentApplicationModal
         isOpen={applyModalOpen}
         onClose={() => setApplyModalOpen(false)}

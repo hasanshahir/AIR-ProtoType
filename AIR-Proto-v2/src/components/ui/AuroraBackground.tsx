@@ -60,11 +60,11 @@ export const AuroraBackground: React.FC<AuroraBackgroundProps> = ({
       aria-hidden="true"
     >
       <div
-        className="w-[90vw] max-w-[1000px] h-[340px] sm:h-[420px] rounded-[100%] opacity-90 blur-[75px] sm:blur-[90px] animate-aurora-drift"
+        className="w-[90vw] max-w-[1000px] h-[320px] sm:h-[400px] rounded-[100%] opacity-55 blur-[85px] sm:blur-[105px] animate-aurora-drift"
         style={{
           background: 'var(--aurora)',
-          maskImage: 'radial-gradient(ellipse 65% 55% at 50% 50%, black 25%, transparent 80%)',
-          WebkitMaskImage: 'radial-gradient(ellipse 65% 55% at 50% 50%, black 25%, transparent 80%)',
+          maskImage: 'radial-gradient(ellipse 65% 55% at 50% 50%, black 20%, transparent 80%)',
+          WebkitMaskImage: 'radial-gradient(ellipse 65% 55% at 50% 50%, black 20%, transparent 80%)',
           transformOrigin: 'center center',
         }}
       />
