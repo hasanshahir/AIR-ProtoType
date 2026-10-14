@@ -10,6 +10,7 @@ import {
   CheckCircle2,
   Clock,
   Users,
+  User,
   ExternalLink,
 } from 'lucide-react'
 import { Link } from 'react-router-dom'
@@ -215,7 +216,7 @@ export default function Projects() {
                     {proj.description}
                   </p>
 
-                  {/* Metadata table (Dates & Grant source) */}
+                  {/* Metadata table (Dates, Grant source, PI & Team) */}
                   <div className="p-2.5 rounded-[2px] bg-[var(--bg-page)] border border-[var(--border-hairline)] space-y-1.5 text-[11px] font-mono text-[var(--text-muted)] mb-4">
                     <div className="flex items-center justify-between">
                       <span className="text-[var(--text-subtle)] flex items-center gap-1">
@@ -237,6 +238,39 @@ export default function Projects() {
                         {proj.funding} &rarr;
                       </Link>
                     </div>
+                    {proj.pi && (
+                      <div className="flex items-center justify-between">
+                        <span className="text-[var(--text-subtle)] flex items-center gap-1">
+                          <User className="w-3 h-3 text-[var(--accent-purple)]" /> PI:
+                        </span>
+                        <span className="text-[var(--text-primary)] font-semibold truncate max-w-[170px]">
+                          {proj.pi}
+                        </span>
+                      </div>
+                    )}
+                    {proj.grantAmount && proj.grantAmount !== 'NA' && (
+                      <div className="flex items-center justify-between">
+                        <span className="text-[var(--text-subtle)]">Grant Amount:</span>
+                        <span className="text-emerald-600 font-bold">{proj.grantAmount}</span>
+                      </div>
+                    )}
+                    {proj.teamMembers && proj.teamMembers.length > 0 && (
+                      <div className="pt-1.5 border-t border-[var(--border-hairline)]">
+                        <span className="text-[var(--text-subtle)] block mb-1">Students & Researchers:</span>
+                        <div className="flex flex-wrap gap-1">
+                          {proj.teamMembers.slice(0, 3).map((tm, idx) => (
+                            <span key={idx} className="px-1.5 py-0.5 rounded-[2px] bg-[var(--bg-surface)] text-[10px] text-[var(--text-primary)] border border-[var(--border-hairline)]">
+                              {tm}
+                            </span>
+                          ))}
+                          {proj.teamMembers.length > 3 && (
+                            <span className="px-1.5 py-0.5 rounded-[2px] bg-[var(--bg-surface)] text-[10px] text-[var(--accent-orange)] border border-[var(--border-hairline)]">
+                              +{proj.teamMembers.length - 3} more
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </div>
 
@@ -343,6 +377,7 @@ export default function Projects() {
                         <span className="text-[var(--text-subtle)] block mb-1">PROJECT TIMELINE</span>
                         <span className="font-semibold text-[var(--text-primary)]">
                           {selectedProject.startDate} — {selectedProject.endDate || 'Ongoing'}
+                          {selectedProject.timeTaken ? ` (${selectedProject.timeTaken})` : ''}
                         </span>
                       </div>
                       <div className="p-3 bg-[var(--bg-page)] border border-[var(--border-hairline)] rounded-[2px]">
@@ -350,7 +385,18 @@ export default function Projects() {
                         <Link to="/grants" onClick={() => setSelectedProject(null)} className="font-semibold text-[var(--accent-orange)] hover:underline">
                           {selectedProject.funding} &rarr;
                         </Link>
+                        {selectedProject.grantAmount && selectedProject.grantAmount !== 'NA' && (
+                          <div className="text-[11px] text-[var(--text-primary)] font-bold mt-1">
+                            Amount: {selectedProject.grantAmount}
+                          </div>
+                        )}
                       </div>
+                      {selectedProject.pi && (
+                        <div className="p-3 bg-[var(--bg-page)] border border-[var(--border-hairline)] rounded-[2px]">
+                          <span className="text-[var(--text-subtle)] block mb-1">PRINCIPAL INVESTIGATOR</span>
+                          <span className="font-semibold text-[var(--text-primary)]">{selectedProject.pi}</span>
+                        </div>
+                      )}
                       <div className="p-3 bg-[var(--bg-page)] border border-[var(--border-hairline)] rounded-[2px]">
                         <span className="text-[var(--text-subtle)] block mb-1">STATUS</span>
                         <span className="font-semibold text-[var(--accent-orange)]">{selectedProject.status} Review</span>
@@ -359,7 +405,42 @@ export default function Projects() {
                         <span className="text-[var(--text-subtle)] block mb-1">SYSTEM CLASSIFICATION</span>
                         <span className="font-semibold text-[var(--text-primary)]">{selectedProject.category} Initiative</span>
                       </div>
+                      {selectedProject.funderUrl && (
+                        <div className="p-3 bg-[var(--bg-page)] border border-[var(--border-hairline)] rounded-[2px]">
+                          <span className="text-[var(--text-subtle)] block mb-1">OFFICIAL SPONSOR PORTAL</span>
+                          <a
+                            href={selectedProject.funderUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-[var(--accent-purple)] hover:underline font-semibold flex items-center gap-1"
+                          >
+                            Visit Sponsor Site <ExternalLink className="w-3 h-3" />
+                          </a>
+                        </div>
+                      )}
                     </div>
+
+                    {/* ── Student Researchers & Engineers Section ── */}
+                    {selectedProject.teamMembers && selectedProject.teamMembers.length > 0 && (
+                      <div className="mb-6 pt-5 border-t border-[var(--border-hairline)]">
+                        <h4 className="text-xs font-mono font-semibold uppercase tracking-wider text-[var(--text-subtle)] mb-3 flex items-center gap-1.5">
+                          <Users className="w-3.5 h-3.5 text-[var(--accent-orange)]" /> Student Researchers & Engineers
+                        </h4>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                          {selectedProject.teamMembers.map((member, idx) => (
+                            <div
+                              key={idx}
+                              className="px-3 py-2 bg-[var(--bg-page)] border border-[var(--border-hairline)] rounded-[2px] flex items-center justify-between text-xs font-mono"
+                            >
+                              <span className="font-medium text-[var(--text-primary)]">{member}</span>
+                              <span className="text-[10px] text-[var(--accent-purple)] bg-[var(--accent-purple-light)] px-1.5 py-0.5 rounded-[2px]">
+                                Researcher
+                              </span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
 
                     {/* ── Project Team Members Section ── */}
                     {projectMembers.length > 0 && (

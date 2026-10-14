@@ -2,12 +2,14 @@ export interface Grant {
   id: string
   title: string
   funder: string
+  programTitle?: string
   amount?: string
   duration: string
   status: 'Active' | 'Completed' | 'Pending'
   leadInvestigator?: string
   description?: string
   url?: string
+  image?: string
   placeholder?: boolean
 }
 
@@ -28,6 +30,12 @@ export interface ProjectItem {
   description: string
   funding: string
   grantId?: string
+  grantSupplier?: string
+  grantAmount?: string
+  pi?: string
+  funderUrl?: string
+  teamMembers?: string[]
+  timeTaken?: string
   status: 'Ongoing' | 'Finished'
   startDate: string
   endDate?: string
