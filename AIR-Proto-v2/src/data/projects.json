@@ -1,9 +1,9 @@
-﻿[
+[
   {
     "id": 1,
     "title": "UrduBERT: Multilingual Transformer for Regional Dialects",
     "category": "Funded",
-    "description": "A high-performance BERT-based foundation model fine-tuned on 40M+ tokens of Urdu corpus across news media, public discourse, and classical literature, achieving state-of-the-art results on Urdu NLP benchmarks.",
+    "description": "A high-performance BERT-based foundation model fine-tuned on 40M+ tokens of Urdu corpus across news media, public discourse, and classical literature, achieving high benchmark results on Urdu NLP evaluations.",
     "funding": "HEC NRPU Grant",
     "grantId": "grant-hec-nrpu-2024",
     "status": "Ongoing",
@@ -14,8 +14,8 @@
       "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=800&q=80",
       "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=800&q=80"
     ],
-    "metric": "+34% F1 Score",
     "tags": ["NLP", "Transformers", "Urdu Language"],
+    "memberIds": ["f1", "ri1", "ri9"],
     "placeholder": false
   },
   {
@@ -33,8 +33,8 @@
       "https://images.unsplash.com/photo-1527430253228-e93688616381?w=800&q=80",
       "https://images.unsplash.com/photo-1508614589041-895b88991e3e?w=800&q=80"
     ],
-    "metric": "<20ms Latency",
     "tags": ["Computer Vision", "Edge AI", "Robotics"],
+    "memberIds": ["ri2", "ri3", "ri8"],
     "placeholder": false
   },
   {
@@ -52,15 +52,15 @@
       "https://images.unsplash.com/photo-1584036561566-baf8f5f1b144?w=800&q=80",
       "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&q=80"
     ],
-    "metric": "94.2% AUC",
     "tags": ["Healthcare AI", "Diagnostics", "Computer Vision"],
+    "memberIds": ["f1", "ri6"],
     "placeholder": false
   },
   {
     "id": 4,
     "title": "SmartGrid AI: Predictive Dispatch & Load Shedding Forecasting",
     "category": "R&D",
-    "description": "Spatio-temporal LSTM and Transformer ensemble trained on regional sub-station telemetries to predict peak industrial electricity demand with sub-3.1% MAPE error.",
+    "description": "Spatio-temporal LSTM and Transformer ensemble trained on regional sub-station telemetries to predict peak industrial electricity demand with low variance error.",
     "funding": "Internal Lab Budget",
     "grantId": "grant-internal-ned",
     "status": "Ongoing",
@@ -70,8 +70,8 @@
     "images": [
       "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=800&q=80"
     ],
-    "metric": "±3.1% MAPE",
     "tags": ["Smart Grid", "Deep Learning", "Forecasting"],
+    "memberIds": ["ri4", "ri5"],
     "placeholder": false
   },
   {
@@ -88,8 +88,8 @@
     "images": [
       "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=800&q=80"
     ],
-    "metric": "88% Precision",
     "tags": ["NLP", "Education", "Semantics"],
+    "memberIds": ["ri1", "ri9", "ri10"],
     "placeholder": false
   },
   {
@@ -106,8 +106,8 @@
     "images": [
       "https://images.unsplash.com/photo-1531746790731-6c087fecd65a?w=800&q=80"
     ],
-    "metric": "92% Accuracy",
     "tags": ["Accessibility", "Vision", "Edge AI"],
+    "memberIds": ["ri2", "ri8"],
     "placeholder": false
   },
   {
@@ -125,8 +125,8 @@
       "https://images.unsplash.com/photo-1557804506-669a67965ba0?w=800&q=80",
       "https://images.unsplash.com/photo-1519681393784-d120267933ba?w=800&q=80"
     ],
-    "metric": "FID Score: 18.4",
     "tags": ["Generative AI", "Autonomous Vehicles", "Diffusion Models"],
+    "memberIds": ["f1", "ri3", "ri7"],
     "placeholder": false
   }
 ]

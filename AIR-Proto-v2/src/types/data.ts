@@ -1,4 +1,4 @@
-﻿export interface Grant {
+export interface Grant {
   id: string
   title: string
   funder: string
@@ -33,8 +33,8 @@ export interface ProjectItem {
   endDate?: string
   coverImage: string
   images: string[]
-  metric: string
   tags?: string[]
+  memberIds?: string[]
   placeholder?: boolean
 }
 

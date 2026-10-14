@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { createPortal } from 'react-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { X, Sparkles, Check, GraduationCap, FileText, User, Mail, BookOpen } from 'lucide-react'
 
@@ -30,10 +31,12 @@ export default function StudentApplicationModal({ isOpen, onClose }: StudentAppl
     onClose()
   }
 
-  return (
+  if (typeof document === 'undefined') return null
+
+  return createPortal(
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
+        <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 sm:p-6 overflow-y-auto font-sans">
           {/* Backdrop with mauve tint */}
           <motion.div
             initial={{ opacity: 0 }}
@@ -245,6 +248,7 @@ export default function StudentApplicationModal({ isOpen, onClose }: StudentAppl
           </motion.div>
         </div>
       )}
-    </AnimatePresence>
+    </AnimatePresence>,
+    document.body
   )
 }

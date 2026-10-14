@@ -1,4 +1,4 @@
-﻿import { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { Link, NavLink, Outlet, useLocation } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, X, ExternalLink, Mail } from 'lucide-react'
@@ -37,11 +37,11 @@ export default function Layout() {
 
   return (
     <div className="min-h-screen bg-[var(--bg-backdrop)] py-0 lg:py-6 px-0 lg:px-8 selection:bg-[var(--accent-orange)] selection:text-white font-sans antialiased">
-      <div className="max-w-[1440px] mx-auto min-h-screen flex flex-col bg-[var(--bg-page)] text-[var(--text-primary)] border-x border-[var(--border-hairline)] shadow-2xl relative overflow-hidden">
+      <div className="max-w-[1440px] mx-auto min-h-screen flex flex-col bg-[var(--bg-page)] text-[var(--text-primary)] border-x border-[var(--border-hairline)] shadow-2xl relative">
         <ParticleField />
 
         {/* ── 1. Vacancy Ribbon ── */}
-        <div className="w-full bg-[var(--bg-surface)] border-b border-[var(--border-hairline)] text-xs font-medium py-2 px-4 sm:px-6 relative z-50">
+        <div className="w-full bg-[var(--bg-surface)] border-b border-[var(--border-hairline)] text-xs font-medium py-2 px-4 sm:px-6 relative z-30">
           <div className="max-w-[1200px] mx-auto flex flex-col sm:flex-row items-center justify-between gap-2.5 text-center sm:text-left">
             <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2.5">
               <span className="inline-flex items-center gap-1.5 h-6 px-2.5 rounded-[2px] bg-[var(--text-primary)] text-white text-[11px] font-medium tracking-tight">
@@ -65,7 +65,7 @@ export default function Layout() {
               <a
                 href="https://cct.neduet.edu.pk/AIR"
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 className="inline-flex items-center gap-1 text-[11px] font-mono text-[var(--text-muted)] hover:text-[var(--accent-orange)] transition-colors"
               >
                 NED Portal <ExternalLink className="w-3 h-3" />
@@ -198,14 +198,14 @@ export default function Layout() {
         </header>
 
         {/* ── Main Content ── */}
-        <main className="flex-1 relative z-10">
+        <main className="flex-1 relative">
           <Outlet />
         </main>
 
         {/* ── Footer ── */}
-        <footer className="w-full bg-[var(--bg-surface)] border-t border-[var(--border-hairline)] pt-16 pb-12 relative z-20 font-sans">
+        <footer className="w-full bg-[var(--bg-surface)] border-t border-[var(--border-hairline)] pt-16 pb-12 relative font-sans">
           <div className="max-w-[1200px] mx-auto px-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 pb-16 border-b border-[var(--border-hairline)]">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-10 pb-12 sm:pb-16 border-b border-[var(--border-hairline)]">
               {/* Column 1 */}
               <div className="space-y-3.5">
                 <Link to="/" className="inline-block py-0.5">
@@ -261,12 +261,12 @@ export default function Layout() {
                 </h5>
                 <ul className="space-y-2.5 text-[13.5px] text-[var(--text-muted)]">
                   <li>
-                    <a href="https://cct.neduet.edu.pk/AIR" target="_blank" rel="noreferrer" className="hover:text-[var(--accent-orange)] transition-colors inline-flex items-center gap-1">
+                    <a href="https://cct.neduet.edu.pk/AIR" target="_blank" rel="noopener noreferrer" className="hover:text-[var(--accent-orange)] transition-colors inline-flex items-center gap-1">
                       Official Portal <ExternalLink className="w-3 h-3 text-[var(--text-subtle)]" />
                     </a>
                   </li>
                   <li>
-                    <a href="https://www.neduet.edu.pk" target="_blank" rel="noreferrer" className="hover:text-[var(--accent-orange)] transition-colors inline-flex items-center gap-1">
+                    <a href="https://www.neduet.edu.pk" target="_blank" rel="noopener noreferrer" className="hover:text-[var(--accent-orange)] transition-colors inline-flex items-center gap-1">
                       NED University <ExternalLink className="w-3 h-3 text-[var(--text-subtle)]" />
                     </a>
                   </li>

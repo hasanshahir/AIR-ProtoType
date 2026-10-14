@@ -1,21 +1,17 @@
-﻿import { useState, useMemo } from 'react'
+import { useState, useMemo } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { BookOpen, Copy, Check, Award, FileText, Download, ExternalLink, Search } from 'lucide-react'
 import { getPublications } from '../lib/data'
 import Badge from '../components/ui/Badge'
 import SectionReveal from '../components/ui/SectionReveal'
 
-type FilterType = 'All' | 'Journal' | 'Conference'
-
 export default function Publications() {
-  const [activeType, setActiveType] = useState<FilterType>('All')
-  const [activeVenue, setActiveVenue] = useState('All')
   const [searchQuery, setSearchQuery] = useState('')
   const [copiedId, setCopiedId] = useState<number | null>(null)
 
   const pubData = useMemo(() => getPublications(), [])
 
-  // Enforce sorted order: recent papers at top (descending by year, then id)
+  // Enforce sorted order: recent papers at top (descending by year, then by id)
   const sortedPublications = useMemo(() => {
     return [...pubData].sort((a, b) => {
       if (b.year !== a.year) return b.year - a.year
@@ -23,27 +19,16 @@ export default function Publications() {
     })
   }, [pubData])
 
-  const types: { id: FilterType; label: string; count: number }[] = [
-    { id: 'All', label: 'All Publications', count: sortedPublications.length },
-    { id: 'Journal', label: 'Journals', count: sortedPublications.filter(p => p.type === 'Journal').length },
-    { id: 'Conference', label: 'Conferences', count: sortedPublications.filter(p => p.type === 'Conference').length },
-  ]
-
-  const venues = ['All', 'IEEE', 'Nature', 'ACL', 'CVPR', 'NeurIPS', 'Elsevier']
-
   const filtered = useMemo(() => {
-    return sortedPublications.filter(p => {
-      const matchType = activeType === 'All' || p.type === activeType
-      const matchVenue = activeVenue === 'All' || p.venue.toLowerCase().includes(activeVenue.toLowerCase())
-      const matchSearch =
-        searchQuery === '' ||
-        p.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        p.authors.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        p.venue.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        (p.tags && p.tags.some(t => t.toLowerCase().includes(searchQuery.toLowerCase())))
-      return matchType && matchVenue && matchSearch
-    })
-  }, [sortedPublications, activeType, activeVenue, searchQuery])
+    if (!searchQuery.trim()) return sortedPublications
+    const q = searchQuery.toLowerCase()
+    return sortedPublications.filter(p =>
+      p.title.toLowerCase().includes(q) ||
+      p.authors.toLowerCase().includes(q) ||
+      p.venue.toLowerCase().includes(q) ||
+      (p.tags && p.tags.some(t => t.toLowerCase().includes(q)))
+    )
+  }, [sortedPublications, searchQuery])
 
   const copyBibtex = (p: typeof pubData[0]) => {
     const bib = `@${p.type === 'Journal' ? 'article' : 'inproceedings'}{air_${p.id},\n  title={${p.title}},\n  author={${p.authors}},\n  ${p.type === 'Journal' ? 'journal' : 'booktitle'}={${p.venue}},\n  year={${p.year}}\n}`
@@ -72,48 +57,22 @@ export default function Publications() {
 
         <SectionReveal delay={0.16}>
           <p className="text-[16px] sm:text-[18px] text-[var(--text-muted)] leading-relaxed font-normal">
-            Groundbreaking peer-reviewed journals, international conference proceedings, and foundational preprints sorted chronologically by year.
+            Groundbreaking peer-reviewed journals, international conference proceedings, and foundational preprints sorted chronologically by most recent first.
           </p>
         </SectionReveal>
       </div>
 
-      {/* Primary Category Filter & Search Bar */}
-      <div className="mb-8 flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-[var(--border-hairline)] pb-6">
-        <div className="inline-flex items-center gap-1.5 p-1 bg-[var(--bg-surface)] border border-[var(--border-hairline)] rounded-[2px] shadow-xs">
-          {types.map(t => {
-            const isActive = activeType === t.id
-            return (
-              <button
-                key={t.id}
-                onClick={() => {
-                  setActiveType(t.id)
-                  setActiveVenue('All')
-                }}
-                className={`relative px-3.5 py-1.5 rounded-[2px] text-[13px] font-medium transition-all duration-150 cursor-pointer select-none flex items-center gap-2 ${
-                  isActive
-                    ? 'bg-[var(--accent-orange)] text-white shadow-xs'
-                    : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'
-                }`}
-              >
-                <span>{t.label}</span>
-                <span
-                  className={`text-[10px] font-mono px-1.5 py-0.2 rounded-[2px] ${
-                    isActive ? 'bg-white/20 text-white' : 'bg-[var(--bg-page)] text-[var(--text-muted)] border border-[var(--border-hairline)]'
-                  }`}
-                >
-                  {t.count}
-                </span>
-              </button>
-            )
-          })}
+      {/* Search & Count Bar (Categories & filters removed as requested) */}
+      <div className="mb-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[var(--border-hairline)] pb-5 text-left">
+        <div className="text-xs font-mono text-[var(--text-muted)]">
+          Showing <span className="font-semibold text-[var(--text-primary)]">{filtered.length}</span> publications sorted by year
         </div>
 
-        {/* Search bar */}
-        <div className="relative w-full md:w-80">
+        <div className="relative w-full sm:w-80">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--text-subtle)]" />
           <input
             type="text"
-            placeholder="Search title, author, venue, tag..."
+            placeholder="Search papers, authors, venues..."
             value={searchQuery}
             onChange={e => setSearchQuery(e.target.value)}
             className="w-full pl-9 pr-3 h-9 rounded-[2px] border border-[var(--border-hairline)] bg-[var(--bg-surface)] text-xs font-mono text-[var(--text-primary)] placeholder:text-[var(--text-subtle)] focus:outline-none focus:border-[var(--accent-orange)] transition-all"
@@ -121,29 +80,11 @@ export default function Publications() {
         </div>
       </div>
 
-      {/* Venue Filter Pills */}
-      <div className="flex flex-wrap items-center gap-1.5 mb-8 text-left">
-        <span className="text-xs font-mono text-[var(--text-subtle)] mr-1">Filter Venue:</span>
-        {venues.map(v => (
-          <button
-            key={v}
-            onClick={() => setActiveVenue(v)}
-            className={`px-3 py-1 rounded-[2px] text-xs font-mono transition-all cursor-pointer ${
-              activeVenue === v
-                ? 'bg-[var(--accent-purple)] text-white shadow-xs'
-                : 'bg-[var(--bg-surface)] text-[var(--text-muted)] border border-[var(--border-hairline)] hover:text-[var(--text-primary)]'
-            }`}
-          >
-            {v}
-          </button>
-        ))}
-      </div>
-
-      {/* Publications List */}
+      {/* Publications List: Single list sorted by most recent first */}
       <div className="space-y-6">
         <AnimatePresence mode="wait">
           <motion.div
-            key={`${activeType}-${activeVenue}-${searchQuery}`}
+            key={searchQuery}
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -12 }}
@@ -182,8 +123,6 @@ export default function Publications() {
                       <span className="px-2.5 py-0.5 rounded-[2px] text-xs font-mono font-semibold bg-[var(--bg-page)] text-[var(--accent-orange)] border border-[var(--border-hairline)]">
                         Year: {pub.year}
                       </span>
-
-                      <span className="text-xs font-mono text-[var(--text-subtle)]">#PUB-{pub.id}</span>
                     </div>
 
                     {/* Paper Title */}
@@ -205,7 +144,7 @@ export default function Publications() {
                     {/* DOI */}
                     {pub.doi && (
                       <div className="text-xs font-mono text-[var(--text-subtle)]">
-                        DOI: <a href={`https://doi.org/${pub.doi}`} target="_blank" rel="noreferrer" className="text-[var(--accent-orange)] hover:underline">{pub.doi}</a>
+                        DOI: <a href={`https://doi.org/${pub.doi}`} target="_blank" rel="noopener noreferrer" className="text-[var(--accent-orange)] hover:underline">{pub.doi}</a>
                       </div>
                     )}
 

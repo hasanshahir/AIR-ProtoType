@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { createPortal } from 'react-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import {
@@ -86,10 +87,12 @@ export default function QuickDrawer({
     )
   })
 
-  return (
+  if (typeof document === 'undefined') return null
+
+  return createPortal(
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-50 overflow-hidden font-sans">
+        <div className="fixed inset-0 z-[9999] overflow-hidden font-sans">
           {/* Backdrop Blur Overlay */}
           <motion.div
             initial={{ opacity: 0 }}
@@ -121,8 +124,8 @@ export default function QuickDrawer({
                       <h3 className="font-head text-lg sm:text-xl font-bold tracking-tight text-[var(--text-primary)]">
                         AIR Lab Explorer
                       </h3>
-                      <p className="text-xs text-[var(--text-muted)] font-mono">
-                        Instant Preview &bull; Click card or button to visit page
+                      <p className="text-xs text-[var(--text-muted)]">
+                        Research Projects &amp; Scholars Directory
                       </p>
                     </div>
                   </div>
@@ -241,8 +244,8 @@ export default function QuickDrawer({
                             <span className="px-2 py-0.5 rounded-[2px] text-[10px] font-mono font-bold tracking-wider uppercase bg-[var(--accent-orange-light)] text-[var(--accent-orange)] border border-[var(--accent-orange)]/20">
                               {proj.category}
                             </span>
-                            <span className="text-[11px] font-mono text-[var(--accent-purple)] font-bold">
-                              {proj.metric}
+                            <span className="text-[11px] font-mono text-[var(--text-subtle)] font-medium">
+                              {proj.status}
                             </span>
                           </div>
 
@@ -367,6 +370,7 @@ export default function QuickDrawer({
           </div>
         </div>
       )}
-    </AnimatePresence>
+    </AnimatePresence>,
+    document.body
   )
 }

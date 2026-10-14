@@ -15,10 +15,6 @@ export default function Grants() {
     return grants.filter(g => g.status === filter)
   }, [grants, filter])
 
-  const totalFundingEstimated = useMemo(() => {
-    return 'PKR 62M+ & $155K USD'
-  }, [])
-
   return (
     <div className="min-h-screen pt-16 sm:pt-24 pb-28 px-6 max-w-[1200px] mx-auto relative font-sans text-[var(--text-primary)]">
       {/* Header */}
@@ -42,32 +38,6 @@ export default function Grants() {
             National research programs, international academic compute awards, and institutional fellowships funding computational intelligence at AIR Lab.
           </p>
         </SectionReveal>
-      </div>
-
-      {/* Overview Stat Strip */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-10 p-3 rounded-[4px] bg-[var(--bg-surface)] border border-[var(--border-hairline)] text-left">
-        <div className="p-3 border-r border-[var(--border-hairline)] last:border-r-0">
-          <div className="text-[11px] font-mono text-[var(--text-subtle)] uppercase">Total Recorded Grants</div>
-          <div className="text-2xl font-bold font-mono text-[var(--text-primary)] mt-0.5">{grants.length}</div>
-        </div>
-        <div className="p-3 border-r border-[var(--border-hairline)] last:border-r-0">
-          <div className="text-[11px] font-mono text-[var(--text-subtle)] uppercase">Active Now</div>
-          <div className="text-2xl font-bold font-mono text-[var(--accent-orange)] mt-0.5">
-            {grants.filter(g => g.status === 'Active').length}
-          </div>
-        </div>
-        <div className="p-3 border-r border-[var(--border-hairline)] last:border-r-0">
-          <div className="text-[11px] font-mono text-[var(--text-subtle)] uppercase">Cumulative Grant Volume</div>
-          <div className="text-sm sm:text-base font-bold font-mono text-[var(--text-primary)] mt-1 truncate">
-            {totalFundingEstimated}
-          </div>
-        </div>
-        <div className="p-3">
-          <div className="text-[11px] font-mono text-[var(--text-subtle)] uppercase">Primary Lead</div>
-          <div className="text-sm sm:text-base font-bold font-head text-[var(--accent-purple)] mt-1">
-            Dr. Murk Marvi (PI)
-          </div>
-        </div>
       </div>
 
       {/* Filter Tabs */}

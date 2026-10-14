@@ -1,4 +1,4 @@
-﻿import teamData from '../data/team.json'
+import teamData from '../data/team.json'
 import previousInternsData from '../data/previous_interns.json'
 import grantsData from '../data/grants.json'
 import sponsorsData from '../data/sponsors.json'
@@ -42,51 +42,3 @@ export function getPublications(): PublicationItem[] {
   return (publicationsData as PublicationItem[]).sort((a, b) => b.year - a.year)
 }
 
-/**
- * Computes live, dynamic lab statistics directly from datasets
- */
-export function getComputedLabStats() {
-  const currentMembers = getTeamMembers()
-  const alumni = getPreviousInterns()
-  const grants = getGrants()
-  const publications = getPublications()
-
-  const facultyCount = currentMembers.filter(m => m.category === 'Faculty' || m.isLead).length
-  const currentInternCount = currentMembers.filter(m => m.category === 'Research Interns').length
-  const totalAlumniCount = alumni.length
-  const totalInternsAllTime = currentInternCount + totalAlumniCount
-  const totalResearchers = currentMembers.length + totalAlumniCount
-  const activeGrantsCount = grants.filter(g => g.status === 'Active').length
-  const totalPublications = publications.length
-
-  return {
-    facultyCount,
-    currentInternCount,
-    totalInternsAllTime,
-    totalResearchers,
-    activeGrantsCount,
-    totalPublications,
-    statsStrip: [
-      {
-        value: `${totalResearchers}+`,
-        label: 'Total Researchers & Scholars',
-        desc: `${facultyCount} Faculty Lead · ${currentInternCount} Active Interns · ${totalAlumniCount} Alumni`,
-      },
-      {
-        value: `${facultyCount}`,
-        label: 'Tenured Faculty Coordinators',
-        desc: 'PhD Approved Supervisors & Principal Investigators',
-      },
-      {
-        value: `${currentInternCount}`,
-        label: 'Current Research Interns',
-        desc: `Cohort 2025–2026 (${totalInternsAllTime} total mentored)`,
-      },
-      {
-        value: `${activeGrantsCount}`,
-        label: 'Active Grants & Funds',
-        desc: 'HEC NRPU, Ignite NCBC, Google & Meta AI',
-      },
-    ],
-  }
-}

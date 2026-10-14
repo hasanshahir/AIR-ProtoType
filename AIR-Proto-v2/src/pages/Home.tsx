@@ -15,7 +15,6 @@ import Button from '../components/ui/Button'
 import SectionReveal from '../components/ui/SectionReveal'
 import StudentApplicationModal from '../components/StudentApplicationModal'
 import QuickDrawer from '../components/QuickDrawer'
-import LabStatsStrip from '../components/LabStatsStrip'
 import SponsorsGrid from '../components/SponsorsGrid'
 import ContactSection from '../components/ContactSection'
 
@@ -144,7 +143,6 @@ export default function Home() {
                   onMouseLeave={scheduleCloseTimer}
                   onClick={handleProjectButtonClick}
                   className="h-14 sm:h-16 px-8 sm:px-10 bg-[var(--accent-orange)] hover:bg-[var(--accent-orange-hover)] text-white text-base sm:text-lg font-bold rounded-[2px] shadow-lg shadow-[var(--accent-orange)]/25 hover:shadow-xl hover:scale-[1.02] active:scale-[0.99] transition-all duration-200 flex items-center justify-center gap-3 cursor-pointer group"
-                  title="Hover to slide out Projects &bull; Click to open full Projects page"
                 >
                   <Layers className="w-5 h-5 shrink-0" />
                   <span>Explore Projects</span>
@@ -157,7 +155,6 @@ export default function Home() {
                   onMouseLeave={scheduleCloseTimer}
                   onClick={handleMemberButtonClick}
                   className="h-14 sm:h-16 px-8 sm:px-10 bg-[var(--bg-surface)] hover:bg-[var(--bg-page)] text-[var(--text-primary)] border-2 border-[var(--text-primary)] text-base sm:text-lg font-bold rounded-[2px] shadow-sm hover:shadow-md hover:scale-[1.02] active:scale-[0.99] transition-all duration-200 flex items-center justify-center gap-3 cursor-pointer group"
-                  title="Hover to slide out Lab Members &bull; Click to open full Directory"
                 >
                   <Users className="w-5 h-5 text-[var(--accent-purple)] shrink-0" />
                   <span>Lab Members</span>
@@ -165,13 +162,7 @@ export default function Home() {
                 </button>
               </div>
 
-              {/* Hover & Navigation Micro-Hint */}
-              <div className="flex items-center gap-2 text-[11px] font-mono text-[var(--text-subtle)] mb-4">
-                <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent-orange)] animate-pulse" />
-                <span>Hover buttons to slide out preview &bull; Click button or card to visit full page</span>
-              </div>
-
-              <div className="flex flex-wrap items-center gap-2 sm:gap-4 text-xs font-mono text-[var(--text-muted)]">
+              <div className="flex flex-wrap items-center gap-2 sm:gap-4 text-xs font-mono text-[var(--text-muted)] mt-2">
                 <span className="text-[var(--text-subtle)]">Direct navigation:</span>
                 <Link to="/projects" className="text-[var(--accent-orange)] hover:underline font-semibold flex items-center gap-1">
                   Full Projects Page &rarr;
@@ -189,13 +180,6 @@ export default function Home() {
             </div>
           </SectionReveal>
         </div>
-
-        {/* ── 2. Real Lab Stats Strip (Calculated dynamically from dataset) ── */}
-        <SectionReveal delay={0.24}>
-          <div className="mt-8">
-            <LabStatsStrip />
-          </div>
-        </SectionReveal>
       </section>
 
       {/* ── 3. FULL-WIDTH ORANGE ABOUT AIR LAB SECTION ── */}

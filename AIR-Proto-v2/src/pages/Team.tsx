@@ -91,6 +91,23 @@ export default function Team() {
     }
   }, [highlightedMemberId])
 
+  const alumniMembers = useMemo(() => {
+    return sortedPreviousInterns.map(
+      (p: any) =>
+        new TeamMemberEntity({
+          id: p.id,
+          name: p.name,
+          role: 'Research Alumni',
+          category: 'Alumni Interns',
+          image: '',
+          email: p.email,
+          linkedin: p.linkedin,
+          tenure: p.tenure,
+          department: p.department,
+        })
+    )
+  }, [sortedPreviousInterns])
+
   const tabs: { id: TabType; label: string; count?: number }[] = [
     { id: 'all', label: 'Overview', count: allMembers.length },
     { id: 'faculty', label: 'Faculty', count: facultyMembers.length },
@@ -101,6 +118,16 @@ export default function Team() {
   const handleOverviewClick = (member: TeamMemberEntity) => {
     const targetTab = member.getCategoryTab()
     setActiveTab(targetTab === 'faculty' ? 'faculty' : 'interns')
+    setHighlightedMemberId(member.id)
+    setTimeout(() => {
+      const el = document.getElementById(`member-${member.id}`)
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'center' })
+      }
+    }, 150)
+  }
+
+  const handleScrollToMember = (member: TeamMemberEntity) => {
     setHighlightedMemberId(member.id)
     setTimeout(() => {
       const el = document.getElementById(`member-${member.id}`)
@@ -232,108 +259,115 @@ export default function Team() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -12 }}
             transition={{ duration: 0.25 }}
-            className="max-w-4xl mx-auto space-y-6"
+            className="space-y-8"
           >
-            {facultyMembers.map(f => {
-              const raw = allMembersRaw.find(m => m.id === f.id)
-              const isHighlighted = highlightedMemberId === f.id
-              return (
-                <div
-                  id={`member-${f.id}`}
-                  key={f.id}
-                  className={`craftly-card p-8 sm:p-10 flex flex-col md:flex-row gap-8 items-start relative overflow-hidden group transition-all duration-200 bg-[var(--bg-surface)] border border-[var(--border-hairline)] hover:border-[var(--accent-purple)] hover:shadow-xl ${
-                    isHighlighted ? 'ring-2 ring-[var(--accent-orange)] shadow-xl' : ''
-                  }`}
-                >
-                  <div
-                    onClick={() => {
-                      if (f.hasLinkedIn()) window.open(f.getLinkedInUrl()!, '_blank')
-                      else if (f.cvUrl) window.open(f.cvUrl, '_blank')
-                      else if (f.hasEmail()) window.location.href = f.getEmailFallback()!
-                    }}
-                    title="Click to view profile / CV"
-                    className="w-36 h-36 sm:w-44 sm:h-44 rounded-[4px] overflow-hidden border border-[var(--border-hairline)] shrink-0 shadow-sm bg-[var(--bg-page)] cursor-pointer group-hover:scale-102 transition-transform"
-                  >
-                    <img
-                      src={f.image}
-                      alt={f.name}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
+            <AppleWatchCluster
+              members={facultyMembers}
+              onSelectMember={handleScrollToMember}
+            />
 
-                  <div className="flex-1 space-y-4 relative z-10 text-left">
-                    <div>
-                      <div className="flex flex-wrap items-center gap-2 mb-2">
-                        <span className="px-2.5 py-1 rounded-[2px] text-xs font-semibold bg-[var(--accent-purple)] text-white flex items-center gap-1.5 shadow-xs">
-                          <GraduationCap className="w-3.5 h-3.5" />
-                          {f.role}
-                        </span>
-                        <span className="px-2.5 py-1 rounded-[2px] text-xs font-mono font-medium bg-[var(--bg-page)] text-[var(--accent-orange)] border border-[var(--border-hairline)] flex items-center gap-1">
-                          <Calendar className="w-3 h-3" />
-                          Tenure: {raw?.tenure || '2020 — Present'}
-                        </span>
+            <div className="max-w-4xl mx-auto space-y-6">
+              {facultyMembers.map(f => {
+                const raw = allMembersRaw.find(m => m.id === f.id)
+                const isHighlighted = highlightedMemberId === f.id
+                return (
+                  <div
+                    id={`member-${f.id}`}
+                    key={f.id}
+                    className={`craftly-card p-8 sm:p-10 flex flex-col md:flex-row gap-8 items-start relative overflow-hidden group transition-all duration-200 bg-[var(--bg-surface)] border border-[var(--border-hairline)] hover:border-[var(--accent-purple)] hover:shadow-xl ${
+                      isHighlighted ? 'ring-2 ring-[var(--accent-orange)] shadow-xl' : ''
+                    }`}
+                  >
+                    <div
+                      onClick={() => {
+                        if (f.hasLinkedIn()) window.open(f.getLinkedInUrl()!, '_blank')
+                        else if (f.cvUrl) window.open(f.cvUrl, '_blank')
+                        else if (f.hasEmail()) window.location.href = f.getEmailFallback()!
+                      }}
+                      title="Click to view profile / CV"
+                      className="w-36 h-36 sm:w-44 sm:h-44 rounded-[4px] overflow-hidden border border-[var(--border-hairline)] shrink-0 shadow-sm bg-[var(--bg-page)] cursor-pointer group-hover:scale-102 transition-transform"
+                    >
+                      <img
+                        src={f.image}
+                        alt={f.name}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+
+                    <div className="flex-1 space-y-4 relative z-10 text-left">
+                      <div>
+                        <div className="flex flex-wrap items-center gap-2 mb-2">
+                          <span className="px-2.5 py-1 rounded-[2px] text-xs font-semibold bg-[var(--accent-purple)] text-white flex items-center gap-1.5 shadow-xs">
+                            <GraduationCap className="w-3.5 h-3.5" />
+                            {f.role}
+                          </span>
+                          <span className="px-2.5 py-1 rounded-[2px] text-xs font-mono font-medium bg-[var(--bg-page)] text-[var(--accent-orange)] border border-[var(--border-hairline)] flex items-center gap-1">
+                            <Calendar className="w-3 h-3" />
+                            Tenure: {raw?.tenure || '2020 — Present'}
+                          </span>
+                        </div>
+
+                        <h2 className="text-2xl sm:text-3xl font-normal font-head text-[var(--text-primary)]">
+                          {f.name}
+                        </h2>
+                        <p className="text-sm font-medium text-[var(--text-muted)] mt-1 font-mono">
+                          {f.designation} · {f.department}
+                        </p>
+
+                        {/* Research Tags */}
+                        {raw?.tags && (
+                          <div className="flex flex-wrap gap-1.5 mt-2.5">
+                            {raw.tags.map((t, idx) => (
+                              <span
+                                key={idx}
+                                className="px-2 py-0.5 rounded-[2px] text-[11px] font-mono bg-[var(--bg-page)] text-[var(--text-muted)] border border-[var(--border-hairline)]"
+                              >
+                                #{t}
+                              </span>
+                            ))}
+                          </div>
+                        )}
                       </div>
 
-                      <h2 className="text-2xl sm:text-3xl font-normal font-head text-[var(--text-primary)]">
-                        {f.name}
-                      </h2>
-                      <p className="text-sm font-medium text-[var(--text-muted)] mt-1 font-mono">
-                        {f.designation} · {f.department}
-                      </p>
-
-                      {/* Research Tags */}
-                      {raw?.tags && (
-                        <div className="flex flex-wrap gap-1.5 mt-2.5">
-                          {raw.tags.map((t, idx) => (
-                            <span
-                              key={idx}
-                              className="px-2 py-0.5 rounded-[2px] text-[11px] font-mono bg-[var(--bg-page)] text-[var(--text-muted)] border border-[var(--border-hairline)]"
-                            >
-                              #{t}
-                            </span>
-                          ))}
-                        </div>
-                      )}
-                    </div>
-
-                    {/* Action buttons */}
-                    <div className="pt-4 border-t border-[var(--border-hairline)] flex flex-wrap items-center gap-3 text-xs font-mono">
-                      {f.hasLinkedIn() && (
-                        <a
-                          href={f.getLinkedInUrl()!}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="h-9 px-4 rounded-[2px] bg-[var(--accent-orange)] hover:bg-[var(--accent-orange-hover)] text-white text-xs font-medium inline-flex items-center gap-2 shadow-xs transition-colors"
-                        >
-                          <Linkedin className="w-3.5 h-3.5" />
-                          <span>LinkedIn ↳</span>
-                        </a>
-                      )}
-                      {f.hasEmail() && (
-                        <a
-                          href={`mailto:${f.email}`}
-                          className="h-9 px-4 rounded-[2px] bg-[var(--bg-page)] hover:bg-[var(--border-hairline)] text-[var(--text-primary)] text-xs font-medium inline-flex items-center gap-2 border border-[var(--border-hairline)] transition-colors"
-                        >
-                          <Mail className="w-3.5 h-3.5 text-[var(--accent-orange)]" />
-                          <span>{f.email}</span>
-                        </a>
-                      )}
-                      {f.cvUrl && (
-                        <a
-                          href={f.cvUrl}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="h-9 px-4 rounded-[2px] bg-[var(--text-primary)] text-white text-xs font-medium inline-flex items-center gap-1.5 shadow-xs"
-                        >
-                          <span>Official CV</span>
-                          <ExternalLink className="w-3 h-3" />
-                        </a>
-                      )}
+                      {/* Action buttons */}
+                      <div className="pt-4 border-t border-[var(--border-hairline)] flex flex-wrap items-center gap-3 text-xs font-mono">
+                        {f.hasLinkedIn() && (
+                          <a
+                            href={f.getLinkedInUrl()!}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="h-9 px-4 rounded-[2px] bg-[var(--accent-orange)] hover:bg-[var(--accent-orange-hover)] text-white text-xs font-medium inline-flex items-center gap-2 shadow-xs transition-colors"
+                          >
+                            <Linkedin className="w-3.5 h-3.5" />
+                            <span>LinkedIn ↳</span>
+                          </a>
+                        )}
+                        {f.hasEmail() && (
+                          <a
+                            href={`mailto:${f.email}`}
+                            className="h-9 px-4 rounded-[2px] bg-[var(--bg-page)] hover:bg-[var(--border-hairline)] text-[var(--text-primary)] text-xs font-medium inline-flex items-center gap-2 border border-[var(--border-hairline)] transition-colors"
+                          >
+                            <Mail className="w-3.5 h-3.5 text-[var(--accent-orange)]" />
+                            <span>{f.email}</span>
+                          </a>
+                        )}
+                        {f.cvUrl && (
+                          <a
+                            href={f.cvUrl}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="h-9 px-4 rounded-[2px] bg-[var(--text-primary)] text-white text-xs font-medium inline-flex items-center gap-1.5 shadow-xs"
+                          >
+                            <span>Official CV</span>
+                            <ExternalLink className="w-3 h-3" />
+                          </a>
+                        )}
+                      </div>
                     </div>
                   </div>
-                </div>
-              )
-            })}
+                )
+              })}
+            </div>
           </motion.div>
         )}
 
@@ -345,112 +379,119 @@ export default function Team() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -12 }}
             transition={{ duration: 0.25 }}
-            className="grid grid-cols-1 lg:grid-cols-2 gap-6 text-left"
+            className="space-y-8"
           >
-            {filteredInterns.map(intern => {
-              const raw = allMembersRaw.find(m => m.id === intern.id)
-              const isHighlighted = highlightedMemberId === intern.id
-              const primaryUrl = intern.getPrimaryActionUrl()
+            <AppleWatchCluster
+              members={filteredInterns}
+              onSelectMember={handleScrollToMember}
+            />
 
-              return (
-                <div
-                  id={`member-${intern.id}`}
-                  key={intern.id}
-                  className={`craftly-card p-6 rounded-[4px] flex flex-col justify-between group hover:border-[var(--accent-purple)] hover:shadow-xl transition-all duration-200 bg-[var(--bg-surface)] border border-[var(--border-hairline)] ${
-                    isHighlighted ? 'ring-2 ring-[var(--accent-orange)] shadow-xl' : ''
-                  }`}
-                >
-                  <div>
-                    <div className="flex items-start gap-4 mb-4">
-                      <a
-                        href={primaryUrl}
-                        target={intern.hasLinkedIn() ? '_blank' : undefined}
-                        rel={intern.hasLinkedIn() ? 'noopener noreferrer' : undefined}
-                        className="relative w-24 h-24 sm:w-28 sm:h-28 rounded-[4px] overflow-hidden shrink-0 bg-[var(--bg-page)] border border-[var(--border-hairline)] group-hover:border-[var(--accent-purple)] shadow-xs transition-all"
-                      >
-                        <img
-                          src={intern.image}
-                          alt={intern.name}
-                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                          loading="lazy"
-                        />
-                      </a>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 text-left">
+              {filteredInterns.map(intern => {
+                const raw = allMembersRaw.find(m => m.id === intern.id)
+                const isHighlighted = highlightedMemberId === intern.id
+                const primaryUrl = intern.getPrimaryActionUrl()
 
-                      <div className="min-w-0 flex-1">
-                        <div className="flex flex-wrap items-center gap-1.5 mb-1.5">
-                          <span className="px-2 py-0.5 rounded-[2px] text-[10px] font-mono font-semibold bg-[var(--accent-purple-light)] text-[var(--accent-purple)]">
-                            {intern.role}
-                          </span>
-                          <span className="px-2 py-0.5 rounded-[2px] text-[10px] font-mono text-[var(--text-subtle)] bg-[var(--bg-page)] border border-[var(--border-hairline)] flex items-center gap-1">
-                            <Calendar className="w-2.5 h-2.5" />
-                            {raw?.tenure || intern.term}
-                          </span>
-                        </div>
+                return (
+                  <div
+                    id={`member-${intern.id}`}
+                    key={intern.id}
+                    className={`craftly-card p-6 rounded-[4px] flex flex-col justify-between group hover:border-[var(--accent-purple)] hover:shadow-xl transition-all duration-200 bg-[var(--bg-surface)] border border-[var(--border-hairline)] ${
+                      isHighlighted ? 'ring-2 ring-[var(--accent-orange)] shadow-xl' : ''
+                    }`}
+                  >
+                    <div>
+                      <div className="flex items-start gap-4 mb-4">
+                        <a
+                          href={primaryUrl}
+                          target={intern.hasLinkedIn() ? '_blank' : undefined}
+                          rel={intern.hasLinkedIn() ? 'noopener noreferrer' : undefined}
+                          className="relative w-24 h-24 sm:w-28 sm:h-28 rounded-[4px] overflow-hidden shrink-0 bg-[var(--bg-page)] border border-[var(--border-hairline)] group-hover:border-[var(--accent-purple)] shadow-xs transition-all"
+                        >
+                          <img
+                            src={intern.image}
+                            alt={intern.name}
+                            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                            loading="lazy"
+                          />
+                        </a>
 
-                        <h3 className="text-lg sm:text-xl font-medium font-head text-[var(--text-primary)] group-hover:text-[var(--accent-orange)] transition-colors truncate">
-                          {intern.name}
-                        </h3>
-
-                        <div className="text-[11px] text-[var(--text-muted)] font-mono mt-0.5">
-                          {intern.department}
-                        </div>
-
-                        {intern.researchFocus && (
-                          <div className="mt-2">
-                            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-[2px] text-[11px] font-medium bg-[var(--bg-page)] text-[var(--accent-purple)] border border-[var(--accent-purple)]/20">
-                              <Sparkles className="w-3 h-3 text-[var(--accent-purple)]" />
-                              {intern.researchFocus}
+                        <div className="min-w-0 flex-1">
+                          <div className="flex flex-wrap items-center gap-1.5 mb-1.5">
+                            <span className="px-2 py-0.5 rounded-[2px] text-[10px] font-mono font-semibold bg-[var(--accent-purple-light)] text-[var(--accent-purple)]">
+                              {intern.role}
+                            </span>
+                            <span className="px-2 py-0.5 rounded-[2px] text-[10px] font-mono text-[var(--text-subtle)] bg-[var(--bg-page)] border border-[var(--border-hairline)] flex items-center gap-1">
+                              <Calendar className="w-2.5 h-2.5" />
+                              {raw?.tenure || intern.term}
                             </span>
                           </div>
-                        )}
+
+                          <h3 className="text-lg sm:text-xl font-medium font-head text-[var(--text-primary)] group-hover:text-[var(--accent-orange)] transition-colors truncate">
+                            {intern.name}
+                          </h3>
+
+                          <div className="text-[11px] text-[var(--text-muted)] font-mono mt-0.5">
+                            {intern.department}
+                          </div>
+
+                          {intern.researchFocus && (
+                            <div className="mt-2">
+                              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-[2px] text-[11px] font-medium bg-[var(--bg-page)] text-[var(--accent-purple)] border border-[var(--accent-purple)]/20">
+                                <Sparkles className="w-3 h-3 text-[var(--accent-purple)]" />
+                                {intern.researchFocus}
+                              </span>
+                            </div>
+                          )}
+                        </div>
                       </div>
+
+                      {/* Tags List */}
+                      {raw?.tags && (
+                        <div className="flex flex-wrap gap-1.5 mb-4">
+                          {raw.tags.map((t, idx) => (
+                            <button
+                              key={idx}
+                              onClick={() => setSelectedTag(t)}
+                              className="px-2 py-0.5 rounded-[2px] text-[10px] font-mono bg-[var(--bg-page)] text-[var(--text-muted)] border border-[var(--border-hairline)] hover:border-[var(--accent-purple)] cursor-pointer"
+                            >
+                              #{t}
+                            </button>
+                          ))}
+                        </div>
+                      )}
                     </div>
 
-                    {/* Tags List */}
-                    {raw?.tags && (
-                      <div className="flex flex-wrap gap-1.5 mb-4">
-                        {raw.tags.map((t, idx) => (
-                          <button
-                            key={idx}
-                            onClick={() => setSelectedTag(t)}
-                            className="px-2 py-0.5 rounded-[2px] text-[10px] font-mono bg-[var(--bg-page)] text-[var(--text-muted)] border border-[var(--border-hairline)] hover:border-[var(--accent-purple)] cursor-pointer"
-                          >
-                            #{t}
-                          </button>
-                        ))}
-                      </div>
-                    )}
-                  </div>
+                    {/* Contact Links */}
+                    <div className="pt-3 border-t border-[var(--border-hairline)] flex flex-wrap items-center justify-between gap-2 text-xs font-mono">
+                      {intern.hasLinkedIn() ? (
+                        <a
+                          href={intern.getLinkedInUrl()!}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="h-7.5 px-3 rounded-[2px] bg-[var(--accent-orange)] hover:bg-[var(--accent-orange-hover)] text-white font-medium flex items-center gap-1.5 shadow-xs transition-all"
+                        >
+                          <Linkedin className="w-3 h-3" />
+                          <span>LinkedIn ↳</span>
+                        </a>
+                      ) : (
+                        <span className="text-[var(--text-subtle)] text-xs italic">No LinkedIn</span>
+                      )}
 
-                  {/* Contact Links */}
-                  <div className="pt-3 border-t border-[var(--border-hairline)] flex flex-wrap items-center justify-between gap-2 text-xs font-mono">
-                    {intern.hasLinkedIn() ? (
-                      <a
-                        href={intern.getLinkedInUrl()!}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="h-7.5 px-3 rounded-[2px] bg-[var(--accent-orange)] hover:bg-[var(--accent-orange-hover)] text-white font-medium flex items-center gap-1.5 shadow-xs transition-all"
-                      >
-                        <Linkedin className="w-3 h-3" />
-                        <span>LinkedIn ↳</span>
-                      </a>
-                    ) : (
-                      <span className="text-[var(--text-subtle)] text-xs italic">No LinkedIn</span>
-                    )}
-
-                    {intern.hasEmail() && (
-                      <a
-                        href={`mailto:${intern.email}`}
-                        className="h-7.5 px-2.5 rounded-[2px] border border-[var(--border-hairline)] bg-[var(--bg-page)] hover:bg-[var(--border-hairline)] text-[var(--text-primary)] font-medium flex items-center gap-1.5 transition-colors truncate max-w-[200px]"
-                      >
-                        <Mail className="w-3 h-3 text-[var(--accent-orange)]" />
-                        <span className="truncate">{intern.email}</span>
-                      </a>
-                    )}
+                      {intern.hasEmail() && (
+                        <a
+                          href={`mailto:${intern.email}`}
+                          className="h-7.5 px-2.5 rounded-[2px] border border-[var(--border-hairline)] bg-[var(--bg-page)] hover:bg-[var(--border-hairline)] text-[var(--text-primary)] font-medium flex items-center gap-1.5 transition-colors truncate max-w-[200px]"
+                        >
+                          <Mail className="w-3 h-3 text-[var(--accent-orange)]" />
+                          <span className="truncate">{intern.email}</span>
+                        </a>
+                      )}
+                    </div>
                   </div>
-                </div>
-              )
-            })}
+                )
+              })}
+            </div>
           </motion.div>
         )}
 
@@ -462,8 +503,13 @@ export default function Team() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -12 }}
             transition={{ duration: 0.25 }}
-            className="space-y-6 text-left"
+            className="space-y-8 text-left"
           >
+            <AppleWatchCluster
+              members={alumniMembers}
+              onSelectMember={handleScrollToMember}
+            />
+
             <div className="craftly-card overflow-hidden bg-[var(--bg-surface)] border border-[var(--border-hairline)] rounded-[4px]">
               <div className="p-6 border-b border-[var(--border-hairline)] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div>
@@ -491,7 +537,13 @@ export default function Team() {
                   </thead>
                   <tbody className="divide-y divide-[var(--border-hairline)]">
                     {sortedPreviousInterns.map((p: any) => (
-                      <tr key={p.id} className="hover:bg-[var(--bg-page)] transition-colors">
+                      <tr
+                        key={p.id}
+                        id={`member-${p.id}`}
+                        className={`hover:bg-[var(--bg-page)] transition-colors ${
+                          highlightedMemberId === p.id ? 'bg-[var(--accent-orange)]/15 ring-2 ring-[var(--accent-orange)]' : ''
+                        }`}
+                      >
                         <td className="py-3.5 px-6 font-medium text-[var(--text-primary)]">
                           {p.name}
                         </td>
